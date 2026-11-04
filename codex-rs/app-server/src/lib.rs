@@ -163,6 +163,7 @@ pub use crate::transport::RemoteControlStartupMode;
 pub use crate::transport::app_server_control_socket_path;
 pub use crate::transport::take_remote_control_disabled_env;
 pub use crate::transport::verified_local_daemon_socket;
+pub use codex_app_server_transport::WebsocketOriginPolicy;
 
 const LOG_FORMAT_ENV_VAR: &str = "LOG_FORMAT";
 const OTEL_SERVICE_NAME: &str = "codex-app-server";
@@ -490,6 +491,7 @@ pub struct AppServerRuntimeOptions {
     pub remote_control_startup_mode: RemoteControlStartupMode,
     pub install_shutdown_signal_handler: bool,
     pub managed_daemon: bool,
+    pub websocket_origin_policy: WebsocketOriginPolicy,
 }
 
 impl Default for AppServerRuntimeOptions {
@@ -501,6 +503,7 @@ impl Default for AppServerRuntimeOptions {
             remote_control_startup_mode: RemoteControlStartupMode::ResolvePersisted,
             install_shutdown_signal_handler: true,
             managed_daemon: false,
+            websocket_origin_policy: WebsocketOriginPolicy::default(),
         }
     }
 }
@@ -851,6 +854,7 @@ pub async fn run_main_with_transport_options(
                 transport_event_tx.clone(),
                 transport_shutdown_token.clone(),
                 policy_from_settings(&auth)?,
+                runtime_options.websocket_origin_policy.clone(),
                 websocket_compression,
             )
             .await?;

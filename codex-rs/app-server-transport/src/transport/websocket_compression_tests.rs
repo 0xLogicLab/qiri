@@ -32,6 +32,7 @@ async fn tcp_compression_negotiates_and_retains_history() -> Result<(), Box<dyn 
             .with_state(WebSocketListenerState {
                 transport_event_tx,
                 auth_policy: Arc::new(WebsocketAuthPolicy::default()),
+                origin_policy: WebsocketOriginPolicy::default(),
                 compression,
             });
         let server = tokio::spawn(async move {
