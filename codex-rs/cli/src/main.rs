@@ -39,6 +39,8 @@ use codex_utils_cli::SharedCliOptions;
 use std::collections::HashSet;
 use std::io::IsTerminal;
 use std::io::Write;
+use std::net::IpAddr;
+use std::net::SocketAddr;
 use std::path::PathBuf;
 use std::sync::Arc;
 use supports_color::Stream;
@@ -170,6 +172,9 @@ enum Subcommand {
 
     /// [experimental] Run the app server or related tooling.
     AppServer(AppServerCommand),
+
+    /// Serve QIRI to browser or backend frontends over streaming WebSocket JSON-RPC.
+    Serve(ServeCommand),
 
     /// [experimental] Manage the app-server daemon with remote control enabled.
     RemoteControl(RemoteControlCommand),
@@ -625,6 +630,28 @@ struct AppServerCommand {
     /// See https://developers.openai.com/codex/config-advanced/#metrics for more details.
     #[arg(long = "analytics-default-enabled")]
     analytics_default_enabled: bool,
+
+    #[command(flatten)]
+    auth: codex_websocket_auth::WebsocketAuthArgs,
+}
+
+#[derive(Debug, Parser)]
+struct ServeCommand {
+    /// IP address to bind. Non-loopback listeners require WebSocket authentication.
+    #[arg(long, default_value = "127.0.0.1")]
+    host: IpAddr,
+
+    /// TCP port exposed to the frontend.
+    #[arg(long, default_value_t = 8765)]
+    port: u16,
+
+    /// Additional browser origin to allow. May be repeated.
+    #[arg(long = "allow-origin", value_name = "ORIGIN")]
+    allowed_origins: Vec<String>,
+
+    /// Error out when config.toml contains unrecognized fields.
+    #[arg(long = "strict-config", default_value_t = false)]
+    strict_config: bool,
 
     #[command(flatten)]
     auth: codex_websocket_auth::WebsocketAuthArgs,
@@ -1218,6 +1245,42 @@ async fn dispatch_cli(
                         .map_err(anyhow::Error::msg)?;
                     plugin_cmd::run_plugin_remove(overrides, args).await?;
                 }
+            }
+        }
+        Some(Subcommand::Serve(serve_cli)) => {
+            reject_remote_mode_for_subcommand(
+                root_remote.as_deref(),
+                root_remote_auth_token_env.as_deref(),
+                "serve",
+            )?;
+            let strict_config = serve_cli.strict_config || root_strict_config;
+            let origin_policy = codex_app_server::WebsocketOriginPolicy::browser_frontend(
+                serve_cli.allowed_origins,
+            )
+            .map_err(anyhow::Error::msg)?;
+            let transport = codex_app_server::AppServerTransport::WebSocket {
+                bind_address: SocketAddr::new(serve_cli.host, serve_cli.port),
+            };
+            let runtime_options = codex_app_server::AppServerRuntimeOptions {
+                remote_control_startup_mode:
+                    codex_app_server::RemoteControlStartupMode::DisabledEphemeral,
+                websocket_origin_policy: origin_policy,
+                ..Default::default()
+            };
+            let exit = codex_app_server::run_main_with_transport_options(
+                arg0_paths.clone(),
+                root_config_overrides,
+                LoaderOverrides::default(),
+                strict_config,
+                /*default_analytics_enabled*/ false,
+                transport,
+                codex_protocol::protocol::SessionSource::Mcp,
+                serve_cli.auth.try_into_settings()?,
+                runtime_options,
+            )
+            .await?;
+            if exit == codex_app_server::AppServerExit::Forced {
+                std::process::exit(0);
             }
         }
         Some(Subcommand::AppServer(app_server_cli)) => {
@@ -2329,6 +2392,7 @@ fn unsupported_subcommand_name_for_strict_config(
         | Some(Subcommand::Exec(_))
         | Some(Subcommand::Review(_))
         | Some(Subcommand::ExecServer(_))
+        | Some(Subcommand::Serve(_))
         | Some(Subcommand::Resume(_))
         | Some(Subcommand::Queue(_))
         | Some(Subcommand::Archive(_))
@@ -3388,6 +3452,14 @@ enabled = true
         app_server
     }
 
+    fn serve_from_args(args: &[&str]) -> ServeCommand {
+        let cli = MultitoolCli::try_parse_from(args).expect("parse");
+        let Subcommand::Serve(serve) = cli.subcommand.expect("serve present") else {
+            unreachable!()
+        };
+        serve
+    }
+
     fn default_app_server_socket_path() -> AbsolutePathBuf {
         let codex_home = find_codex_home().expect("codex home");
         codex_app_server::app_server_control_socket_path(&codex_home)
@@ -4232,6 +4304,51 @@ enabled = true
         assert_eq!(
             app_server.listen,
             codex_app_server::AppServerTransport::Stdio
+        );
+    }
+
+    #[test]
+    fn serve_defaults_to_loopback_port_8765() {
+        let serve = serve_from_args(["codex", "serve"].as_ref());
+        assert_eq!(serve.host, "127.0.0.1".parse::<IpAddr>().expect("ip"));
+        assert_eq!(serve.port, 8765);
+        assert!(serve.allowed_origins.is_empty());
+        assert!(!serve.strict_config);
+    }
+
+    #[test]
+    fn serve_accepts_network_and_browser_origin_options() {
+        let serve = serve_from_args(
+            [
+                "codex",
+                "serve",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "9000",
+                "--allow-origin",
+                "https://frontend.example.test",
+                "--allow-origin",
+                "http://localhost:5173",
+                "--ws-auth",
+                "capability-token",
+                "--ws-token-file",
+                "/tmp/qiri-token",
+            ]
+            .as_ref(),
+        );
+        assert_eq!(serve.host, "0.0.0.0".parse::<IpAddr>().expect("ip"));
+        assert_eq!(serve.port, 9000);
+        assert_eq!(
+            serve.allowed_origins,
+            [
+                "https://frontend.example.test".to_string(),
+                "http://localhost:5173".to_string(),
+            ]
+        );
+        assert_eq!(
+            serve.auth.ws_auth,
+            Some(codex_websocket_auth::WebsocketAuthCliMode::CapabilityToken)
         );
     }
 

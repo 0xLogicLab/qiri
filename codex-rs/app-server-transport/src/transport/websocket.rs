@@ -13,7 +13,6 @@ use crate::websocket_compression::ZstdDecoder;
 use crate::websocket_compression::ZstdEncoder;
 use crate::websocket_compression::zstd_codec_pair;
 use axum::Router;
-use axum::body::Body;
 use axum::body::Bytes;
 use axum::extract::ConnectInfo;
 use axum::extract::State;
@@ -21,13 +20,9 @@ use axum::extract::ws::Message as AxumWebSocketMessage;
 use axum::extract::ws::WebSocketUpgrade;
 use axum::http::HeaderMap;
 use axum::http::HeaderValue;
-use axum::http::Request;
 use axum::http::StatusCode;
 use axum::http::header::ORIGIN;
-use axum::middleware;
-use axum::middleware::Next;
 use axum::response::IntoResponse;
-use axum::response::Response;
 use axum::routing::any;
 use axum::routing::get;
 use codex_websocket_auth::WebsocketAuthPolicy;
@@ -49,6 +44,8 @@ use tokio_util::sync::CancellationToken;
 use tracing::error;
 use tracing::info;
 use tracing::warn;
+use url::Host;
+use url::Url;
 
 /// WebSocket clients can briefly lag behind normal turn output bursts while the
 /// writer task is healthy, so give them more headroom than internal channels.
@@ -56,6 +53,73 @@ const WEBSOCKET_OUTBOUND_CHANNEL_CAPACITY: usize = 32 * 1024;
 const _: () = assert!(WEBSOCKET_OUTBOUND_CHANNEL_CAPACITY > CHANNEL_CAPACITY);
 // Match the existing Axum and Tungstenite default WebSocket message limit.
 pub(super) const MAX_DECOMPRESSED_MESSAGE_SIZE: usize = 64 << 20;
+
+#[derive(Clone, Debug, Default, Eq, PartialEq)]
+pub struct WebsocketOriginPolicy {
+    allow_loopback_origins: bool,
+    allowed_origins: Vec<String>,
+}
+
+impl WebsocketOriginPolicy {
+    pub fn browser_frontend(allowed_origins: Vec<String>) -> Result<Self, String> {
+        let allowed_origins = allowed_origins
+            .into_iter()
+            .map(|origin| {
+                normalize_http_origin(&origin).ok_or_else(|| {
+                    format!(
+                        "invalid browser origin `{origin}`; expected an HTTP(S) origin such as `http://localhost:3000`"
+                    )
+                })
+            })
+            .collect::<Result<Vec<_>, _>>()?;
+        Ok(Self {
+            allow_loopback_origins: true,
+            allowed_origins,
+        })
+    }
+
+    fn allows(&self, headers: &HeaderMap) -> bool {
+        let Some(origin) = headers.get(ORIGIN) else {
+            return true;
+        };
+        let Ok(origin) = origin.to_str() else {
+            return false;
+        };
+        let Some(normalized) = normalize_http_origin(origin) else {
+            return false;
+        };
+        self.allowed_origins.contains(&normalized)
+            || (self.allow_loopback_origins && is_loopback_origin(&normalized))
+    }
+}
+
+fn normalize_http_origin(origin: &str) -> Option<String> {
+    let url = Url::parse(origin).ok()?;
+    if !matches!(url.scheme(), "http" | "https")
+        || !url.username().is_empty()
+        || url.password().is_some()
+        || url.query().is_some()
+        || url.fragment().is_some()
+        || url.path() != "/"
+    {
+        return None;
+    }
+    Some(url.origin().ascii_serialization())
+}
+
+fn is_loopback_origin(origin: &str) -> bool {
+    let Ok(url) = Url::parse(origin) else {
+        return false;
+    };
+    let Some(host) = url.host() else {
+        return false;
+    };
+    match host {
+        Host::Domain(domain) => domain.eq_ignore_ascii_case("localhost"),
+        Host::Ipv4(address) => address.is_loopback(),
+        Host::Ipv6(address) => address.is_loopback(),
+    }
+}
 
 fn colorize(text: &str, style: Style) -> String {
     text.if_supports_color(Stream::Stderr, |value| value.style(style))
@@ -89,6 +153,7 @@ fn print_websocket_startup_banner(addr: SocketAddr) {
 struct WebSocketListenerState {
     transport_event_tx: mpsc::Sender<TransportEvent>,
     auth_policy: Arc<WebsocketAuthPolicy>,
+    origin_policy: WebsocketOriginPolicy,
     compression: WebSocketCompression,
 }
 
@@ -96,19 +161,18 @@ async fn health_check_handler() -> StatusCode {
     StatusCode::OK
 }
 
-async fn reject_requests_with_origin_header(
-    request: Request<Body>,
-    next: Next,
-) -> Result<Response, StatusCode> {
-    if request.headers().contains_key(ORIGIN) {
+fn authorize_origin(
+    headers: &HeaderMap,
+    origin_policy: &WebsocketOriginPolicy,
+) -> Result<(), StatusCode> {
+    if !origin_policy.allows(headers) {
         warn!(
-            method = %request.method(),
-            uri = %request.uri(),
-            "rejecting websocket listener request with Origin header"
+            origin = ?headers.get(ORIGIN),
+            "rejecting websocket listener request from disallowed browser origin"
         );
         Err(StatusCode::FORBIDDEN)
     } else {
-        Ok(next.run(request).await)
+        Ok(())
     }
 }
 
@@ -118,6 +182,9 @@ async fn websocket_upgrade_handler(
     State(state): State<WebSocketListenerState>,
     headers: HeaderMap,
 ) -> impl IntoResponse {
+    if let Err(status) = authorize_origin(&headers, &state.origin_policy) {
+        return status.into_response();
+    }
     if let Err(err) = authorize_upgrade(&headers, state.auth_policy.as_ref()) {
         warn!(
             %peer_addr,
@@ -162,6 +229,7 @@ pub async fn start_websocket_acceptor(
     transport_event_tx: mpsc::Sender<TransportEvent>,
     shutdown_token: CancellationToken,
     auth_policy: WebsocketAuthPolicy,
+    origin_policy: WebsocketOriginPolicy,
     compression: WebSocketCompression,
 ) -> IoResult<JoinHandle<()>> {
     if is_unauthenticated_non_loopback_listener(bind_address, &auth_policy) {
@@ -181,10 +249,10 @@ pub async fn start_websocket_acceptor(
         .route("/readyz", get(health_check_handler))
         .route("/healthz", get(health_check_handler))
         .fallback(any(websocket_upgrade_handler))
-        .layer(middleware::from_fn(reject_requests_with_origin_header))
         .with_state(WebSocketListenerState {
             transport_event_tx,
             auth_policy: Arc::new(auth_policy),
+            origin_policy,
             compression,
         });
     let server = axum::serve(
@@ -200,6 +268,49 @@ pub async fn start_websocket_acceptor(
         }
         info!("websocket acceptor shutting down");
     }))
+}
+
+#[cfg(test)]
+mod origin_tests {
+    use super::*;
+
+    fn headers_with_origin(origin: &str) -> HeaderMap {
+        let mut headers = HeaderMap::new();
+        headers.insert(ORIGIN, HeaderValue::from_str(origin).expect("valid header"));
+        headers
+    }
+
+    #[test]
+    fn default_policy_rejects_browser_origins_but_allows_non_browser_clients() {
+        let policy = WebsocketOriginPolicy::default();
+        assert!(policy.allows(&HeaderMap::new()));
+        assert!(!policy.allows(&headers_with_origin("http://localhost:3000")));
+    }
+
+    #[test]
+    fn browser_policy_allows_loopback_and_explicit_origins() {
+        let policy = WebsocketOriginPolicy::browser_frontend(vec![
+            "https://frontend.example.test".to_string(),
+        ])
+        .expect("valid policy");
+        assert!(policy.allows(&headers_with_origin("http://localhost:5173")));
+        assert!(policy.allows(&headers_with_origin("http://127.0.0.1:3000")));
+        assert!(policy.allows(&headers_with_origin("http://[::1]:8080")));
+        assert!(policy.allows(&headers_with_origin("https://frontend.example.test")));
+        assert!(!policy.allows(&headers_with_origin("https://other.example.test")));
+        assert!(!policy.allows(&headers_with_origin("null")));
+    }
+
+    #[test]
+    fn browser_policy_rejects_non_origin_urls() {
+        for origin in [
+            "https://user@example.test",
+            "https://example.test/path",
+            "https://example.test?token=secret",
+        ] {
+            assert!(WebsocketOriginPolicy::browser_frontend(vec![origin.to_string()]).is_err());
+        }
+    }
 }
 
 pub(crate) async fn run_websocket_connection<M, SinkError, StreamError>(
