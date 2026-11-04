@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+qiri_env_file="${QIRI_ENV_FILE:-$HOME/.qiri/.env}"
+if [[ -r "$qiri_env_file" ]]; then
+    set -a
+    # shellcheck disable=SC1090
+    source "$qiri_env_file"
+    set +a
+fi
+
+: "${QIRI_API_KEY:?QIRI_API_KEY is not set; expected it in $qiri_env_file}"
+
+qiri_proxy="${QIRI_PROXY:-http://127.0.0.1:7897}"
+export http_proxy="${http_proxy:-$qiri_proxy}"
+export https_proxy="${https_proxy:-$qiri_proxy}"
+export HTTP_PROXY="${HTTP_PROXY:-$qiri_proxy}"
+export HTTPS_PROXY="${HTTPS_PROXY:-$qiri_proxy}"
+export CODEX_HOME="${QIRI_CODEX_HOME:-$HOME/.qiri-codex}"
+export PATH="$HOME/.local/bin:$PATH"
+
+qiri_core="${QIRI_CORE_BIN:-$HOME/.local/lib/qiri/qiri-core}"
+if [[ ! -x "$qiri_core" ]]; then
+    printf 'QIRI core binary is missing or not executable: %s\n' "$qiri_core" >&2
+    exit 1
+fi
+
+exec -a qiri "$qiri_core" "$@"
