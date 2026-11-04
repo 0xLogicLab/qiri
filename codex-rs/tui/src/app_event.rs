@@ -1347,6 +1347,17 @@ pub(crate) enum AppEvent {
         service_tier: Option<String>,
     },
 
+    /// Apply developer instructions only to the active session.
+    SetSessionDeveloperInstructions {
+        instructions: Option<String>,
+    },
+
+    /// Open the multiline editor used by `/sys`.
+    OpenSystemPromptEditor,
+
+    /// Show the developer instructions currently effective for this session.
+    ShowSystemPrompt,
+
     OpenQuickDialEditor {
         target: crate::chatwidget::quick_dials::QuickDialEditorTarget,
         dial: Option<codex_config::types::QuickDial>,

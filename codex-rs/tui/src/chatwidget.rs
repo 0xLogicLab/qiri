@@ -330,6 +330,7 @@ mod model_popups;
 mod notifications;
 pub(crate) mod quick_dials;
 mod session_model_selection;
+mod system_prompt;
 use self::notifications::Notification;
 pub(crate) use self::session_model_selection::AstraModelPickerAction;
 mod permission_discovery;
@@ -541,6 +542,9 @@ pub(crate) struct ChatWidget {
     current_collaboration_mode: CollaborationMode,
     /// The currently active collaboration mask, if any.
     active_collaboration_mask: Option<CollaborationModeMask>,
+    /// The effective developer instructions supplied when this TUI session started.
+    /// `/sys reset` restores this value without modifying the persisted config.
+    default_developer_instructions: Option<String>,
     has_chatgpt_account: bool,
     pub(crate) requires_openai_auth: bool,
     has_codex_backend_auth: bool,

@@ -13,6 +13,7 @@ pub enum SlashCommand {
     // DO NOT ALPHA-SORT! Enum order is presentation order in the popup, so
     // more frequently used commands should be listed first.
     Model,
+    Sys,
     Presets,
     Daybreak,
     Ide,
@@ -133,6 +134,7 @@ impl SlashCommand {
             SlashCommand::MemoryDrop => "DO NOT USE",
             SlashCommand::MemoryUpdate => "DO NOT USE",
             SlashCommand::Model => "choose what model and reasoning effort to use",
+            SlashCommand::Sys => "temporarily change the system role for this session",
             SlashCommand::Presets => "run or save reusable prompts and slash commands",
             SlashCommand::Daybreak => "turn Daybreak on or off",
             SlashCommand::Ide => {
@@ -174,6 +176,7 @@ impl SlashCommand {
             self,
             SlashCommand::Review
                 | SlashCommand::Model
+                | SlashCommand::Sys
                 | SlashCommand::Permissions
                 | SlashCommand::Title
                 | SlashCommand::Statusline
@@ -274,6 +277,7 @@ impl SlashCommand {
             | SlashCommand::Archive
             | SlashCommand::Resume
             | SlashCommand::Model
+            | SlashCommand::Sys
             | SlashCommand::Presets
             | SlashCommand::Daybreak
             | SlashCommand::Permissions
@@ -353,6 +357,13 @@ mod tests {
     fn pet_alias_parses_to_pets_command() {
         assert_eq!(SlashCommand::Pets.command(), "pets");
         assert_eq!(SlashCommand::from_str("pet"), Ok(SlashCommand::Pets));
+    }
+
+    #[test]
+    fn sys_command_supports_inline_role_prompts() {
+        assert_eq!(SlashCommand::Sys.command(), "sys");
+        assert_eq!(SlashCommand::from_str("sys"), Ok(SlashCommand::Sys));
+        assert!(SlashCommand::Sys.supports_inline_args());
     }
 
     #[test]

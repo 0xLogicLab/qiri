@@ -107,6 +107,55 @@ fn next_copy_selection(
 }
 
 #[tokio::test]
+async fn slash_sys_with_prompt_requests_session_only_instructions() {
+    let (mut chat, mut events, _ops) = make_chatwidget_manual(/*model_override*/ None).await;
+    chat.thread_id = Some(ThreadId::new());
+
+    chat.dispatch_command_with_args(
+        SlashCommand::Sys,
+        "You are a computational biology reviewer.".to_string(),
+        Vec::new(),
+    );
+
+    assert_matches!(
+        events.try_recv(),
+        Ok(AppEvent::SetSessionDeveloperInstructions {
+            instructions: Some(instructions),
+        }) if instructions == "You are a computational biology reviewer."
+    );
+    assert_matches!(events.try_recv(), Ok(AppEvent::SettingsSelectionClosed));
+}
+
+#[tokio::test]
+async fn slash_sys_reset_restores_startup_instructions() {
+    let (mut chat, mut events, _ops) = make_chatwidget_manual(/*model_override*/ None).await;
+    chat.thread_id = Some(ThreadId::new());
+    let expected = chat.default_developer_instructions.clone();
+
+    chat.dispatch_command_with_args(SlashCommand::Sys, "reset".to_string(), Vec::new());
+
+    assert_matches!(
+        events.try_recv(),
+        Ok(AppEvent::SetSessionDeveloperInstructions { instructions }) if instructions == expected
+    );
+    assert_matches!(events.try_recv(), Ok(AppEvent::SettingsSelectionClosed));
+}
+
+#[tokio::test]
+async fn slash_sys_opens_role_picker() {
+    let (mut chat, _events, _ops) = make_chatwidget_manual(/*model_override*/ None).await;
+    chat.thread_id = Some(ThreadId::new());
+
+    chat.dispatch_command(SlashCommand::Sys);
+
+    let rendered = render_bottom_popup(&chat, /*width*/ 80);
+    assert!(rendered.contains("Select System Role"));
+    assert!(rendered.contains("QIRI AI4S default"));
+    assert!(rendered.contains("Custom role"));
+    assert!(rendered.contains("Show active prompt"));
+}
+
+#[tokio::test]
 async fn service_tier_commands_and_saved_selection_respect_independent_speed_policy() {
     for (fast_enabled, ultrafast_enabled) in [(false, true), (true, false)] {
         let (mut chat, _rx, _op_rx) = make_chatwidget_manual(Some("gpt-5.5")).await;

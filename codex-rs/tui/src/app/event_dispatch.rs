@@ -2790,6 +2790,17 @@ impl App {
                 self.app_event_tx.send(AppEvent::FollowTranscript);
                 self.select_session_model(app_server, model, effort, service_tier).await;
             }
+            AppEvent::SetSessionDeveloperInstructions { instructions } => {
+                self.app_event_tx.send(AppEvent::FollowTranscript);
+                self.select_session_developer_instructions(app_server, instructions)
+                    .await;
+            }
+            AppEvent::OpenSystemPromptEditor => {
+                self.chat_widget.open_system_prompt_editor();
+            }
+            AppEvent::ShowSystemPrompt => {
+                self.chat_widget.show_system_prompt();
+            }
             AppEvent::OpenQuickDialEditor { target, dial } => {
                 self.chat_widget.open_quick_dial_editor(target, dial);
             }

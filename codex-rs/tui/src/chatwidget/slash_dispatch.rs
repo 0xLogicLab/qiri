@@ -376,6 +376,10 @@ impl ChatWidget {
                 self.open_model_popup();
                 self.defer_input_until_settings_applied();
             }
+            SlashCommand::Sys => {
+                self.open_system_prompt_popup();
+                self.defer_input_until_settings_applied();
+            }
             SlashCommand::Presets => {
                 self.open_quick_dial_menu();
             }
@@ -805,6 +809,10 @@ impl ChatWidget {
         match cmd {
             SlashCommand::Model if !trimmed.is_empty() => {
                 self.handle_model_command_args(trimmed);
+                self.app_event_tx.send(AppEvent::SettingsSelectionClosed);
+            }
+            SlashCommand::Sys => {
+                self.handle_system_prompt_command_args(trimmed);
                 self.app_event_tx.send(AppEvent::SettingsSelectionClosed);
             }
             SlashCommand::Title => {
@@ -1335,6 +1343,7 @@ impl ChatWidget {
             | SlashCommand::Compact
             | SlashCommand::Review
             | SlashCommand::Model
+            | SlashCommand::Sys
             | SlashCommand::Presets
             | SlashCommand::Plan
             | SlashCommand::Goal

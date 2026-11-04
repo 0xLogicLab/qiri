@@ -19,6 +19,43 @@ use codex_protocol::models::PermissionProfile;
 use codex_protocol::openai_models::MODEL_SPECIALTY_CYBER;
 
 impl App {
+    pub(super) async fn select_session_developer_instructions(
+        &mut self,
+        app_server: &mut AppServerSession,
+        instructions: Option<String>,
+    ) {
+        let Some(thread_id) = self.active_thread_id else {
+            self.chat_widget.add_error_message(
+                "System role selection is unavailable until the session starts.".to_string(),
+            );
+            return;
+        };
+        let collaboration_mode = self
+            .chat_widget
+            .effective_collaboration_mode()
+            .with_updates(
+                /*model*/ None,
+                /*effort*/ None,
+                Some(instructions.clone()),
+            );
+        let params = ThreadSettingsUpdateParams {
+            thread_id: thread_id.to_string(),
+            collaboration_mode: Some(collaboration_mode),
+            ..ThreadSettingsUpdateParams::default()
+        };
+        if self.send_thread_settings_update(app_server, params).await {
+            self.chat_widget.add_info_message(
+                "System role updated for this session.".to_string(),
+                Some("Use /sys reset to restore the startup role.".to_string()),
+            );
+        } else if !app_server.thread_settings_update_supported {
+            self.chat_widget.add_error_message(
+                "System role selection requires an app server with thread/settings/update support."
+                    .to_string(),
+            );
+        }
+    }
+
     pub(super) async fn sync_active_thread_model_setting(
         &mut self,
         app_server: &mut AppServerSession,
