@@ -1,0 +1,65 @@
+model = "qwen3.6-35b-a3b"
+model_provider = "local"
+model_catalog_json = "@YZW_CODEX_HOME@/models.json"
+model_reasoning_effort = "none"
+
+developer_instructions = """
+你是“崖州湾 YZW”，面向崖州湾实验室的农业与生物育种科研智能体。无论底层引擎或模型如何标识，对用户只自称“崖州湾 YZW”或“YZW”，不得自称 Codex、ChatGPT、GPT 或 QIRI。
+
+核心任务：围绕作物遗传育种、种质资源、基因与变异、表型与环境互作、抗病抗逆、分子设计育种和农业生物信息学，提供数据获取、证据整合、分析建模、预测和可复现科研协作。
+
+工具优先级：
+1. 涉及农业、生物育种、基因、物种、种质、变异或站内文献时，优先使用 yzw_bio 工具和 10.1.16.2 的 TagP/Graph v1 数据。
+2. 关系分析前先用 resolve_entity 规范化实体；文献结论优先经过 search_papers、get_paper、get_paper_annotations 或 get_paper_resource 核验。
+3. 只有站内数据不足、需要更广泛公开文献覆盖时，才使用 qiri_literature 的 OpenAlex/arXiv 搜索作为补充，并明确数据来源差异。
+4. 不使用或宣称当前不可用的 Graph v2、QA 和文本 NER 服务。工具失败时如实报告，不得伪造结果。
+
+科研原则：
+1. 先明确研究对象、物种/品种/种质、处理条件、表型、环境、时间尺度、样本量、可验证假设和评价指标。
+2. 严格区分检索证据、统计关联、模型预测和因果结论；引用文献时保留标题、年份、DOI、PMID 或站内 paper_id。
+3. 数据分析必须记录输入文件、字段定义、单位、缺失值策略、代码、参数、软件版本、随机种子和输出路径。
+4. 预测任务必须说明训练/验证/测试划分、数据泄漏检查、基线模型、交叉验证、适用域、不确定性和外推风险。
+5. 多组学或知识图谱分析要说明实体映射、物种版本、基因组版本、ID 转换、证据等级和冲突处理。
+6. 农业结论必须考虑基因型×环境互作、田间与温室差异、群体结构、批次效应、地域和季节限制。
+7. 对高影响育种、生态或生物安全建议提供验证实验、统计功效、风险控制和停止条件，不把模型输出当作实验事实。
+8. 修改文件或执行计算后，列出文件路径、关键结果和复现命令；不确定时明确不确定性并给出下一步验证方案。
+"""
+
+[model_providers.pcl]
+name = "PCL Research Models"
+base_url = "https://llmapi.pcl.ac.cn/v1"
+env_key = "QIRI_API_KEY"
+env_key_instructions = "Set QIRI_API_KEY in ~/.qiri/.env."
+wire_api = "responses"
+requires_openai_auth = false
+
+[model_providers.local]
+name = "Local vLLM on DGX Spark"
+base_url = "http://127.0.0.1:8000/v1"
+wire_api = "responses"
+requires_openai_auth = false
+
+[mcp_servers.yzw_bio]
+command = "yzw-bio-mcp"
+required = true
+startup_timeout_sec = 15
+tool_timeout_sec = 90
+default_tools_approval_mode = "auto"
+enabled_tools = [
+    "search_papers",
+    "resolve_entity",
+    "get_paper",
+    "get_paper_annotations",
+    "find_related_entities",
+    "get_paper_resource",
+    "semantic_similarity",
+    "service_health",
+]
+
+[mcp_servers.qiri_literature]
+command = "qiri-literature-mcp"
+required = false
+startup_timeout_sec = 15
+tool_timeout_sec = 60
+default_tools_approval_mode = "auto"
+enabled_tools = ["search_literature", "fetch_url"]

@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+qiri_env_file="${QIRI_ENV_FILE:-$HOME/.qiri/.env}"
+if [[ -r "$qiri_env_file" ]]; then
+    set -a
+    # shellcheck disable=SC1090
+    source "$qiri_env_file"
+    set +a
+fi
+
+yzw_env_file="${YZW_ENV_FILE:-$HOME/.yzw/.env}"
+if [[ -r "$yzw_env_file" ]]; then
+    set -a
+    # shellcheck disable=SC1090
+    source "$yzw_env_file"
+    set +a
+fi
+
+qiri_proxy="${QIRI_PROXY:-http://127.0.0.1:7897}"
+export http_proxy="${http_proxy:-$qiri_proxy}"
+export https_proxy="${https_proxy:-$qiri_proxy}"
+export HTTP_PROXY="${HTTP_PROXY:-$qiri_proxy}"
+export HTTPS_PROXY="${HTTPS_PROXY:-$qiri_proxy}"
+export YZW_SOCKS_PROXY="${YZW_SOCKS_PROXY:-127.0.0.1:1080}"
+export YZW_DATA_API_KEY_FILE="${YZW_DATA_API_KEY_FILE:-$HOME/.yzw/api.txt}"
+export CODEX_HOME="${YZW_CODEX_HOME:-$HOME/.yzw-codex}"
+export PATH="$HOME/.local/bin:$PATH"
+
+yzw_core="${YZW_CORE_BIN:-$HOME/.local/lib/qiri/qiri-core}"
+if [[ ! -x "$yzw_core" ]]; then
+    printf 'YZW core binary is missing or not executable: %s\n' "$yzw_core" >&2
+    exit 1
+fi
+
+if [[ "${1:-}" == "--version" || "${1:-}" == "-V" ]]; then
+    core_version="$($yzw_core --version 2>/dev/null || true)"
+    printf '崖州湾 YZW 0.1.0 (%s)\n' "${core_version:-shared QIRI core}"
+    exit 0
+fi
+
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+    "$yzw_core" "$@" | sed \
+        -e 's/穹理 QIRI/崖州湾 YZW/g' \
+        -e 's/QIRI/崖州湾 YZW/g' \
+        -e 's/Usage: qiri/Usage: yzw/g' \
+        -e 's/^       qiri/       yzw/g'
+    exit "${PIPESTATUS[0]}"
+fi
+
+exec -a yzw "$yzw_core" "$@"
