@@ -17,6 +17,46 @@ use tracing::info;
 
 // Changing this value would change model-visible IDs and invalidate prompt caches.
 const SYNTHETIC_OUTPUT_ID_NAMESPACE: Uuid = Uuid::from_u128(0x90d38d3e_6a5b_4d52_bfe2_2f1e634bfac4);
+const DEVELOPER_INSTRUCTIONS_KIND: &str = "generic.developer_instructions";
+
+/// Retains only the most recently supplied session developer instructions.
+///
+/// Developer messages can contain other independently managed context fragments, so remove only
+/// superseded instruction parts and preserve the rest of each message.
+pub(crate) fn retain_latest_developer_instructions(items: &mut Vec<ResponseItemEnvelope>) {
+    let mut retained_latest = false;
+    let mut emptied_message_indices = Vec::new();
+
+    for (index, envelope) in items.iter_mut().enumerate().rev() {
+        if !matches!(&envelope.item, ResponseItem::Message { role, .. } if role == "developer") {
+            continue;
+        }
+        let Some(content) = to_annotated_content(&mut envelope.item) else {
+            continue;
+        };
+        let mut retained = Vec::with_capacity(content.len());
+        let mut removed_instructions = false;
+        for part in content.into_iter().rev() {
+            if part.kind().as_str() == DEVELOPER_INSTRUCTIONS_KIND {
+                if retained_latest {
+                    removed_instructions = true;
+                    continue;
+                }
+                retained_latest = true;
+            }
+            retained.push(part);
+        }
+        retained.reverse();
+        if removed_instructions && retained.is_empty() {
+            emptied_message_indices.push(index);
+        }
+        let _ = set_annotated_content(&mut envelope.item, retained);
+    }
+
+    for index in emptied_message_indices {
+        items.remove(index);
+    }
+}
 
 pub(crate) fn ensure_call_outputs_present(items: &mut Vec<ResponseItemEnvelope>) {
     let mut function_output_ids = HashSet::new();

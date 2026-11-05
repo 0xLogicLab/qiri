@@ -14,10 +14,7 @@ impl ChatWidget {
             return;
         }
 
-        let current = self
-            .effective_collaboration_mode()
-            .settings
-            .developer_instructions;
+        let current = self.session_developer_instructions.clone();
         let default_is_current = current == self.default_developer_instructions;
         let default_prompt = self.default_developer_instructions.clone();
         let items = vec![
@@ -73,10 +70,7 @@ impl ChatWidget {
     }
 
     pub(crate) fn open_system_prompt_editor(&mut self) {
-        let current = self
-            .effective_collaboration_mode()
-            .settings
-            .developer_instructions;
+        let current = self.session_developer_instructions.clone();
         let initial_text = if current == self.default_developer_instructions {
             String::new()
         } else {
@@ -99,10 +93,7 @@ impl ChatWidget {
     }
 
     pub(crate) fn show_system_prompt(&mut self) {
-        let current = self
-            .effective_collaboration_mode()
-            .settings
-            .developer_instructions;
+        let current = self.session_developer_instructions.clone();
         let label = if current == self.default_developer_instructions {
             "QIRI AI4S default"
         } else {
@@ -140,5 +131,9 @@ impl ChatWidget {
                     });
             }
         }
+    }
+
+    pub(crate) fn set_session_developer_instructions(&mut self, instructions: Option<String>) {
+        self.session_developer_instructions = instructions;
     }
 }

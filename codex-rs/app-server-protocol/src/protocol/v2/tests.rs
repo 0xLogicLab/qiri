@@ -5284,6 +5284,51 @@ fn thread_settings_update_params_preserve_explicit_null_service_tier() {
 }
 
 #[test]
+fn thread_settings_update_params_preserve_developer_instruction_replacement() {
+    for (value, expected) in [
+        (json!({"threadId": "thread_123"}), None),
+        (
+            json!({"threadId": "thread_123", "developerInstructions": null}),
+            Some(None),
+        ),
+        (
+            json!({"threadId": "thread_123", "developerInstructions": "custom role"}),
+            Some(Some("custom role".to_string())),
+        ),
+    ] {
+        let params: ThreadSettingsUpdateParams =
+            serde_json::from_value(value).expect("params should deserialize");
+        assert_eq!(params.developer_instructions, expected);
+        let serialized = serde_json::to_value(params).expect("params should serialize");
+        match expected {
+            None => assert_eq!(serialized.get("developerInstructions"), None),
+            Some(None) => assert_eq!(
+                serialized.get("developerInstructions"),
+                Some(&serde_json::Value::Null)
+            ),
+            Some(Some(instructions)) => assert_eq!(
+                serialized.get("developerInstructions"),
+                Some(&serde_json::Value::String(instructions))
+            ),
+        }
+    }
+}
+
+#[test]
+fn thread_settings_update_params_preserve_base_instruction_reset() {
+    let params: ThreadSettingsUpdateParams = serde_json::from_value(json!({
+        "threadId": "thread_123",
+        "baseInstructions": null
+    }))
+    .expect("params should deserialize");
+    assert_eq!(params.base_instructions, Some(None));
+    assert_eq!(
+        serde_json::to_value(params).expect("params should serialize")["baseInstructions"],
+        serde_json::Value::Null
+    );
+}
+
+#[test]
 fn thread_settings_update_params_preserve_field_level_experimental_gates() {
     let permissions = ThreadSettingsUpdateParams {
         thread_id: "thread_123".to_string(),

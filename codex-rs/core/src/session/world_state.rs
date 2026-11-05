@@ -9,6 +9,7 @@ use crate::context::world_state::AppsInstructionsState;
 use crate::context::world_state::CollaborationModeState;
 use crate::context::world_state::CompactPermissionsState;
 use crate::context::world_state::ContextWindowGuidanceState;
+use crate::context::world_state::DeveloperInstructionsState;
 use crate::context::world_state::EnvironmentsInstructionsState;
 use crate::context::world_state::EnvironmentsState;
 use crate::context::world_state::ManagedDeveloperInstructionsState;
@@ -109,8 +110,19 @@ impl Session {
                     .enabled(Feature::SuppressModelChangeAnnouncements),
             )
         } else {
-            let model_instructions = render_current_instructions();
             let base_instructions = self.get_prompt_base_instructions().await.text;
+            let model_instructions = if self
+                .state
+                .lock()
+                .await
+                .session_configuration
+                .base_instructions_override
+                .is_some()
+            {
+                base_instructions.clone()
+            } else {
+                render_current_instructions()
+            };
             let previous_model = {
                 let state = self.state.lock().await;
                 state
@@ -188,6 +200,11 @@ impl Session {
             )?);
         }
         world_state.add_section(model_state);
+        if !crate::guardian::is_basic_session_source(&turn_context.session_source) {
+            world_state.add_section(DeveloperInstructionsState::new(
+                turn_context.developer_instructions.as_deref(),
+            ));
+        }
         let token_budget_enabled = turn_context.config.features.enabled(Feature::TokenBudget)
             && step_context
                 .settings

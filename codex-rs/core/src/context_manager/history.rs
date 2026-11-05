@@ -1032,11 +1032,14 @@ impl ContextManager {
     }
 
     /// This function enforces a couple of invariants on the in-memory history:
-    /// 1. every call (function/custom) has a corresponding output entry
-    /// 2. every output has a corresponding call entry or names an external tool event
-    /// 3. unsupported image and audio content is stripped from messages and tool outputs
+    /// 1. only the latest session developer instructions remain model-visible
+    /// 2. every call (function/custom) has a corresponding output entry
+    /// 3. every output has a corresponding call entry or names an external tool event
+    /// 4. unsupported image and audio content is stripped from messages and tool outputs
     pub(crate) fn normalize_history(&mut self, input_modalities: &[InputModality]) {
         let items = Arc::make_mut(&mut self.items);
+
+        normalize::retain_latest_developer_instructions(items);
 
         // all function/tool calls must have a corresponding output
         normalize::ensure_call_outputs_present(items);

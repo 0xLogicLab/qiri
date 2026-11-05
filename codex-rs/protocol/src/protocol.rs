@@ -584,6 +584,12 @@ pub enum TurnSettingsUpdateOutcome {
     }),
 )]
 pub struct ThreadSettingsOverrides {
+    /// Updated developer instructions for future turns.
+    /// `None` preserves them; `Some(None)` clears them.
+    pub developer_instructions: Option<Option<String>>,
+    /// Temporary model base instructions; `Some(None)` restores the startup instructions.
+    pub base_instructions: Option<Option<String>>,
+
     /// Updated fallback `cwd` and environments supplied together as a complete pair.
     pub environments: Option<TurnEnvironmentRequests>,
 

@@ -359,6 +359,143 @@ async fn thread_settings_update_emits_notification_and_updates_future_turns() ->
 }
 
 #[tokio::test]
+async fn developer_instructions_replace_role_without_changing_mode() -> Result<()> {
+    const STARTUP_ROLE: &str = "startup QIRI role marker";
+    const CUSTOM_ROLE: &str = "custom lmmm role marker";
+    const STARTUP_BASE: &str = "startup QIRI base identity marker";
+    const COLLABORATION_INSTRUCTIONS: &str = "collaboration mode marker";
+
+    let server = create_mock_responses_server_sequence_unchecked(vec![
+        create_final_assistant_message_sse_response("first done")?,
+        create_final_assistant_message_sse_response("second done")?,
+        create_final_assistant_message_sse_response("third done")?,
+    ])
+    .await;
+    let codex_home = TempDir::new()?;
+    MockResponsesConfig::new(&server.uri())
+        .with_root_config(&format!(
+            "developer_instructions = {STARTUP_ROLE:?}\ncompact_prompt = \"compact\"\nmodel_auto_compact_token_limit = 200000"
+        ))
+        .with_provider_config("supports_websockets = false")
+        .write(codex_home.path())?;
+
+    let mut mcp = TestAppServer::builder()
+        .with_codex_home(codex_home.path())
+        .build_initialized_with_timeout(DEFAULT_TIMEOUT)
+        .await?;
+    let started = mcp
+        .start_thread(ThreadStartParams {
+            model: Some("mock-model".to_string()),
+            base_instructions: Some(STARTUP_BASE.to_string()),
+            ..Default::default()
+        })
+        .await?;
+    let thread_id = started.thread.id;
+    let initial_collaboration_mode = CollaborationMode {
+        mode: ModeKind::Plan,
+        settings: Settings {
+            model: "mock-model".to_string(),
+            reasoning_effort: None,
+            developer_instructions: Some(COLLABORATION_INSTRUCTIONS.to_string()),
+        },
+    };
+    send_thread_settings_update(
+        &mut mcp,
+        ThreadSettingsUpdateParams {
+            thread_id: thread_id.clone(),
+            collaboration_mode: Some(initial_collaboration_mode.clone()),
+            ..Default::default()
+        },
+    )
+    .await?;
+    assert_eq!(
+        read_thread_settings_updated(&mut mcp)
+            .await?
+            .thread_settings
+            .collaboration_mode,
+        initial_collaboration_mode
+    );
+
+    mcp.start_turn_and_wait_for_completion(TurnStartParams {
+        thread_id: thread_id.clone(),
+        input: vec![V2UserInput::Text {
+            text: "first turn".to_string(),
+            text_elements: Vec::new(),
+        }],
+        ..Default::default()
+    })
+    .await?;
+
+    send_thread_settings_update(
+        &mut mcp,
+        ThreadSettingsUpdateParams {
+            thread_id: thread_id.clone(),
+            developer_instructions: Some(Some(CUSTOM_ROLE.to_string())),
+            base_instructions: Some(Some(CUSTOM_ROLE.to_string())),
+            ..Default::default()
+        },
+    )
+    .await?;
+
+    mcp.start_turn_and_wait_for_completion(TurnStartParams {
+        thread_id: thread_id.clone(),
+        input: vec![V2UserInput::Text {
+            text: "second turn".to_string(),
+            text_elements: Vec::new(),
+        }],
+        ..Default::default()
+    })
+    .await?;
+
+    send_thread_settings_update(
+        &mut mcp,
+        ThreadSettingsUpdateParams {
+            thread_id: thread_id.clone(),
+            developer_instructions: Some(Some(STARTUP_ROLE.to_string())),
+            base_instructions: Some(None),
+            ..Default::default()
+        },
+    )
+    .await?;
+    mcp.start_turn_and_wait_for_completion(TurnStartParams {
+        thread_id: thread_id.clone(),
+        input: vec![V2UserInput::Text {
+            text: "third turn".to_string(),
+            text_elements: Vec::new(),
+        }],
+        ..Default::default()
+    })
+    .await?;
+
+    let requests = responses::received_responses_requests(&server).await;
+    assert_eq!(requests.len(), 3);
+    let first_developer_text = requests[0].message_input_texts("developer").join("\n");
+    assert!(first_developer_text.contains(STARTUP_ROLE));
+    assert!(first_developer_text.contains(STARTUP_BASE));
+    let second_developer_text = requests[1].message_input_texts("developer").join("\n");
+    assert!(second_developer_text.contains(CUSTOM_ROLE));
+    assert!(second_developer_text.contains(COLLABORATION_INSTRUCTIONS));
+    assert!(!second_developer_text.contains(STARTUP_ROLE));
+    assert!(!second_developer_text.contains(STARTUP_BASE));
+    let third_developer_text = requests[2].message_input_texts("developer").join("\n");
+    assert!(third_developer_text.contains(STARTUP_ROLE));
+    assert!(third_developer_text.contains(STARTUP_BASE));
+    assert!(!third_developer_text.contains(CUSTOM_ROLE));
+
+    let resume_id = mcp
+        .send_thread_resume_request(ThreadResumeParams {
+            thread_id,
+            ..Default::default()
+        })
+        .await?;
+    let resumed: ThreadResumeResponse =
+        timeout(DEFAULT_TIMEOUT, mcp.read_response(resume_id)).await??;
+    assert_eq!(resumed.collaboration_mode, Some(initial_collaboration_mode));
+
+    Ok(())
+}
+
+#[tokio::test]
 async fn thread_settings_update_cwd_retargets_default_environment() -> Result<()> {
     let server = responses::start_mock_server().await;
     let body = responses::sse(vec![

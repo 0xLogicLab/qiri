@@ -156,6 +156,8 @@ impl ThreadConfigSnapshot {
 pub struct CodexThreadSettingsOverrides {
     /// Replaces the data captured by future turns. Omission preserves it.
     pub turn_extension_init: Option<codex_extension_api::ExtensionDataInit>,
+    pub developer_instructions: Option<Option<String>>,
+    pub base_instructions: Option<Option<String>>,
     pub environments: Option<TurnEnvironmentRequests>,
     pub runtime_workspace_roots: Option<Vec<AbsolutePathBuf>>,
     pub profile_workspace_roots: Option<Vec<ProfileWorkspaceRoot>>,
@@ -828,6 +830,8 @@ impl CodexThread {
     ) -> SessionSettingsUpdate {
         let CodexThreadSettingsOverrides {
             turn_extension_init,
+            developer_instructions,
+            base_instructions,
             environments: environment_requests,
             runtime_workspace_roots,
             profile_workspace_roots,
@@ -847,6 +851,8 @@ impl CodexThread {
         } = overrides;
         SessionSettingsUpdate {
             turn_extension_init,
+            developer_instructions,
+            base_instructions,
             step_settings: StepSettingsUpdate {
                 model,
                 effort,

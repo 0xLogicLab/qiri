@@ -102,6 +102,8 @@ pub(super) fn prepare_update(
         turn_extension_init,
     } = overrides.into();
     let ThreadSettingsOverrides {
+        developer_instructions,
+        base_instructions,
         environments: environment_requests,
         runtime_workspace_roots,
         profile_workspace_roots,
@@ -121,6 +123,8 @@ pub(super) fn prepare_update(
     } = overrides;
     SessionSettingsUpdate {
         turn_extension_init,
+        developer_instructions,
+        base_instructions,
         step_settings: StepSettingsUpdate {
             model,
             effort,

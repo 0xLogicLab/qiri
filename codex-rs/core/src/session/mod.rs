@@ -969,6 +969,7 @@ impl Session {
             model_info_overrides: config.to_models_manager_config().into(),
             developer_instructions: config.developer_instructions.clone(),
             base_instructions,
+            base_instructions_override: None,
             permission_profile_state: session_permission_profile_state_from_config(&config)?,
             allow_login_shell: config.permissions.allow_login_shell,
             shell_environment_policy: config.permissions.shell_environment_policy.clone(),
@@ -1643,6 +1644,12 @@ impl Session {
 
     pub(crate) async fn get_base_instructions(&self) -> BaseInstructions {
         let state = self.state.lock().await;
+        if let Some(override_text) = &state.session_configuration.base_instructions_override {
+            return BaseInstructions {
+                text: override_text.clone(),
+                provenance: Some(BaseInstructionsProvenance::Custom),
+            };
+        }
         BaseInstructions {
             text: state.session_configuration.base_instructions.clone(),
             provenance: state.base_instructions_provenance.clone(),
@@ -4906,13 +4913,6 @@ impl Session {
             crate::guardian::is_basic_session_source(&session_source);
         // Keep the guardian policy prompt out of the aggregated developer bundle so it
         // stays isolated as its own top-level developer message for guardian subagents.
-        if !separate_guardian_developer_message
-            && let Some(developer_instructions) = turn_context.developer_instructions.as_deref()
-            && !developer_instructions.is_empty()
-        {
-            developer_sections
-                .push(DeveloperInstructions::new(developer_instructions).render_fragment());
-        }
         let loaded_plugins = self
             .services
             .plugins_manager

@@ -30,20 +30,15 @@ impl App {
             );
             return;
         };
-        let collaboration_mode = self
-            .chat_widget
-            .effective_collaboration_mode()
-            .with_updates(
-                /*model*/ None,
-                /*effort*/ None,
-                Some(instructions.clone()),
-            );
         let params = ThreadSettingsUpdateParams {
             thread_id: thread_id.to_string(),
-            collaboration_mode: Some(collaboration_mode),
+            developer_instructions: Some(instructions.clone()),
+            base_instructions: Some(instructions.clone()),
             ..ThreadSettingsUpdateParams::default()
         };
         if self.send_thread_settings_update(app_server, params).await {
+            self.chat_widget
+                .set_session_developer_instructions(instructions);
             self.chat_widget.add_info_message(
                 "System role updated for this session.".to_string(),
                 Some("Use /sys reset to restore the startup role.".to_string()),
@@ -318,7 +313,9 @@ fn apply_thread_settings_to_session(session: &mut ThreadSessionState, settings: 
 }
 
 fn thread_settings_update_has_changes(params: &ThreadSettingsUpdateParams) -> bool {
-    params.cwd.is_some()
+    params.developer_instructions.is_some()
+        || params.base_instructions.is_some()
+        || params.cwd.is_some()
         || params.approval_policy.is_some()
         || params.approvals_reviewer.is_some()
         || params.sandbox_policy.is_some()
@@ -328,4 +325,20 @@ fn thread_settings_update_has_changes(params: &ThreadSettingsUpdateParams) -> bo
         || params.effort.is_some()
         || params.summary.is_some()
         || params.collaboration_mode.is_some()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn developer_instruction_only_update_is_not_dropped() {
+        let params = ThreadSettingsUpdateParams {
+            thread_id: "thread-1".to_string(),
+            developer_instructions: Some(Some("custom role".to_string())),
+            ..Default::default()
+        };
+
+        assert!(thread_settings_update_has_changes(&params));
+    }
 }

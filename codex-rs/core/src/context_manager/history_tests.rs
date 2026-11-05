@@ -730,6 +730,31 @@ fn developer_msg_with_fragments(texts: &[&str]) -> ResponseItem {
     }
 }
 
+fn annotated_developer_msg(parts: &[(&str, &str)]) -> ResponseItem {
+    ResponseItem::Message {
+        status: None,
+        encrypted_content: None,
+        id: None,
+        role: "developer".to_string(),
+        content: parts
+            .iter()
+            .map(|(text, _)| ContentItem::InputText {
+                text: (*text).to_string(),
+            })
+            .collect(),
+        phase: None,
+        internal_chat_message_metadata_passthrough: Some(InternalChatMessageMetadataPassthrough {
+            content_item_kinds: Some(
+                parts
+                    .iter()
+                    .map(|(_, kind)| ContentItemKind((*kind).to_string()))
+                    .collect(),
+            ),
+            ..Default::default()
+        }),
+    }
+}
+
 fn reference_context_item() -> TurnContextItem {
     TurnContextItem {
         turn_id: Some("reference-turn".to_string()),
@@ -2603,6 +2628,66 @@ fn format_exec_output_prefers_line_marker_when_both_limits_exceeded() {
     let truncated = truncate_exec_output(&content);
 
     assert_truncated_message_matches(&truncated, "line-0-", /*expected_removed*/ 17_423);
+}
+
+#[test]
+fn normalize_replaces_previous_developer_instructions() {
+    let replacement = "These session developer instructions replace all previously provided session developer instructions.\n\ncustom role";
+    let mut history = create_history_with_items(vec![
+        annotated_developer_msg(&[("QIRI startup role", "generic.developer_instructions")]),
+        user_input_text_msg("first turn"),
+        annotated_developer_msg(&[(replacement, "generic.developer_instructions")]),
+    ]);
+
+    history.normalize_history(&default_input_modalities());
+
+    assert_eq!(
+        raw_items(&history),
+        vec![
+            user_input_text_msg("first turn"),
+            annotated_developer_msg(&[(replacement, "generic.developer_instructions")]),
+        ]
+    );
+}
+
+#[test]
+fn normalize_preserves_non_role_parts_of_older_developer_messages() {
+    let mut history = create_history_with_items(vec![
+        annotated_developer_msg(&[
+            ("QIRI startup role", "generic.developer_instructions"),
+            ("environment policy", "environments.instructions"),
+        ]),
+        annotated_developer_msg(&[("custom role", "generic.developer_instructions")]),
+    ]);
+
+    history.normalize_history(&default_input_modalities());
+
+    assert_eq!(
+        raw_items(&history),
+        vec![
+            annotated_developer_msg(&[("environment policy", "environments.instructions")]),
+            annotated_developer_msg(&[("custom role", "generic.developer_instructions")]),
+        ]
+    );
+}
+
+#[test]
+fn normalize_role_removal_notice_supersedes_previous_instructions() {
+    let removal_notice = "The previously provided session developer instructions no longer apply.";
+    let mut history = create_history_with_items(vec![
+        annotated_developer_msg(&[("QIRI startup role", "generic.developer_instructions")]),
+        annotated_developer_msg(&[(removal_notice, "generic.developer_instructions")]),
+    ]);
+
+    history.normalize_history(&default_input_modalities());
+
+    assert_eq!(
+        raw_items(&history),
+        vec![annotated_developer_msg(&[(
+            removal_notice,
+            "generic.developer_instructions",
+        )])]
+    );
 }
 
 #[cfg_attr(not(debug_assertions), test_case::test_case(false; "local"))]

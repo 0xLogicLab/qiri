@@ -126,6 +126,7 @@ pub(crate) struct SessionConfiguration {
 
     /// Base instructions for the session.
     pub(super) base_instructions: String,
+    pub(super) base_instructions_override: Option<String>,
 
     /// Permission profile state for the session. Keep the constrained profile,
     /// active profile id, and profile-defined workspace roots in sync by using
@@ -377,6 +378,8 @@ impl SessionConfiguration {
             personality: self.step_settings.personality,
             disabled_plugin_ids: Some(self.disabled_plugin_ids.clone()),
             turn_extension_init: Some(self.turn_extension_init.clone()),
+            developer_instructions: Some(self.developer_instructions.clone()),
+            base_instructions: self.base_instructions_override.clone().map(Some),
             ..Default::default()
         }
     }
@@ -422,6 +425,12 @@ impl SessionConfiguration {
         let mut next_configuration = self.clone();
         if let Some(turn_extension_init) = &updates.turn_extension_init {
             next_configuration.turn_extension_init = turn_extension_init.clone();
+        }
+        if let Some(developer_instructions) = &updates.developer_instructions {
+            next_configuration.developer_instructions = developer_instructions.clone();
+        }
+        if let Some(base_instructions) = &updates.base_instructions {
+            next_configuration.base_instructions_override = base_instructions.clone();
         }
         if let Some(disabled_plugin_ids) = &updates.disabled_plugin_ids {
             next_configuration.disabled_plugin_ids = disabled_plugin_ids.clone();
@@ -622,6 +631,10 @@ pub(crate) struct SessionSettingsCommit {
 
 #[derive(Default, Clone)]
 pub(crate) struct SessionSettingsUpdate {
+    /// Omission preserves the current developer instructions; `Some(None)` clears them.
+    pub(crate) developer_instructions: Option<Option<String>>,
+    /// Omission preserves the override; `Some(None)` restores startup base instructions.
+    pub(crate) base_instructions: Option<Option<String>>,
     pub(crate) step_settings: StepSettingsUpdate,
     /// Omission preserves the current data; an empty initializer clears it.
     pub(crate) turn_extension_init: Option<ExtensionDataInit>,

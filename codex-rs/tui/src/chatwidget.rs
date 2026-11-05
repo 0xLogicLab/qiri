@@ -545,6 +545,8 @@ pub(crate) struct ChatWidget {
     /// The effective developer instructions supplied when this TUI session started.
     /// `/sys reset` restores this value without modifying the persisted config.
     default_developer_instructions: Option<String>,
+    /// Developer instructions selected for subsequent turns in this TUI session.
+    session_developer_instructions: Option<String>,
     has_chatgpt_account: bool,
     pub(crate) requires_openai_auth: bool,
     has_codex_backend_auth: bool,

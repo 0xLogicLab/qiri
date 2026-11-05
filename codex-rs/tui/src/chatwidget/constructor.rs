@@ -45,6 +45,7 @@ impl ChatWidget {
                 &config,
                 config.developer_instructions.clone(),
             );
+        let session_developer_instructions = default_developer_instructions.clone();
         let prevent_idle_sleep = config.features.enabled(Feature::PreventIdleSleep);
         let placeholder = PLACEHOLDER.to_string();
         let side_placeholder = SIDE_PLACEHOLDER.to_string();
@@ -131,6 +132,7 @@ impl ChatWidget {
             current_collaboration_mode,
             active_collaboration_mask,
             default_developer_instructions,
+            session_developer_instructions,
             has_chatgpt_account,
             requires_openai_auth,
             has_codex_backend_auth,
