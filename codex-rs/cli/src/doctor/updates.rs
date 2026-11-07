@@ -51,44 +51,17 @@ const DESKTOP_UPDATE_URL: &str =
 /// warning instead of failing doctor outright; update freshness is useful
 /// support context but should not mask more direct install/config failures.
 pub(super) async fn updates_check(config: &Config) -> DoctorCheck {
-    let current_exe = std::env::current_exe().ok();
-    let install_context = doctor_install_context(current_exe.as_deref());
-    let mut details = vec![
+    let details = vec![
         format!(
             "check for update on startup: {}",
             config.check_for_update_on_startup
         ),
-        format!("update action: {}", update_action_label(&install_context)),
+        "update action: qiri update".to_string(),
+        "latest version: unavailable until QIRI publishes a release feed".to_string(),
     ];
-    let version_file = config.codex_home.join(VERSION_FILE_NAME);
-    push_cached_version_details(&mut details, &version_file);
 
-    let mut status = CheckStatus::Ok;
-    let summary = "update configuration is locally consistent".to_string();
-
-    if doctor_managed_by_npm(current_exe.as_deref()) {
-        details
-            .push("npm update target: not inspected (PATH helpers are not executed)".to_string());
-    }
-    let client = RouteAwareClientPool::new_without_request_logging(
-        config.http_client_factory(),
-        ClientRouteClass::Other,
-    );
-
-    match fetch_latest_version(&client, &install_context).await {
-        Ok(latest_version) => {
-            details.push(format!("latest version: {latest_version}"));
-            if is_newer(&latest_version, env!("CARGO_PKG_VERSION")) == Some(true) {
-                details.push("latest version status: newer version is available".to_string());
-            } else {
-                details.push("latest version status: current version is not older".to_string());
-            }
-        }
-        Err(err) => {
-            status = status.max(CheckStatus::Warning);
-            details.push(format!("latest version probe: {err}"));
-        }
-    }
+    let status = CheckStatus::Ok;
+    let summary = "QIRI update feed is not configured".to_string();
 
     DoctorCheck::new("updates.status", "updates", status, summary).details(details)
 }

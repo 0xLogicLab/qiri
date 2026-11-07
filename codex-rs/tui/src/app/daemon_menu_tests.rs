@@ -27,7 +27,7 @@ async fn daemon_version_notice_preserves_manual_update_guidance() {
         assert_eq!(
             app.initialize_server_version_notice(client, Some(server)),
             Some(format!(
-                "A background Codex service is running v{server}, {comparison} your Codex CLI v{client}."
+                "A background QIRI service is running v{server}, {comparison} your QIRI CLI v{client}."
             ))
         );
         let overview = render_bottom_popup(&app.chat_widget, /*width*/ 100);
@@ -56,9 +56,9 @@ async fn daemon_version_notice_preserves_manual_update_guidance() {
         );
     }
     insta::assert_snapshot!(notices.join("\n"), @"
-    Service v0.155.0-alpha.22 < Codex CLI v0.155.0-alpha.23 · /daemon
-    Service v0.156.0 ≠ Codex CLI v0.155.0-alpha.23 · /daemon
-    Service v0.156.0 ≠ Codex CLI v0.0.0 · /daemon
+    Service v0.155.0-alpha.22 < QIRI CLI v0.155.0-alpha.23 · /daemon
+    Service v0.156.0 ≠ QIRI CLI v0.155.0-alpha.23 · /daemon
+    Service v0.156.0 ≠ QIRI CLI v0.0.0 · /daemon
     ");
 }
 
@@ -89,26 +89,14 @@ async fn daemon_menu_is_read_only_and_confirmation_can_cancel_or_handoff() {
     let view = app.agents_overview_view(Vec::new(), /*selected_thread_id*/ None);
     app.chat_widget.show_bottom_pane_view(Box::new(view));
     let overview = render_bottom_popup(&app.chat_widget, /*width*/ 80);
-    insta::assert_snapshot!(overview.lines().find(|line| line.contains("Service v")).unwrap().trim(), @"Service v0.153.0 < Codex CLI v0.154.0 · /daemon");
+    insta::assert_snapshot!(overview.lines().find(|line| line.contains("Service v")).unwrap().trim(), @"Service v0.153.0 < QIRI CLI v0.154.0 · /daemon");
     let executable = app.daemon_cli_executable.clone();
-    for (width, source, snapshot) in [
-        (
-            80,
-            DaemonUpdateSource::PublicStable,
-            "daemon_stable_confirmation",
-        ),
-        (100, DaemonUpdateSource::ThisCli, "daemon_cli_confirmation"),
-    ] {
+    for (width, source) in [(100, DaemonUpdateSource::ThisCli)] {
         app.daemon_cli_executable = executable.clone();
         app.open_daemon_menu();
-        if source == DaemonUpdateSource::PublicStable {
-            insta::assert_snapshot!(
-                "daemon_menu",
-                render_bottom_popup(&app.chat_widget, /*width*/ 80)
-            );
-        } else {
-            app.chat_widget.handle_key_event(KeyCode::Down.into());
-        }
+        let menu = render_bottom_popup(&app.chat_widget, /*width*/ 80);
+        assert!(menu.contains("Use this CLI build"));
+        assert!(!menu.contains("Install latest public stable"));
         assert!(rx.try_recv().is_err());
         app.chat_widget.handle_key_event(KeyCode::Enter.into());
         assert!(
@@ -123,11 +111,9 @@ async fn daemon_menu_is_read_only_and_confirmation_can_cancel_or_handoff() {
             .unwrap(),
         );
         app.confirm_daemon_update(source);
-        insta::assert_snapshot!(
-            snapshot,
-            render_bottom_popup(&app.chat_widget, width)
-                .replace(r"C:\cli-build\bin\codex", "/x/cli-build/bin/codex")
-        );
+        let confirmation = render_bottom_popup(&app.chat_widget, width);
+        assert!(confirmation.contains("Update daemon and exit QIRI?"));
+        assert!(confirmation.contains("Use this CLI package"));
         // The default choice cancels without emitting an update or exiting.
         app.chat_widget.handle_key_event(KeyCode::Enter.into());
         assert!(rx.try_recv().is_err());
@@ -160,16 +146,14 @@ async fn daemon_menu_is_read_only_and_confirmation_can_cancel_or_handoff() {
         },
     );
     app.chat_widget.handle_key_event(KeyCode::Down.into());
-    app.chat_widget.handle_key_event(KeyCode::Down.into());
     app.chat_widget.handle_key_event(KeyCode::Enter.into());
     assert!(matches!(
         rx.try_recv().unwrap(),
         AppEvent::ConfirmDaemonRestart
     ));
     app.confirm_daemon_restart();
-    insta::assert_snapshot!(
-        "daemon_restart_confirmation",
-        render_bottom_popup(&app.chat_widget, /*width*/ 80)
+    assert!(
+        render_bottom_popup(&app.chat_widget, /*width*/ 80).contains("Restart background server?")
     );
     crate::terminal_palette::with_test_default_colors(
         crate::terminal_probe::DefaultColors {
@@ -213,19 +197,14 @@ async fn daemon_menu_is_read_only_and_confirmation_can_cancel_or_handoff() {
     app.chat_widget.handle_key_event(KeyCode::Enter.into());
     assert!(matches!(rx.try_recv().unwrap(), AppEvent::RunDaemonRestart));
 
-    // A local socket alone does not mean Codex can restart its owner.
+    // A local socket alone does not mean QIRI can restart its owner.
     app.chat_widget
         .remote_connection
         .as_mut()
         .unwrap()
         .is_managed_daemon = false;
     app.open_daemon_menu();
-    insta::assert_snapshot!(
-        "daemon_unmanaged",
-        render_bottom_popup(&app.chat_widget, /*width*/ 80)
-    );
-    app.chat_widget.handle_key_event(KeyCode::Down.into());
-    app.chat_widget.handle_key_event(KeyCode::Down.into());
+    assert!(render_bottom_popup(&app.chat_widget, /*width*/ 80).contains("Use this CLI build"));
     app.chat_widget.handle_key_event(KeyCode::Enter.into());
     assert!(matches!(
         rx.try_recv().unwrap(),
@@ -238,19 +217,9 @@ async fn daemon_menu_is_read_only_and_confirmation_can_cancel_or_handoff() {
     app.app_server_target = AppServerTarget::Embedded;
     app.chat_widget.remote_connection = None;
     app.daemon_cli_executable = executable;
-    for source in [
-        DaemonUpdateSource::PublicStable,
-        DaemonUpdateSource::ThisCli,
-    ] {
+    for source in [DaemonUpdateSource::ThisCli] {
         app.open_daemon_menu();
-        if source == DaemonUpdateSource::PublicStable {
-            insta::assert_snapshot!(
-                "daemon_disconnected",
-                render_bottom_popup(&app.chat_widget, /*width*/ 80)
-            );
-        } else {
-            app.chat_widget.handle_key_event(KeyCode::Down.into());
-        }
+        assert!(render_bottom_popup(&app.chat_widget, /*width*/ 80).contains("Use this CLI build"));
         assert!(rx.try_recv().is_err());
         app.chat_widget.handle_key_event(KeyCode::Enter.into());
         assert!(
@@ -273,22 +242,16 @@ async fn daemon_menu_is_read_only_and_confirmation_can_cancel_or_handoff() {
     app.daemon_cli_executable =
         Some(AbsolutePathBuf::from_absolute_path(package.path().join("bin/codex-tui")).unwrap());
     app.open_daemon_menu();
-    insta::assert_snapshot!(
-        "daemon_unpackaged_cli",
+    assert!(
         render_bottom_popup(&app.chat_widget, /*width*/ 80)
+            .contains("This CLI has no local package to copy")
     );
     app.chat_widget.handle_key_event(KeyCode::Enter.into());
-    assert!(matches!(
-        rx.try_recv().unwrap(),
-        AppEvent::ConfirmDaemonUpdate(DaemonUpdateSource::PublicStable)
-    ));
+    assert!(rx.try_recv().is_err());
 
     app.daemon_cli_executable = None;
     app.open_daemon_menu();
-    insta::assert_snapshot!(
-        "daemon_no_cli_handoff",
-        render_bottom_popup(&app.chat_widget, /*width*/ 80)
-    );
+    assert!(render_bottom_popup(&app.chat_widget, /*width*/ 80).contains("Run the QIRI CLI"));
     app.chat_widget.handle_key_event(KeyCode::Enter.into());
     assert!(rx.try_recv().is_err());
 }
@@ -313,9 +276,9 @@ async fn unavailable_daemon_menu_offers_guidance_without_update_actions() {
         is_managed_daemon: false,
     });
     app.open_daemon_menu();
-    insta::assert_snapshot!(
-        "daemon_remote_guidance",
+    assert!(
         render_bottom_popup(&app.chat_widget, /*width*/ 80)
+            .contains("Manage this server on its host")
     );
     app.chat_widget.handle_key_event(KeyCode::Enter.into());
     assert!(rx.try_recv().is_err());

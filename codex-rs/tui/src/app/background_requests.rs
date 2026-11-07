@@ -1,10 +1,9 @@
 //! Background app-server requests launched by the TUI app.
 //!
 //! This module owns fire-and-forget fetch/write helpers for MCP inventory, skills, plugins, rate
-//! limits, add-credit nudges, and feedback uploads. Results are routed back through `AppEvent` so
+//! limits and add-credit nudges. Results are routed back through `AppEvent` so
 //! the main event loop remains single-threaded.
 
-use super::feedback_upload::fetch_feedback_upload;
 use super::plugin_mentions::fetch_plugin_mentions;
 use super::*;
 use crate::app_event::ConnectorsSnapshot;
@@ -622,43 +621,12 @@ impl App {
         });
     }
 
-    pub(super) fn submit_feedback(
-        &mut self,
-        app_server: &AppServerSession,
-        category: FeedbackCategory,
-        reason: Option<String>,
-        turn_id: Option<String>,
-        include_logs: bool,
-    ) {
-        let request_handle = app_server.request_handle();
-        let app_event_tx = self.app_event_tx.clone();
-        let origin_thread_id = self.chat_widget.thread_id();
-        let rollout_path = if include_logs {
-            self.chat_widget.rollout_path()
-        } else {
-            None
-        };
-        let params = build_feedback_upload_params(
-            origin_thread_id,
-            rollout_path,
+    pub(super) fn submit_feedback(&mut self, category: FeedbackCategory, include_logs: bool) {
+        self.app_event_tx.send(AppEvent::FeedbackSubmitted {
+            origin_thread_id: self.chat_widget.thread_id(),
             category,
-            reason,
-            turn_id,
             include_logs,
-        );
-        let codex_home = app_server.codex_home_path(&self.config.codex_home);
-        let feedback = self.feedback.clone();
-        tokio::spawn(async move {
-            let result = fetch_feedback_upload(request_handle, codex_home, params, feedback)
-                .await
-                .map(|response| response.thread_id)
-                .map_err(|err| err.to_string());
-            app_event_tx.send(AppEvent::FeedbackSubmitted {
-                origin_thread_id,
-                category,
-                include_logs,
-                result,
-            });
+            result: Err("QIRI does not support feedback uploads".to_string()),
         });
     }
 
@@ -1292,30 +1260,6 @@ pub(super) async fn write_hook_enabled(
         .wrap_err("config/batchWrite failed while updating hook enablement in TUI")
 }
 
-pub(super) fn build_feedback_upload_params(
-    origin_thread_id: Option<ThreadId>,
-    rollout_path: Option<PathBuf>,
-    category: FeedbackCategory,
-    reason: Option<String>,
-    turn_id: Option<String>,
-    include_logs: bool,
-) -> FeedbackUploadParams {
-    let extra_log_files = if include_logs {
-        rollout_path.map(|rollout_path| vec![rollout_path])
-    } else {
-        None
-    };
-    let tags = turn_id.map(|turn_id| BTreeMap::from([(String::from("turn_id"), turn_id)]));
-    FeedbackUploadParams {
-        classification: crate::bottom_pane::feedback_classification(category).to_string(),
-        reason,
-        thread_id: origin_thread_id.map(|thread_id| thread_id.to_string()),
-        include_logs,
-        extra_log_files,
-        tags,
-    }
-}
-
 /// Convert flat `McpServerStatus` responses into the per-server maps used by the
 /// in-process MCP subsystem (tools keyed as `mcp__{server}__{tool}`, plus
 /// per-server resource/template/auth maps). Test-only because the TUI
@@ -1684,53 +1628,5 @@ mod tests {
         app.agent_navigation.mark_closed(thread_id);
 
         assert_eq!(app.mcp_inventory_request_thread_id(Some(thread_id)), None);
-    }
-
-    #[test]
-    fn build_feedback_upload_params_includes_thread_id_and_rollout_path() {
-        let thread_id = ThreadId::new();
-        let rollout_path = PathBuf::from("/tmp/rollout.jsonl");
-
-        let params = build_feedback_upload_params(
-            Some(thread_id),
-            Some(rollout_path.clone()),
-            FeedbackCategory::SafetyCheck,
-            Some("needs follow-up".to_string()),
-            Some("turn-123".to_string()),
-            /*include_logs*/ true,
-        );
-
-        assert_eq!(params.classification, "safety_check");
-        assert_eq!(params.reason, Some("needs follow-up".to_string()));
-        assert_eq!(params.thread_id, Some(thread_id.to_string()));
-        assert_eq!(
-            params
-                .tags
-                .as_ref()
-                .and_then(|tags| tags.get("turn_id"))
-                .map(String::as_str),
-            Some("turn-123")
-        );
-        assert_eq!(params.include_logs, true);
-        assert_eq!(params.extra_log_files, Some(vec![rollout_path]));
-    }
-
-    #[test]
-    fn build_feedback_upload_params_omits_rollout_path_without_logs() {
-        let params = build_feedback_upload_params(
-            /*origin_thread_id*/ None,
-            Some(PathBuf::from("/tmp/rollout.jsonl")),
-            FeedbackCategory::GoodResult,
-            /*reason*/ None,
-            /*turn_id*/ None,
-            /*include_logs*/ false,
-        );
-
-        assert_eq!(params.classification, "good_result");
-        assert_eq!(params.reason, None);
-        assert_eq!(params.thread_id, None);
-        assert_eq!(params.tags, None);
-        assert_eq!(params.include_logs, false);
-        assert_eq!(params.extra_log_files, None);
     }
 }

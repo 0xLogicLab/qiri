@@ -4,7 +4,7 @@ expression: help_text
 ---
 [EXPERIMENTAL] Run the standalone exec-server service
 
-Usage: codex exec-server [OPTIONS] [COMMAND]
+Usage: qiri exec-server [OPTIONS] [COMMAND]
 
 Commands:
   forward  Register an existing WebSocket exec-server as a remote environment
@@ -12,12 +12,13 @@ Commands:
 
 Options:
   -c, --config <key=value>
-          Override a configuration value that would otherwise be loaded from
-          `~/.codex/config.toml`. Use a dotted path (`foo.bar.baz`) to override
-          nested values. The `value` portion is parsed as TOML. If it fails to
-          parse as TOML, the raw string is used as a literal.
+          Override a configuration value that would otherwise be loaded from the
+          QIRI configuration file (by default `~/.qiri-codex/config.toml`). Use
+          a dotted path (`foo.bar.baz`) to override nested values. The `value`
+          portion is parsed as TOML. If it fails to parse as TOML, the raw
+          string is used as a literal.
 
-          Examples: - `-c model="o3"` - `-c
+          Examples: - `-c model="DeepSeek-V4-Pro"` - `-c
           'sandbox_permissions=["disk-full-read-access"]'` - `-c
           shell_environment_policy.inherit=all`
 

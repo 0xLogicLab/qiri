@@ -166,6 +166,19 @@ impl ChatWidget {
         cmd: SlashCommand,
         source: SlashCommandDispatchSource,
     ) {
+        if matches!(
+            cmd,
+            SlashCommand::Logout
+                | SlashCommand::Feedback
+                | SlashCommand::Apps
+                | SlashCommand::Plugins
+                | SlashCommand::Usage
+                | SlashCommand::App
+                | SlashCommand::Daybreak
+        ) {
+            self.add_error_message(format!("/{} is not available in QIRI", cmd.command()));
+            return;
+        }
         if cmd != SlashCommand::Copy {
             self.transcript.last_status_copy_targets = None;
         }
@@ -196,52 +209,8 @@ impl ChatWidget {
         }
 
         match cmd {
-            SlashCommand::Daybreak => {
-                if !self.config.features.enabled(Feature::CliDaybreak) {
-                    return;
-                }
-                if !self.daybreak_enabled {
-                    if !self.daybreak_account_eligible() {
-                        self.add_error_message("Daybreak requires the OpenAI provider with either ChatGPT sign-in or an API key with Daybreak support enabled.".into());
-                        return;
-                    }
-                    if !crate::daybreak::available(&self.model_catalog.models) {
-                        if crate::daybreak::availability(&self.model_catalog.models) == Some(false)
-                        {
-                            self.add_info_message(
-                                "Daybreak is not available for this account. Apply at https://openai.com/form/enterprise-trusted-access-for-cyber/. Learn more at https://help.openai.com/en/articles/20001326.".into(),
-                                /*hint*/ None,
-                            );
-                        } else {
-                            self.add_error_message("Daybreak availability could not be determined from the connected host's model catalog.".into());
-                        }
-                        return;
-                    }
-                }
-                let Some(thread_id) = self.thread_id else {
-                    self.add_error_message(
-                        "Daybreak is unavailable until the thread starts.".into(),
-                    );
-                    return;
-                };
-                self.app_event_tx.send(AppEvent::PersistDaybreakSelection {
-                    thread_id,
-                    enabled: !self.daybreak_enabled,
-                });
-            }
-            SlashCommand::Feedback => {
-                if !self.config.feedback_enabled {
-                    let params = crate::bottom_pane::feedback_disabled_params();
-                    self.bottom_pane.show_selection_view(params);
-                    self.request_redraw();
-                    return;
-                }
-                // Step 1: pick a category (UI built in feedback_view)
-                let params =
-                    crate::bottom_pane::feedback_selection_params(self.app_event_tx.clone());
-                self.bottom_pane.show_selection_view(params);
-                self.request_redraw();
-            }
+            SlashCommand::Daybreak => unreachable!("disabled QIRI command"),
+            SlashCommand::Feedback => unreachable!("disabled QIRI command"),
             SlashCommand::New => {
                 self.show_session_checkout_picker(ManagedWorktreeMode::New, /*name*/ None);
             }
@@ -668,6 +637,10 @@ impl ChatWidget {
         args: String,
         text_elements: Vec<TextElement>,
     ) {
+        if matches!(cmd, SlashCommand::Usage) {
+            self.add_error_message(format!("/{} is not available in QIRI", cmd.command()));
+            return;
+        }
         if cmd != SlashCommand::Copy {
             self.transcript.last_status_copy_targets = None;
         }

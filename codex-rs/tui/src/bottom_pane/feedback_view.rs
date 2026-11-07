@@ -35,16 +35,6 @@ pub(crate) fn should_show_feedback_connectivity_details(
     category != FeedbackCategory::GoodResult && !diagnostics.is_empty()
 }
 
-pub(crate) fn feedback_classification(category: FeedbackCategory) -> &'static str {
-    match category {
-        FeedbackCategory::BadResult => "bad_result",
-        FeedbackCategory::GoodResult => "good_result",
-        FeedbackCategory::Bug => "bug",
-        FeedbackCategory::SafetyCheck => "safety_check",
-        FeedbackCategory::Other => "other",
-    }
-}
-
 pub(crate) fn feedback_success_cell(
     category: FeedbackCategory,
     include_logs: bool,
@@ -178,21 +168,6 @@ pub(crate) fn feedback_selection_params(
                 FeedbackCategory::Other,
             ),
         ],
-        ..super::SelectionViewParams::picker()
-    }
-}
-
-/// Build the selection popup params shown when feedback is disabled.
-pub(crate) fn feedback_disabled_params() -> super::SelectionViewParams {
-    super::SelectionViewParams {
-        title: Some("Sending feedback is disabled".to_string()),
-        subtitle: Some("This action is disabled by configuration.".to_string()),
-        footer_hint: Some(standard_popup_hint_line()),
-        items: vec![super::SelectionItem {
-            name: "Close".to_string(),
-            dismiss_on_select: true,
-            ..Default::default()
-        }],
         ..super::SelectionViewParams::picker()
     }
 }

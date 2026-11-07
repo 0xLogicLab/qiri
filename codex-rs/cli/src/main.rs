@@ -11,15 +11,6 @@ use codex_arg0::arg0_dispatch_or_else;
 use codex_chatgpt::apply_command::ApplyCommand;
 use codex_chatgpt::apply_command::run_apply_command;
 use codex_cli::cloud_config;
-use codex_cli::read_access_token_from_stdin;
-use codex_cli::read_api_key_from_stdin;
-use codex_cli::run_login_status;
-use codex_cli::run_login_with_access_token;
-use codex_cli::run_login_with_api_key;
-use codex_cli::run_login_with_browser;
-use codex_cli::run_login_with_device_code;
-use codex_cli::run_logout;
-use codex_cloud_tasks::Cli as CloudTasksCli;
 use codex_exec::Cli as ExecCli;
 use codex_exec::Command as ExecCommand;
 use codex_exec::ReviewArgs;
@@ -53,13 +44,9 @@ use supports_color::Stream;
 #[global_allocator]
 static ALLOCATOR: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
 
-#[cfg(any(target_os = "macos", target_os = "windows"))]
-mod app_cmd;
 mod config_override_args;
 mod daemon_install;
 mod daemon_telemetry;
-#[cfg(any(target_os = "macos", target_os = "windows"))]
-mod desktop_app;
 mod doctor;
 #[cfg(test)]
 #[path = "exec_args_tests.rs"]
@@ -67,11 +54,13 @@ mod exec_args_tests;
 #[cfg(test)]
 #[path = "exec_server_args_tests.rs"]
 mod exec_server_args_tests;
+#[cfg(test)]
 mod marketplace_cmd;
 mod mcp_cmd;
 mod mcp_login;
 mod migrate_nfs_db;
 mod migrate_rollouts;
+#[cfg(test)]
 mod plugin_cmd;
 mod queue_cmd;
 mod remote_control_cmd;
@@ -79,12 +68,10 @@ mod remote_control_cmd;
 mod sandbox_setup;
 mod sandbox_uninstall;
 mod state_db_recovery;
-#[cfg(not(windows))]
-mod wsl_paths;
 
 use crate::mcp_cmd::McpCli;
+#[cfg(test)]
 use crate::plugin_cmd::PluginCli;
-use crate::plugin_cmd::PluginSubcommand;
 use crate::queue_cmd::QueueCommand;
 use crate::remote_control_cmd::RemoteControlCommand;
 use codex_exec_server_cli::ExecServerCommand;
@@ -158,16 +145,12 @@ enum Subcommand {
     /// Run a code review non-interactively.
     Review(ReviewCommand),
 
-    /// Manage login.
-    Login(LoginCommand),
-
-    /// Remove stored authentication credentials.
-    Logout(LogoutCommand),
-
     /// Manage external MCP servers for QIRI.
     Mcp(McpCli),
 
     /// Manage QIRI plugins.
+    #[cfg(test)]
+    #[clap(hide = true)]
     Plugin(PluginCli),
 
     /// [experimental] Run the app server or related tooling.
@@ -178,10 +161,6 @@ enum Subcommand {
 
     /// [experimental] Manage the app-server daemon with remote control enabled.
     RemoteControl(RemoteControlCommand),
-
-    /// Launch the Desktop app (opens the app installer if missing).
-    #[cfg(any(target_os = "macos", target_os = "windows"))]
-    App(app_cmd::AppCommand),
 
     /// Generate shell completion scripts.
     Completion(CompletionCommand),
@@ -229,10 +208,6 @@ enum Subcommand {
 
     /// Fork a previous interactive session (picker by default; use --last to fork the most recent).
     Fork(ForkCommand),
-
-    /// [EXPERIMENTAL] Browse remote QIRI tasks and apply changes locally.
-    #[clap(name = "cloud", alias = "cloud-tasks")]
-    Cloud(CloudTasksCli),
 
     /// Internal: run the responses API proxy.
     #[clap(hide = true)]
@@ -519,61 +494,6 @@ enum ExecpolicySubcommand {
 }
 
 #[derive(Debug, Parser)]
-struct LoginCommand {
-    #[clap(skip)]
-    config_overrides: CliConfigOverrides,
-
-    #[arg(
-        long = "with-api-key",
-        help = "Read the API key from stdin (e.g. `printenv OPENAI_API_KEY | qiri login --with-api-key`)"
-    )]
-    with_api_key: bool,
-
-    #[arg(
-        long = "with-access-token",
-        help = "Read the access token from stdin (e.g. `printenv CODEX_ACCESS_TOKEN | qiri login --with-access-token`)"
-    )]
-    with_access_token: bool,
-
-    #[arg(
-        long = "api-key",
-        num_args = 0..=1,
-        default_missing_value = "",
-        value_name = "API_KEY",
-        help = "(deprecated) Previously accepted the API key directly; now exits with guidance to use --with-api-key",
-        hide = true
-    )]
-    api_key: Option<String>,
-
-    #[arg(long = "device-auth")]
-    use_device_code: bool,
-
-    /// EXPERIMENTAL: Use custom OAuth issuer base URL (advanced)
-    /// Override the OAuth issuer base URL (advanced)
-    #[arg(long = "experimental_issuer", value_name = "URL", hide = true)]
-    issuer_base_url: Option<String>,
-
-    /// EXPERIMENTAL: Use custom OAuth client ID (advanced)
-    #[arg(long = "experimental_client-id", value_name = "CLIENT_ID", hide = true)]
-    client_id: Option<String>,
-
-    #[command(subcommand)]
-    action: Option<LoginSubcommand>,
-}
-
-#[derive(Debug, clap::Subcommand)]
-enum LoginSubcommand {
-    /// Show login status.
-    Status,
-}
-
-#[derive(Debug, Parser)]
-struct LogoutCommand {
-    #[clap(skip)]
-    config_overrides: CliConfigOverrides,
-}
-
-#[derive(Debug, Parser)]
 struct AppServerCommand {
     #[command(flatten)]
     startup_config: codex_app_server::StartupConfigArgs,
@@ -837,76 +757,12 @@ fn run_update_action(
         println!("Relaunch QIRI to reconnect.");
         return Ok(());
     }
-    println!();
-    let cmd_str = action.command_str();
-    println!("Updating QIRI via `{cmd_str}`...");
-    let status = {
-        #[cfg(windows)]
-        {
-            let (cmd, args) = action.command_args();
-            let cmd = if action == UpdateAction::StandaloneWindows {
-                // These args contain PowerShell metacharacters, so do not let
-                // PATHEXT select a batch shim for this action.
-                "powershell.exe"
-            } else {
-                cmd
-            };
-            let path_env =
-                std::env::var_os("PATH").ok_or_else(|| anyhow::anyhow!("PATH is not set"))?;
-            let command_path = resolve_windows_update_command_from_path(cmd, &path_env)?;
-            // Do not let a project-local command or package-manager config
-            // influence the updater after the user accepts the update prompt.
-            let update_cwd = tempfile::tempdir()?;
-            // Resolve through PATH without consulting the project cwd. When
-            // this returns a .cmd/.bat shim, std::process::Command routes the
-            // absolute path through the system command processor.
-            std::process::Command::new(command_path)
-                .args(args)
-                .current_dir(update_cwd.path())
-                .status()?
-        }
-        #[cfg(not(windows))]
-        {
-            let (cmd, args) = action.command_args();
-            let command_path = crate::wsl_paths::normalize_for_wsl(cmd);
-            let normalized_args: Vec<String> = args
-                .iter()
-                .map(crate::wsl_paths::normalize_for_wsl)
-                .collect();
-            std::process::Command::new(&command_path)
-                .args(&normalized_args)
-                // Package managers search parent directories for project config and hooks.
-                .current_dir("/")
-                .status()?
-        }
-    };
-    if !status.success() {
-        anyhow::bail!("`{cmd_str}` failed with status {status}");
-    }
-    println!("\nUpdate ran successfully. Please restart QIRI.");
-    Ok(())
-}
-
-#[cfg(windows)]
-fn resolve_windows_update_command_from_path(
-    command: &str,
-    path_env: &std::ffi::OsStr,
-) -> anyhow::Result<PathBuf> {
-    let path_env =
-        std::env::join_paths(std::env::split_paths(path_env).filter(|path| path.is_absolute()))?;
-    if path_env.is_empty() {
-        anyhow::bail!(
-            "Could not find an absolute update command `{command}` on PATH. Please update manually: https://developers.openai.com/codex/cli/"
-        );
-    }
-    which::which_in_global(command, Some(&path_env))?
-        .next()
-        .ok_or_else(|| anyhow::anyhow!("could not find update command `{command}` on PATH"))
+    run_update_command()
 }
 
 fn run_update_command() -> anyhow::Result<()> {
     anyhow::bail!(
-        "QIRI self-update is not available. Rebuild and reinstall QIRI from its source checkout."
+        "QIRI updates are not published yet. Contact your QIRI administrator for an update."
     );
 }
 
@@ -1072,6 +928,12 @@ async fn dispatch_cli(
         subcommand,
     } = config_override_args::try_parse_from(std::env::args_os())
         .unwrap_or_else(|error| error.exit());
+    if subcommand.is_none()
+        && let Some(name @ ("login" | "logout" | "cloud" | "cloud-tasks" | "plugin")) =
+            interactive.prompt.as_deref()
+    {
+        anyhow::bail!("`qiri {name}` is not supported by QIRI");
+    }
     // Retain the launch target through TUI exit, even if a launcher changes selection.
     let daemon_cli_executable = arg0_paths
         .codex_self_exe
@@ -1093,7 +955,7 @@ async fn dispatch_cli(
         && let Some(agents_endpoint) = &options.remote.remote
         && root_endpoint != agents_endpoint
     {
-        anyhow::bail!("`codex agents` received conflicting remote server endpoints");
+        anyhow::bail!("`qiri agents` received conflicting remote server endpoints");
     }
     let root_remote = agents_options
         .and_then(|options| options.remote.remote.clone())
@@ -1129,7 +991,7 @@ async fn dispatch_cli(
             );
             if open_agents_overview {
                 if interactive.prompt.is_some() || !interactive.images.is_empty() {
-                    anyhow::bail!("`codex agents` does not accept an initial prompt or images");
+                    anyhow::bail!("`qiri agents` does not accept an initial prompt or images");
                 }
                 if root_remote.is_some()
                     && (interactive.oss
@@ -1147,7 +1009,7 @@ async fn dispatch_cli(
                             }))
                 {
                     anyhow::bail!(
-                        "`codex agents` cannot apply local provider or additional-directory overrides to a remote server"
+                        "`qiri agents` cannot apply local provider or additional-directory overrides to a remote server"
                     );
                 }
                 interactive.agents_overview = true;
@@ -1211,41 +1073,9 @@ async fn dispatch_cli(
                 loader_overrides_for_profile(interactive.config_profile_v2.as_ref())?;
             mcp_cli.run(loader_overrides).await?;
         }
-        Some(Subcommand::Plugin(plugin_cli)) => {
-            reject_remote_mode_for_subcommand(
-                root_remote.as_deref(),
-                root_remote_auth_token_env.as_deref(),
-                "plugin",
-            )?;
-            let PluginCli {
-                mut config_overrides,
-                subcommand,
-            } = plugin_cli;
-            prepend_config_flags(&mut config_overrides, root_config_overrides.clone());
-            match subcommand {
-                PluginSubcommand::Add(args) => {
-                    let overrides = config_overrides
-                        .parse_overrides()
-                        .map_err(anyhow::Error::msg)?;
-                    plugin_cmd::run_plugin_add(overrides, args).await?;
-                }
-                PluginSubcommand::List(args) => {
-                    let overrides = config_overrides
-                        .parse_overrides()
-                        .map_err(anyhow::Error::msg)?;
-                    plugin_cmd::run_plugin_list(overrides, args).await?;
-                }
-                PluginSubcommand::Marketplace(mut marketplace_cli) => {
-                    prepend_config_flags(&mut marketplace_cli.config_overrides, config_overrides);
-                    marketplace_cli.run().await?;
-                }
-                PluginSubcommand::Remove(args) => {
-                    let overrides = config_overrides
-                        .parse_overrides()
-                        .map_err(anyhow::Error::msg)?;
-                    plugin_cmd::run_plugin_remove(overrides, args).await?;
-                }
-            }
+        #[cfg(test)]
+        Some(Subcommand::Plugin(_)) => {
+            anyhow::bail!("QIRI does not support upstream plugin marketplaces")
         }
         Some(Subcommand::Serve(serve_cli)) => {
             reject_remote_mode_for_subcommand(
@@ -1465,51 +1295,13 @@ async fn dispatch_cli(
                     } => return Ok(None),
                     AppServerDaemonSubcommand::Update {
                         from_cli: false, ..
+                    } => {
+                        anyhow::bail!("QIRI does not use upstream daemon releases; use --from-cli")
                     }
-                    | AppServerDaemonSubcommand::PidUpdateLoop {
+                    AppServerDaemonSubcommand::PidUpdateLoop {
                         check_package_ownership: false,
                         ..
-                    } => {
-                        let cli_overrides = root_config_overrides
-                            .parse_overrides()
-                            .map_err(anyhow::Error::msg)?;
-                        let config = ConfigBuilder::default()
-                            .cli_overrides(cli_overrides)
-                            .build()
-                            .await
-                            .map_err(anyhow::Error::from);
-                        let http_client_factory = updater_http_client_factory(config)?;
-                        if matches!(
-                            daemon_cli.subcommand,
-                            AppServerDaemonSubcommand::Update { .. }
-                        ) {
-                            let result = codex_app_server_daemon::update(http_client_factory)
-                                .await
-                                .map(Some);
-                            daemon_telemetry::record_command(
-                                &root_config_overrides,
-                                analytics_default_enabled,
-                                "public_stable",
-                                &result,
-                            )
-                            .await;
-                            if let Some(output) = result? {
-                                println!("{}", serde_json::to_string(&output)?);
-                            }
-                        } else {
-                            let AppServerDaemonSubcommand::PidUpdateLoop {
-                                restore_release, ..
-                            } = daemon_cli.subcommand
-                            else {
-                                unreachable!()
-                            };
-                            codex_app_server_daemon::run_pid_update_loop(
-                                http_client_factory,
-                                restore_release,
-                            )
-                            .await?;
-                        }
-                    }
+                    } => anyhow::bail!("QIRI daemon automatic updates are not configured"),
                 },
                 Some(AppServerSubcommand::Proxy(proxy_cli)) => {
                     let socket_path = match proxy_cli.socket_path {
@@ -1557,15 +1349,6 @@ async fn dispatch_cli(
                 root_config_overrides,
             )
             .await?;
-        }
-        #[cfg(any(target_os = "macos", target_os = "windows"))]
-        Some(Subcommand::App(app_cli)) => {
-            reject_remote_mode_for_subcommand(
-                root_remote.as_deref(),
-                root_remote_auth_token_env.as_deref(),
-                "app",
-            )?;
-            app_cmd::run_app(app_cli).await?;
         }
         Some(Subcommand::Resume(ResumeCommand {
             session_id,
@@ -1688,62 +1471,6 @@ async fn dispatch_cli(
                 arg0_paths,
             )));
         }
-        Some(Subcommand::Login(mut login_cli)) => {
-            reject_remote_mode_for_subcommand(
-                root_remote.as_deref(),
-                root_remote_auth_token_env.as_deref(),
-                "login",
-            )?;
-            prepend_config_flags(
-                &mut login_cli.config_overrides,
-                root_config_overrides.clone(),
-            );
-            match login_cli.action {
-                Some(LoginSubcommand::Status) => {
-                    run_login_status(login_cli.config_overrides).await;
-                }
-                None => {
-                    if login_cli.with_api_key && login_cli.with_access_token {
-                        eprintln!(
-                            "Choose one login credential source: --with-api-key or --with-access-token."
-                        );
-                        std::process::exit(1);
-                    } else if login_cli.use_device_code {
-                        run_login_with_device_code(
-                            login_cli.config_overrides,
-                            login_cli.issuer_base_url,
-                            login_cli.client_id,
-                        )
-                        .await;
-                    } else if login_cli.api_key.is_some() {
-                        eprintln!(
-                            "The --api-key flag is no longer supported. Pipe the key instead, e.g. `printenv OPENAI_API_KEY | codex login --with-api-key`."
-                        );
-                        std::process::exit(1);
-                    } else if login_cli.with_api_key {
-                        let api_key = read_api_key_from_stdin();
-                        run_login_with_api_key(login_cli.config_overrides, api_key).await;
-                    } else if login_cli.with_access_token {
-                        let access_token = read_access_token_from_stdin();
-                        run_login_with_access_token(login_cli.config_overrides, access_token).await;
-                    } else {
-                        run_login_with_browser(login_cli.config_overrides).await;
-                    }
-                }
-            }
-        }
-        Some(Subcommand::Logout(mut logout_cli)) => {
-            reject_remote_mode_for_subcommand(
-                root_remote.as_deref(),
-                root_remote_auth_token_env.as_deref(),
-                "logout",
-            )?;
-            prepend_config_flags(
-                &mut logout_cli.config_overrides,
-                root_config_overrides.clone(),
-            );
-            run_logout(logout_cli.config_overrides).await;
-        }
         Some(Subcommand::Completion(completion_cli)) => {
             reject_remote_mode_for_subcommand(
                 root_remote.as_deref(),
@@ -1773,19 +1500,6 @@ async fn dispatch_cli(
                 &arg0_paths,
             )
             .await?;
-        }
-        Some(Subcommand::Cloud(mut cloud_cli)) => {
-            reject_remote_mode_for_subcommand(
-                root_remote.as_deref(),
-                root_remote_auth_token_env.as_deref(),
-                "cloud",
-            )?;
-            prepend_config_flags(
-                &mut cloud_cli.config_overrides,
-                root_config_overrides.clone(),
-            );
-            codex_cloud_tasks::run_main(cloud_cli, arg0_paths.codex_linux_sandbox_exe.clone())
-                .await?;
         }
         Some(Subcommand::Sandbox(SandboxCommand {
             host: mut sandbox_cli,
@@ -1847,7 +1561,7 @@ async fn dispatch_cli(
             #[cfg(not(any(target_os = "macos", target_os = "linux", target_os = "windows")))]
             {
                 let _ = loader_overrides;
-                anyhow::bail!("`codex sandbox` is not supported on this operating system");
+                anyhow::bail!("`qiri sandbox` is not supported on this operating system");
             }
         }
         Some(Subcommand::Debug(DebugCommand { subcommand })) => match subcommand {
@@ -2028,7 +1742,7 @@ fn profile_v2_for_subcommand<'a>(
             subcommand: DebugSubcommand::PromptInput(_),
         }) => Ok(Some(profile_v2)),
         _ => anyhow::bail!(
-            "--profile only applies to runtime commands, `codex mcp`, and `codex migrate-nfs-db`: `codex`, `codex exec`, `codex review`, `codex resume`, `codex queue`, `codex archive`, `codex delete`, `codex unarchive`, `codex fork`, `codex mcp`, `codex migrate-nfs-db`, `codex sandbox`, and `codex debug prompt-input`."
+            "--profile only applies to runtime commands, `qiri mcp`, and `qiri migrate-nfs-db`: `qiri`, `qiri exec`, `qiri review`, `qiri resume`, `qiri queue`, `qiri archive`, `qiri delete`, `qiri unarchive`, `qiri fork`, `qiri mcp`, `qiri migrate-nfs-db`, `qiri sandbox`, and `qiri debug prompt-input`."
         ),
     }
 }
@@ -2301,12 +2015,12 @@ fn reject_remote_mode_for_subcommand(
 ) -> anyhow::Result<()> {
     if let Some(remote) = remote {
         anyhow::bail!(
-            "`--remote {remote}` is only supported for interactive TUI commands, not `codex {subcommand}`"
+            "`--remote {remote}` is only supported for interactive TUI commands, not `qiri {subcommand}`"
         );
     }
     if remote_auth_token_env.is_some() {
         anyhow::bail!(
-            "`--remote-auth-token-env` is only supported for interactive TUI commands, not `codex {subcommand}`"
+            "`--remote-auth-token-env` is only supported for interactive TUI commands, not `qiri {subcommand}`"
         );
     }
     Ok(())
@@ -2336,12 +2050,12 @@ fn reject_unsupported_worktree_for_subcommand(
         None => Ok(()),
         Some(Subcommand::Fork(command)) if command.session_id.is_some() && !command.last => Ok(()),
         Some(Subcommand::Fork(_)) => {
-            anyhow::bail!("`codex fork --worktree` requires an explicit session ID")
+            anyhow::bail!("`qiri fork --worktree` requires an explicit session ID")
         }
         Some(Subcommand::Exec(command)) => match &command.command {
             None | Some(ExecCommand::Fork(_)) => Ok(()),
             Some(ExecCommand::Resume(_)) => anyhow::bail!(
-                "`--worktree` cannot resume an existing session; use `codex exec fork --worktree`"
+                "`--worktree` cannot resume an existing session; use `qiri exec fork --worktree`"
             ),
             Some(ExecCommand::Review(_)) => {
                 anyhow::bail!("`--worktree` is not supported for code review")
@@ -2349,7 +2063,7 @@ fn reject_unsupported_worktree_for_subcommand(
         },
         _ => {
             anyhow::bail!(
-                "`--worktree` supports new interactive sessions, `codex fork`, `codex exec`, and `codex exec fork`"
+                "`--worktree` supports new interactive sessions, `qiri fork`, `qiri exec`, and `qiri exec fork`"
             )
         }
     }
@@ -2406,16 +2120,12 @@ fn unsupported_subcommand_name_for_strict_config(
         }
         Some(Subcommand::RemoteControl(remote_control)) => Some(remote_control.subcommand_name()),
         Some(Subcommand::Mcp(_)) => Some("mcp"),
+        #[cfg(test)]
         Some(Subcommand::Plugin(_)) => Some("plugin"),
         Some(Subcommand::MigrateRollouts(_)) => Some("migrate-rollouts"),
         Some(Subcommand::MigrateNfsDb(_)) => Some("migrate-nfs-db"),
-        #[cfg(any(target_os = "macos", target_os = "windows"))]
-        Some(Subcommand::App(_)) => Some("app"),
-        Some(Subcommand::Login(_)) => Some("login"),
-        Some(Subcommand::Logout(_)) => Some("logout"),
         Some(Subcommand::Completion(_)) => Some("completion"),
         Some(Subcommand::Update) => Some("update"),
-        Some(Subcommand::Cloud(_)) => Some("cloud"),
         Some(Subcommand::Sandbox(_)) => Some("sandbox"),
         Some(Subcommand::Debug(_)) => Some("debug"),
         Some(Subcommand::Execpolicy(_)) => Some("execpolicy"),
@@ -2445,7 +2155,7 @@ fn reject_strict_config_for_unsupported_subcommand(
     subcommand: &str,
 ) -> anyhow::Result<()> {
     if strict_config {
-        anyhow::bail!("`--strict-config` is not supported for `codex {subcommand}`");
+        anyhow::bail!("`--strict-config` is not supported for `qiri {subcommand}`");
     }
     Ok(())
 }
@@ -2490,14 +2200,6 @@ async fn print_app_server_daemon_output(command: AppServerLifecycleCommand) -> a
     let output = codex_app_server_daemon::run(command).await?;
     println!("{}", serde_json::to_string(&output)?);
     Ok(())
-}
-
-fn updater_http_client_factory(
-    config: anyhow::Result<codex_core::config::Config>,
-) -> anyhow::Result<codex_http_client::HttpClientFactory> {
-    let mut config = config?;
-    codex_app_server::in_process::EmbeddedNetworkPolicy::default().activate(&mut config);
-    Ok(config.http_client_factory())
 }
 
 async fn print_app_server_remote_control_output(
@@ -2853,127 +2555,18 @@ mod tests {
         assert!(size < 64 * 1024, "interactive TUI future is {size} bytes");
     }
 
-    #[cfg(windows)]
     #[test]
-    fn windows_update_command_resolution_ignores_relative_path_entries() {
-        let cwd = std::env::current_dir().expect("current directory");
-        let decoy_dir = tempfile::tempdir_in(&cwd).expect("relative decoy directory");
-        let trusted_dir = tempfile::tempdir().expect("trusted PATH directory");
-        let relative_decoy_dir = decoy_dir
-            .path()
-            .strip_prefix(&cwd)
-            .expect("decoy directory should be relative to cwd");
-
-        for command in ["npm.cmd", "pnpm.cmd", "bun.exe"] {
-            std::fs::write(decoy_dir.path().join(command), "decoy")
-                .expect("write cwd-relative decoy");
-            std::fs::write(trusted_dir.path().join(command), "trusted")
-                .expect("write trusted PATH command");
-            let path_env = std::env::join_paths([relative_decoy_dir, trusted_dir.path()])
-                .expect("join synthetic PATH");
-
-            let resolved = resolve_windows_update_command_from_path(command, &path_env)
-                .expect("resolve update command");
-
-            assert_eq!(resolved, trusted_dir.path().join(command));
-        }
-
-        let cwd_decoy = tempfile::Builder::new()
-            .suffix(".cmd")
-            .tempfile_in(&cwd)
-            .expect("cwd-local decoy");
-        let command = cwd_decoy
-            .path()
-            .file_name()
-            .and_then(|name| name.to_str())
-            .expect("decoy filename");
-        let relative_only_path_env = std::env::join_paths(["."]).expect("join relative-only PATH");
-        let err = resolve_windows_update_command_from_path(command, &relative_only_path_env)
-            .expect_err("relative-only PATH should not resolve a cwd command");
-
-        assert_eq!(
-            err.to_string(),
-            format!(
-                "Could not find an absolute update command `{command}` on PATH. Please update manually: https://developers.openai.com/codex/cli/"
-            )
-        );
-    }
-
-    #[tokio::test]
-    async fn updater_http_client_factory_honors_respect_system_proxy() {
-        let codex_home = tempfile::tempdir().expect("temporary Codex home");
-        let config = ConfigBuilder::default()
-            .codex_home(codex_home.path().to_path_buf())
-            .cli_overrides(vec![(
-                "features.respect_system_proxy".to_string(),
-                toml::Value::Boolean(true),
-            )])
-            .build()
-            .await
-            .expect("config should load");
-
-        assert_eq!(
-            updater_http_client_factory(Ok(config))
-                .expect("updater configuration")
-                .outbound_proxy_policy(),
-            codex_http_client::OutboundProxyPolicy::RespectSystemProxy
-        );
-    }
-
-    #[test]
-    fn updater_http_client_factory_propagates_config_errors() {
-        assert_eq!(
-            updater_http_client_factory(Err(anyhow::anyhow!("invalid config")))
-                .expect_err("invalid configuration must prevent updates")
-                .to_string(),
-            "invalid config"
-        );
-    }
-
-    #[tokio::test]
-    async fn updater_http_client_factory_enforces_application_requirements() {
-        let home = tempfile::tempdir().expect("temporary Codex home");
-        let requirements = home.path().join("requirements.toml");
-        std::fs::write(
-            &requirements,
-            r#"
-[application.network]
-enabled = true
-[application.network.domains]
-"bedrock-mantle.us-gov-west-1.api.aws" = "allow"
-"chatgpt.com" = "deny"
-"releases.openai.com" = "deny"
-"#,
-        )
-        .expect("write managed requirements");
-        let mut overrides = LoaderOverrides::without_managed_config_for_tests();
-        overrides.system_requirements_path = Some(requirements);
-        let config = ConfigBuilder::default()
-            .codex_home(home.path().to_path_buf())
-            .loader_overrides(overrides)
-            .build()
-            .await
-            .expect("load managed configuration");
-        let factory = updater_http_client_factory(Ok(config)).expect("updater configuration");
-        for host in ["chatgpt.com", "releases.openai.com", "unlisted.example"] {
-            assert_eq!(
-                factory
-                    .network_policy()
-                    .acquire(&format!("https://{host}/").parse().expect("URL"))
-                    .err(),
-                Some(codex_http_client::NetworkPolicyDenied::Destination)
+    fn qiri_removes_upstream_account_and_cloud_commands() {
+        for name in ["login", "logout", "cloud", "cloud-tasks"] {
+            let cli = MultitoolCli::try_parse_from(["qiri", name]).expect("parse prompt");
+            assert!(
+                cli.subcommand.is_none(),
+                "{name} must not dispatch a command"
             );
+            assert_eq!(cli.interactive.prompt.as_deref(), Some(name));
         }
-        assert!(
-            factory
-                .network_policy()
-                .acquire(
-                    &"https://bedrock-mantle.us-gov-west-1.api.aws/"
-                        .parse()
-                        .expect("URL")
-                )
-                .is_ok()
-        );
+        let cli = MultitoolCli::try_parse_from(["qiri", "update"]).expect("parse update");
+        assert!(matches!(cli.subcommand, Some(Subcommand::Update)));
     }
 
     fn finalize_resume_from_args(args: &[&str]) -> TuiCli {
@@ -4468,7 +4061,7 @@ enabled = true
 
         assert_eq!(
             err.to_string(),
-            "`--strict-config` is not supported for `codex mcp`"
+            "`--strict-config` is not supported for `qiri mcp`"
         );
 
         let cli = MultitoolCli::try_parse_from(["codex", "--strict-config", "remote-control"])

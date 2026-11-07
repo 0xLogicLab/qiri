@@ -29,7 +29,7 @@ impl Default for DaemonSettings {
         Self {
             remote_control_enabled: false,
             feature_overrides: BTreeMap::new(),
-            auto_update_enabled: true,
+            auto_update_enabled: false,
             update_interval_minutes: DEFAULT_UPDATE_INTERVAL_MINUTES,
             shutdown_grace_seconds: DEFAULT_SHUTDOWN_GRACE_SECONDS,
         }
@@ -85,7 +85,7 @@ impl Default for UpdaterSettings {
 }
 
 fn default_auto_update_enabled() -> bool {
-    true
+    false
 }
 
 fn default_update_interval_minutes() -> u32 {
@@ -110,7 +110,10 @@ impl UpdaterSettings {
         validate_shutdown_grace(settings.shutdown_grace_seconds)?;
         let settings = settings.updater;
         settings.validate()?;
-        Ok(settings)
+        Ok(Self {
+            auto_update_enabled: false,
+            ..settings
+        })
     }
 
     pub(crate) fn validate(&self) -> Result<()> {
@@ -134,7 +137,7 @@ impl DaemonSettings {
         Ok(Self {
             remote_control_enabled: settings.remote_control_enabled,
             feature_overrides: settings.feature_overrides,
-            auto_update_enabled: settings.updater.auto_update_enabled,
+            auto_update_enabled: false,
             update_interval_minutes: settings.updater.update_interval_minutes,
             shutdown_grace_seconds: settings.shutdown_grace_seconds,
         })
@@ -202,14 +205,7 @@ pub(crate) async fn telemetry_tags(path: &Path) -> Result<[(&'static str, &'stat
     let updater = raw.get("updater");
     let presence = |configured| if configured { "configured" } else { "default" };
     Ok([
-        (
-            "auto_update",
-            if settings.updater.auto_update_enabled {
-                "enabled"
-            } else {
-                "disabled"
-            },
-        ),
+        ("auto_update", "disabled"),
         (
             "auto_update_setting",
             presence(updater.is_some_and(|value| value.get("autoUpdateEnabled").is_some())),

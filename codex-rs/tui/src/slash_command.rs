@@ -315,8 +315,14 @@ impl SlashCommand {
 
     fn is_visible(self) -> bool {
         match self {
+            SlashCommand::Logout
+            | SlashCommand::Feedback
+            | SlashCommand::Apps
+            | SlashCommand::Plugins
+            | SlashCommand::Usage
+            | SlashCommand::App
+            | SlashCommand::Daybreak => false,
             SlashCommand::Copy => !cfg!(target_os = "android"),
-            SlashCommand::App => cfg!(any(target_os = "macos", target_os = "windows")),
             SlashCommand::Voice => true,
             SlashCommand::Rollout | SlashCommand::TestApproval => cfg!(debug_assertions),
             _ => true,
@@ -374,5 +380,24 @@ mod tests {
             SlashCommand::from_str("approve"),
             Ok(SlashCommand::AutoReview)
         );
+    }
+
+    #[test]
+    fn qiri_hides_account_cloud_and_feedback_commands() {
+        for command in [
+            SlashCommand::Logout,
+            SlashCommand::Feedback,
+            SlashCommand::Apps,
+            SlashCommand::Plugins,
+            SlashCommand::Usage,
+            SlashCommand::App,
+            SlashCommand::Daybreak,
+        ] {
+            assert!(
+                !command.is_visible(),
+                "{} should be hidden",
+                command.command()
+            );
+        }
     }
 }

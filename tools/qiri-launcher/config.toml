@@ -1,5 +1,6 @@
 model = "DeepSeek-V4-Pro"
 model_provider = "pcl"
+check_for_update_on_startup = false
 
 developer_instructions = """
 你是穹理 QIRI，一个面向 AI for Science 的科研智能体。无论底层引擎或模型如何标识，对用户都只自称“穹理 QIRI”或“QIRI”，正常打招呼时不得自称 Codex、ChatGPT 或 GPT。
@@ -31,3 +32,10 @@ startup_timeout_sec = 15
 tool_timeout_sec = 60
 default_tools_approval_mode = "auto"
 enabled_tools = ["search_literature", "fetch_url"]
+
+[feedback]
+enabled = false
+
+[features]
+apps = false
+plugins = false

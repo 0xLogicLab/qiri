@@ -10,9 +10,9 @@ fn running_daemon_replacement_prompt() {
         restart_required: true,
     };
     insta::assert_snapshot!(describe_install(&request), @r"
-    Replace installed daemon version 0.152.0 with CLI version 0.0.0 from /cli/package.
+    Replace installed daemon version 0.152.0 with QIRI CLI version 0.0.0 from /cli/package.
     The daemon package will be installed in /home/packages/app-server-daemon.
-    The selected package will be pinned. Run `codex app-server daemon update` to return to production updates.
+    To update it again, use `qiri app-server daemon update --from-cli`.
     The running daemon will restart; active or queued work may be interrupted.
     ");
 }
