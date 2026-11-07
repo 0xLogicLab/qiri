@@ -23,3 +23,12 @@ fn extract_prompt_request_recognizes_qiri_delimiter() {
         )
     );
 }
+
+#[test]
+fn extract_prompt_request_uses_last_delimiter_across_brands() {
+    let message = "## My request for QIRI: first\n## My request for Codex: last";
+    assert_eq!(
+        extract_prompt_request_with_offset(message),
+        ("last", message.find("last").unwrap())
+    );
+}

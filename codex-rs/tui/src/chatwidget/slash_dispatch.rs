@@ -38,7 +38,7 @@ const SIDE_SLASH_COMMAND_UNAVAILABLE_HINT: &str =
     "Press Ctrl+C to return to the main thread first.";
 const GOAL_USAGE_HINT: &str = "Example: /goal improve benchmark coverage";
 const RAW_USAGE: &str = "Usage: /raw [on|off]";
-const USAGE_CHATGPT_LOGIN_REQUIRED: &str = "Sign in with ChatGPT to use /usage.";
+const USAGE_PROVIDER_UNAVAILABLE: &str = "Usage data is unavailable for the active model provider.";
 
 impl ChatWidget {
     /// Dispatch a bare slash command and record its staged local-history entry.
@@ -1251,7 +1251,7 @@ impl ChatWidget {
         if self.has_codex_backend_auth {
             return true;
         }
-        self.add_error_message(USAGE_CHATGPT_LOGIN_REQUIRED.to_string());
+        self.add_error_message(USAGE_PROVIDER_UNAVAILABLE.to_string());
         false
     }
 

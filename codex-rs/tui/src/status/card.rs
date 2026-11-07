@@ -766,11 +766,9 @@ impl StatusHistoryCell {
                 (Some(email), Some(plan)) => format!("{email} ({plan})"),
                 (Some(email), None) => email.clone(),
                 (None, Some(plan)) => plan.clone(),
-                (None, None) => "ChatGPT".to_string(),
+                (None, None) => "Account".to_string(),
             },
-            StatusAccountDisplay::ApiKey => {
-                "API key configured (run qiri login to use ChatGPT)".to_string()
-            }
+            StatusAccountDisplay::ApiKey => "API key configured".to_string(),
         });
 
         let workspace = match &self.account {
@@ -803,7 +801,7 @@ impl StatusHistoryCell {
             push_label(&mut labels, &mut seen, "Account");
         }
         if workspace.is_some() {
-            push_label(&mut labels, &mut seen, "ChatGPT workspace");
+            push_label(&mut labels, &mut seen, "Workspace");
         }
         if thread_name.is_some() {
             push_label(&mut labels, &mut seen, "Thread name");
@@ -868,7 +866,7 @@ impl StatusHistoryCell {
             lines.push(formatter.line("Account", vec![Span::from(account_value)]));
         }
         if let Some(workspace) = workspace {
-            lines.push(formatter.line("ChatGPT workspace", vec![Span::from(workspace.to_owned())]));
+            lines.push(formatter.line("Workspace", vec![Span::from(workspace.to_owned())]));
         }
 
         if let Some(thread_name) = thread_name {

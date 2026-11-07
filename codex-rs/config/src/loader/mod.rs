@@ -190,7 +190,7 @@ pub async fn load_config_layers_state(
         let config = toml::from_str(raw_toml).map_err(|error| {
             io::Error::new(
                 io::ErrorKind::InvalidData,
-                format!("invalid embedded packaged defaults; this is a Codex build error: {error}"),
+                format!("invalid embedded packaged defaults; this is a QIRI build error: {error}"),
             )
         })?;
         ConfigLayerEntry::new_with_raw_toml(

@@ -301,7 +301,7 @@ pub(crate) fn ignored_config_warning(
     let count = fields.len();
     let setting = if count == 1 { "setting" } else { "settings" };
     let mut warning = format!(
-        "Codex is ignoring {count} unrecognized configuration {setting}. Check for typos or deprecated settings."
+        "QIRI is ignoring {count} unrecognized configuration {setting}. Check for typos or deprecated settings."
     );
     for (source, path) in fields.iter().take(3) {
         let source = bounded_label(source);
