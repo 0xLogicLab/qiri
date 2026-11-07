@@ -17,6 +17,19 @@ use crate::install_lock::acquire_install_lock;
 use crate::managed_install;
 use crate::settings::DaemonSettings;
 
+#[derive(Debug)]
+pub struct CompletePackageUnavailable;
+
+impl std::fmt::Display for CompletePackageUnavailable {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        formatter.write_str(
+            "this CLI has no complete local package; install a packaged QIRI CLI or use the standalone installer",
+        )
+    }
+}
+
+impl std::error::Error for CompletePackageUnavailable {}
+
 /// The complete CLI package offered for a daemon installation.
 pub struct InstallRequest {
     pub source: PathBuf,
@@ -145,9 +158,7 @@ async fn prepare_from_package(
             "the selected daemon package is incomplete; repair its installation before starting"
         );
     }
-    let source = source.context(
-        "this CLI has no complete local package; install a packaged QIRI CLI or use the standalone installer",
-    )?;
+    let source = source.ok_or(CompletePackageUnavailable)?;
     anyhow::ensure!(
         !root.canonicalize()?.starts_with(source.canonicalize()?),
         "CODEX_HOME must be outside the source CLI package"
