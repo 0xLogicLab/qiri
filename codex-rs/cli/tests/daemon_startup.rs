@@ -16,6 +16,12 @@ async fn auto_daemon_start_attaches_to_shared_server() -> Result<()> {
 
 #[tokio::test]
 #[cfg(unix)]
+async fn unpackaged_cli_auto_start_uses_embedded_server() -> Result<()> {
+    daemon_startup("unpackaged").await
+}
+
+#[tokio::test]
+#[cfg(unix)]
 async fn agents_can_offer_restart_for_managed_daemon() -> Result<()> {
     daemon_startup("agents").await
 }
@@ -187,13 +193,20 @@ async fn daemon_startup(command: &str) -> Result<()> {
         home.path().join("config.toml"),
         format!(
             "model = \"gpt-5.6-terra\"\n\
+         {}\
          cli_auth_credentials_store = \"file\"\n\
          suppress_unstable_features_warning = true\nanalytics.enabled = false\n\
          windows.sandbox = \"unelevated\"\n\
          tui.disable_paste_burst = true\n\
          {}\n\
          notice.model_migrations.\"gpt-5.6-terra\" = \"gpt-6-sol\"\n\
-         [projects.{}]\ntrust_level = \"{}\"\n",
+         [projects.{}]\ntrust_level = \"{}\"\n\
+         {}",
+            if command == "unpackaged" {
+                "model_provider = \"test\"\n"
+            } else {
+                ""
+            },
             if command == "start" {
                 "features.daemon_auto_start=false"
             } else if command == "discovered" {
@@ -208,6 +221,15 @@ async fn daemon_startup(command: &str) -> Result<()> {
                 "untrusted"
             } else {
                 "trusted"
+            },
+            if command == "unpackaged" {
+                "[model_providers.test]\n\
+                 name = \"Test\"\n\
+                 base_url = \"http://127.0.0.1:9/v1\"\n\
+                 wire_api = \"responses\"\n\
+                 requires_openai_auth = false\n"
+            } else {
+                ""
             },
         ),
     )?;
@@ -311,6 +333,9 @@ async fn daemon_startup(command: &str) -> Result<()> {
             // The draft header is visible before the session's command composer is ready.
             steps.push_back(("GPT-5.6-Terra", b"/status\r"));
             "Server:Localbackgroundserver"
+        } else if command == "unpackaged" {
+            steps.push_back(("GPT-5.6-Terra", b"\x14"));
+            "Runningwithoutthesharedbackgroundserver:thisCLIhasnocompletepackage"
         } else if command == "agents-no-daemon" {
             args.extend(["agents".into(), "--no-daemon".into()]);
             steps.push_back(("Notasksyet", b"n"));

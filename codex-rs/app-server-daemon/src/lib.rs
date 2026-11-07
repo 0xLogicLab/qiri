@@ -18,6 +18,7 @@ pub use launch::start_with_features_classified;
 mod managed_install;
 mod prepare_install;
 mod release_pruning;
+pub use prepare_install::CompletePackageUnavailable;
 pub use prepare_install::InstallRequest;
 pub use prepare_install::update_from_cli;
 mod remote_control_client;

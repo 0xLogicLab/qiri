@@ -604,7 +604,7 @@ pub(super) async fn run_main_inner(
     }
     let mut managed_daemon = false;
     if auto_start_daemon && daemon_exclusion.is_none() {
-        let output = startup_draft
+        let (output, embedded_fallback_reason) = startup_draft
             .run_until(async {
                 // Daemon startup needs no terminal input. Keep the composer visible and
                 // responsive while it checks the running server or prepares an installation.
@@ -613,14 +613,26 @@ pub(super) async fn run_main_inner(
                     codex_app_server_daemon::start_with_features_classified(&Default::default())
                         .await;
                 daemon_telemetry::record_start(&config, &result).await;
-                match result.map_err(|err| err.error) {
-                    Ok(output) => Ok(Some(output)),
+                match result {
+                    Ok(output) => Ok((Some(output), None)),
+                    Err(err)
+                        if err
+                            .error
+                            .is::<codex_app_server_daemon::CompletePackageUnavailable>() =>
+                    {
+                        Ok((None, Some("this CLI has no complete package")))
+                    }
                     #[cfg(windows)]
-                    Err(err) if err.is::<codex_app_server_daemon::DetachedLaunchRestricted>() => {
-                        Ok(None)
+                    Err(err)
+                        if err
+                            .error
+                            .is::<codex_app_server_daemon::DetachedLaunchRestricted>() =>
+                    {
+                        Ok((None, Some("this Windows launcher")))
                     }
                     Err(err) => Err(std::io::Error::other(format!(
-                        "{err:#}\n{}",
+                        "{:#}\n{}",
+                        err.error,
                         daemon_startup::FAILURE_HINT
                     ))),
                 }
@@ -636,7 +648,7 @@ pub(super) async fn run_main_inner(
             };
         } else {
             app_server_target = AppServerTarget::Embedded;
-            daemon_exclusion = Some("this Windows launcher");
+            daemon_exclusion = embedded_fallback_reason;
         }
     }
     let compatibility_warning = daemon_recovery::check(
