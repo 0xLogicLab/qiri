@@ -2,6 +2,7 @@
 #![cfg(unix)]
 use std::collections::BTreeMap;
 
+use super::CompletePackageUnavailable;
 use super::InstallMode;
 use super::prepare_from_package;
 use super::validate_package;
@@ -50,6 +51,28 @@ fn package(root: &Path, version: &str) -> PathBuf {
     )
     .expect("manifest");
     bin
+}
+
+#[tokio::test]
+async fn missing_source_returns_typed_error() {
+    let temp = tempfile::TempDir::new().expect("temp");
+    let home = temp.path().join("home");
+    let error = prepare_from_package(
+        &daemon(&home),
+        &DaemonSettings::default(),
+        InstallMode::Missing,
+        None,
+        &temp.path().join("qiri-core"),
+        |_| Ok(true),
+    )
+    .await
+    .expect_err("unpackaged CLI cannot seed a daemon");
+
+    assert!(error.is::<CompletePackageUnavailable>());
+    assert_eq!(
+        error.to_string(),
+        "this CLI has no complete local package; install a packaged QIRI CLI or use the standalone installer"
+    );
 }
 
 #[tokio::test]
