@@ -12,8 +12,6 @@ use crate::app_event::FeedbackCategory;
 use crate::app_event_sender::AppEventSender;
 use crate::history_cell;
 
-use super::popup_consts::standard_popup_hint_line;
-
 const BASE_CLI_BUG_ISSUE_URL: &str =
     "https://github.com/openai/codex/issues/new?template=3-cli.yml";
 /// Internal routing link for employee feedback follow-ups. This must not be shown to external users.
@@ -33,16 +31,6 @@ pub(crate) fn should_show_feedback_connectivity_details(
     diagnostics: &FeedbackDiagnostics,
 ) -> bool {
     category != FeedbackCategory::GoodResult && !diagnostics.is_empty()
-}
-
-pub(crate) fn feedback_classification(category: FeedbackCategory) -> &'static str {
-    match category {
-        FeedbackCategory::BadResult => "bad_result",
-        FeedbackCategory::GoodResult => "good_result",
-        FeedbackCategory::Bug => "bug",
-        FeedbackCategory::SafetyCheck => "safety_check",
-        FeedbackCategory::Other => "other",
-    }
 }
 
 pub(crate) fn feedback_success_cell(
@@ -178,21 +166,6 @@ pub(crate) fn feedback_selection_params(
                 FeedbackCategory::Other,
             ),
         ],
-        ..super::SelectionViewParams::picker()
-    }
-}
-
-/// Build the selection popup params shown when feedback is disabled.
-pub(crate) fn feedback_disabled_params() -> super::SelectionViewParams {
-    super::SelectionViewParams {
-        title: Some("Sending feedback is disabled".to_string()),
-        subtitle: Some("This action is disabled by configuration.".to_string()),
-        footer_hint: Some(standard_popup_hint_line()),
-        items: vec![super::SelectionItem {
-            name: "Close".to_string(),
-            dismiss_on_select: true,
-            ..Default::default()
-        }],
         ..super::SelectionViewParams::picker()
     }
 }

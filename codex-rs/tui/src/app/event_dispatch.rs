@@ -1116,7 +1116,7 @@ impl App {
                     subtitle: Some("Quitting this TUI will stop its running sessions.".into()),
                     items: vec![
                         SelectionItem {
-                            name: "Stay in Codex".into(),
+                            name: "Stay in QIRI".into(),
                             dismiss_on_select: true,
                             ..Default::default()
                         },
@@ -2608,11 +2608,10 @@ impl App {
             }
             AppEvent::SubmitFeedback {
                 category,
-                reason,
-                turn_id,
                 include_logs,
+                ..
             } => {
-                self.submit_feedback(app_server, category, reason, turn_id, include_logs);
+                self.submit_feedback(category, include_logs);
             }
             AppEvent::FeedbackSubmitted {
                 origin_thread_id,

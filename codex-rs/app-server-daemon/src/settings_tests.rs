@@ -5,6 +5,27 @@ use super::DaemonSettings;
 use super::MAX_SHUTDOWN_GRACE_SECONDS;
 
 #[tokio::test]
+async fn qiri_ignores_legacy_automatic_update_settings() {
+    let temp = TempDir::new().expect("temp dir");
+    let path = temp.path().join("settings.json");
+    tokio::fs::write(&path, r#"{"updater":{"autoUpdateEnabled":true}}"#)
+        .await
+        .expect("write legacy settings");
+    assert!(
+        !DaemonSettings::load(&path)
+            .await
+            .expect("load settings")
+            .auto_update_enabled
+    );
+    assert!(
+        !super::UpdaterSettings::load(&path)
+            .await
+            .expect("load updater")
+            .auto_update_enabled
+    );
+}
+
+#[tokio::test]
 async fn remote_control_save_preserves_updater_settings() {
     let temp = TempDir::new().expect("temp dir");
     let path = temp.path().join("settings.json");
@@ -148,7 +169,7 @@ async fn telemetry_distinguishes_presence_from_default_values() -> anyhow::Resul
             crate::telemetry::settings_tags(home.path())
                 .await
                 .map(|(_, value)| value),
-            ["enabled", presence, presence, presence]
+            ["disabled", presence, presence, presence]
         );
     }
     Ok(())

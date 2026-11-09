@@ -1452,13 +1452,7 @@ mod tests {
             .build()
             .await
             .unwrap();
-        widget.bedrock_setup_enabled = crate::should_show_provider_setup_wizard(
-            widget.login_status,
-            /*requires_openai_auth*/ true,
-            &config,
-            &widget.app_server_target,
-            Feature::BedrockSetupWizard,
-        );
+        widget.bedrock_setup_enabled = config.features.enabled(Feature::BedrockSetupWizard);
         widget.handle_key_event(KeyCode::Char('3').into());
         assert_eq!(
             widget.displayed_sign_in_options(),

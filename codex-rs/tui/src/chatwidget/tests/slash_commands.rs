@@ -1471,39 +1471,37 @@ async fn usage_error_slash_command_is_available_from_local_recall() {
 }
 
 #[tokio::test]
-async fn signed_out_usage_command_reports_chatgpt_login_requirement() {
+async fn usage_command_without_backend_auth_reports_provider_unavailable() {
     let (mut chat, mut rx, _op_rx) = make_chatwidget_manual(/*model_override*/ None).await;
 
     submit_composer_text(&mut chat, "/usage");
 
-    let cells = drain_insert_history(&mut rx);
-    let rendered = cells
-        .iter()
-        .map(|cell| lines_to_single_string(cell))
-        .collect::<Vec<_>>()
-        .join("\n");
-    assert_chatwidget_snapshot!(
-        "signed_out_usage_command_reports_chatgpt_login_requirement",
-        rendered
-    );
-    assert_eq!(recall_latest_after_clearing(&mut chat), "/usage");
-}
-
-#[tokio::test]
-async fn signed_out_usage_command_with_args_reports_chatgpt_login_requirement() {
-    let (mut chat, mut rx, _op_rx) = make_chatwidget_manual(/*model_override*/ None).await;
-
-    submit_composer_text(&mut chat, "/usage weekly");
-
-    let cells = drain_insert_history(&mut rx);
-    let rendered = cells
+    let rendered = drain_insert_history(&mut rx)
         .iter()
         .map(|cell| lines_to_single_string(cell))
         .collect::<Vec<_>>()
         .join("\n");
     assert!(
-        rendered.contains("Sign in with ChatGPT to use /usage."),
-        "expected ChatGPT login requirement, got: {rendered:?}"
+        rendered.contains("Usage data is unavailable for the active model provider."),
+        "expected provider availability error, got: {rendered:?}"
+    );
+    assert_eq!(recall_latest_after_clearing(&mut chat), "/usage");
+}
+
+#[tokio::test]
+async fn usage_command_with_args_without_backend_auth_reports_provider_unavailable() {
+    let (mut chat, mut rx, _op_rx) = make_chatwidget_manual(/*model_override*/ None).await;
+
+    submit_composer_text(&mut chat, "/usage weekly");
+
+    let rendered = drain_insert_history(&mut rx)
+        .iter()
+        .map(|cell| lines_to_single_string(cell))
+        .collect::<Vec<_>>()
+        .join("\n");
+    assert!(
+        rendered.contains("Usage data is unavailable for the active model provider."),
+        "expected provider availability error, got: {rendered:?}"
     );
     assert_eq!(recall_latest_after_clearing(&mut chat), "/usage weekly");
 }

@@ -91,6 +91,131 @@ const WORKSPACE_ID_INITIAL: &str = "123e4567-e89b-42d3-a456-426614174011";
 const WORKSPACE_ID_DEVICE: &str = "123e4567-e89b-42d3-a456-426614174013";
 const WORKSPACE_ID_STALE: &str = "123e4567-e89b-42d3-a456-426614174014";
 
+#[tokio::test]
+async fn qiri_rejects_account_login_and_logout() -> Result<()> {
+    let mut server = TestAppServer::builder().build_initialized().await?;
+    let login = server
+        .send_login_account_api_key_request("unused-key")
+        .await?;
+    let error = server
+        .read_stream_until_error_message(RequestId::Integer(login))
+        .await?;
+    assert_eq!(error.error.code, -32600);
+    assert!(
+        error
+            .error
+            .message
+            .contains("QIRI account login is disabled")
+    );
+
+    let logout = server.send_logout_account_request().await?;
+    let error = server
+        .read_stream_until_error_message(RequestId::Integer(logout))
+        .await?;
+    assert_eq!(error.error.code, -32600);
+    assert!(
+        error
+            .error
+            .message
+            .contains("QIRI account logout is disabled")
+    );
+    Ok(())
+}
+
+#[tokio::test]
+async fn qiri_rejects_cloud_account_reads() -> Result<()> {
+    let mut server = TestAppServer::builder().build_initialized().await?;
+    for (method, params) in [
+        ("account/rateLimits/read", None),
+        ("account/usage/read", None),
+        ("account/workspaceMessages/read", None),
+        (
+            "accountSession/list",
+            Some(json!({ "refreshWorkspaceMetadata": true })),
+        ),
+    ] {
+        let request_id = server.send_raw_request(method, params).await?;
+        let error = server
+            .read_stream_until_error_message(RequestId::Integer(request_id))
+            .await?;
+        assert_eq!(error.error.code, -32600, "{method}");
+        assert!(error.error.message.contains("QIRI"), "{method}");
+    }
+    Ok(())
+}
+
+#[tokio::test]
+async fn qiri_rejects_openai_account_reads_even_with_refresh_requested() -> Result<()> {
+    let codex_home = TempDir::new()?;
+    let mut server = TestAppServer::builder()
+        .with_codex_home(codex_home.path())
+        .without_auto_env()
+        .build_initialized()
+        .await?;
+    let request_id = server
+        .send_raw_request("account/read", Some(json!({ "refreshToken": true })))
+        .await?;
+    let error = server
+        .read_stream_until_error_message(RequestId::Integer(request_id))
+        .await?;
+    assert_eq!(error.error.code, -32600);
+    assert!(error.error.message.contains("QIRI"));
+
+    let request_id = server
+        .send_get_auth_status_request(GetAuthStatusParams {
+            include_token: Some(true),
+            refresh_token: Some(true),
+        })
+        .await?;
+    let error = server
+        .read_stream_until_error_message(RequestId::Integer(request_id))
+        .await?;
+    assert_eq!(error.error.code, -32600);
+    assert!(error.error.message.contains("QIRI"));
+    Ok(())
+}
+
+#[tokio::test]
+async fn qiri_reports_local_provider_without_account_auth() -> Result<()> {
+    let codex_home = TempDir::new()?;
+    create_config_toml(codex_home.path(), CreateConfigTomlParams::default())?;
+    let mut server = TestAppServer::builder()
+        .with_codex_home(codex_home.path())
+        .without_auto_env()
+        .build_initialized()
+        .await?;
+
+    let request_id = server
+        .send_raw_request("account/read", Some(json!({ "refreshToken": true })))
+        .await?;
+    let response = server
+        .read_stream_until_response_message(RequestId::Integer(request_id))
+        .await?;
+    let account: GetAccountResponse = to_response(response)?;
+    assert_eq!(account.account, None);
+    assert_eq!(account.workspace_routing, None);
+    assert!(!account.requires_openai_auth);
+
+    let request_id = server
+        .send_get_auth_status_request(GetAuthStatusParams {
+            include_token: Some(true),
+            refresh_token: Some(true),
+        })
+        .await?;
+    let response = server
+        .read_stream_until_response_message(RequestId::Integer(request_id))
+        .await?;
+    assert_eq!(
+        to_response::<GetAuthStatusResponse>(response)?,
+        GetAuthStatusResponse {
+            auth_method: None,
+            auth_token: None,
+            requires_openai_auth: Some(false),
+        }
+    );
+    Ok(())
+}
+
 fn expected_workspace_routing(
     account_id: &str,
 ) -> Option<codex_app_server_protocol::WorkspaceRouting> {

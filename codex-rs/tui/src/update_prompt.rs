@@ -39,8 +39,6 @@ use ratatui::widgets::Wrap;
 #[cfg(not(debug_assertions))]
 use tokio_stream::StreamExt;
 
-const RELEASE_NOTES_URL: &str = "https://github.com/openai/codex/releases/latest";
-
 #[cfg(not(debug_assertions))]
 pub(crate) enum UpdatePromptOutcome {
     Continue,
@@ -223,15 +221,6 @@ impl WidgetRef for &UpdatePromptScreen {
             .wrap(Wrap { trim: false })
             .inset(Insets::vh(/*v*/ 0, /*h*/ 2)),
         );
-        column.push(
-            /*flex*/ 1,
-            Paragraph::new(Line::from(vec![
-                "Release notes: ".dim(),
-                RELEASE_NOTES_URL.dim().underlined(),
-            ]))
-            .wrap(Wrap { trim: false })
-            .inset(Insets::vh(/*v*/ 0, /*h*/ 2)),
-        );
         let selected_index = match self.highlighted {
             UpdateSelection::UpdateNow => 0,
             UpdateSelection::NotNow => 1,
@@ -266,7 +255,6 @@ impl WidgetRef for &UpdatePromptScreen {
         };
         render_menu_surface(panel, buf);
         column.render(panel, buf);
-        crate::terminal_hyperlinks::mark_underlined_hyperlink(buf, area, RELEASE_NOTES_URL);
     }
 }
 
@@ -286,19 +274,21 @@ mod tests {
         UpdatePromptScreen::new(
             FrameRequester::test_dummy(),
             "9.9.9".into(),
-            UpdateAction::NpmGlobalLatest,
+            UpdateAction::Qiri,
         )
     }
 
     #[test]
-    fn update_prompt_snapshot() {
+    fn update_prompt_shows_qiri_command() {
         let screen = new_prompt();
         let mut terminal =
             Terminal::new(VT100Backend::new(/*width*/ 80, /*height*/ 12)).expect("terminal");
         terminal
             .draw(|frame| frame.render_widget_ref(&screen, frame.area()))
             .expect("render update prompt");
-        insta::assert_snapshot!("update_prompt_modal", terminal.backend());
+        let rendered = terminal.backend().to_string();
+        assert!(rendered.contains("qiri update"));
+        assert!(!rendered.contains("openai.com"));
     }
 
     #[test]
@@ -346,9 +336,9 @@ mod tests {
     }
 
     #[test]
-    fn long_update_command_keeps_selected_skip_visible_in_a_short_viewport() {
+    fn qiri_update_keeps_selected_skip_visible_in_a_short_viewport() {
         let mut screen = new_prompt();
-        screen.update_action = UpdateAction::StandaloneWindows;
+        screen.update_action = UpdateAction::Qiri;
         screen.handle_key(KeyEvent::new(KeyCode::Up, KeyModifiers::NONE));
         let (width, height) = (28, 12);
         let mut terminal = Terminal::new(VT100Backend::new(width, height)).expect("terminal");
@@ -360,7 +350,6 @@ mod tests {
         let words = rendered.split_whitespace().collect::<Vec<_>>().join(" ");
         assert!(words.contains("enter continue · esc skip"));
         assert_eq!(screen.selection(), None);
-        insta::assert_snapshot!(format!("update_picker_selected_{width}x{height}"), rendered);
         screen.handle_key(KeyEvent::new(KeyCode::Esc, KeyModifiers::NONE));
         assert_eq!(screen.selection(), Some(UpdateSelection::NotNow));
     }

@@ -2472,7 +2472,7 @@ impl RuntimeKeymap {
                     return Err(format!(
                         "Ambiguous approval overlay keymap bindings: `{previous}` and `{action}` use the same key. \
 Set unique keys in `~/.codex/config.toml` and retry. \
-See the Codex keymap documentation for supported actions and examples."
+Check the keymap configuration for supported actions and examples."
                     ));
                 }
             }

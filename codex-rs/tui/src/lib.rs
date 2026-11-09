@@ -55,6 +55,7 @@ use codex_config::format_config_error_with_source;
 use codex_config::types::ResumeCwdMode;
 use codex_exec_server::EnvironmentManager;
 use codex_exec_server::ExecServerRuntimeOptions;
+#[cfg(test)]
 use codex_features::Feature;
 use codex_login::AuthConfig;
 use codex_login::default_client::originator;
@@ -64,7 +65,6 @@ use codex_login::is_workload_identity_selected;
 use codex_protocol::ThreadId;
 use codex_protocol::auth::AuthMode;
 use codex_protocol::config_types::AltScreenMode;
-use codex_protocol::config_types::ForcedLoginMethod;
 use codex_protocol::config_types::SandboxMode;
 use codex_rollout::StateDbHandle;
 use codex_rollout::state_db;
@@ -190,8 +190,6 @@ mod motion;
 mod multi_agents;
 mod named_session_lookup;
 mod notifications;
-#[cfg(any(not(debug_assertions), test))]
-mod npm_registry;
 pub(crate) mod onboarding;
 mod oss_selection;
 mod pager_overlay;
@@ -1233,7 +1231,7 @@ async fn run_ratatui_app(
     manually_selected_oss_provider: Option<String>,
     overrides: ConfigOverrides,
     cli_kv_overrides: Vec<(String, toml::Value)>,
-    mut cloud_config_bundle: CloudConfigBundleLoader,
+    cloud_config_bundle: CloudConfigBundleLoader,
     feedback: codex_feedback::CodexFeedback,
     log_db: Option<log_db::LogDbLayer>,
     mut state_db: Option<StateDbHandle>,
@@ -1260,8 +1258,6 @@ async fn run_ratatui_app(
     let uses_remote_workspace = app_server_target.uses_remote_workspace();
     let workload_identity_selected = is_workload_identity_selected();
     color_eyre::install()?;
-
-    tooltips::announcement::prewarm(initial_config.http_client_factory());
 
     // Forward panic reports through tracing so they appear in the UI status
     // line, but do not swallow the default/color-eyre panic handler.
@@ -1403,42 +1399,18 @@ async fn run_ratatui_app(
         }
     };
     // Workload identity bypasses interactive login; every other provider uses account/read.
-    let requires_openai_auth = startup_account
-        .as_ref()
-        .is_some_and(|account| account.requires_openai_auth);
-    let should_show_onboarding = should_show_onboarding(
-        login_status,
-        requires_openai_auth,
-        should_show_trust_screen_flag,
-    );
-
-    let mut config = if should_show_onboarding {
+    let mut config = if should_show_trust_screen_flag {
         if let Err(err) = startup_draft.flush_pending_events(&mut tui).await {
             shutdown_startup_session(app_server.take(), &mut terminal_restore_guard).await;
             return Err(err.into());
         }
         // Authentication can change while any interactive onboarding screen is open.
         startup_account = None;
-        let show_login_screen = should_show_login_screen(login_status, requires_openai_auth);
-        let bedrock_setup_enabled = should_show_provider_setup_wizard(
-            login_status,
-            requires_openai_auth,
-            &initial_config,
-            &app_server_target,
-            Feature::BedrockSetupWizard,
-        );
-        let gcp_setup_enabled = should_show_provider_setup_wizard(
-            login_status,
-            requires_openai_auth,
-            &initial_config,
-            &app_server_target,
-            Feature::GcpSetupWizard,
-        );
         let onboarding_result = run_onboarding_app(
             OnboardingScreenArgs {
-                show_login_screen,
-                bedrock_setup_enabled,
-                gcp_setup_enabled,
+                show_login_screen: false,
+                bedrock_setup_enabled: false,
+                gcp_setup_enabled: false,
                 show_trust_screen: should_show_trust_screen_flag,
                 remote_project_trust: None,
                 login_status,
@@ -1448,11 +1420,7 @@ async fn run_ratatui_app(
                     .map(AppServerSession::request_handle),
                 config: initial_config.clone(),
             },
-            if show_login_screen {
-                app_server.as_mut()
-            } else {
-                None
-            },
+            None,
             &mut tui,
         )
         .await;
@@ -1482,23 +1450,9 @@ async fn run_ratatui_app(
         }
         let reloaded_config = startup_draft
             .run_until(&mut tui, async {
-                // If this onboarding run included the login step, always refresh the cloud config
-                // bundle and rebuild config. This avoids missing newly available cloud-managed
-                // policy due to login status detection edge cases.
-                if show_login_screen && !uses_remote_workspace && !workload_identity_selected {
-                    cloud_config_bundle = managed_config_bundle_loader_for_storage(
-                        embedded_network_policy.bind_bootstrap_auth(initial_config.auth_config()),
-                        initial_config.config_layer_stack.requirements_toml(),
-                        /*enable_codex_api_key_env*/ false,
-                    )
-                    .await?;
-                }
-
-                // Reload config when persisted trust or auth changes alter the current process.
+                // Reload config when persisted trust changes alter the current process.
                 Ok::<_, std::io::Error>(
-                    if !uses_remote_workspace
-                        && (onboarding_result.directory_trust_persisted || show_login_screen)
-                    {
+                    if !uses_remote_workspace && onboarding_result.directory_trust_persisted {
                         load_config_or_exit_with_fallback_cwd(
                             cli_kv_overrides.clone(),
                             overrides.clone(),
@@ -1555,7 +1509,7 @@ async fn run_ratatui_app(
                 disconnect_info: None,
                 update_action: None,
                 exit_reason: ExitReason::Fatal(format!(
-                    "No saved session found with ID {id_str}. Run `codex {action}` without an ID to choose from existing sessions."
+                    "No saved session found with ID {id_str}. Run `qiri {action}` without an ID to choose from existing sessions."
                 )),
             })
         };
@@ -2488,49 +2442,6 @@ async fn load_bootstrap_config_or_exit(
             std::process::exit(1);
         }
     }
-}
-
-fn should_show_onboarding(
-    login_status: LoginStatus,
-    requires_openai_auth: bool,
-    show_trust_screen: bool,
-) -> bool {
-    if show_trust_screen {
-        return true;
-    }
-
-    should_show_login_screen(login_status, requires_openai_auth)
-}
-
-fn should_show_login_screen(login_status: LoginStatus, requires_openai_auth: bool) -> bool {
-    // Only show the login screen for providers that actually require OpenAI auth
-    // (OpenAI or equivalents). For OSS/other providers, skip login entirely.
-    if !requires_openai_auth {
-        return false;
-    }
-
-    login_status == LoginStatus::NotAuthenticated
-}
-
-fn should_show_provider_setup_wizard(
-    login_status: LoginStatus,
-    requires_openai_auth: bool,
-    config: &Config,
-    app_server_target: &AppServerTarget,
-    feature: Feature,
-) -> bool {
-    let supported_target = match app_server_target {
-        AppServerTarget::Embedded => true,
-        AppServerTarget::LocalDaemon { .. } => feature == Feature::BedrockSetupWizard,
-        AppServerTarget::Remote { .. } => false,
-    };
-    supported_target
-        && should_show_login_screen(login_status, requires_openai_auth)
-        && config.features.enabled(feature)
-        && config.model_provider_id == "openai"
-        && config
-            .auth_config()
-            .is_login_method_allowed(ForcedLoginMethod::Api)
 }
 
 mod daemon_recovery;

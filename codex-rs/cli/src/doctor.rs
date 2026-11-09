@@ -568,11 +568,6 @@ async fn build_report(
 
     progress.begin("desktop");
     if let Some(desktop) = desktop::collect().await {
-        #[cfg(any(target_os = "macos", target_os = "windows"))]
-        if let Some(application) = desktop.application.as_ref() {
-            updates::append_desktop_update(&mut checks, config_result.as_ref().ok(), application)
-                .await;
-        }
         progress.finish("desktop", overall_status(&desktop.checks));
         checks.extend(desktop.checks);
     }
@@ -652,7 +647,7 @@ async fn load_config(
     .await?
     .build()
     .await
-    .context("failed to load Codex config")?;
+    .context("failed to load QIRI config")?;
     config.config_layer_stack.ensure_config_server_applied()?;
     Ok(config)
 }
@@ -971,7 +966,7 @@ fn installation_check(show_details: bool) -> DoctorCheck {
             status = status.max(CheckStatus::Warning);
             summary = "npm-managed launch is missing package-root provenance".to_string();
             remediation = Some(
-                "Reinstall or update Codex so the JS shim provides CODEX_MANAGED_PACKAGE_ROOT."
+                "Reinstall or update QIRI so the JS shim provides CODEX_MANAGED_PACKAGE_ROOT."
                     .to_string(),
             );
         }
@@ -1266,7 +1261,7 @@ fn auth_check(config: &Config) -> DoctorCheck {
         Ok(Some(auth)) => {
             details.push(format!("stored auth mode: {}", stored_auth_mode(&auth)));
             details.push(format!("stored API key: {}", auth.openai_api_key.is_some()));
-            details.push(format!("stored ChatGPT tokens: {}", auth.tokens.is_some()));
+            details.push(format!("stored legacy account tokens: {}", auth.tokens.is_some()));
             details.push(format!(
                 "stored agent identity: {}",
                 auth.agent_identity.is_some()
@@ -1298,7 +1293,7 @@ fn auth_check(config: &Config) -> DoctorCheck {
                 DoctorCheck::new("auth.credentials", "auth", status, summary).details(details);
             if status == CheckStatus::Fail {
                 check =
-                    check.remediation("Run codex login again or provide a supported auth env var.");
+                    check.remediation("Configure the active model provider or provide a supported auth env var.");
             }
             check
         }
@@ -1313,10 +1308,10 @@ fn auth_check(config: &Config) -> DoctorCheck {
             "auth.credentials",
             "auth",
             CheckStatus::Fail,
-            "no Codex credentials were found",
+            "no QIRI provider credentials were found",
         )
         .details(details)
-        .remediation("Run codex login or provide an API key through a supported auth env var."),
+        .remediation("Configure the active model provider or provide an API key through a supported auth env var."),
         Err(err) => DoctorCheck::new(
             "auth.credentials",
             "auth",
@@ -1324,7 +1319,7 @@ fn auth_check(config: &Config) -> DoctorCheck {
             "stored credentials could not be read",
         )
         .detail(err.to_string())
-        .remediation("Fix auth storage access or run codex login again."),
+        .remediation("Fix credential storage access or configure the active model provider."),
     }
 }
 
@@ -1336,7 +1331,7 @@ fn provider_specific_auth_check(
     env_var_present: impl Fn(&str) -> bool,
 ) -> Option<DoctorCheck> {
     details.push(format!(
-        "model provider requires OpenAI auth: {requires_openai_auth}"
+        "model provider requires unsupported account authentication: {requires_openai_auth}"
     ));
     if requires_openai_auth {
         return None;
@@ -1376,7 +1371,7 @@ fn provider_specific_auth_check(
                 "auth.credentials",
                 "auth",
                 CheckStatus::Ok,
-                "OpenAI auth is not required for the active model provider",
+                "No account login is required for the active model provider",
             )
             .details(details),
         ),
@@ -2699,34 +2694,20 @@ fn provider_reachability_plan_from_parts(
     provider_base_url: Option<&str>,
     provider_query_params: Option<&HashMap<String, String>>,
     is_amazon_bedrock: bool,
-    chatgpt_base_url: &str,
+    _chatgpt_base_url: &str,
 ) -> ReachabilityPlan {
-    let provider_route_probe_url = provider_base_url
-        .or_else(|| {
-            (mode == ProviderAuthReachabilityMode::ApiKey).then_some("https://api.openai.com/v1")
-        })
-        .and_then(|url| {
-            should_probe_models_route(provider_name, url, is_amazon_bedrock)
-                .then(|| provider_url_for_path(url, "models", provider_query_params))
-        });
+    let provider_route_probe_url = provider_base_url.and_then(|url| {
+        should_probe_models_route(provider_name, url, is_amazon_bedrock)
+            .then(|| provider_url_for_path(url, "models", provider_query_params))
+    });
     let endpoints = match (mode, provider_base_url) {
-        (ProviderAuthReachabilityMode::ApiKey, _) | (_, Some(_)) => vec![ReachabilityEndpoint {
+        (_, Some(provider_base_url)) => vec![ReachabilityEndpoint {
             label: format!("{provider_id} API"),
-            url: provider_url_for_path(
-                provider_base_url.unwrap_or("https://api.openai.com/v1"),
-                "responses",
-                provider_query_params,
-            ),
+            url: provider_url_for_path(provider_base_url, "responses", provider_query_params),
             required: true,
             route_probe_url: provider_route_probe_url,
         }],
-        (ProviderAuthReachabilityMode::Chatgpt, None) => vec![ReachabilityEndpoint {
-            label: "ChatGPT".to_string(),
-            url: provider_url_for_path(chatgpt_base_url, "codex/responses", provider_query_params),
-            required: true,
-            route_probe_url: None,
-        }],
-        (ProviderAuthReachabilityMode::NotRequired, None) => Vec::new(),
+        (_, None) => Vec::new(),
     };
     ReachabilityPlan {
         description: mode.description().to_string(),
@@ -2847,7 +2828,7 @@ async fn provider_reachability_check(plan: ReachabilityPlan) -> DoctorCheck {
                     )
                     .measured(format!("{route_probe_url} returned {status}"))
                     .expected("GET /models returns 2xx, 401, or 403")
-                    .remedy("Set base_url to the provider API root, for example https://api.openai.com/v1")
+                    .remedy("Set base_url to the provider API root, for example https://llmapi.pcl.ac.cn/v1")
                     .field("route probe"),
                 );
             }
@@ -3715,7 +3696,7 @@ mod tests {
         assert_eq!(check.status, CheckStatus::Ok);
         assert_eq!(
             check.summary,
-            "OpenAI auth is not required for the active model provider"
+            "No account login is required for the active model provider"
         );
     }
 
@@ -3724,7 +3705,7 @@ mod tests {
         let check = provider_specific_auth_check(
             /*requires_openai_auth*/ false,
             Some("PROVIDER_API_KEY"),
-            Some("Set PROVIDER_API_KEY before running Codex."),
+            Some("Set PROVIDER_API_KEY before running QIRI."),
             Vec::new(),
             |_| false,
         )
@@ -3737,7 +3718,7 @@ mod tests {
         );
         assert_eq!(
             check.remediation,
-            Some("Set PROVIDER_API_KEY before running Codex.".to_string())
+            Some("Set PROVIDER_API_KEY before running QIRI.".to_string())
         );
     }
 
@@ -3957,7 +3938,7 @@ mod tests {
     }
 
     #[test]
-    fn provider_reachability_api_key_does_not_require_chatgpt() {
+    fn provider_reachability_api_key_without_url_skips_upstream() {
         let plan = provider_reachability_plan_from_parts(
             ProviderAuthReachabilityMode::ApiKey,
             "openai",
@@ -3968,28 +3949,12 @@ mod tests {
             "https://chatgpt.com/backend-api/",
         );
 
-        assert_eq!(
-            plan.endpoints,
-            vec![ReachabilityEndpoint {
-                label: "openai API".to_string(),
-                url: "https://api.openai.com/v1/responses".to_string(),
-                required: true,
-                route_probe_url: Some("https://api.openai.com/v1/models".to_string()),
-            }]
-        );
+        assert!(plan.endpoints.is_empty());
     }
 
     #[test]
-    fn provider_reachability_chatgpt_uses_inference_endpoint() {
-        assert_eq!(
-            default_reachability_plan().endpoints,
-            vec![ReachabilityEndpoint {
-                label: "ChatGPT".to_string(),
-                url: "https://chatgpt.com/backend-api/codex/responses".to_string(),
-                required: true,
-                route_probe_url: None,
-            }]
-        );
+    fn default_reachability_skips_upstream() {
+        assert!(default_reachability_plan().endpoints.is_empty());
     }
 
     #[test]
@@ -4047,7 +4012,7 @@ mod tests {
         assert_eq!(check.issues.len(), 1);
         assert_eq!(
             check.issues[0].remedy.as_deref(),
-            Some("Set base_url to the provider API root, for example https://api.openai.com/v1")
+            Some("Set base_url to the provider API root, for example https://llmapi.pcl.ac.cn/v1")
         );
     }
 

@@ -2523,7 +2523,6 @@ dependencies = [
  "codex-build-info",
  "codex-chatgpt",
  "codex-cloud-config",
- "codex-cloud-tasks",
  "codex-config",
  "codex-core",
  "codex-core-plugins",

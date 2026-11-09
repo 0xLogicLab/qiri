@@ -615,7 +615,7 @@ fn normalize_keybinding_stroke(raw: &str) -> Result<String, String> {
     if lower.is_empty() {
         return Err(
             "keybinding cannot be empty. Use values like `ctrl-a` or `shift-enter`.\n\
-See the Codex keymap documentation for supported actions and examples."
+Check the keymap configuration for supported actions and examples."
                 .to_string(),
         );
     }

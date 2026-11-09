@@ -862,8 +862,6 @@ impl MessageProcessor {
         connection_id: ConnectionId,
         request_attestation: bool,
     ) {
-        self.account_processor
-            .notify_workspace_routing_to_connection(connection_id);
         self.thread_processor
             .connection_initialized(
                 connection_id,
@@ -1853,10 +1851,8 @@ impl MessageProcessor {
                     .windows_sandbox_setup_start(&request_id, params)
                     .await
             }
-            ClientRequest::LoginAccount { params, .. } => {
-                self.account_processor
-                    .login_account(request_id.clone(), params)
-                    .await
+            ClientRequest::LoginAccount { .. } => {
+                Err(invalid_request("QIRI account login is disabled"))
             }
             ClientRequest::BedrockDiscover { params, .. } => {
                 self.account_processor.bedrock_discover(params).await
@@ -1878,44 +1874,24 @@ impl MessageProcessor {
                     .map(|response| Some(response.into()))
             }
             ClientRequest::GatewayOAuthLogin { .. } => {
-                if session
-                    .opted_out_notification_methods()
-                    .contains("account/gatewayOAuth/changed")
-                {
-                    Err(invalid_request(
-                        "Gateway login requires account/gatewayOAuth/changed notifications",
-                    ))
-                } else {
-                    Box::pin(
-                        self.account_processor
-                            .gateway_oauth_login(connection_id, &session.rpc_gate),
-                    )
-                    .await
-                    .map(|response| Some(response.into()))
-                }
+                Err(invalid_request("QIRI account login is disabled"))
             }
             ClientRequest::GatewayOAuthCancel { .. } => {
                 Box::pin(self.account_processor.gateway_oauth_cancel(connection_id))
                     .await
                     .map(|response| Some(response.into()))
             }
-            ClientRequest::AccountSessionsList { params, .. } => self
-                .account_processor
-                .list_account_sessions(params)
-                .await
-                .map(|response| Some(ClientResponsePayload::AccountSessionsList(response))),
-            ClientRequest::AccountSessionsSwitch { params, .. } => self
-                .account_processor
-                .switch_account_session(params, &self.thread_processor, &self.turn_admission)
-                .await
-                .map(|response| Some(ClientResponsePayload::AccountSessionsSwitch(response))),
-            ClientRequest::LogoutAccount { .. } => {
-                self.account_processor
-                    .logout_account(request_id.clone())
-                    .await
+            ClientRequest::AccountSessionsList { .. } => {
+                Err(invalid_request("QIRI account sessions are not supported"))
             }
-            ClientRequest::CancelLoginAccount { params, .. } => {
-                self.account_processor.cancel_login_account(params).await
+            ClientRequest::AccountSessionsSwitch { .. } => {
+                Err(invalid_request("QIRI account switching is disabled"))
+            }
+            ClientRequest::LogoutAccount { .. } => {
+                Err(invalid_request("QIRI account logout is disabled"))
+            }
+            ClientRequest::CancelLoginAccount { .. } => {
+                Err(invalid_request("QIRI account login is disabled"))
             }
             ClientRequest::GetAccount { params, .. } => {
                 self.account_processor.get_account(params).await
@@ -1923,24 +1899,20 @@ impl MessageProcessor {
             ClientRequest::GetAuthStatus { params, .. } => {
                 self.account_processor.get_auth_status(params).await
             }
-            ClientRequest::GetAccountRateLimits { params, .. } => {
-                self.account_processor.get_account_rate_limits(params).await
+            ClientRequest::GetAccountRateLimits { .. } => {
+                Err(invalid_request("QIRI does not support account rate limits"))
             }
-            ClientRequest::ConsumeAccountRateLimitResetCredit { params, .. } => {
-                self.account_processor
-                    .consume_account_rate_limit_reset_credit(params)
-                    .await
+            ClientRequest::ConsumeAccountRateLimitResetCredit { .. } => {
+                Err(invalid_request("QIRI account credits are not supported"))
             }
-            ClientRequest::GetAccountTokenUsage { params, .. } => {
-                self.account_processor.get_account_token_usage(params).await
+            ClientRequest::GetAccountTokenUsage { .. } => {
+                Err(invalid_request("QIRI does not support account usage reads"))
             }
             ClientRequest::GetWorkspaceMessages { .. } => {
-                self.account_processor.get_workspace_messages().await
+                Err(invalid_request("QIRI does not support workspace messages"))
             }
-            ClientRequest::SendAddCreditsNudgeEmail { params, .. } => {
-                self.account_processor
-                    .send_add_credits_nudge_email(params)
-                    .await
+            ClientRequest::SendAddCreditsNudgeEmail { .. } => {
+                Err(invalid_request("QIRI account credits are not supported"))
             }
             ClientRequest::GitDiffToRemote { params, .. } => {
                 self.git_processor.git_diff_to_remote(params).await
@@ -2005,8 +1977,8 @@ impl MessageProcessor {
                     .process_resize_pty(request_id.clone(), params)
                     .await
             }
-            ClientRequest::FeedbackUpload { params, .. } => {
-                self.feedback_processor.feedback_upload(params).await
+            ClientRequest::FeedbackUpload { .. } => {
+                Err(invalid_request("QIRI does not support feedback uploads"))
             }
             ClientRequest::FeedbackSave { params, .. } => {
                 self.feedback_processor.feedback_save(params).await

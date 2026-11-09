@@ -573,30 +573,6 @@ pub(super) async fn run_main_inner(
         && !app_server_target.uses_remote_workspace();
     if auto_start_daemon
         && daemon_exclusion.is_none()
-        && should_show_provider_setup_wizard(
-            LoginStatus::NotAuthenticated,
-            config.model_provider.requires_openai_auth,
-            &config,
-            &AppServerTarget::Embedded,
-            Feature::GcpSetupWizard,
-        )
-        && startup_draft
-            .run_until(
-                config
-                    .auth_config()
-                    .load_auth(/*enable_codex_api_key_env*/ false),
-            )
-            .await?
-            .ok()
-            .flatten()
-            .is_none()
-    {
-        // GCP setup resolves credential paths and runs gcloud in the launch environment.
-        daemon_exclusion = Some("GCP sign-in");
-        app_server_target = AppServerTarget::Embedded;
-    }
-    if auto_start_daemon
-        && daemon_exclusion.is_none()
         && matches!(&app_server_target, AppServerTarget::Embedded)
         && daemon_startup::uses_wsl_drvfs(&codex_home)
     {
@@ -1024,7 +1000,6 @@ pub(super) async fn run_main_inner(
             (
                 "update_target",
                 match source {
-                    DaemonUpdateSource::PublicStable => "public_stable",
                     DaemonUpdateSource::ThisCli => "this_cli",
                 },
             ),

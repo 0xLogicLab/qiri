@@ -12,6 +12,29 @@ use tokio::net::TcpListener;
 use tokio::time::timeout;
 
 #[tokio::test]
+async fn qiri_rejects_feedback_upload() -> Result<()> {
+    let mut app_server = TestAppServer::builder().build_initialized().await?;
+    let request_id = app_server
+        .send_raw_request(
+            "feedback/upload",
+            Some(json!({ "classification": "bug", "includeLogs": false })),
+        )
+        .await?;
+    let error = app_server
+        .read_stream_until_error_message(RequestId::Integer(request_id))
+        .await?;
+    assert_eq!(error.error.code, -32600);
+    assert!(
+        error
+            .error
+            .message
+            .contains("does not support feedback uploads")
+    );
+    Ok(())
+}
+
+#[tokio::test]
+#[ignore = "QIRI does not support upstream feedback uploads"]
 async fn feedback_upload_limits_concurrency_and_releases_failed_uploads() -> Result<()> {
     let proxy = TcpListener::bind("127.0.0.1:0").await?;
     let proxy_uri = format!("http://{}", proxy.local_addr()?);
@@ -92,6 +115,7 @@ async fn feedback_upload_limits_concurrency_and_releases_failed_uploads() -> Res
 }
 
 #[tokio::test]
+#[ignore = "QIRI does not support upstream feedback uploads"]
 async fn feedback_upload_recovers_persisted_evidence_and_reports_sqlite_failures() -> Result<()> {
     use std::collections::HashSet;
     use std::io::Read;

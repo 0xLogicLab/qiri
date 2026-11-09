@@ -35,12 +35,11 @@ impl ChatWidget {
         header.push(*Box::new(
             crate::terminal_hyperlinks::HyperlinkText::new(if allow_unelevated {
                 vec![
-                    line!["Set up the Codex agent sandbox to protect your files and control network access. Learn more <https://developers.openai.com/codex/windows>"],
+                    line!["Set up the QIRI agent sandbox to protect your files and control network access."],
                 ]
             } else {
                 vec![
-                    line!["Your organization requires the default Codex agent sandbox to continue. Set it up to protect your files and control network access."],
-                    line!["Learn more <https://developers.openai.com/codex/windows>"],
+                    line!["Your organization requires the default QIRI agent sandbox to continue. Set it up to protect your files and control network access."],
                 ]
             }),
         ));
@@ -164,9 +163,6 @@ impl ChatWidget {
                 "Your organization requires the default sandbox before QIRI can continue."
             ]);
         }
-        lines.push(line![
-            "Learn more <https://developers.openai.com/codex/windows>"
-        ]);
 
         let mut header = ColumnRenderable::new();
         header.push(crate::terminal_hyperlinks::HyperlinkText::new(lines));
@@ -209,7 +205,7 @@ impl ChatWidget {
         };
         if allow_unelevated {
             items.push(SelectionItem {
-                name: "Use Codex with non-admin sandbox".to_string(),
+                name: "Use QIRI with non-admin sandbox".to_string(),
                 description: None,
                 actions: vec![Box::new({
                     let otel = self.session_telemetry.clone();

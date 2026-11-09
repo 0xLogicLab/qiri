@@ -338,7 +338,7 @@ pub(super) fn label(key: &str) -> &str {
         "sdk" => "SDK",
         "exec" => "Exec",
         "github" => "GitHub",
-        "codex" => "Codex",
+        "codex" => "QIRI",
         "work" => "Work",
         "code_review" | "github_code_review" => "Code review",
         "start-user" | "start-composer" => "User messages",

@@ -4,8 +4,9 @@ use codex_app_server_protocol::ByteRange;
 use codex_app_server_protocol::TextElement;
 use codex_app_server_protocol::UserInput;
 
-// Context precedes this delimiter so transcript rendering across Codex surfaces can show the user's request.
-const PROMPT_REQUEST_BEGIN: &str = "## My request for Codex:";
+// Keep recognizing the old delimiter when rendering previously saved sessions.
+const PROMPT_REQUEST_BEGIN: &str = "## My request for QIRI:";
+const LEGACY_PROMPT_REQUEST_BEGIN: &str = "## My request for Codex:";
 
 pub(crate) fn apply_prompt_context_to_user_input(context_text: &str, items: &mut Vec<UserInput>) {
     let prefix = format!("{context_text}\n{PROMPT_REQUEST_BEGIN}\n");
@@ -42,11 +43,16 @@ pub(crate) fn apply_prompt_context_to_user_input(context_text: &str, items: &mut
 }
 
 pub(crate) fn extract_prompt_request_with_offset(message: &str) -> (&str, usize) {
-    let Some((before_request, request)) = message.rsplit_once(PROMPT_REQUEST_BEGIN) else {
+    let Some((request_start, delimiter)) = [PROMPT_REQUEST_BEGIN, LEGACY_PROMPT_REQUEST_BEGIN]
+        .into_iter()
+        .filter_map(|delimiter| message.rfind(delimiter).map(|start| (start, delimiter)))
+        .max_by_key(|(start, _)| *start)
+    else {
         return (message, 0);
     };
 
-    let request_start = before_request.len() + PROMPT_REQUEST_BEGIN.len();
+    let request_start = request_start + delimiter.len();
+    let request = &message[request_start..];
     let trimmed_request = request.trim();
     let leading_trimmed_len = request.len() - request.trim_start().len();
     (trimmed_request, request_start + leading_trimmed_len)

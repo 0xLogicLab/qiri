@@ -147,12 +147,17 @@ pub const CONTEXT_WINDOW_OPEN_TAG: &str = "<context_window>";
 pub const CONTEXT_WINDOW_CLOSE_TAG: &str = "</context_window>";
 pub const CONTEXT_WINDOW_GUIDANCE_OPEN_TAG: &str = "<context_window_guidance>";
 pub const CONTEXT_WINDOW_GUIDANCE_CLOSE_TAG: &str = "</context_window_guidance>";
-pub const USER_MESSAGE_BEGIN: &str = "## My request for Codex:";
+pub const USER_MESSAGE_BEGIN: &str = "## My request for QIRI:";
+const LEGACY_USER_MESSAGE_BEGIN: &str = "## My request for Codex:";
 
 /// Removes the model-context prefix from a user message before displaying it.
 pub fn strip_user_message_prefix(text: &str) -> &str {
-    match text.find(USER_MESSAGE_BEGIN) {
-        Some(idx) => text[idx + USER_MESSAGE_BEGIN.len()..].trim(),
+    match [USER_MESSAGE_BEGIN, LEGACY_USER_MESSAGE_BEGIN]
+        .into_iter()
+        .filter_map(|prefix| text.rfind(prefix).map(|idx| (idx, prefix)))
+        .max_by_key(|(idx, _)| *idx)
+    {
+        Some((idx, prefix)) => text[idx + prefix.len()..].trim(),
         None => text.trim(),
     }
 }
@@ -4831,6 +4836,22 @@ mod conversation_start_params_tests;
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn strip_user_message_prefix_handles_current_and_legacy_sessions() {
+        assert_eq!(
+            strip_user_message_prefix("context\n## My request for QIRI:\n New"),
+            "New"
+        );
+        assert_eq!(
+            strip_user_message_prefix("context\n## My request for Codex:\n Old"),
+            "Old"
+        );
+        assert_eq!(
+            strip_user_message_prefix("## My request for Codex: old\n## My request for QIRI: new"),
+            "new"
+        );
+    }
     use crate::items::CommandExecutionItem;
     use crate::items::CommandExecutionStatus;
     use crate::items::DynamicToolCallItem;
