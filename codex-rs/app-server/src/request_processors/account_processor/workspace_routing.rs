@@ -212,6 +212,7 @@ impl WorkspaceRoutingResolver for AccountRequestProcessor {
 }
 
 impl AccountRequestProcessor {
+    #[cfg(test)]
     pub(super) async fn read_account_for_background_workspace_routing(
         &self,
     ) -> Result<Option<AccountRead>, AccountReadError> {
@@ -227,39 +228,20 @@ impl AccountRequestProcessor {
         self.read_account(/*request*/ None).await.map(Some)
     }
 
-    pub(crate) fn notify_workspace_routing_to_connection(&self, connection_id: ConnectionId) {
-        let processor = self.clone();
-        let auth_changes = self.auth_manager.auth_change_state_receiver();
-        let owner_generation = auth_changes.borrow().owner_generation;
-        tokio::spawn(async move {
-            if auth_changes.borrow().owner_generation != owner_generation {
-                return;
-            }
-            if let Ok(Some(response)) = processor
-                .read_account_for_background_workspace_routing()
-                .await
-                && response.workspace_routing.is_some()
-                && auth_changes.borrow().owner_generation == owner_generation
-            {
-                let notification = processor.current_account_updated_notification();
-                processor
-                    .outgoing
-                    .send_account_notification(
-                        Some(connection_id),
-                        &auth_changes,
-                        owner_generation,
-                        AccountNotification::Updated(notification),
-                    )
-                    .await;
-            }
-        });
-    }
-
     pub(crate) async fn get_account(
         &self,
-        params: GetAccountParams,
+        _params: GetAccountParams,
     ) -> Result<Option<ClientResponsePayload>, JSONRPCErrorError> {
-        self.refresh_token_if_requested(params.refresh_token).await;
+        if self
+            .load_latest_config()
+            .await
+            .model_provider
+            .requires_openai_auth
+        {
+            return Err(invalid_request(
+                "QIRI does not support OpenAI account authentication",
+            ));
+        }
         let read = self
             .read_account(/*request*/ None)
             .await

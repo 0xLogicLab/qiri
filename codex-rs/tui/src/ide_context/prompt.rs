@@ -171,7 +171,7 @@ mod tests {
             panic!("reply text");
         };
         *text = format!(
-            "# Context from my IDE setup:\n\n## Open tabs:\n- lib.rs: src/lib.rs\n\n## My request for Codex:\n{text}"
+            "# Context from my IDE setup:\n\n## Open tabs:\n- lib.rs: src/lib.rs\n\n## My request for QIRI:\n{text}"
         );
         assert!(apply_ide_context_to_user_input(&context, &mut items));
         assert_eq!(items, expected);
@@ -262,7 +262,7 @@ mod tests {
 
         assert!(apply_ide_context_to_user_input(&context, &mut items));
 
-        let expected_prefix = "# Context from my IDE setup:\n\n## Active file: src/lib.rs\n\n## My request for Codex:\n";
+        let expected_prefix = "# Context from my IDE setup:\n\n## Active file: src/lib.rs\n\n## My request for QIRI:\n";
         let prefix_len = expected_prefix.len();
         assert_eq!(
             items,

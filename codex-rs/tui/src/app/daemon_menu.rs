@@ -71,28 +71,22 @@ impl App {
             .package_layout
             .is_some()
         });
-        let mut items: Vec<SelectionItem> = [
-            (
-                DaemonUpdateSource::PublicStable,
-                "Install latest public stable",
-            ),
-            (DaemonUpdateSource::ThisCli, "Use this CLI build"),
-        ]
-        .into_iter()
-        .map(|(source, name)| SelectionItem {
-            name: name.to_string(),
-            is_disabled: unavailable.is_some(),
-            disabled_reason: (unavailable.is_none()
-                && source == DaemonUpdateSource::ThisCli
-                && !has_package)
-                .then(|| "This CLI has no local package to copy".to_string()),
-            actions: vec![Box::new(move |tx| {
-                tx.send(AppEvent::ConfirmDaemonUpdate(source));
-            })],
-            dismiss_on_select: true,
-            ..Default::default()
-        })
-        .collect();
+        let mut items: Vec<SelectionItem> = [(DaemonUpdateSource::ThisCli, "Use this CLI build")]
+            .into_iter()
+            .map(|(source, name)| SelectionItem {
+                name: name.to_string(),
+                is_disabled: unavailable.is_some(),
+                disabled_reason: (unavailable.is_none()
+                    && source == DaemonUpdateSource::ThisCli
+                    && !has_package)
+                    .then(|| "This CLI has no local package to copy".to_string()),
+                actions: vec![Box::new(move |tx| {
+                    tx.send(AppEvent::ConfirmDaemonUpdate(source));
+                })],
+                dismiss_on_select: true,
+                ..Default::default()
+            })
+            .collect();
         items.push(SelectionItem {
             name: "Restart background server".to_string(),
             is_disabled: !self
@@ -108,7 +102,7 @@ impl App {
                 .as_ref()
                 .filter(|connection| connection.is_local_daemon && !connection.is_managed_daemon)
                 .map(|_| {
-                    "Codex hasn't verified it manages this server. Restart it where it was started."
+                    "QIRI hasn't verified it manages this server. Restart it where it was started."
                         .to_string()
                 }),
             actions: vec![Box::new(|tx| tx.send(AppEvent::ConfirmDaemonRestart))],
@@ -136,7 +130,7 @@ impl App {
             header: Box::new(DaemonMenuHeader(vec![
                 Line::from("Restart background server?".bold()),
                 Line::from("Active or queued work in other chats may be interrupted."),
-                Line::from("Codex will reconnect automatically."),
+                Line::from("QIRI will reconnect automatically."),
             ])),
             items: vec![
                 SelectionItem {
@@ -164,12 +158,17 @@ impl App {
             return;
         }
         let mut explanation = match source {
-            DaemonUpdateSource::PublicStable => "Install the latest public stable release. Restore production updates; keep your automatic-update setting.".to_string(),
             DaemonUpdateSource::ThisCli => {
                 let version = codex_install_context::InstallContext::current()
                     .package_manifest()
-                    .map_or_else(|| CODEX_CLI_VERSION.to_string(), |manifest| manifest.version.to_string());
-                format!("Use this CLI package v{version} from {}. Copy the complete package and pin it against automatic updates.", executable.display())
+                    .map_or_else(
+                        || CODEX_CLI_VERSION.to_string(),
+                        |manifest| manifest.version.to_string(),
+                    );
+                format!(
+                    "Use this CLI package v{version} from {}. Copy the complete package and pin it against automatic updates.",
+                    executable.display()
+                )
             }
         };
         explanation.push_str("\nThis may restart the daemon and interrupt active or queued work.\nQIRI exits to update in this terminal. Relaunch it afterward.");

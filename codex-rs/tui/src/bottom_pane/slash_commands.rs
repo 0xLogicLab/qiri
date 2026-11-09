@@ -316,13 +316,10 @@ mod tests {
     }
 
     #[test]
-    fn usage_command_exact_lookup_still_resolves_when_account_token_activity_is_disabled() {
+    fn usage_command_exact_lookup_is_disabled_in_qiri() {
         let mut flags = all_enabled_flags();
         flags.token_activity_command_enabled = false;
-        assert_eq!(
-            find_builtin_command("usage", flags),
-            Some(SlashCommand::Usage)
-        );
+        assert_eq!(find_builtin_command("usage", flags), None);
     }
 
     #[test]
@@ -349,7 +346,6 @@ mod tests {
                 SlashCommand::Daemon,
                 SlashCommand::Warnings,
                 SlashCommand::Pwd,
-                SlashCommand::Usage,
             ]
         );
     }

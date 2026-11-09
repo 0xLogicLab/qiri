@@ -160,12 +160,6 @@ impl AccountRequestProcessor {
         processor
             .auth_manager
             .set_workspace_routing_resolver(Arc::downgrade(&resolver));
-        let startup = processor.clone();
-        tokio::spawn(async move {
-            let _ = startup
-                .read_account_for_background_workspace_routing()
-                .await;
-        });
         processor
     }
 
@@ -1096,76 +1090,19 @@ impl AccountRequestProcessor {
 
     async fn get_auth_status_response(
         &self,
-        params: GetAuthStatusParams,
+        _params: GetAuthStatusParams,
     ) -> Result<GetAuthStatusResponse, JSONRPCErrorError> {
-        let include_token = params.include_token.unwrap_or(false);
-        let do_refresh = params.refresh_token.unwrap_or(false);
-
-        self.refresh_token_if_requested(do_refresh).await;
-
-        // Determine whether auth is required based on the active model provider.
-        // If a custom provider is configured with `requires_openai_auth == false`,
-        // then no auth step is required; otherwise, default to requiring auth.
         let config = self.load_latest_config().await;
-        let requires_openai_auth = config.model_provider.requires_openai_auth;
-
-        let response = if !requires_openai_auth {
-            GetAuthStatusResponse {
-                auth_method: None,
-                auth_token: None,
-                requires_openai_auth: Some(false),
-            }
-        } else {
-            let auth = if do_refresh {
-                self.auth_manager.auth_cached()
-            } else {
-                self.auth_manager.auth().await
-            };
-            match auth {
-                Some(auth) => {
-                    let permanent_refresh_failure =
-                        self.auth_manager.refresh_failure_for_auth(&auth).is_some();
-                    let auth_mode = auth_mode_to_api(auth.api_auth_mode());
-                    let (reported_auth_method, token_opt) =
-                        if self.auth_manager.is_workload_identity_selected()
-                            || matches!(
-                                auth,
-                                CodexAuth::Headers(_)
-                                    | CodexAuth::AgentIdentity(_)
-                                    | CodexAuth::PersonalAccessToken(_)
-                            )
-                            || include_token && permanent_refresh_failure
-                        {
-                            // Host-owned and metadata-bearing credentials are never exported.
-                            (Some(auth_mode), None)
-                        } else {
-                            match auth.get_token() {
-                                Ok(token) if !token.is_empty() => {
-                                    let tok = if include_token { Some(token) } else { None };
-                                    (Some(auth_mode), tok)
-                                }
-                                Ok(_) => (None, None),
-                                Err(err) => {
-                                    tracing::warn!("failed to get token for auth status: {err}");
-                                    (None, None)
-                                }
-                            }
-                        };
-                    GetAuthStatusResponse {
-                        auth_method: reported_auth_method,
-                        auth_token: token_opt,
-                        requires_openai_auth: Some(true),
-                    }
-                }
-                None => GetAuthStatusResponse {
-                    auth_method: None,
-                    auth_token: None,
-                    requires_openai_auth: Some(true),
-                },
-            }
-        };
-
-        Ok(response)
+        if config.model_provider.requires_openai_auth {
+            return Err(invalid_request(
+                "QIRI does not support OpenAI account authentication",
+            ));
+        }
+        Ok(GetAuthStatusResponse {
+            auth_method: None,
+            auth_token: None,
+            requires_openai_auth: Some(false),
+        })
     }
 
     async fn get_account_rate_limits_response(
