@@ -1,1 +1,1 @@
-ddgs==9.16.1
+# No third-party dependencies: Keenable HTTP API via Python standard library.

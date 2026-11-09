@@ -34,6 +34,7 @@ default_tools_approval_mode = "auto"
 enabled_tools = ["search_literature"]
 
 [mcp_servers.qiri_web]
+env_vars = ["KEENABLE_API_KEY", "https_proxy", "HTTPS_PROXY", "http_proxy", "HTTP_PROXY", "no_proxy", "NO_PROXY"]
 command = "qiri-web-mcp"
 required = true
 startup_timeout_sec = 15

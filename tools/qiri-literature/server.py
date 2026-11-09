@@ -317,6 +317,68 @@ def fetch_url(arguments: dict[str, Any]) -> dict[str, Any]:
         raise ToolError(f"Request failed for {url}: {exc.reason}") from exc
 
 
+class _KeenableRedirectHandler(HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        # Never forward the API key to a redirect destination.
+        raise ToolError("Keenable API returned an unexpected redirect")
+
+
+def _keenable_search(payload: dict[str, Any]) -> dict[str, Any]:
+    api_key = os.environ.get("KEENABLE_API_KEY", "").strip()
+    if not api_key:
+        raise ToolError("KEENABLE_API_KEY is not configured for the qiri_web MCP server")
+    request = Request(
+        "https://api.keenable.ai/v1/search",
+        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+        headers={"X-API-Key": api_key, "X-Keenable-Title": "QIRI",
+                 "Content-Type": "application/json", "Accept": "application/json",
+                 "User-Agent": USER_AGENT},
+        method="POST",
+    )
+    try:
+        with build_opener(_KeenableRedirectHandler()).open(request, timeout=30) as response:
+            data = response.read(MAX_FETCH_BYTES + 1)
+            if len(data) > MAX_FETCH_BYTES:
+                raise ToolError("Keenable response exceeded the size limit")
+    except HTTPError as exc:
+        try:
+            error = json.loads(exc.read(65536))
+        except (ValueError, UnicodeError):
+            error = {}
+        if not isinstance(error, dict):
+            error = {}
+        code = str(error.get("code", ""))[:100]
+        detail = str(error.get("message") or error.get("error") or exc.reason)[:500]
+        hints = {
+            401: "Check KEENABLE_API_KEY in the MCP server configuration.",
+            403: "Check the API key and account permissions.",
+            402: "Keenable credits exhausted; add credits before retrying.",
+            429: "Rate limited; retry after the indicated delay.",
+        }
+        retry_after = exc.headers.get("Retry-After") if exc.headers else None
+        message = f"Keenable HTTP {exc.code} ({code}): {detail}. {hints.get(exc.code, '')}"
+        if retry_after:
+            message += f" Retry-After: {retry_after}."
+        # Do not expose credentials, even if an upstream error echoes a header.
+        message = re.sub(r"keen_[A-Za-z0-9_]+", "[redacted]", message.replace(api_key, "[redacted]"))
+        raise ToolError(message.strip()) from exc
+    except (TimeoutError, socket.timeout) as exc:
+        raise ToolError("Keenable connection/request timed out after 30 seconds; check network and proxy settings") from exc
+    except URLError as exc:
+        if isinstance(exc.reason, TimeoutError):
+            raise ToolError("Keenable connection/request timed out after 30 seconds; check network and proxy settings") from exc
+        raise ToolError("Cannot connect to Keenable; check DNS, TLS and the MCP proxy environment") from exc
+    except OSError as exc:
+        raise ToolError("Keenable network request failed; check the MCP proxy environment") from exc
+    try:
+        response = json.loads(data)
+    except (ValueError, UnicodeError) as exc:
+        raise ToolError("Keenable returned invalid JSON") from exc
+    if not isinstance(response, dict) or not isinstance(response.get("results"), list):
+        raise ToolError("Keenable returned an invalid search response (missing results array)")
+    return response
+
+
 def web_search(arguments: dict[str, Any]) -> dict[str, Any]:
     query = arguments.get("query")
     if not isinstance(query, str) or not query.strip():
@@ -324,56 +386,66 @@ def web_search(arguments: dict[str, Any]) -> dict[str, Any]:
     limit = arguments.get("limit", 8)
     if type(limit) is not int or not 1 <= limit <= 20:
         raise ToolError("limit must be an integer between 1 and 20")
-    region = arguments.get("region", "us-en")
-    if not isinstance(region, str) or not re.fullmatch(r"[a-z]{2}-[a-z]{2}", region):
-        raise ToolError("region must be a region code such as cn-zh or us-en")
     timelimit = arguments.get("timelimit")
     if timelimit not in (None, "d", "w", "m", "y"):
         raise ToolError("timelimit must be d, w, m, or y")
-    safesearch = arguments.get("safesearch", "moderate")
-    if safesearch not in ("on", "moderate", "off"):
+    mode = arguments.get("mode", "realtime")
+    if mode not in ("pro", "realtime"):
+        raise ToolError("mode must be pro or realtime")
+    site = arguments.get("site")
+    if site is not None and (not isinstance(site, str) or not site.strip()):
+        raise ToolError("site must be a non-empty string")
+    # Accept calls made with the old tool schema, but report unsupported options.
+    region = arguments.get("region")
+    if region is not None and (not isinstance(region, str) or not re.fullmatch(r"[a-z]{2}-[a-z]{2}", region)):
+        raise ToolError("region must be a region code such as cn-zh or us-en")
+    if arguments.get("safesearch", "moderate") not in ("on", "moderate", "off"):
         raise ToolError("safesearch must be on, moderate, or off")
-    try:
-        from ddgs import DDGS
-    except ImportError as exc:
-        raise ToolError("Web search requires DDGS; run tools/qiri-web/install.sh") from exc
-    try:
-        # DDGS reads DDGS_PROXY, but does not inherit urllib's HTTPS_PROXY handling.
-        proxy = (os.environ.get("DDGS_PROXY") or os.environ.get("https_proxy")
-                 or os.environ.get("HTTPS_PROXY") or os.environ.get("http_proxy")
-                 or os.environ.get("HTTP_PROXY"))
-        items = DDGS(proxy=proxy, timeout=8).text(
-            query.strip(), region=region, safesearch=safesearch,
-            timelimit=timelimit, max_results=limit,
-            backend="yahoo,brave,duckduckgo,startpage,mojeek",
-        )
-        results = []
-        seen: set[str] = set()
-        for item in items:
-            url = item.get("href", "")
+    payload = {"query": query.strip(), "max_results": limit, "mode": mode,
+               "snippet_max_length": 3000, "disable_cards": True}
+    if timelimit:
+        payload["published_after"] = {"d": "1d", "w": "7d", "m": "1mo", "y": "1y"}[timelimit]
+    if site is not None:
+        payload["site"] = site.strip()
+    response = _keenable_search(payload)
+    results = []
+    seen: set[str] = set()
+    for item in response["results"]:
+        if not isinstance(item, dict):
+            continue
+        url = item.get("url", "")
+        if not isinstance(url, str):
+            continue
+        try:
             parsed = urlsplit(url)
-            if parsed.scheme not in {"http", "https"} or not parsed.hostname or parsed.username or parsed.password:
-                continue
-            if url in seen:
-                continue
-            seen.add(url)
-            results.append({
-                "title": str(item.get("title", ""))[:1000],
-                "url": url,
-                "snippet": str(item.get("body", ""))[:3000],
-            })
-            if len(results) >= limit:
-                break
-    except Exception as exc:
-        raise ToolError(f"Web search failed ({type(exc).__name__}); retry or narrow the query") from exc
+        except ValueError:
+            continue
+        if parsed.scheme not in {"http", "https"} or not parsed.hostname or parsed.username or parsed.password:
+            continue
+        if url in seen:
+            continue
+        seen.add(url)
+        result = {"title": str(item.get("title") or "")[:1000],
+                  "url": url, "snippet": str(item.get("snippet") or "")[:3000]}
+        for field in ("published_at", "acquired_at"):
+            if isinstance(item.get(field), str):
+                result[field] = item[field]
+        results.append(result)
+        if len(results) >= limit:
+            break
     if not results:
-        raise ToolError("Search returned no usable results; retry with different terms or without a time filter")
-    return {
-        "query": query.strip(), "provider": "ddgs", "region": region,
+        raise ToolError("Keenable returned no usable results; try different terms or a wider publication window")
+    result = {
+        "query": query.strip(), "provider": "keenable", "mode": response.get("mode", mode),
         "timelimit": timelimit, "retrieved_at": datetime.now(timezone.utc).isoformat(),
         "count": len(results), "results": results,
-        "note": "Search snippets are not verified page contents. Use fetch_url to read sources. Time filters and freshness depend on the upstream search engines.",
+        "note": "Search snippets are not verified page contents. Use fetch_url to read sources. Publication filters exclude pages with unknown publication dates; retrieval time is not publication time.",
     }
+    ignored = [key for key in ("region", "safesearch") if key in arguments]
+    if ignored:
+        result["unsupported_parameters"] = ignored
+        result["note"] += " Keenable does not support region or safesearch; supplied legacy options were not applied."
+    return result
 
 
 TOOLS = [
@@ -409,15 +481,15 @@ TOOLS = [
 
 WEB_SEARCH_TOOL = {
     "name": "web_search",
-    "description": "Search the live web for general information, current events, official documentation, and websites. Returns titles, URLs, and snippets, not full page text. Use fetch_url to read sources; use search_literature for scientific papers and DOI metadata. Freshness depends on search engine indexing.",
+    "description": "Search the live web for general information, current events, official documentation, and websites. Returns titles, URLs, and snippets, not full page text. Use fetch_url to read sources; use search_literature for scientific papers and DOI metadata. Uses Keenable; freshness depends on its index.",
     "inputSchema": {
         "type": "object",
         "properties": {
-            "query": {"type": "string", "minLength": 1, "description": "Search terms; supports operators such as site:example.org."},
+            "query": {"type": "string", "minLength": 1, "description": "Describe the information to find; use the site parameter to restrict a domain."},
             "limit": {"type": "integer", "minimum": 1, "maximum": 20, "default": 8},
-            "region": {"type": "string", "default": "us-en", "description": "Search locale, e.g. cn-zh (China), us-en (US). Does not guarantee geographic restriction."},
-            "timelimit": {"type": "string", "enum": ["d", "w", "m", "y"], "description": "Optional recent day/week/month/year filter, subject to engine support."},
-            "safesearch": {"type": "string", "enum": ["on", "moderate", "off"], "default": "moderate"},
+            "timelimit": {"type": "string", "enum": ["d", "w", "m", "y"], "description": "Pages published within the last day/week/month/year; excludes pages without a known publication date."},
+            "site": {"type": "string", "minLength": 1, "description": "Optional site restriction, e.g. nvidia.com."},
+            "mode": {"type": "string", "enum": ["realtime", "pro"], "default": "realtime", "description": "realtime for fast searches; pro for deeper retrieval."},
         },
         "required": ["query"],
         "additionalProperties": False,
