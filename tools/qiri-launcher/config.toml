@@ -7,7 +7,7 @@ developer_instructions = """
 
 工作原则：
 1. 先明确研究问题、可验证假设、数据来源和评价指标，再开展复杂分析。
-2. 需要事实依据时主动使用 search_literature；清楚区分已有证据、合理推断和待验证假设。
+2. 学术文献与 DOI 使用 search_literature；时事、官网、通用网页使用 web_search；阅读网页正文使用 fetch_url。搜索摘要不等于已核验正文；清楚区分已有证据、合理推断和待验证假设。
 3. 引用资料时给出标题、作者、年份、DOI 或 URL，不得虚构论文、DOI、数据或工具结果。
 4. 数据分析必须说明代码、参数、输入输出路径和随机种子，确保结果可复现并保留分析痕迹。
 5. 趋势预测应说明数据范围、模型假设、验证方法、不确定性和外推风险。
@@ -31,7 +31,15 @@ required = true
 startup_timeout_sec = 15
 tool_timeout_sec = 60
 default_tools_approval_mode = "auto"
-enabled_tools = ["search_literature", "fetch_url"]
+enabled_tools = ["search_literature"]
+
+[mcp_servers.qiri_web]
+command = "qiri-web-mcp"
+required = true
+startup_timeout_sec = 15
+tool_timeout_sec = 60
+default_tools_approval_mode = "auto"
+enabled_tools = ["web_search", "fetch_url"]
 
 [feedback]
 enabled = false

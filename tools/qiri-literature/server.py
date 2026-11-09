@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
-"""Minimal stdio MCP server for QIRI scientific literature search."""
+"""QIRI literature MCP server and shared --web catalog/transport."""
 
 from __future__ import annotations
 
 import html
 import ipaddress
 import json
+import os
 import re
 import socket
 import sys
+from datetime import datetime, timezone
 import xml.etree.ElementTree as ET
 from html.parser import HTMLParser
 from typing import Any
@@ -23,6 +25,7 @@ PROTOCOL_VERSION = "2025-06-18"
 USER_AGENT = "QIRI/0.1 (scientific literature research)"
 MAX_FETCH_BYTES = 1_000_000
 MAX_FETCH_TEXT = 30_000
+WEB_MODE = False
 
 
 class ToolError(Exception):
@@ -314,6 +317,65 @@ def fetch_url(arguments: dict[str, Any]) -> dict[str, Any]:
         raise ToolError(f"Request failed for {url}: {exc.reason}") from exc
 
 
+def web_search(arguments: dict[str, Any]) -> dict[str, Any]:
+    query = arguments.get("query")
+    if not isinstance(query, str) or not query.strip():
+        raise ToolError("query must be a non-empty string")
+    limit = arguments.get("limit", 8)
+    if type(limit) is not int or not 1 <= limit <= 20:
+        raise ToolError("limit must be an integer between 1 and 20")
+    region = arguments.get("region", "us-en")
+    if not isinstance(region, str) or not re.fullmatch(r"[a-z]{2}-[a-z]{2}", region):
+        raise ToolError("region must be a region code such as cn-zh or us-en")
+    timelimit = arguments.get("timelimit")
+    if timelimit not in (None, "d", "w", "m", "y"):
+        raise ToolError("timelimit must be d, w, m, or y")
+    safesearch = arguments.get("safesearch", "moderate")
+    if safesearch not in ("on", "moderate", "off"):
+        raise ToolError("safesearch must be on, moderate, or off")
+    try:
+        from ddgs import DDGS
+    except ImportError as exc:
+        raise ToolError("Web search requires DDGS; run tools/qiri-web/install.sh") from exc
+    try:
+        # DDGS reads DDGS_PROXY, but does not inherit urllib's HTTPS_PROXY handling.
+        proxy = (os.environ.get("DDGS_PROXY") or os.environ.get("https_proxy")
+                 or os.environ.get("HTTPS_PROXY") or os.environ.get("http_proxy")
+                 or os.environ.get("HTTP_PROXY"))
+        items = DDGS(proxy=proxy, timeout=8).text(
+            query.strip(), region=region, safesearch=safesearch,
+            timelimit=timelimit, max_results=limit,
+            backend="yahoo,brave,duckduckgo,startpage,mojeek",
+        )
+        results = []
+        seen: set[str] = set()
+        for item in items:
+            url = item.get("href", "")
+            parsed = urlsplit(url)
+            if parsed.scheme not in {"http", "https"} or not parsed.hostname or parsed.username or parsed.password:
+                continue
+            if url in seen:
+                continue
+            seen.add(url)
+            results.append({
+                "title": str(item.get("title", ""))[:1000],
+                "url": url,
+                "snippet": str(item.get("body", ""))[:3000],
+            })
+            if len(results) >= limit:
+                break
+    except Exception as exc:
+        raise ToolError(f"Web search failed ({type(exc).__name__}); retry or narrow the query") from exc
+    if not results:
+        raise ToolError("Search returned no usable results; retry with different terms or without a time filter")
+    return {
+        "query": query.strip(), "provider": "ddgs", "region": region,
+        "timelimit": timelimit, "retrieved_at": datetime.now(timezone.utc).isoformat(),
+        "count": len(results), "results": results,
+        "note": "Search snippets are not verified page contents. Use fetch_url to read sources. Time filters and freshness depend on the upstream search engines.",
+    }
+
+
 TOOLS = [
     {
         "name": "search_literature",
@@ -345,19 +407,49 @@ TOOLS = [
     },
 ]
 
+WEB_SEARCH_TOOL = {
+    "name": "web_search",
+    "description": "Search the live web for general information, current events, official documentation, and websites. Returns titles, URLs, and snippets, not full page text. Use fetch_url to read sources; use search_literature for scientific papers and DOI metadata. Freshness depends on search engine indexing.",
+    "inputSchema": {
+        "type": "object",
+        "properties": {
+            "query": {"type": "string", "minLength": 1, "description": "Search terms; supports operators such as site:example.org."},
+            "limit": {"type": "integer", "minimum": 1, "maximum": 20, "default": 8},
+            "region": {"type": "string", "default": "us-en", "description": "Search locale, e.g. cn-zh (China), us-en (US). Does not guarantee geographic restriction."},
+            "timelimit": {"type": "string", "enum": ["d", "w", "m", "y"], "description": "Optional recent day/week/month/year filter, subject to engine support."},
+            "safesearch": {"type": "string", "enum": ["on", "moderate", "off"], "default": "moderate"},
+        },
+        "required": ["query"],
+        "additionalProperties": False,
+    },
+    "annotations": {"readOnlyHint": True, "openWorldHint": True},
+}
+
+
+def configure_web_mode() -> None:
+    """Reuse the transport and fetch implementation, with a separate MCP catalog."""
+    global WEB_MODE, SERVER_NAME, TOOLS
+    WEB_MODE = True
+    SERVER_NAME = "qiri-web"
+    TOOLS = [WEB_SEARCH_TOOL, next(tool for tool in TOOLS if tool["name"] == "fetch_url")]
+
 
 def _call_tool(name: str, arguments: dict[str, Any]) -> dict[str, Any]:
     try:
+        if name not in {tool["name"] for tool in TOOLS}:
+            raise ToolError(f"unknown tool: {name}")
         if name == "search_literature":
             result = search_literature(arguments)
         elif name == "fetch_url":
             result = fetch_url(arguments)
+        elif name == "web_search":
+            result = web_search(arguments)
         else:
             raise ToolError(f"unknown tool: {name}")
         text = json.dumps(result, ensure_ascii=False, indent=2)
         return {"content": [{"type": "text", "text": text}], "structuredContent": result}
     except (ToolError, ValueError, TypeError) as exc:
-        return {"content": [{"type": "text", "text": f"QIRI literature tool error: {exc}"}], "isError": True}
+        return {"content": [{"type": "text", "text": f"{SERVER_NAME} tool error: {exc}"}], "isError": True}
 
 
 def _handle(message: dict[str, Any]) -> dict[str, Any] | None:
@@ -375,7 +467,11 @@ def _handle(message: dict[str, Any]) -> dict[str, Any] | None:
                 "protocolVersion": PROTOCOL_VERSION,
                 "capabilities": {"tools": {"listChanged": False}},
                 "serverInfo": {"name": SERVER_NAME, "version": SERVER_VERSION},
-                "instructions": "Use search_literature for evidence-backed research and report DOI values exactly as returned.",
+                "instructions": (
+                    "Use web_search to find webpages, then fetch_url to read and verify sources. Cite source URLs. Search snippets alone do not verify a claim."
+                    if WEB_MODE else
+                    "Use search_literature for evidence-backed research and report DOI values exactly as returned."
+                ),
             },
         )
     if method == "ping":
@@ -416,4 +512,8 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    if sys.argv[1:] == ["--web"]:
+        configure_web_mode()
+    elif sys.argv[1:]:
+        raise SystemExit("Usage: qiri-literature-mcp [--web]")
     raise SystemExit(main())
