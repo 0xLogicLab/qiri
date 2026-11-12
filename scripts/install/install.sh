@@ -5,9 +5,7 @@ set -eu
 RELEASE="${CODEX_RELEASE:-latest}"
 NON_INTERACTIVE="${CODEX_NON_INTERACTIVE:-false}"
 DAEMON_ONLY="${CODEX_INSTALL_DAEMON_ONLY:-0}"
-DEFAULT_PREFER_RELEASES_OPENAI_COM="true"
-PREFER_RELEASES_OPENAI_COM="${CODEX_INSTALLER_USE_RELEASES_OPENAI_COM:-$DEFAULT_PREFER_RELEASES_OPENAI_COM}"
-RELEASES_BASE_URL="https://releases.openai.com/codex"
+RELEASES_BASE_URL="${QIRI_RELEASES_BASE_URL:-}"
 RELEASES_CONNECT_TIMEOUT=10
 RELEASES_METADATA_TIMEOUT=30
 RELEASES_ASSET_TIMEOUT=300
@@ -98,8 +96,7 @@ Usage: install.sh [--release VERSION]
 Environment:
   CODEX_RELEASE          Version to install; overridden by --release.
   CODEX_NON_INTERACTIVE  Set to 1, true, or yes to skip prompts.
-  CODEX_INSTALLER_USE_RELEASES_OPENAI_COM
-                         Set to 0, false, or no to use GitHub Releases.
+  QIRI_RELEASES_BASE_URL  Optional explicit release mirror; defaults to GitHub Releases.
 EOF
         exit 0
         ;;
@@ -399,7 +396,7 @@ resolve_release_from_releases() {
     return 1
   fi
 
-  if ! parse_downloaded_release_metadata "$requested_release" "releases.openai.com"; then
+  if ! parse_downloaded_release_metadata "$requested_release" "custom"; then
     return 1
   fi
   if ! resolve_metadata_version; then
@@ -410,22 +407,19 @@ resolve_release_from_releases() {
     return 1
   fi
   resolved_version="$metadata_version"
-  release_source="releases.openai.com"
+  release_source="custom"
 }
 
 resolve_release() {
   normalized_version="$(normalize_version "$RELEASE")"
   validate_version "$normalized_version"
 
-  case "$PREFER_RELEASES_OPENAI_COM" in
-    1 | [Tt][Rr][Uu][Ee] | [Yy][Ee][Ss])
-      if resolve_release_from_releases "$normalized_version" &&
-        select_release_assets; then
-        return
-      fi
-      warn "releases.openai.com is unavailable; falling back to GitHub Releases."
-      ;;
-  esac
+  if [ -n "$RELEASES_BASE_URL" ]; then
+    if resolve_release_from_releases "$normalized_version" && select_release_assets; then
+      return
+    fi
+    warn "Configured release source is unavailable; falling back to GitHub Releases."
+  fi
 
   resolve_release_from_github "$normalized_version"
   select_release_assets
@@ -491,7 +485,7 @@ select_release_assets() {
     return 1
   fi
 
-  if [ "$release_source" = "releases.openai.com" ]; then
+  if [ "$release_source" = "custom" ]; then
     download_url="$(releases_url_for_asset "$asset" "$resolved_version")"
     download_fallback_url="$(release_url_for_asset "$asset" "$resolved_version")"
     if [ "$install_layout" = "package" ]; then

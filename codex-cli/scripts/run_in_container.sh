@@ -10,8 +10,8 @@ set -e
 
 # Default the work directory to WORKSPACE_ROOT_DIR if not provided.
 WORK_DIR="${WORKSPACE_ROOT_DIR:-$(pwd)}"
-# Default allowed domains - can be overridden with OPENAI_ALLOWED_DOMAINS env var
-OPENAI_ALLOWED_DOMAINS="${OPENAI_ALLOWED_DOMAINS:-api.openai.com}"
+# Default allowed domains - can be overridden with QIRI_ALLOWED_DOMAINS env var
+QIRI_ALLOWED_DOMAINS="${QIRI_ALLOWED_DOMAINS:?Set QIRI_ALLOWED_DOMAINS explicitly}"
 
 # Parse optional flag.
 if [ "$1" = "--work_dir" ]; then
@@ -47,9 +47,9 @@ if [ -z "$WORK_DIR" ]; then
   exit 1
 fi
 
-# Verify that OPENAI_ALLOWED_DOMAINS is not empty
-if [ -z "$OPENAI_ALLOWED_DOMAINS" ]; then
-  echo "Error: OPENAI_ALLOWED_DOMAINS is empty."
+# Verify that QIRI_ALLOWED_DOMAINS is not empty
+if [ -z "$QIRI_ALLOWED_DOMAINS" ]; then
+  echo "Error: QIRI_ALLOWED_DOMAINS is empty."
   exit 1
 fi
 
@@ -67,7 +67,7 @@ docker run --name "$CONTAINER_NAME" -d \
 
 # Write the allowed domains to a file in the container
 docker exec --user root "$CONTAINER_NAME" bash -c "mkdir -p /etc/codex"
-for domain in $OPENAI_ALLOWED_DOMAINS; do
+for domain in $QIRI_ALLOWED_DOMAINS; do
   # Validate domain format to prevent injection
   if [[ ! "$domain" =~ ^[a-zA-Z0-9][a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]]; then
     echo "Error: Invalid domain format: $domain"

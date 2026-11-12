@@ -173,3 +173,9 @@ core 的 5 处旧 HTTP 遥测测试已同步为验证“即使启用旧设置也
 删除官方 refresh/revoke transport、PAT whoami、workload identity 交换、agent identity/JWKS/任务注册及账号工作区切换实现；磁盘旧服务凭据不再激活。运行时身份注册没有默认官方地址或官方 cookie 特例，只接受调用者显式传入的端点；本地密码学与纯数据类型不建立网络连接。model-provider 和 login 的账号 routing discovery 已删除，Responses 始终使用选定端点。MCP 的官方域名信任/网络能力特例已移除。
 
 单元验证：login 147、agent-identity 2、runtime-agent-instance 19、model-provider-info 38、model-provider 97、models-manager 56 通过，无失败。其余五组以 rework-auth-final-tests.log 中各目标结果为依据；model-provider 在删除旧官方域名策略测试后完整重跑通过，见 rework-phase2-provider-tests.log。交付检查以 rework-phase2-check.log 为准。本节不将剩余 hosted apps、更新器、账号界面等列为已完成。
+
+## Supervisor rework — 阶段 3a：安装源与容器网络默认值
+
+删除 shell/PowerShell 安装器的官方发布站预置；公开 GitHub Releases 保留，镜像只能由 `QIRI_RELEASES_BASE_URL` 显式提供。Bazel 兼容包下载删除官方发布站备用 URL。发布脚本生成公开下载 URL 前必须提供该环境变量，本次不运行发布器。容器防火墙不再默认允许官方 API，也不再主动探测该 API；允许域名必须显式配置。
+
+验证：安装器 22 项测试通过（rework-installer-tests.log）；shell 语法与发布器 Python 编译检查通过。PowerShell 环境不可用，保留其原有下载/校验流程，仅替换源选择方式，不声称已在 Windows 执行。

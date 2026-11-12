@@ -11,9 +11,8 @@ if [ -f "$ALLOWED_DOMAINS_FILE" ]; then
     done < "$ALLOWED_DOMAINS_FILE"
     echo "Using domains from file: ${ALLOWED_DOMAINS[*]}"
 else
-    # Fallback to default domains
-    ALLOWED_DOMAINS=("api.openai.com")
-    echo "Domains file not found, using default: ${ALLOWED_DOMAINS[*]}"
+    echo "ERROR: Configure an explicit allowed_domains.txt before starting the container"
+    exit 1
 fi
 
 # Ensure we have at least one domain
@@ -104,12 +103,4 @@ if curl --connect-timeout 5 https://example.com >/dev/null 2>&1; then
     exit 1
 else
     echo "Firewall verification passed - unable to reach https://example.com as expected"
-fi
-
-# Always verify OpenAI API access is working
-if ! curl --connect-timeout 5 https://api.openai.com >/dev/null 2>&1; then
-    echo "ERROR: Firewall verification failed - unable to reach https://api.openai.com"
-    exit 1
-else
-    echo "Firewall verification passed - able to reach https://api.openai.com as expected"
 fi

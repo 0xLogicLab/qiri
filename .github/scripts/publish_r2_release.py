@@ -415,6 +415,9 @@ def main() -> int:
     args = parse_args()
     try:
         endpoint = os.environ.get("AWS_ENDPOINT_URL")
+        public_base_url = os.environ.get("QIRI_RELEASES_BASE_URL", "").rstrip("/")
+        if not public_base_url:
+            raise PublishError("QIRI_RELEASES_BASE_URL is required for public download URLs")
         if not os.environ.get("GH_TOKEN"):
             raise PublishError("GH_TOKEN is required")
         if not endpoint:
@@ -473,7 +476,7 @@ def main() -> int:
                     "name": asset.path.name,
                     "digest": f"sha256:{asset.sha256}",
                     "browser_download_url": (
-                        f"https://releases.openai.com/{PREFIX}/releases/"
+                        f"{public_base_url}/{PREFIX}/releases/"
                         f"{version}/{quote(asset.path.name, safe='')}"
                     ),
                 }

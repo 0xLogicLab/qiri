@@ -12,13 +12,7 @@ if ([string]::IsNullOrWhiteSpace($Release)) {
 }
 
 $NonInteractive = $env:CODEX_NON_INTERACTIVE -match "^(?i:1|true|yes)$"
-$DefaultPreferReleasesOpenAICom = $true
-$PreferReleasesOpenAICom = if ([string]::IsNullOrWhiteSpace($env:CODEX_INSTALLER_USE_RELEASES_OPENAI_COM)) {
-    $DefaultPreferReleasesOpenAICom
-} else {
-    $env:CODEX_INSTALLER_USE_RELEASES_OPENAI_COM -match "^(?i:1|true|yes)$"
-}
-$ReleasesBaseUri = "https://releases.openai.com/codex"
+$ReleasesBaseUri = $env:QIRI_RELEASES_BASE_URL
 $ReleasesMetadataTimeoutSec = 30
 $ReleasesAssetTimeoutSec = 300
 
@@ -170,7 +164,7 @@ function Resolve-ReleaseAssetSelection {
     $packageFallbackUrl = $null
     $checksumUrl = $null
     $checksumFallbackUrl = $null
-    if ($ResolvedRelease.Source -eq "ReleasesOpenAICom") {
+    if ($ResolvedRelease.Source -eq "Custom") {
         $packageUrl = "$ReleasesBaseUri/releases/$version/$packageAsset"
         $packageFallbackUrl = "https://github.com/openai/codex/releases/download/rust-v$version/$packageAsset"
         $checksumUrl = "$ReleasesBaseUri/releases/$version/$checksumAsset"
@@ -191,7 +185,7 @@ function Resolve-ReleaseAssetSelection {
     $packageAsset = "codex-npm-$NpmTag-$version.tgz"
     $packageUrl = $null
     $packageFallbackUrl = $null
-    if ($ResolvedRelease.Source -eq "ReleasesOpenAICom") {
+    if ($ResolvedRelease.Source -eq "Custom") {
         $packageUrl = "$ReleasesBaseUri/releases/$version/$packageAsset"
         $packageFallbackUrl = "https://github.com/openai/codex/releases/download/rust-v$version/$packageAsset"
     }
@@ -390,7 +384,7 @@ function Resolve-ReleaseFromReleases {
         $resolvedRelease = [PSCustomObject]@{
             Version = $resolvedVersion
             Metadata = $releaseMetadata
-            Source = "ReleasesOpenAICom"
+            Source = "Custom"
         }
         $null = Resolve-ReleaseAssetSelection -ResolvedRelease $resolvedRelease -Target $target -NpmTag $npmTag
     } catch {
@@ -403,12 +397,12 @@ function Resolve-Release {
     $normalizedVersion = Normalize-Version -RawVersion $Release
     Assert-ValidReleaseVersion -Version $normalizedVersion
 
-    if ($PreferReleasesOpenAICom) {
+    if ((-not [string]::IsNullOrWhiteSpace($ReleasesBaseUri))) {
         $release = Resolve-ReleaseFromReleases -NormalizedVersion $normalizedVersion
         if ($null -ne $release) {
             return $release
         }
-        Write-WarningStep "releases.openai.com is unavailable; falling back to GitHub Releases."
+        Write-WarningStep "Configured release source is unavailable; falling back to GitHub Releases."
     }
 
     return Resolve-ReleaseFromGitHub -NormalizedVersion $normalizedVersion
