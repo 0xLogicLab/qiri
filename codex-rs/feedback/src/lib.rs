@@ -9,15 +9,9 @@ use std::path::Path;
 use std::path::PathBuf;
 use std::sync::Arc;
 use std::sync::Mutex;
-use std::time::Duration;
-use std::time::Instant;
 
 use anyhow::Context;
 use anyhow::Result;
-use anyhow::anyhow;
-use codex_http_client::ClientRouteClass;
-use codex_http_client::HttpClientFactory;
-use codex_http_client::RouteAwareClientPool;
 use codex_login::AuthEnvTelemetry;
 use codex_protocol::ThreadId;
 use codex_protocol::protocol::SessionSource;
@@ -36,7 +30,6 @@ mod daemon_logs;
 pub use daemon_logs::daemon_log_attachments;
 pub(crate) mod feedback_diagnostics;
 mod guardian;
-mod report_upload;
 mod rollout_archive;
 mod upload;
 pub use feedback_diagnostics::FEEDBACK_DIAGNOSTICS_ATTACHMENT_FILENAME;
@@ -46,9 +39,6 @@ pub use guardian::GuardianReviewFailures;
 pub use guardian::GuardianReviewRecord;
 pub use guardian::guardian_review_failures;
 pub use guardian::record_guardian_review_failure;
-pub use report_upload::FeedbackDelivery;
-pub use report_upload::FeedbackTransport;
-pub use report_upload::prepare_report_attachment;
 
 /// Filename used for the redacted `codex doctor --json` feedback attachment.
 pub const DOCTOR_REPORT_ATTACHMENT_FILENAME: &str = "codex-doctor-report.json";
@@ -59,9 +49,6 @@ pub const CODEX_APP_DIRECTORY_CACHE_ATTACHMENT_FILENAME: &str = "codex-app-direc
 /// Filename used for the Windows sandbox log feedback attachment.
 pub const WINDOWS_SANDBOX_LOG_ATTACHMENT_FILENAME: &str = "windows-sandbox.log";
 const DEFAULT_MAX_BYTES: usize = 4 * 1024 * 1024; // 4 MiB
-const SENTRY_DSN: &str =
-    "https://ae32ed50620d7a7792c1ce5df38b3e3e@o33249.ingest.us.sentry.io/4510195390611458";
-const UPLOAD_TIMEOUT: Duration = Duration::from_secs(/*secs*/ 300);
 // Raw collection budgets used by the report API, not the interactive upload.
 pub const MAX_ATTACHMENT_BYTES: usize = 64 * 1024 * 1024;
 pub const MAX_ATTACHMENTS_BYTES: usize = 126 * 1024 * 1024;
@@ -631,24 +618,6 @@ impl FeedbackSnapshot {
         self.feedback_diagnostics.attachment_text()
     }
 
-    /// Submit feedback to Sentry with whole attachments within a shared deadline.
-    /// Success means HTTP acceptance, not durable attachment storage. Callers must
-    /// retain their source files; errors can occur after part of a report is accepted.
-    /// https://github.com/getsentry/relay/blob/master/relay-server/src/endpoints/common.rs
-    pub async fn upload_feedback(
-        &self,
-        options: FeedbackUploadOptions<'_>,
-        http_client_factory: &HttpClientFactory,
-    ) -> Result<()> {
-        self.upload_feedback_with_dsn(
-            options,
-            http_client_factory,
-            SENTRY_DSN,
-            Instant::now() + UPLOAD_TIMEOUT,
-        )
-        .await
-    }
-
     /// Atomically saves the consent-selected report and attachments without uploading.
     /// Existing paths are rejected and failures never publish a partial archive.
     pub fn save_feedback(&self, options: FeedbackUploadOptions<'_>, path: &Path) -> Result<()> {
@@ -687,143 +656,6 @@ impl FeedbackSnapshot {
                 ),
             archive::Limits::default(),
         )
-    }
-
-    async fn upload_feedback_with_dsn(
-        &self,
-        options: FeedbackUploadOptions<'_>,
-        http_client_factory: &HttpClientFactory,
-        dsn: &str,
-        deadline: Instant,
-    ) -> Result<()> {
-        use std::str::FromStr;
-
-        use sentry::protocol::Envelope;
-        use sentry::protocol::EnvelopeItem;
-        use sentry::types::Dsn;
-
-        let started_at = Instant::now();
-        let dsn = Dsn::from_str(dsn).map_err(|error| anyhow!("invalid DSN: {error}"))?;
-
-        let event = self.feedback_event(
-            options.classification,
-            options.reason,
-            options.tags,
-            options.session_source.as_ref(),
-        );
-        let mut envelope = Envelope::new();
-        envelope.add_item(EnvelopeItem::Event(event));
-        let (event_body, event_bytes) =
-            upload::encode_envelope(&envelope).context("failed to serialize feedback event")?;
-        anyhow::ensure!(
-            event_bytes <= MAX_EVENT_BYTES,
-            "feedback event exceeds the size limit"
-        );
-        let headers = envelope.headers().clone();
-        drop(envelope);
-        let client_pool = RouteAwareClientPool::new_without_redirects_or_request_logging(
-            http_client_factory.clone(),
-            ClientRouteClass::Other,
-        );
-        // Accept the report before reading diagnostics; all envelopes share one deadline.
-        let mut rate_limited = false;
-        let status = upload::send_envelope(
-            &client_pool,
-            &dsn,
-            event_body,
-            upload::EnvelopeKind::Event,
-            deadline,
-            &mut rate_limited,
-        )
-        .await?;
-        anyhow::ensure!(
-            status.is_success(),
-            "Sentry rejected feedback upload with HTTP status {status}"
-        );
-
-        let mut attachments = self.feedback_attachments(
-            &headers,
-            options.include_logs,
-            options.extra_attachments,
-            options.extra_attachment_paths,
-            options.logs_override,
-        );
-        let mut uploaded_attachments = 0;
-        let mut attachments_failed = false;
-        // Keep attachments linked to the accepted event, without replaying its contents.
-        // Inspect the upper bound without reading the next file after the deadline.
-        while attachments.size_hint().1 != Some(0) {
-            if rate_limited || Instant::now() >= deadline {
-                attachments_failed = true;
-                tracing::error!(
-                    reason = if rate_limited {
-                        "rate limit"
-                    } else {
-                        "upload deadline"
-                    },
-                    "remaining feedback attachments skipped"
-                );
-                break;
-            }
-            let Some(attachment) = attachments.next() else {
-                break;
-            };
-            if Instant::now() >= deadline {
-                attachments_failed = true;
-                tracing::error!(
-                    "remaining feedback attachments skipped: upload deadline reached while reading attachment"
-                );
-                break;
-            }
-            let mut status = None;
-            let result: Result<()> = async {
-                let body = upload::encode_attachment_envelope(&headers, attachment?)?;
-                let response_status = upload::send_envelope(
-                    &client_pool,
-                    &dsn,
-                    body,
-                    upload::EnvelopeKind::Attachment,
-                    deadline,
-                    &mut rate_limited,
-                )
-                .await
-                .map_err(|error| {
-                    // Transport error strings can contain credential-bearing URLs.
-                    if let Some(cause) = error.downcast_ref::<codex_http_client::RouteAwareRequestError>() {
-                        anyhow!(
-                            "feedback transport failed: class={:?}, timeout={}, connect={}, request={}, body={}",
-                            cause.failure_class(), cause.is_timeout(), cause.is_connect(), cause.is_request(), cause.is_body()
-                        )
-                    } else {
-                        error
-                    }
-                })?;
-
-                status = Some(response_status.as_u16());
-                anyhow::ensure!(response_status.is_success(), "Sentry rejected attachment");
-                Ok(())
-            }
-            .await;
-            if let Err(error) = result {
-                attachments_failed = true;
-                // Keep trying other diagnostics before reporting the partial failure.
-                tracing::error!(status, error = %format!("{error:#}"), "feedback attachment upload failed; continuing");
-            } else {
-                uploaded_attachments += 1;
-            }
-        }
-        tracing::info!(
-            thread_id = %self.thread_id,
-            uploaded_attachments,
-            attachments_failed,
-            elapsed_ms = started_at.elapsed().as_millis(),
-            "feedback event uploaded to Sentry"
-        );
-        anyhow::ensure!(
-            !attachments_failed,
-            "feedback report was accepted, but some attachments failed to upload"
-        );
-        Ok(())
     }
 
     fn upload_tags(

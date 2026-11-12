@@ -86,7 +86,6 @@ use tokio::sync::mpsc;
 use tokio::sync::oneshot;
 
 const ANALYTICS_EVENTS_QUEUE_SIZE: usize = 256;
-const ANALYTICS_EVENTS_TIMEOUT: Duration = Duration::from_secs(10);
 // Covers two sequential POSTs plus queue/barrier scheduling; additional queued sends remain best-effort.
 const ANALYTICS_EVENTS_FLUSH_TIMEOUT: Duration = Duration::from_secs(25);
 const ANALYTICS_EVENT_DEDUPE_MAX_KEYS: usize = 4096;
@@ -116,9 +115,7 @@ pub struct AnalyticsEventsClient {
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 enum AnalyticsEventsDestination {
-    Http {
-        base_url: ChatgptBaseUrl,
-    },
+    Disabled,
     #[cfg(debug_assertions)]
     CaptureFile {
         path: PathBuf,
@@ -132,7 +129,7 @@ impl AnalyticsEventsDestination {
     }
 
     fn from_base_url_and_capture_file(
-        base_url: ChatgptBaseUrl,
+        _base_url: ChatgptBaseUrl,
         capture_file: Option<PathBuf>,
     ) -> Self {
         #[cfg(debug_assertions)]
@@ -153,18 +150,7 @@ impl AnalyticsEventsDestination {
         #[cfg(not(debug_assertions))]
         let _ = capture_file;
 
-        Self::Http { base_url }
-    }
-
-    fn url_for_auth(&self, auth: &CodexAuth) -> Option<String> {
-        match self {
-            Self::Http { base_url } => {
-                let base_url = base_url.resolve(auth).trim_end_matches('/');
-                Some(format!("{base_url}/codex/analytics-events/events"))
-            }
-            #[cfg(debug_assertions)]
-            Self::CaptureFile { .. } => None,
-        }
+        Self::Disabled
     }
 }
 
@@ -330,7 +316,8 @@ impl AnalyticsEventsClient {
     ) -> Self {
         let destination = AnalyticsEventsDestination::from_base_url(base_url.into());
         Self {
-            queue: (analytics_enabled != Some(false))
+            queue: (analytics_enabled != Some(false)
+                && destination != AnalyticsEventsDestination::Disabled)
                 .then(|| AnalyticsEventsQueue::new(Arc::clone(&auth_manager), destination)),
         }
     }
@@ -1052,11 +1039,11 @@ fn track_event_request_batches(events: Vec<TrackEventRequest>) -> Vec<Vec<TrackE
 }
 
 async fn send_track_events_request(
-    auth: &CodexAuth,
+    _auth: &CodexAuth,
     destination: &AnalyticsEventsDestination,
     events: Vec<TrackEventRequest>,
-    http_client_factory: &codex_http_client::HttpClientFactory,
-    product_sku: Option<&str>,
+    _http_client_factory: &codex_http_client::HttpClientFactory,
+    _product_sku: Option<&str>,
 ) {
     if events.is_empty() {
         return;
@@ -1067,53 +1054,6 @@ async fn send_track_events_request(
     #[cfg(debug_assertions)]
     if capture_track_events_request(destination, &payload) {
         return;
-    }
-
-    let Some(url) = destination.url_for_auth(auth) else {
-        return;
-    };
-    let headers = match codex_model_provider::auth_provider_from_auth(auth).to_auth_headers() {
-        Ok(headers) => headers,
-        Err(error) => {
-            tracing::warn!("failed to authenticate events request: {error}");
-            return;
-        }
-    };
-    let client = match codex_login::default_client::create_client_for_route_async(
-        http_client_factory.clone(),
-        url.clone(),
-        codex_http_client::ClientRouteClass::Api,
-        codex_login::default_client::ClientRedirectPolicy::Default,
-    )
-    .await
-    {
-        Ok(client) => client,
-        Err(error) => {
-            tracing::warn!(%error, "failed to build events client");
-            return;
-        }
-    };
-    let mut request = client
-        .post(&url)
-        .timeout(ANALYTICS_EVENTS_TIMEOUT)
-        .headers(headers)
-        .header("Content-Type", "application/json")
-        .json(&payload);
-    if let Some(product_sku) = product_sku {
-        request = request.header("X-OpenAI-Product-Sku", product_sku);
-    }
-    let response = request.send().await;
-
-    match response {
-        Ok(response) if response.status().is_success() => {}
-        Ok(response) => {
-            let status = response.status();
-            let body = response.text().await.unwrap_or_default();
-            tracing::warn!("events failed with status {status}: {body}");
-        }
-        Err(err) => {
-            tracing::warn!("failed to send events request: {err}");
-        }
     }
 }
 

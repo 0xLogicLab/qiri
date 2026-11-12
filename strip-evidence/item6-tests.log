@@ -1,0 +1,418 @@
+    Blocking waiting for file lock on artifact directory
+   Compiling codex-login v0.0.0 (/home/sig/files/qiri-release/codex-rs/login)
+warning: function `create_raw_auth_client` is never used
+   --> login/src/auth/default_client.rs:439:15
+    |
+439 | pub(crate) fn create_raw_auth_client(
+    |               ^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: fields `storage`, `original`, `workspace_id`, `email`, and `connection` are never read
+  --> login/src/auth/manager/workspace_switching.rs:32:5
+   |
+31 | pub struct WorkspaceLogin {
+   |            -------------- fields in this struct
+32 |     storage: Arc<dyn AuthStorageBackend>,
+   |     ^^^^^^^
+33 |     original: AuthDotJson,
+   |     ^^^^^^^^
+34 |     pub(crate) workspace_id: String,
+   |                ^^^^^^^^^^^^
+35 |     pub(crate) email: Option<String>,
+   |                ^^^^^
+36 |     pub(crate) connection: Option<String>,
+   |                ^^^^^^^^^^
+   |
+   = note: `WorkspaceLogin` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: method `save` is never used
+  --> login/src/auth/manager/workspace_switching.rs:46:19
+   |
+45 | impl WorkspaceLogin {
+   | ------------------- method in this implementation
+46 |     pub(crate) fn save(&self, mut updated: AuthDotJson) -> io::Result<()> {
+   |                   ^^^^
+
+warning: fields `code` and `description` are never read
+  --> login/src/oauth/authorization.rs:62:9
+   |
+61 |     Provider {
+   |     -------- fields in this variant
+62 |         code: &'a str,
+   |         ^^^^
+63 |         description: Option<&'a str>,
+   |         ^^^^^^^^^^^
+
+   Compiling codex-runtime-agent-instance v0.0.0 (/home/sig/files/qiri-release/codex-rs/runtime-agent-instance)
+   Compiling codex-models-manager v0.0.0 (/home/sig/files/qiri-release/codex-rs/models-manager)
+   Compiling codex-feedback v0.0.0 (/home/sig/files/qiri-release/codex-rs/feedback)
+warning: unused import: `anyhow::anyhow`
+  --> feedback/src/lib.rs:15:5
+   |
+15 | use anyhow::anyhow;
+   |     ^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `MAX_DECODED_UPLOAD_BYTES` is never used
+  --> feedback/src/lib.rs:60:7
+   |
+60 | const MAX_DECODED_UPLOAD_BYTES: usize = 200 * 1024 * 1024;
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: method `feedback_attachments` is never used
+   --> feedback/src/lib.rs:718:8
+    |
+536 | impl FeedbackSnapshot {
+    | --------------------- method in this implementation
+...
+718 |     fn feedback_attachments<'a>(
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `archive_rollouts` is never used
+  --> feedback/src/rollout_archive.rs:20:15
+   |
+20 | pub(super) fn archive_rollouts<'a>(
+   |               ^^^^^^^^^^^^^^^^
+
+warning: function `with_individual_fallback` is never used
+  --> feedback/src/rollout_archive.rs:65:15
+   |
+65 | pub(super) fn with_individual_fallback<'a>(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `append_rollout` is never used
+  --> feedback/src/rollout_archive.rs:95:4
+   |
+95 | fn append_rollout<W: Write>(
+   |    ^^^^^^^^^^^^^^
+
+warning: struct `BoundedWriter` is never constructed
+   --> feedback/src/rollout_archive.rs:129:8
+    |
+129 | struct BoundedWriter<W> {
+    |        ^^^^^^^^^^^^^
+
+warning: function `encode_envelope` is never used
+  --> feedback/src/upload.rs:13:15
+   |
+13 | pub(super) fn encode_envelope(envelope: &Envelope) -> io::Result<(Vec<u8>, usize)> {
+   |               ^^^^^^^^^^^^^^^
+
+warning: function `encode_attachment_envelope` is never used
+  --> feedback/src/upload.rs:30:15
+   |
+30 | pub(super) fn encode_attachment_envelope(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `CountingWriter` is never constructed
+  --> feedback/src/upload.rs:48:8
+   |
+48 | struct CountingWriter<W> {
+   |        ^^^^^^^^^^^^^^
+
+warning: `codex-login` (lib) generated 4 warnings
+warning: unused import: `std::sync::atomic::AtomicUsize`
+ --> feedback/src/lib_tests.rs:7:5
+  |
+7 | use std::sync::atomic::AtomicUsize;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::atomic::Ordering`
+ --> feedback/src/lib_tests.rs:8:5
+  |
+8 | use std::sync::atomic::Ordering;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::time::Duration`
+ --> feedback/src/lib_tests.rs:9:5
+  |
+9 | use std::time::Duration;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `flate2::Compression`
+  --> feedback/src/lib_tests.rs:13:5
+   |
+13 | use flate2::Compression;
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `flate2::read::GzDecoder`
+  --> feedback/src/lib_tests.rs:14:5
+   |
+14 | use flate2::read::GzDecoder;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `flate2::write::GzEncoder`
+  --> feedback/src/lib_tests.rs:15:5
+   |
+15 | use flate2::write::GzEncoder;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::FeedbackUploadOptions`
+ --> feedback/src/feedback_event_tests.rs:4:5
+  |
+4 | use crate::FeedbackUploadOptions;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `flate2::read::GzDecoder`
+ --> feedback/src/feedback_event_tests.rs:5:5
+  |
+5 | use flate2::read::GzDecoder;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `sentry::protocol::Value`
+  --> feedback/src/feedback_event_tests.rs:10:5
+   |
+10 | use sentry::protocol::Value;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `sentry::protocol::Values`
+  --> feedback/src/feedback_event_tests.rs:11:5
+   |
+11 | use sentry::protocol::Values;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `sentry::protocol::value::to_value`
+  --> feedback/src/feedback_event_tests.rs:12:5
+   |
+12 | use sentry::protocol::value::to_value;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::io::Read`
+  --> feedback/src/feedback_event_tests.rs:14:5
+   |
+14 | use std::io::Read;
+   |     ^^^^^^^^^^^^^
+
+   Compiling codex-model-provider v0.0.0 (/home/sig/files/qiri-release/codex-rs/model-provider)
+warning: function `encode_attachment_envelope` is never used
+  --> feedback/src/upload.rs:30:15
+   |
+30 | pub(super) fn encode_attachment_envelope(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-feedback` (lib) generated 10 warnings (run `cargo fix --lib -p codex-feedback` to apply 1 suggestion)
+   Compiling codex-analytics v0.0.0 (/home/sig/files/qiri-release/codex-rs/analytics)
+warning: unused import: `codex_model_provider::ChatgptBaseUrl`
+  --> analytics/src/client_tests.rs:98:5
+   |
+98 | use codex_model_provider::ChatgptBaseUrl;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-feedback` (lib test) generated 14 warnings (1 duplicate) (run `cargo fix --lib -p codex-feedback --tests` to apply 12 suggestions)
+warning: `codex-analytics` (lib test) generated 1 warning (run `cargo fix --lib -p codex-analytics --tests` to apply 1 suggestion)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6m 40s
+     Running unittests src/lib.rs (target/debug/deps/codex_analytics-72a5c9980855f7ed)
+
+running 126 tests
+test accepted_lines::tests::skips_added_file_metadata_headers ... ok
+test accepted_lines::tests::parses_accepted_line_counts ... ok
+test accepted_lines::tests::parses_hunk_lines_that_look_like_file_headers ... ok
+test reducer::tests::command_execution_script_paths_reject_unsafe_values ... ok
+test reducer::tests::dynamic_content_counts_include_audio ... ok
+test client::tests::track_event_request_batches_only_isolates_accepted_line_fingerprint_events ... ok
+test client::tests::analytics_destination_uses_explicit_capture_file ... ok
+test reducer::tests::guardian_review_result_maps_terminal_statuses ... ok
+test client::tests::realtime_handoff_tracks_only_marker_without_transcript ... ok
+test client::tests::track_notification_records_realtime_session_boundaries ... ok
+test client::tests::track_plugin_measurements_rejects_unbounded_inputs_before_queueing ... ok
+test client::tests::track_notification_only_enqueues_analytics_relevant_notifications ... ok
+test client::tests::track_request_only_enqueues_analytics_relevant_requests ... ok
+test client::tests::app_used_preserves_first_classification_and_emits_again_next_turn ... ok
+test reducer::tests::managed_full_disk_with_restricted_network_reports_external_sandbox ... ok
+test tests::suite::approvals::execve_serializes_enabled_network_permissions ... ok
+test tests::suite::approvals::permission_metadata_preserves_absent_and_empty_requests ... ok
+test client::tests::track_response_ignores_unserializable_thread_responses ... ok
+test tests::suite::approvals::review_event_serializes_expected_shape ... ok
+test reducer::tests::rejected_turn_interrupt_removes_pending_analytics_request ... ok
+test tests::suite::approvals::guardian_review_event_ingests_custom_fact_with_optional_target_item ... ok
+test reducer::tests::pending_classifications_evict_oldest_and_clean_up ... ok
+test tests::suite::approvals::unified_exec_serializes_disabled_network_permissions ... ok
+test client::tests::capture_write_failure_still_consumes_delivery ... ok
+test tests::suite::approvals::guardian_completed_notification_publishes_review_event_with_thread_metadata ... ok
+test client::tests::track_response_only_enqueues_analytics_relevant_responses ... ok
+test tests::suite::approvals::aborted_server_request_publishes_aborted_user_review_event_once ... ok
+test tests::suite::approvals::closing_thread_discards_review_without_turn_lifecycle_facts ... ok
+test tests::suite::approvals::permissions_reviews_emit_events_without_denormalizing_onto_tool_items ... ok
+test tests::suite::hooks::hook_run_event_serializes_expected_shape ... ok
+test tests::suite::hooks::hook_run_metadata_maps_stopped_status ... ok
+test tests::suite::hooks::hook_run_metadata_maps_sources_and_statuses ... ok
+test tests::suite::apps::app_mentioned_event_serializes_expected_shape ... ok
+test tests::suite::apps::app_used_event_serializes_expected_shape ... ok
+test tests::suite::approvals::command_execution_approval_response_publishes_user_review_event ... ok
+test tests::suite::approvals::effective_session_permissions_response_publishes_session_user_review_event ... ok
+test tests::suite::hooks::reducer_ingests_hook_run_fact ... ok
+test tests::suite::apps::reducer_ingests_app_facts ... ok
+test tests::suite::onboarding::reducer_ingests_external_agent_config_import_failure_fact ... ok
+test tests::suite::onboarding::external_agent_config_import_failure_event_serializes_expected_shape ... ok
+test tests::suite::approvals::item_review_summaries_do_not_cross_threads_with_reused_item_ids ... ok
+test tests::suite::plugins::plugin_management_event_keeps_plugin_id_local_when_remote_id_exists ... ok
+test tests::suite::plugins::plugin_install_failed_event_serializes_expected_shape ... ok
+test tests::suite::plugins::plugin_management_event_serializes_expected_shape ... ok
+test tests::suite::plugins::plugin_measurement_batch_emits_directly_and_filters_invalid_rows ... ok
+test tests::suite::onboarding::reducer_ingests_external_agent_config_import_completed_fact ... ok
+test tests::suite::plugins::plugin_used_event_serializes_expected_shape ... ok
+test tests::suite::plugins::reducer_ingests_plugin_install_failed_fact ... ok
+test tests::suite::plugins::reducer_ingests_plugin_state_changed_fact ... ok
+test tests::suite::plugins::reducer_ingests_plugin_install_requested_fact ... ok
+test tests::suite::plugins::plugin_used_dedupe_is_keyed_by_turn_and_plugin ... ok
+test tests::suite::plugins::reducer_ingests_plugin_used_fact ... ok
+test tests::suite::reducer_ordering::closing_thread_releases_incomplete_turns_without_affecting_other_threads ... ok
+test tests::suite::plugins::reducer_ingests_plugin_install_failed_fact_without_detail ... ok
+test tests::suite::reducer_ordering::stateless_app_and_plugin_facts_preserve_arrival_order ... ok
+test tests::suite::reducer_ordering::item_completed_without_turn_state_does_not_create_turn_state ... ok
+test tests::suite::reducer_ordering::voice_handoff_steering_active_turn_does_not_tag_next_text_turn ... ok
+test tests::suite::reducer_ordering::unrelated_client_responses_are_ignored_by_reducer ... ok
+test tests::suite::skills::normalize_path_for_skill_id_foreign_path_uses_native_spelling ... ok
+test tests::suite::skills::normalize_path_for_skill_id_user_scoped_uses_absolute_path ... ok
+test tests::suite::skills::normalize_path_for_skill_id_repo_scoped_uses_relative_path ... ok
+test tests::suite::skills::normalize_path_for_skill_id_repo_root_not_in_skill_path_uses_absolute_path ... ok
+test tests::suite::skills::normalize_path_for_skill_id_admin_scoped_uses_absolute_path ... ok
+test tests::suite::reducer_ordering::unrelated_client_requests_are_ignored_by_reducer ... ok
+test tests::suite::skills::reducer_includes_plugin_ids_for_plugin_skill_invocations ... ok
+test tests::suite::reducer_ordering::turn_and_tool_events_read_current_trusted_root ... ok
+test tests::suite::reducer_ordering::completed_background_tool_item_emits_after_turn_event ... ok
+test tests::suite::reducer_ordering::voice_handoff_attributes_plugin_events_after_realtime_closes ... ok
+test tests::suite::threads::initialize_caches_client_and_thread_lifecycle_publishes_once_initialized ... ok
+test tests::suite::skills::reducer_ingests_skill_invoked_fact ... ok
+test tests::suite::threads::thread_initialized_event_serializes_expected_shape ... ok
+test tests::suite::tools::collaborator_tool_events_keep_response_ids_when_completion_races_sampling ... ok
+test tests::suite::threads::thread_originator_overrides_shared_connection_across_thread_events ... ok
+test tests::suite::tools::code_mode_exec_wait_and_child_events_share_cell_and_response_ids ... ok
+test tests::suite::tools::command_execution_event_serializes_expected_shape ... ok
+test tests::suite::threads::thread_initialized_classifies_validated_linked_worktrees ... ok
+test tests::suite::tools::item_lifecycle_notifications_publish_command_execution_event ... ok
+test tests::suite::tools::cua_tool_call_lifecycle_requires_a_start_and_deduplicates_replay ... ok
+test tests::suite::tools::image_generation_events_preserve_transparent_background_metadata ... ok
+test tests::suite::approvals::terminal_reviews_denormalize_counts_onto_tool_item_events ... ok
+test tests::suite::turns::accepted_lines::accepted_line_fingerprints_event_serializes_expected_shape ... ok
+test tests::suite::tools::tool_event_emitted_before_sampling_evidence_keeps_unknown_origin ... ok
+test tests::suite::tools::mcp_elicitation_classification_survives_turn_completion_and_preserves_call_grain ... ok
+test tests::suite::tools::tool_event_types_require_exact_unambiguous_call_origin ... ok
+test tests::suite::turns::compaction::compaction_event_serializes_expected_shape ... ok
+test tests::suite::turns::compaction::compaction_events_keep_authoritative_voice_session_across_consecutive_calls ... ok
+test tests::suite::turns::accepted_lines::reducer_emits_accepted_line_fingerprints_once_from_latest_turn_diff_on_completion ... ok
+test tests::suite::turns::compaction::compaction_implementation_serializes_remote_v2 ... ok
+test tests::suite::turns::events::image_preparation_fact_is_included_in_turn_event ... ok
+test tests::suite::turns::events::critical_path_payload_preserves_capture_status_and_emits_once ... ok
+test tests::suite::turns::events::turn_completed_without_started_notification_emits_null_started_at ... ok
+test tests::suite::turns::events::turn_does_not_emit_without_required_prerequisites ... ok
+test tests::suite::turns::events::turn_event_preserves_first_received_plugin_inventory ... ok
+test tests::suite::threads::subagent_thread_started_memory_consolidation_serializes_expected_shape ... ok
+test tests::suite::threads::subagent_thread_started_other_serializes_expected_shape ... ok
+test tests::suite::threads::subagent_thread_started_other_serializes_explicit_parent_thread_id ... ok
+test tests::suite::threads::subagent_thread_started_review_serializes_expected_shape ... ok
+test tests::suite::threads::subagent_thread_started_publishes_without_initialize ... ok
+test tests::suite::tools::reducer_ingests_artifact_operation_fact ... ok
+test tests::suite::threads::subagent_thread_started_thread_spawn_serializes_thread_lineage ... ok
+test tests::suite::approvals::guardian_events_keep_thread_source_and_originator_with_explicit_turn_connection ... ok
+test tests::suite::threads::subagent_tool_items_inherit_parent_connection_metadata ... ok
+test tests::suite::turns::events::turn_event_serializes_expected_shape ... ok
+test tests::suite::turns::events::turn_lifecycle_emits_turn_event ... ok
+test tests::suite::turns::events::turn_lifecycle_emits_failed_turn_event ... ok
+test tests::suite::turns::events::turn_event_counts_completed_tool_items ... ok
+test client::tests::api_key_auth_sends_only_plugin_events_to_codex_backend ... ok
+test tests::suite::turns::accepted_lines::reducer_emits_large_accepted_line_aggregates_without_fingerprints ... ok
+test tests::suite::turns::events::turn_event_reports_decisive_usage_limit_window ... ok
+test tests::suite::turns::requests::accepted_steers_increment_turn_steer_count ... ok
+test tests::suite::turns::requests::rejected_turn_steer_maps_active_turn_not_steerable_error_type ... ok
+test tests::suite::turns::requests::accepted_turn_steer_emits_expected_event ... ok
+test tests::suite::turns::requests::rejected_turn_interrupt_does_not_tag_interrupted_turn_event ... ok
+test tests::suite::turns::requests::turn_start_error_response_discards_pending_start_request ... ok
+test tests::suite::turns::requests::rejected_turn_steer_uses_request_connection_metadata ... ok
+test tests::suite::turns::requests::rejected_turn_steer_maps_input_too_large_error_type ... ok
+test tests::suite::turns::requests::accepted_turn_interrupt_records_requested_at_on_turn_event ... ok
+test tests::suite::turns::requests::accepted_turn_interrupt_retries_preserve_earliest_requested_at ... ok
+test tests::suite::turns::requests::turn_steer_does_not_emit_without_pending_request ... ok
+test client::tests::flush_waits_for_preceding_fact_delivery ... ok
+test tests::suite::reducer_ordering::incomplete_turns_release_metadata_when_capacity_is_exceeded ... ok
+test client::tests::product_tests::product_registry_clears_unset_threads_and_bounds_retention ... ok
+test client::tests::flush_is_noop_when_analytics_is_disabled ... ok
+test client::tests::capture_file_writes_final_batches_as_separate_lines ... ok
+test client::tests::capture_file_writes_exact_serialized_request ... ok
+test tests::suite::turns::accepted_lines::analytics_flush_delivers_completed_turn_with_file_diff ... ok
+
+test result: ok. 126 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.15s
+
+     Running unittests src/lib.rs (target/debug/deps/codex_feedback-04afb8a70a20cc11)
+
+running 26 tests
+test feedback_diagnostics::tests::collect_from_pairs_ignores_absent_values ... ok
+test guardian::tests::records_keep_recent_failures_and_select_the_requested_tree ... ok
+test feedback_diagnostics::tests::collect_from_pairs_reports_values_verbatim ... ok
+test feedback_diagnostics::tests::collect_from_pairs_reports_raw_values_and_attachment ... ok
+test feedback_diagnostics::tests::collect_from_pairs_preserves_whitespace_and_empty_values ... ok
+test tests::logger_layer_filters_noisy_trace_payloads ... ok
+test tests::feedback_attachments_gate_connectivity_diagnostics ... ok
+test tests::metadata_tests::dynamic_tags_survive_upload_alongside_static_fields ... ok
+test tests::feedback_event_tests::missing_or_blank_titles_preserve_session_titles_and_default_grouping ... ok
+test tests::upload_tags_include_client_tags_and_preserve_reserved_fields ... ok
+test tests::metadata_layer_records_tags_from_feedback_target ... ok
+test tests::metadata_tests::refreshing_logs_preserves_captured_metadata ... ok
+test tests::feedback_event_tests::custom_titles_preserve_comments_and_keep_submissions_separate ... ok
+test tests::metadata_tests::bounded_dynamic_tags_still_update_existing_values ... ok
+test tests::ring_buffer_drops_front_when_full ... ok
+test tests::path_backed_attachments_use_binary_content_types ... ok
+test tests::feedback_event_tests::reason_tag_previews_preserve_full_comments_in_the_exception ... ok
+test daemon_logs::tests::collects_bounded_tails_and_skips_missing_empty_and_nonregular_files ... ok
+test tests::save_rollout_tests::save_bounds_files_before_reading_or_compression ... ok
+test archive::tests::archive_preserves_selected_bytes_and_safe_names ... ok
+test archive::tests::save_preserves_report_and_log_consent ... ok
+test archive::tests::archive_bounds_all_contents_and_cleans_failed_exports ... ok
+test guardian::tests::record_count_and_bytes_are_bounded_across_threads ... ok
+test archive::tests::save_rejects_oversized_events_without_publishing ... ok
+test tests::save_rollout_tests::save_preserves_duplicate_names_and_rejects_missing_selected_files ... ok
+test guardian::tests::busy_storage_retains_feedback_without_delaying_review_completion ... ok
+
+test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.78s
+
+     Running unittests src/lib.rs (target/debug/deps/codex_otel-2a82ca42042dbc16)
+
+running 37 tests
+test config::tests::retired_statsig_exporter_is_disabled ... ok
+test metrics::tags::tests::session_metric_tags_include_expected_tags_in_order ... ok
+test metrics::tags::tests::session_metric_tags_skip_missing_optional_tags ... ok
+test provider::shutdown_tests::bounded_shutdown_survives_worker_guard_page_failure_child ... ignored
+test auth_storage::tests::missing_credentials_and_failed_fallback_keep_distinct_outcomes ... ok
+test provider::shutdown_tests::bounded_shutdown_completes_on_current_thread_runtime ... ok
+test auth_storage::tests::secure_error_classification_is_independent_of_attempt_recording_order ... ok
+test provider::shutdown_tests::bounded_shutdown_does_not_flush_when_worker_creation_fails ... ok
+test provider::shutdown_tests::drop_shuts_down_exporters_without_force_flush ... ok
+test provider::shutdown_tests::explicit_shutdown_and_drop_shut_down_exporters_once_without_force_flush ... ok
+test auth_storage::originator::tests::concurrent_clients_keep_their_originator_across_awaits_and_blocking_work ... ok
+test provider::tests::resource_attributes_include_host_name_when_present ... ok
+test provider::tests::disabled_trace_settings_replace_global_tracer_with_noop ... ok
+test provider::tests::log_export_target_excludes_trace_safe_events ... ok
+test tool_result::tests::telemetry_preview_truncates_by_bytes ... ok
+test provider::tests::trace_export_target_only_includes_trace_safe_prefix ... ok
+test tool_result::tests::telemetry_preview_returns_original_within_limits ... ok
+test provider::tests::resource_attributes_omit_host_name_when_missing_or_empty ... ok
+test otlp::tests::current_tokio_runtime_is_multi_thread_detects_runtime_flavor ... ok
+test trace_context::tests::missing_traceparent_returns_none ... ok
+test trace_context::tests::current_span_trace_id_returns_hex_trace_id ... ok
+test provider::shutdown_tests::bounded_shutdown_completes_on_multi_thread_runtime ... ok
+test trace_context::tests::invalid_traceparent_returns_none ... ok
+test trace_context::tests::parses_valid_w3c_trace_context ... ok
+test provider::shutdown_tests::bounded_shutdown_survives_worker_guard_page_failure ... ok
+test metrics::client::tests::counter_consent_uses_the_active_exporter ... ok
+test provider::tests::cached_global_metrics_follow_reinstalled_provider ... ok
+test metrics::buffered::tests::opt_out_discards_pending_and_live_observations_until_reenabled ... ok
+test metrics::buffered::tests::startup_limits_and_validation_preserve_whole_pairs ... ok
+test auth_storage::tests::startup_fallback_exports_one_logical_operation_without_error_contents ... ok
+test metrics::buffered::tests::redirecting_a_global_handle_does_not_change_the_buffers_installation ... ok
+test provider::tests::statsig_disabled_metrics_are_not_exported ... ok
+test metrics::buffered::tests::concurrent_installation_and_replacement_record_each_pair_once ... ok
+test otlp::tests::build_async_http_client_accepts_pem_client_identity ... ok
+test provider::shutdown_tests::bounded_shutdown_times_out_without_blocking_the_runtime ... ok
+test otlp::tests::build_http_client_accepts_pem_client_identity ... ok
+test otlp::tests::build_http_client_works_in_current_thread_runtime ... ok
+
+test result: ok. 36 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.10s
+

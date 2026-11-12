@@ -29,3 +29,11 @@
 删除代理的 OpenAI GitHub OIDC 工作负载令牌交换、续期、参数和专属测试；删除官方 Responses 默认地址，`--upstream-url` 现在必填。保留 stdin API Key、POST /v1/responses 转发、流式响应、状态码和本地诊断 dump；拒绝重定向。文档以本地端点举例。未删除 Responses 协议层。
 
 验证：`cargo test --offline -p codex-responses-api-proxy --lib`：10 通过，0 失败。其他默认 provider / 官方认证路径仍需清理，不能据此宣称运行时已无官方服务路径。
+
+### 6a. 回传传输与默认指标导出
+
+删除 feedback 的硬编码上游 Sentry DSN、HTTP 上传/重试/报告分片传输及上传专属测试，移除相应 Cargo HTTP 依赖。保留本地诊断环形日志和原子保存归档；Sentry 库仅提供现有本地事件序列化数据格式，不含网络 transport 功能。
+
+删除 analytics 的 HTTP 目标和 POST 实现及相应远程投递测试。保留本地聚合和显式调试文件 capture；正常运行不再创建 analytics 投递队列。删除 Statsig 的官方 OTLP 地址和内置 Key，默认 metrics exporter 为 none，用户显式配置的 OTLP collector 保留。兼容内部 Statsig 枚举/旧配置值仍存在，但解析结果恒为 None，无法构造官方 exporter；这不是已删除所有账号用量界面的声明。
+
+验证：`cargo test --offline --no-fail-fast -p codex-feedback -p codex-analytics -p codex-otel --lib`：分别 26、126、36 通过，otel 另 1 忽略，无失败。完整日志见 strip-evidence/item6-tests.log。

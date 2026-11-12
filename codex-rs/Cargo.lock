@@ -3456,15 +3456,11 @@ name = "codex-feedback"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "bytes",
- "codex-http-client",
  "codex-login",
  "codex-protocol",
  "codex-rollout",
  "codex-state",
  "flate2",
- "http 1.4.0",
- "httpdate",
  "log",
  "mime_guess",
  "pretty_assertions",
@@ -3475,7 +3471,6 @@ dependencies = [
  "tokio",
  "tracing",
  "tracing-subscriber",
- "wiremock",
  "zip",
 ]
 
