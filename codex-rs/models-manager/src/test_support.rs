@@ -2,10 +2,10 @@
 //!
 //! Production code should not depend on this module.
 
+use self::synthetic_models_response as bundled_models_response;
 use crate::CatalogModel;
 use crate::ModelOrigin;
 use crate::ModelsManagerConfig;
-use crate::bundled_models_response;
 use crate::manager::construct_model_info_from_candidates;
 use codex_protocol::openai_models::ModelInfo;
 use codex_protocol::openai_models::ModelPreset;
@@ -37,4 +37,11 @@ pub fn construct_model_info_offline_for_tests(
         &[]
     };
     construct_model_info_from_candidates(model, candidates, ModelOrigin::ExplicitConfig, config)
+}
+
+/// Explicit synthetic capabilities for offline tests, never the production default catalog.
+/// Historical model IDs are wire aliases; there are no account plans, upgrades, or service URLs.
+pub fn synthetic_models_response()
+-> Result<codex_protocol::openai_models::ModelsResponse, serde_json::Error> {
+    serde_json::from_str(include_str!("../tests/fixtures/local-model-catalog.json"))
 }

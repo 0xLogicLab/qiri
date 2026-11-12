@@ -87,19 +87,14 @@ impl std::error::Error for ProviderAccountError {}
 
 pub type ProviderAccountResult = std::result::Result<ProviderAccountState, ProviderAccountError>;
 
-/// Default model used for automatic approval review when a provider does not
-/// require a backend-specific model ID.
+/// Compatibility reviewer alias, eligible only when advertised by an explicit catalog.
 pub const DEFAULT_APPROVAL_REVIEW_PREFERRED_MODEL: &str = "codex-auto-review";
 
-const API_KEY_APPROVAL_REVIEW_PREFERRED_MODEL: &str = "gpt-5.6-luna";
+/// No implicit extraction model: callers use the configured parent model.
+pub const DEFAULT_MEMORY_EXTRACTION_PREFERRED_MODEL: &str = "";
 
-/// Default model used for memory extraction when a provider does not require a
-/// backend-specific model ID.
-pub const DEFAULT_MEMORY_EXTRACTION_PREFERRED_MODEL: &str = "gpt-6-luna";
-
-/// Default model used for memory consolidation when a provider does not require
-/// a backend-specific model ID.
-pub const DEFAULT_MEMORY_CONSOLIDATION_PREFERRED_MODEL: &str = "gpt-6.1-terra";
+/// No implicit consolidation model: callers use the configured parent model.
+pub const DEFAULT_MEMORY_CONSOLIDATION_PREFERRED_MODEL: &str = "";
 
 /// Runtime provider abstraction used by model execution.
 ///
@@ -135,14 +130,14 @@ pub trait ModelProvider: fmt::Debug + Send + Sync {
         DEFAULT_APPROVAL_REVIEW_PREFERRED_MODEL
     }
 
-    /// Returns the preferred model used for memory extraction.
+    /// Returns an optional preferred model for extraction; empty uses the configured parent.
     ///
     /// Providers that require backend-specific model IDs should override this.
     fn memory_extraction_preferred_model(&self) -> &'static str {
         DEFAULT_MEMORY_EXTRACTION_PREFERRED_MODEL
     }
 
-    /// Returns the preferred model used for memory consolidation.
+    /// Returns an optional preferred model for consolidation; empty uses the configured parent.
     ///
     /// Providers that require backend-specific model IDs should override this.
     fn memory_consolidation_preferred_model(&self) -> &'static str {
@@ -544,19 +539,6 @@ impl ModelProvider for ConfiguredModelProvider {
         ProviderCapabilities::from_config(&self.info)
     }
 
-    fn approval_review_preferred_model(&self) -> &'static str {
-        if self
-            .auth_manager
-            .as_ref()
-            .and_then(|auth_manager| auth_manager.auth_cached())
-            .is_some_and(|auth| auth.is_api_key_auth())
-        {
-            API_KEY_APPROVAL_REVIEW_PREFERRED_MODEL
-        } else {
-            DEFAULT_APPROVAL_REVIEW_PREFERRED_MODEL
-        }
-    }
-
     fn auth_manager(&self) -> Option<Arc<AuthManager>> {
         self.auth_manager.clone()
     }
@@ -659,8 +641,7 @@ impl ModelProvider for ConfiguredModelProvider {
                     CodexAuth::Chatgpt(_)
                     | CodexAuth::ChatgptAuthTokens(_)
                     | CodexAuth::Headers(_)
-                    | CodexAuth::AgentIdentity(_)
-                    | CodexAuth::PersonalAccessToken(_) => {
+                    | CodexAuth::AgentIdentity(_) => {
                         let email = auth.get_account_email();
                         let plan_type = auth.account_plan_type();
 

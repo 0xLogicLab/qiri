@@ -361,14 +361,13 @@ pub fn auth_provider_from_auth(auth: &CodexAuth) -> SharedAuthProvider {
         CodexAuth::BedrockApiKey(_) | CodexAuth::BedrockAccessKeys(_) => {
             unreachable!("{BEDROCK_API_KEY_UNSUPPORTED_MESSAGE}")
         }
-        CodexAuth::ApiKey(_)
-        | CodexAuth::Chatgpt(_)
-        | CodexAuth::ChatgptAuthTokens(_)
-        | CodexAuth::PersonalAccessToken(_) => Arc::new(BearerAuthProvider {
-            token: auth.get_token().ok(),
-            account_id: auth.get_account_id(),
-            is_fedramp_account: auth.is_fedramp_account(),
-        }),
+        CodexAuth::ApiKey(_) | CodexAuth::Chatgpt(_) | CodexAuth::ChatgptAuthTokens(_) => {
+            Arc::new(BearerAuthProvider {
+                token: auth.get_token().ok(),
+                account_id: auth.get_account_id(),
+                is_fedramp_account: auth.is_fedramp_account(),
+            })
+        }
     }
 }
 

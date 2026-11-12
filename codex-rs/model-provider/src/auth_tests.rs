@@ -43,7 +43,7 @@ async fn agent_identity_auth(chatgpt_account_is_fedramp: bool) -> AgentIdentityA
             chatgpt_account_is_fedramp,
             task_id: Some("task-run-1".to_string()),
         },
-        "https://auth.openai.com/api/accounts",
+        "https://auth.example.net/api/accounts",
         &codex_login::test_support::transport_default_auth_route_config(),
     )
     .await

@@ -7,7 +7,6 @@ mod bedrock_api_key;
 mod change_state;
 pub mod default_client;
 pub mod error;
-mod personal_access_token;
 mod source;
 mod storage;
 mod util;

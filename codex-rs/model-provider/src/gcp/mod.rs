@@ -88,19 +88,6 @@ impl ModelProvider for GcpModelProvider {
         }
     }
 
-    fn approval_review_preferred_model(&self) -> &'static str {
-        // TODO: Switch Guardian to gpt-5.6-luna once it is available on GCP.
-        "gpt-6-luna"
-    }
-
-    fn memory_extraction_preferred_model(&self) -> &'static str {
-        "gpt-6-luna"
-    }
-
-    fn memory_consolidation_preferred_model(&self) -> &'static str {
-        "gpt-6.1-terra"
-    }
-
     fn auth_manager(&self) -> Option<Arc<AuthManager>> {
         self.auth_manager.clone()
     }
@@ -157,12 +144,6 @@ impl ModelProvider for GcpModelProvider {
         let mut model_catalog = config_model_catalog
             .or_else(|| codex_models_manager::bundled_models_response().ok())
             .unwrap_or_default();
-        model_catalog.models.retain(|model| {
-            matches!(
-                model.slug.as_str(),
-                "gpt-6-astra" | "gpt-6-luna" | "gpt-6.1-sol" | "gpt-6.1-terra"
-            )
-        });
         // Vertex supports function tools, namespaces, and client-side tool search, but not
         // Responses Lite or custom tools.
         for model in &mut model_catalog.models {

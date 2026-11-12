@@ -42,7 +42,6 @@ pub(super) fn same_source(previous: Option<&CodexAuth>, current: Option<&CodexAu
                 && previous == current
         }
         CodexAuth::ApiKey(_)
-        | CodexAuth::PersonalAccessToken(_)
         | CodexAuth::Headers(_)
         | CodexAuth::AgentIdentity(_)
         | CodexAuth::BedrockApiKey(_)

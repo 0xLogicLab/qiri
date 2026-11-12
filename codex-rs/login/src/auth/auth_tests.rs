@@ -760,7 +760,7 @@ fn test_auth_manager_config(codex_home: &Path) -> TestAuthManagerConfig {
         auth_credentials_store_mode: AuthCredentialsStoreMode::File,
         keyring_backend_kind: AuthKeyringBackendKind::Direct,
         forced_login_method: Some(ForcedLoginMethod::Chatgpt),
-        chatgpt_base_url: Some("https://chatgpt-staging.com/backend-api".to_string()),
+        chatgpt_base_url: Some("https://staging.example.test/backend-api".to_string()),
         forced_chatgpt_workspace_id: Some(vec!["forced-workspace".to_string()]),
         managed_auth_policy: ManagedAuthPolicy {
             allowed_login_methods: Some(vec![ForcedLoginMethod::Chatgpt]),
@@ -892,7 +892,7 @@ fn fake_agent_identity_jwt_with_plan_type(
     let encode = |bytes: &[u8]| base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(bytes);
     let header_b64 = encode(br#"{"alg":"EdDSA","typ":"JWT"}"#);
     let payload = json!({
-        "iss": "https://chatgpt.com/codex-backend/agent-identity",
+        "iss": "https://service.example.test/codex-backend/agent-identity",
         "aud": "codex-app-server",
         "iat": 1_700_000_000usize,
         "exp": 4_000_000_000usize,
@@ -918,7 +918,7 @@ fn signed_agent_identity_jwt(
     jsonwebtoken::encode(
         &header,
         &json!({
-            "iss": "https://chatgpt.com/codex-backend/agent-identity",
+            "iss": "https://service.example.test/codex-backend/agent-identity",
             "aud": "codex-app-server",
             "iat": 1_700_000_000usize,
             "exp": 4_000_000_000usize,

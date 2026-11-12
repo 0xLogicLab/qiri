@@ -94,7 +94,7 @@ fn registered(request: &Request) -> ResponseTemplate {
 
 fn oauth(session: Option<&str>, token: &str) -> CodexAuth {
     let claims = json!({
-        "iss": "https://auth.openai.com/", "session_id": session, "jti": token,
+        "iss": "https://auth.example.net/", "session_id": session, "jti": token,
         "https://api.openai.com/auth": {"user_id": "user-a", "chatgpt_account_id": "workspace-a"},
     });
     let payload = base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(claims.to_string());

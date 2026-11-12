@@ -7,7 +7,7 @@ use serde_json::json;
 
 fn oauth(session: &str, token: &str) -> CodexAuth {
     let claims = json!({
-        "iss": "https://auth.openai.com/",
+        "iss": "https://auth.example.net/",
         "session_id": session,
         "sub": "user-a",
         "jti": token,

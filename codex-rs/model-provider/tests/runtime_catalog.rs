@@ -247,7 +247,7 @@ fn tls_config() -> (String, Arc<rustls::ServerConfig>) {
     ca_params.key_usages = vec![rcgen::KeyUsagePurpose::KeyCertSign];
     let ca = rcgen::CertifiedIssuer::self_signed(ca_params, rcgen::KeyPair::generate().unwrap())
         .unwrap();
-    let mut leaf = rcgen::CertificateParams::new(vec!["chatgpt.com".into()]).unwrap();
+    let mut leaf = rcgen::CertificateParams::new(vec!["service.example.test".into()]).unwrap();
     leaf.extended_key_usages = vec![rcgen::ExtendedKeyUsagePurpose::ServerAuth];
     let key = rcgen::KeyPair::generate().unwrap();
     let cert = leaf.signed_by(&key, &ca).unwrap();
@@ -274,7 +274,7 @@ fn proxy_catalog(
         .set_write_timeout(Some(Duration::from_secs(10)))
         .unwrap();
     let connect = read_headers(&mut stream);
-    assert!(connect.starts_with(b"CONNECT chatgpt.com:443 "));
+    assert!(connect.starts_with(b"CONNECT service.example.test:443 "));
     stream
         .write_all(b"HTTP/1.1 200 Connection Established\r\n\r\n")
         .unwrap();

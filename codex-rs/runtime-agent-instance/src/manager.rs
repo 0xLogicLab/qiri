@@ -241,9 +241,7 @@ fn actor_authorization(
         CodexAuth::Chatgpt(_) | CodexAuth::ChatgptAuthTokens(_) => {
             AuthenticatedActorAuthorization::Oauth { credential }
         }
-        CodexAuth::PersonalAccessToken(_) => {
-            AuthenticatedActorAuthorization::PersonalAccessToken { credential }
-        }
+
         CodexAuth::Headers(_)
         | CodexAuth::AgentIdentity(_)
         | CodexAuth::BedrockApiKey(_)

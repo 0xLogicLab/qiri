@@ -262,6 +262,10 @@ impl MemoryStartupContext {
         }
     }
 
+    pub(crate) async fn configured_model(&self) -> String {
+        self.thread.config_snapshot().await.model
+    }
+
     pub(crate) fn provider(&self) -> &dyn ModelProvider {
         self.provider.as_ref()
     }

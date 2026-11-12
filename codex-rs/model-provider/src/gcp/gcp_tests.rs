@@ -236,8 +236,9 @@ async fn credential_files_scope_token_caches_and_refreshes() {
 }
 
 #[tokio::test]
-async fn configured_vertex_models_filter_catalog_and_normalize_tool_metadata_without_cache() {
-    for model in ["gpt-6.1-sol", "gpt-6.1-terra"] {
+async fn configured_vertex_models_preserve_explicit_catalog_and_normalize_tool_metadata_without_cache()
+ {
+    for model in ["local-model", "custom-model"] {
         let provider = GcpModelProvider::new(
             ModelProviderInfo::create_gcp_provider(),
             /*auth_manager*/ None,
@@ -259,14 +260,21 @@ async fn configured_vertex_models_filter_catalog_and_normalize_tool_metadata_wit
         expected_model.tool_mode = Some(ToolMode::Direct);
         expected_model.apply_patch_tool_type = None;
         let mut unsupported_model = configured_model.clone();
-        unsupported_model.slug = "gpt-6-sol".to_string();
+        unsupported_model.slug = "another-model".to_string();
         let mut unsupported_variant = configured_model.clone();
         unsupported_variant.slug = format!("{model}-extra");
         let manager = provider.models_manager_without_cache(Some(ModelsResponse {
             models: vec![unsupported_model, configured_model, unsupported_variant],
         }));
 
-        assert_eq!(manager.get_remote_models().await, vec![expected_model]);
+        let mut expected_other = expected_model.clone();
+        expected_other.slug = "another-model".to_string();
+        let mut expected_variant = expected_model.clone();
+        expected_variant.slug = format!("{model}-extra");
+        assert_eq!(
+            manager.get_remote_models().await,
+            vec![expected_other, expected_model, expected_variant]
+        );
     }
 }
 

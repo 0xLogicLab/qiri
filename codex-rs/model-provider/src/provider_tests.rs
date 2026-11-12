@@ -204,7 +204,7 @@ fn configured_provider_uses_default_approval_review_preferred_model() {
 }
 
 #[test]
-fn configured_provider_uses_luna_for_approval_review_with_api_key_auth() {
+fn configured_provider_does_not_choose_an_official_model_from_api_key_auth() {
     let provider = create_model_provider(
         ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into())),
         Some(AuthManager::from_auth_for_testing(CodexAuth::from_api_key(
@@ -212,7 +212,12 @@ fn configured_provider_uses_luna_for_approval_review_with_api_key_auth() {
         ))),
     );
 
-    assert_eq!(provider.approval_review_preferred_model(), "gpt-5.6-luna");
+    assert_eq!(
+        provider.approval_review_preferred_model(),
+        DEFAULT_APPROVAL_REVIEW_PREFERRED_MODEL
+    );
+    assert!(provider.memory_extraction_preferred_model().is_empty());
+    assert!(provider.memory_consolidation_preferred_model().is_empty());
 }
 
 #[test]
