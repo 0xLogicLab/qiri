@@ -17,3 +17,9 @@
 ## 执行记录与证据
 
 盘点发现服务功能横跨共享认证、配置、插件和 app-server，不能只删除题目中列出的几个 crate。各项结果、提交和验证将随执行补充。当前尚未宣称通过任何专项验收。
+
+### 2. 云任务删除
+
+删除 cloud-tasks / cloud-tasks-client / cloud-tasks-mock-client 整 crate、Cargo workspace/依赖/锁文件条目、Bazel 目标及 Windows 测试耗时表条目。删除 CLI `apply`（该命令实际从云任务下载 diff；本地 apply_patch 工具不受影响）、chatgpt 的任务客户端和专属夹具，以及 backend-client 的任务创建/查询/兄弟 turn API。chatgpt crate 仍被连接器调用，backend-client 仍被账号等功能调用，尚不能整删。
+
+验证：`cargo check --offline -p codex-cli -p codex-core -p codex-app-server` 通过；`cargo test --offline -p codex-backend-client --lib`：50 通过。日志在 strip-evidence，原有账号/连接器残留不计为已删除。
