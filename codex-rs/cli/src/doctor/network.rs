@@ -83,11 +83,11 @@ pub(super) fn check(config: Option<&Config>) -> DoctorCheck {
     push_proxy_env_details(&mut details);
     #[cfg(target_os = "macos")]
     {
-        let request_url = config
+        let configuration = match config
             .and_then(|config| config.model_provider.base_url.as_deref())
-            .or_else(|| config.map(|config| config.chatgpt_base_url.as_str()))
-            .unwrap_or("https://chatgpt.com/backend-api/");
-        let configuration = match macos_system_proxy_configuration(request_url) {
+            .map(macos_system_proxy_configuration)
+            .unwrap_or(MacosSystemProxyConfiguration::Unavailable)
+        {
             MacosSystemProxyConfiguration::Automatic => "automatic (PAC)",
             MacosSystemProxyConfiguration::Manual => "manual",
             MacosSystemProxyConfiguration::Direct => "direct",

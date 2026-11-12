@@ -1,0 +1,38 @@
+{
+  "baseline_artifact": "codex-rs/target/debug/deps/codex-1a55752d41f8e809",
+  "sha256": "51c6419c0cb136b215fb0332c286804adb536551c40f09db12816cc70552df4b",
+  "provenance": "Existing release test artifact recorded by release-evidence/release-doctor-bin.log; built after 7f9acb0, the last Rust change before 7c3786d (the latter records evidence only).",
+  "common_tests": 289,
+  "changed_results": {},
+  "removed_tests": [
+    "doctor::updates::tests::is_newer_compares_plain_semver",
+    "doctor::updates::tests::update_action_labels_install_contexts",
+    "doctor::updates::tests::version_http_probe_decodes_json_and_rejects_invalid_responses",
+    "doctor::updates::tests::windows_store_updates_compare_all_four_production_build_components"
+  ],
+  "baseline_failures": [
+    "tests::app_server_subcommands_reject_strict_config",
+    "tests::plugin_marketplace_help_uses_plugin_namespace",
+    "tests::root_strict_config_is_rejected_for_unsupported_subcommands",
+    "tests::worktree_flag_rejects_unsupported_session_and_management_commands"
+  ],
+  "current_failures": [
+    "tests::app_server_subcommands_reject_strict_config",
+    "tests::plugin_marketplace_help_uses_plugin_namespace",
+    "tests::root_strict_config_is_rejected_for_unsupported_subcommands",
+    "tests::worktree_flag_rejects_unsupported_session_and_management_commands"
+  ],
+  "baseline_summary": {
+    "passed": 289,
+    "failed": 4,
+    "ignored": 1
+  },
+  "parsed_baseline_tests": 293,
+  "current_summary": {
+    "passed": 285,
+    "failed": 4,
+    "ignored": 1
+  },
+  "parsed_current_tests": 289,
+  "failure_sets_identical": true
+}

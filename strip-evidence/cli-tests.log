@@ -1,0 +1,1223 @@
+    Blocking waiting for file lock on artifact directory
+   Compiling codex-git-utils v0.0.0 (/home/sig/files/qiri-release/codex-rs/git-utils)
+   Compiling codex-windows-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/windows-sandbox-rs)
+   Compiling codex-cli v0.0.0 (/home/sig/files/qiri-release/codex-rs/cli)
+   Compiling codex-mxc-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/mxc-sandbox)
+   Compiling codex-config v0.0.0 (/home/sig/files/qiri-release/codex-rs/config)
+   Compiling codex-secrets v0.0.0 (/home/sig/files/qiri-release/codex-rs/secrets)
+   Compiling codex-rollout v0.0.0 (/home/sig/files/qiri-release/codex-rs/rollout)
+   Compiling codex-prompts v0.0.0 (/home/sig/files/qiri-release/codex-rs/prompts)
+   Compiling codex-utils-git-discovery v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/git-discovery)
+   Compiling codex-worktree v0.0.0 (/home/sig/files/qiri-release/codex-rs/worktree)
+   Compiling codex-sandboxing v0.0.0 (/home/sig/files/qiri-release/codex-rs/sandboxing)
+   Compiling codex-linux-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/linux-sandbox)
+   Compiling codex-app-server-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-protocol)
+   Compiling codex-login v0.0.0 (/home/sig/files/qiri-release/codex-rs/login)
+   Compiling codex-exec-server v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server)
+   Compiling codex-agent-roles v0.0.0 (/home/sig/files/qiri-release/codex-rs/agent-roles)
+   Compiling codex-message-history v0.0.0 (/home/sig/files/qiri-release/codex-rs/message-history)
+warning: function `create_raw_auth_client` is never used
+   --> login/src/auth/default_client.rs:439:15
+    |
+439 | pub(crate) fn create_raw_auth_client(
+    |               ^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: fields `storage`, `original`, `workspace_id`, `email`, and `connection` are never read
+  --> login/src/auth/manager/workspace_switching.rs:32:5
+   |
+31 | pub struct WorkspaceLogin {
+   |            -------------- fields in this struct
+32 |     storage: Arc<dyn AuthStorageBackend>,
+   |     ^^^^^^^
+33 |     original: AuthDotJson,
+   |     ^^^^^^^^
+34 |     pub(crate) workspace_id: String,
+   |                ^^^^^^^^^^^^
+35 |     pub(crate) email: Option<String>,
+   |                ^^^^^
+36 |     pub(crate) connection: Option<String>,
+   |                ^^^^^^^^^^
+   |
+   = note: `WorkspaceLogin` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: method `save` is never used
+  --> login/src/auth/manager/workspace_switching.rs:46:19
+   |
+45 | impl WorkspaceLogin {
+   | ------------------- method in this implementation
+46 |     pub(crate) fn save(&self, mut updated: AuthDotJson) -> io::Result<()> {
+   |                   ^^^^
+
+warning: fields `code` and `description` are never read
+  --> login/src/oauth/authorization.rs:62:9
+   |
+61 |     Provider {
+   |     -------- fields in this variant
+62 |         code: &'a str,
+   |         ^^^^
+63 |         description: Option<&'a str>,
+   |         ^^^^^^^^^^^
+
+   Compiling codex-models-manager v0.0.0 (/home/sig/files/qiri-release/codex-rs/models-manager)
+   Compiling codex-feedback v0.0.0 (/home/sig/files/qiri-release/codex-rs/feedback)
+   Compiling codex-runtime-agent-instance v0.0.0 (/home/sig/files/qiri-release/codex-rs/runtime-agent-instance)
+warning: `codex-login` (lib) generated 4 warnings
+   Compiling codex-utils-plugins v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/plugins)
+   Compiling codex-rmcp-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/rmcp-client)
+   Compiling codex-apply-patch v0.0.0 (/home/sig/files/qiri-release/codex-rs/apply-patch)
+warning: constant `MAX_DECODED_UPLOAD_BYTES` is never used
+  --> feedback/src/lib.rs:59:7
+   |
+59 | const MAX_DECODED_UPLOAD_BYTES: usize = 200 * 1024 * 1024;
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: method `feedback_attachments` is never used
+   --> feedback/src/lib.rs:717:8
+    |
+535 | impl FeedbackSnapshot {
+    | --------------------- method in this implementation
+...
+717 |     fn feedback_attachments<'a>(
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `archive_rollouts` is never used
+  --> feedback/src/rollout_archive.rs:20:15
+   |
+20 | pub(super) fn archive_rollouts<'a>(
+   |               ^^^^^^^^^^^^^^^^
+
+warning: function `with_individual_fallback` is never used
+  --> feedback/src/rollout_archive.rs:65:15
+   |
+65 | pub(super) fn with_individual_fallback<'a>(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `append_rollout` is never used
+  --> feedback/src/rollout_archive.rs:95:4
+   |
+95 | fn append_rollout<W: Write>(
+   |    ^^^^^^^^^^^^^^
+
+warning: struct `BoundedWriter` is never constructed
+   --> feedback/src/rollout_archive.rs:129:8
+    |
+129 | struct BoundedWriter<W> {
+    |        ^^^^^^^^^^^^^
+
+warning: function `encode_envelope` is never used
+  --> feedback/src/upload.rs:13:15
+   |
+13 | pub(super) fn encode_envelope(envelope: &Envelope) -> io::Result<(Vec<u8>, usize)> {
+   |               ^^^^^^^^^^^^^^^
+
+warning: function `encode_attachment_envelope` is never used
+  --> feedback/src/upload.rs:30:15
+   |
+30 | pub(super) fn encode_attachment_envelope(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `CountingWriter` is never constructed
+  --> feedback/src/upload.rs:48:8
+   |
+48 | struct CountingWriter<W> {
+   |        ^^^^^^^^^^^^^^
+
+warning: unused import: `anyhow::bail`
+ --> rmcp-client/src/oauth_client_registration.rs:4:5
+  |
+4 | use anyhow::bail;
+  |     ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+   Compiling codex-plugin v0.0.0 (/home/sig/files/qiri-release/codex-rs/plugin)
+   Compiling codex-arg0 v0.0.0 (/home/sig/files/qiri-release/codex-rs/arg0)
+   Compiling codex-model-provider v0.0.0 (/home/sig/files/qiri-release/codex-rs/model-provider)
+   Compiling codex-connectors v0.0.0 (/home/sig/files/qiri-release/codex-rs/connectors)
+   Compiling codex-hooks v0.0.0 (/home/sig/files/qiri-release/codex-rs/hooks)
+warning: `codex-feedback` (lib) generated 9 warnings
+   Compiling codex-thread-store v0.0.0 (/home/sig/files/qiri-release/codex-rs/thread-store)
+   Compiling codex-tools v0.0.0 (/home/sig/files/qiri-release/codex-rs/tools)
+warning: `codex-rmcp-client` (lib) generated 1 warning (run `cargo fix --lib -p codex-rmcp-client` to apply 1 suggestion)
+   Compiling codex-mcp v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-mcp)
+   Compiling codex-analytics v0.0.0 (/home/sig/files/qiri-release/codex-rs/analytics)
+   Compiling codex-backend-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/backend-client)
+   Compiling codex-message-board v0.0.0 (/home/sig/files/qiri-release/codex-rs/message-board)
+   Compiling codex-cloud-config v0.0.0 (/home/sig/files/qiri-release/codex-rs/cloud-config)
+   Compiling codex-message-board-mcp v0.0.0 (/home/sig/files/qiri-release/codex-rs/message-board-mcp)
+   Compiling codex-guardian-v3 v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/guardian-v3)
+   Compiling codex-extension-api v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/extension-api)
+   Compiling codex-core-plugins v0.0.0 (/home/sig/files/qiri-release/codex-rs/core-plugins)
+   Compiling codex-agent-message-board-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/agent-message-board-client)
+   Compiling codex-guardian-reviewer v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/guardian-reviewer)
+   Compiling codex-skills-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/skills)
+   Compiling codex-home v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-home)
+   Compiling codex-git-attribution v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/git-attribution)
+   Compiling codex-multi-env-copy-file v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/multi-env-copy-file)
+   Compiling codex-agent-message-board-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/agent-message-board)
+   Compiling codex-connectors-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/connectors)
+   Compiling codex-core v0.0.0 (/home/sig/files/qiri-release/codex-rs/core)
+   Compiling codex-guardian-v2 v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/guardian-v2)
+   Compiling codex-memories-write v0.0.0 (/home/sig/files/qiri-release/codex-rs/memories/write)
+   Compiling codex-app-server-transport v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-transport)
+   Compiling codex-web-search-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/web-search)
+   Compiling codex-chatgpt v0.0.0 (/home/sig/files/qiri-release/codex-rs/chatgpt)
+   Compiling codex-memories-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/memories)
+   Compiling codex-queue-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/queue)
+   Compiling codex-image-generation-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/image-generation)
+   Compiling codex-goal-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/goal)
+   Compiling codex-history-notes-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/history-notes)
+   Compiling codex-mcp-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/mcp)
+   Compiling codex-ollama v0.0.0 (/home/sig/files/qiri-release/codex-rs/ollama)
+   Compiling codex-lmstudio v0.0.0 (/home/sig/files/qiri-release/codex-rs/lmstudio)
+   Compiling codex-app-server-test-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-test-client)
+   Compiling codex-utils-oss v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/oss)
+   Compiling codex-external-agent-migration v0.0.0 (/home/sig/files/qiri-release/codex-rs/external-agent-migration)
+   Compiling core_test_support v0.0.0 (/home/sig/files/qiri-release/codex-rs/core/tests/common)
+   Compiling codex-app-server-daemon v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-daemon)
+   Compiling app_test_support v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server/tests/common)
+   Compiling codex-app-server v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server)
+warning: unused import: `std::io::Error as IoError`
+ --> app-server/src/request_processors/thread_summary.rs:7:5
+  |
+7 | use std::io::Error as IoError;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `auth_mode_to_api` is never used
+  --> app-server/src/auth_mode.rs:10:15
+   |
+10 | pub(crate) fn auth_mode_to_api(auth_mode: AuthMode) -> ApiAuthMode {
+   |               ^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `EXTERNAL_AUTH_REFRESH_TIMEOUT` is never used
+  --> app-server/src/external_auth.rs:18:7
+   |
+18 | const EXTERNAL_AUTH_REFRESH_TIMEOUT: Duration = Duration::from_secs(10);
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `ExternalAuthBridge` is never constructed
+  --> app-server/src/external_auth.rs:20:19
+   |
+20 | pub(crate) struct ExternalAuthBridge {
+   |                   ^^^^^^^^^^^^^^^^^^
+
+warning: associated items `new` and `refresh` are never used
+  --> app-server/src/external_auth.rs:26:19
+   |
+25 | impl ExternalAuthBridge {
+   | ----------------------- associated items in this implementation
+26 |     pub(crate) fn new(outgoing: Arc<OutgoingMessageSender>, auth: CodexAuth) -> Self {
+   |                   ^^^
+...
+33 |     async fn refresh(&self, context: ExternalAuthRefreshContext) -> std::io::Result<CodexAuth> {
+   |              ^^^^^^^
+
+warning: function `reload_mcp_config_best_effort` is never used
+  --> app-server/src/mcp_refresh.rs:23:21
+   |
+23 | pub(crate) async fn reload_mcp_config_best_effort(
+   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variant `BestEffort` is never constructed
+  --> app-server/src/mcp_refresh.rs:41:5
+   |
+39 | enum ReloadPolicy {
+   |      ------------ variant in this enum
+40 |     Strict,
+41 |     BestEffort,
+   |     ^^^^^^^^^^
+   |
+   = note: `ReloadPolicy` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: method `send_request` is never used
+   --> app-server/src/outgoing_message.rs:374:25
+    |
+268 | impl OutgoingMessageSender {
+    | -------------------------- method in this implementation
+...
+374 |     pub(crate) async fn send_request(
+    |                         ^^^^^^^^^^^^
+
+warning: enum `AccountNotification` is never used
+  --> app-server/src/account_notifications.rs:10:17
+   |
+10 | pub(crate) enum AccountNotification {
+   |                 ^^^^^^^^^^^^^^^^^^^
+
+warning: method `send_account_notification` is never used
+  --> app-server/src/account_notifications.rs:16:25
+   |
+15 | impl OutgoingMessageSender {
+   | -------------------------- method in this implementation
+16 |     pub(crate) async fn send_account_notification(
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: enum `BedrockLoginCredentials` is never used
+  --> app-server/src/request_processors/account_processor.rs:30:6
+   |
+30 | enum BedrockLoginCredentials {
+   |      ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: fields `thread_manager` and `outgoing` are never read
+  --> app-server/src/request_processors/account_processor.rs:42:5
+   |
+40 | pub(crate) struct AccountRequestProcessor {
+   |                   ----------------------- fields in this struct
+41 |     auth_manager: Arc<AuthManager>,
+42 |     thread_manager: Arc<ThreadManager>,
+   |     ^^^^^^^^^^^^^^
+43 |     outgoing: Arc<OutgoingMessageSender>,
+   |     ^^^^^^^^
+   |
+   = note: `AccountRequestProcessor` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: multiple associated items are never used
+   --> app-server/src/request_processors/account_processor.rs:97:25
+    |
+ 56 | impl AccountRequestProcessor {
+    | ---------------------------- associated items in this implementation
+...
+ 97 |     pub(crate) async fn login_account(
+    |                         ^^^^^^^^^^^^^
+...
+105 |     pub(crate) async fn logout_account(
+    |                         ^^^^^^^^^^^^^^
+...
+131 |     fn current_account_updated_notification(&self) -> AccountUpdatedNotification {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+156 |     async fn maybe_refresh_plugin_caches_for_current_config(
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+208 |     fn spawn_effective_plugins_changed_task(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+221 |     async fn login_v2(
+    |              ^^^^^^^^
+...
+306 |     async fn login_api_key_common(
+    |              ^^^^^^^^^^^^^^^^^^^^
+...
+338 |     async fn login_api_key_v2(&self, request_id: ConnectionRequestId, params: LoginApiKeyParams) {
+    |              ^^^^^^^^^^^^^^^^
+...
+355 |     async fn login_amazon_bedrock_v2(
+    |              ^^^^^^^^^^^^^^^^^^^^^^^
+...
+449 |     async fn send_login_success_notifications(&self, login_id: Option<Uuid>) {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+460 |     async fn send_account_login_notifications(
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+504 |     async fn logout_common(&self) -> std::result::Result<Option<AuthMode>, JSONRPCErrorError> {
+    |              ^^^^^^^^^^^^^
+...
+534 |     async fn logout_v2(&self, request_id: ConnectionRequestId) -> Result<(), JSONRPCErrorError> {
+    |              ^^^^^^^^^
+
+warning: struct `LoginGuard` is never constructed
+  --> app-server/src/request_processors/account_processor/gateway_oauth.rs:19:8
+   |
+19 | struct LoginGuard(Arc<std::sync::Mutex<Option<ActiveGatewayLogin>>>);
+   |        ^^^^^^^^^^
+
+warning: method `gateway_oauth_login` is never used
+  --> app-server/src/request_processors/account_processor/gateway_oauth.rs:76:25
+   |
+29 | impl AccountRequestProcessor {
+   | ---------------------------- method in this implementation
+...
+76 |     pub(crate) async fn gateway_oauth_login(
+   |                         ^^^^^^^^^^^^^^^^^^^
+
+warning: method `unload_for_workspace_switch` is never used
+ --> app-server/src/request_processors/thread_processor/workspace_switching.rs:7:25
+  |
+6 | impl ThreadRequestProcessor {
+  | --------------------------- method in this implementation
+7 |     pub(crate) async fn unload_for_workspace_switch(&self) -> Result<(), JSONRPCErrorError> {
+  |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `TurnAdmissionPause` is never constructed
+  --> app-server/src/turn_admission.rs:35:19
+   |
+35 | pub(crate) struct TurnAdmissionPause(TurnAdmission);
+   |                   ^^^^^^^^^^^^^^^^^^
+
+warning: method `pause` is never used
+  --> app-server/src/turn_admission.rs:38:25
+   |
+37 | impl TurnAdmission {
+   | ------------------ method in this implementation
+38 |     pub(crate) async fn pause(&self) -> Result<TurnAdmissionPause, JSONRPCErrorError> {
+   |                         ^^^^^
+
+   Compiling codex-app-server-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-client)
+   Compiling codex-exec-server-cli v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server-cli)
+   Compiling codex-exec v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec)
+   Compiling codex-tui v0.0.0 (/home/sig/files/qiri-release/codex-rs/tui)
+warning: `codex-app-server` (lib) generated 18 warnings (run `cargo fix --lib -p codex-app-server` to apply 1 suggestion)
+warning: fields `reason` and `turn_id` are never read
+    --> tui/src/app_event.rs:1676:9
+     |
+1674 |     SubmitFeedback {
+     |     -------------- fields in this variant
+1675 |         category: FeedbackCategory,
+1676 |         reason: Option<String>,
+     |         ^^^^^^
+1677 |         turn_id: Option<String>,
+     |         ^^^^^^^
+     |
+     = note: `AppEvent` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+     = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: variant `OpenFeedbackConsent` is never constructed
+    --> tui/src/app_event.rs:1669:5
+     |
+ 314 | pub(crate) enum AppEvent {
+     |                 -------- variant in this enum
+...
+1669 |     OpenFeedbackConsent {
+     |     ^^^^^^^^^^^^^^^^^^^
+     |
+     = note: `AppEvent` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: variants `BadResult`, `Bug`, `SafetyCheck`, and `Other` are never constructed
+    --> tui/src/app_event.rs:1863:5
+     |
+1862 | pub(crate) enum FeedbackCategory {
+     |                 ---------------- variants in this enum
+1863 |     BadResult,
+     |     ^^^^^^^^^
+1864 |     GoodResult,
+1865 |     Bug,
+     |     ^^^
+1866 |     SafetyCheck,
+     |     ^^^^^^^^^^^
+1867 |     Other,
+     |     ^^^^^
+     |
+     = note: `FeedbackCategory` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: function `feedback_selection_params` is never used
+   --> tui/src/bottom_pane/feedback_view.rs:132:15
+    |
+132 | pub(crate) fn feedback_selection_params(
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `make_feedback_item` is never used
+   --> tui/src/bottom_pane/feedback_view.rs:173:4
+    |
+173 | fn make_feedback_item(
+    |    ^^^^^^^^^^^^^^^^^^
+
+warning: constant `ANNOUNCEMENT_TIP_URL` is never used
+  --> tui/src/tooltips.rs:16:7
+   |
+16 | const ANNOUNCEMENT_TIP_URL: &str =
+   |       ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `preferred_tooltip` is never used
+  --> tui/src/tooltips.rs:47:15
+   |
+47 | pub(crate) fn preferred_tooltip<R: Rng + ?Sized>(
+   |               ^^^^^^^^^^^^^^^^^
+
+warning: static `ANNOUNCEMENT_TIP` is never used
+   --> tui/src/tooltips.rs:119:12
+    |
+119 |     static ANNOUNCEMENT_TIP: OnceLock<Option<AnnouncementTips>> = OnceLock::new();
+    |            ^^^^^^^^^^^^^^^^
+
+warning: constant `CURRENT_OS` is never used
+   --> tui/src/tooltips.rs:120:11
+    |
+120 |     const CURRENT_OS: TargetOs = TargetOs::current();
+    |           ^^^^^^^^^^
+
+warning: function `prewarm` is never used
+   --> tui/src/tooltips.rs:123:19
+    |
+123 |     pub(crate) fn prewarm(http_client_factory: HttpClientFactory) {
+    |                   ^^^^^^^
+
+warning: function `fetch_announcement_tip` is never used
+   --> tui/src/tooltips.rs:136:19
+    |
+136 |     pub(crate) fn fetch_announcement_tip(plan: Option<PlanType>) -> Option<String> {
+    |                   ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTipRaw` is never constructed
+   --> tui/src/tooltips.rs:144:12
+    |
+144 |     struct AnnouncementTipRaw {
+    |            ^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTipDocument` is never constructed
+   --> tui/src/tooltips.rs:155:12
+    |
+155 |     struct AnnouncementTipDocument {
+    |            ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTip` is never constructed
+   --> tui/src/tooltips.rs:160:12
+    |
+160 |     struct AnnouncementTip {
+    |            ^^^^^^^^^^^^^^^
+
+warning: enum `TargetOs` is never used
+   --> tui/src/tooltips.rs:172:10
+    |
+172 |     enum TargetOs {
+    |          ^^^^^^^^
+
+warning: associated function `current` is never used
+   --> tui/src/tooltips.rs:181:18
+    |
+180 |     impl TargetOs {
+    |     ------------- associated function in this implementation
+181 |         const fn current() -> Self {
+    |                  ^^^^^^^
+
+warning: function `fetch_announcement_tip_text` is never used
+   --> tui/src/tooltips.rs:193:14
+    |
+193 |     async fn fetch_announcement_tip_text(http_client_factory: HttpClientFactory) -> Option<String> {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTips` is never constructed
+   --> tui/src/tooltips.rs:205:23
+    |
+205 |     pub(super) struct AnnouncementTips(Vec<AnnouncementTip>);
+    |                       ^^^^^^^^^^^^^^^^
+
+warning: associated items `parse` and `select` are never used
+   --> tui/src/tooltips.rs:208:23
+    |
+207 |     impl AnnouncementTips {
+    |     --------------------- associated items in this implementation
+208 |         pub(super) fn parse(text: &str) -> Option<Self> {
+    |                       ^^^^^
+...
+221 |         pub(super) fn select(&self, plan: Option<PlanType>) -> Option<String> {
+    |                       ^^^^^^
+
+warning: associated items `from_raw`, `version_matches`, and `date_matches` are never used
+   --> tui/src/tooltips.rs:245:12
+    |
+244 |     impl AnnouncementTip {
+    |     -------------------- associated items in this implementation
+245 |         fn from_raw(raw: AnnouncementTipRaw) -> Option<Self> {
+    |            ^^^^^^^^
+...
+289 |         fn version_matches(&self, version: &str) -> bool {
+    |            ^^^^^^^^^^^^^^^
+...
+295 |         fn date_matches(&self, today: NaiveDate) -> bool {
+    |            ^^^^^^^^^^^^
+
+warning: `codex-tui` (lib) generated 20 warnings
+warning: method `run` is never used
+   --> cli/src/marketplace_cmd.rs:126:18
+    |
+125 | impl MarketplaceCli {
+    | ------------------- method in this implementation
+126 |     pub async fn run(self) -> Result<()> {
+    |                  ^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `run_add` is never used
+   --> cli/src/marketplace_cmd.rs:151:10
+    |
+151 | async fn run_add(config: Config, args: AddMarketplaceArgs) -> Result<()> {
+    |          ^^^^^^^
+
+warning: struct `JsonMarketplaceAddOutput` is never constructed
+   --> cli/src/marketplace_cmd.rs:197:8
+    |
+197 | struct JsonMarketplaceAddOutput {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_outcome` is never used
+   --> cli/src/marketplace_cmd.rs:204:8
+    |
+203 | impl JsonMarketplaceAddOutput {
+    | ----------------------------- associated function in this implementation
+204 |     fn from_outcome(outcome: MarketplaceAddOutcome) -> Self {
+    |        ^^^^^^^^^^^^
+
+warning: function `run_list` is never used
+   --> cli/src/marketplace_cmd.rs:213:10
+    |
+213 | async fn run_list(config: Config, args: ListMarketplaceArgs) -> Result<()> {
+    |          ^^^^^^^^
+
+warning: struct `JsonMarketplaceListOutput` is never constructed
+   --> cli/src/marketplace_cmd.rs:301:8
+    |
+301 | struct JsonMarketplaceListOutput {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_marketplaces` is never used
+   --> cli/src/marketplace_cmd.rs:306:8
+    |
+305 | impl JsonMarketplaceListOutput {
+    | ------------------------------ associated function in this implementation
+306 |     fn from_marketplaces(
+    |        ^^^^^^^^^^^^^^^^^
+
+warning: struct `JsonMarketplaceListEntry` is never constructed
+   --> cli/src/marketplace_cmd.rs:332:8
+    |
+332 | struct JsonMarketplaceListEntry {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `configured_marketplace_sources_by_root` is never used
+   --> cli/src/marketplace_cmd.rs:339:4
+    |
+339 | fn configured_marketplace_sources_by_root(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `run_upgrade` is never used
+   --> cli/src/marketplace_cmd.rs:367:10
+    |
+367 | async fn run_upgrade(
+    |          ^^^^^^^^^^^
+
+warning: function `run_remove` is never used
+   --> cli/src/marketplace_cmd.rs:401:10
+    |
+401 | async fn run_remove(config: Config, args: RemoveMarketplaceArgs) -> Result<()> {
+    |          ^^^^^^^^^^
+
+warning: struct `JsonMarketplaceRemoveOutput` is never constructed
+   --> cli/src/marketplace_cmd.rs:432:8
+    |
+432 | struct JsonMarketplaceRemoveOutput {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_outcome` is never used
+   --> cli/src/marketplace_cmd.rs:438:8
+    |
+437 | impl JsonMarketplaceRemoveOutput {
+    | -------------------------------- associated function in this implementation
+438 |     fn from_outcome(outcome: MarketplaceRemoveOutcome) -> Self {
+    |        ^^^^^^^^^^^^
+
+warning: function `print_upgrade_outcome_json` is never used
+   --> cli/src/marketplace_cmd.rs:448:4
+    |
+448 | fn print_upgrade_outcome_json(outcome: &PluginMarketplaceUpgradeOutcome) -> Result<()> {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `JsonMarketplaceUpgradeOutput` is never constructed
+   --> cli/src/marketplace_cmd.rs:466:8
+    |
+466 | struct JsonMarketplaceUpgradeOutput {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_outcome` is never used
+   --> cli/src/marketplace_cmd.rs:473:8
+    |
+472 | impl JsonMarketplaceUpgradeOutput {
+    | --------------------------------- associated function in this implementation
+473 |     fn from_outcome(outcome: &PluginMarketplaceUpgradeOutcome) -> Self {
+    |        ^^^^^^^^^^^^
+
+warning: struct `JsonMarketplaceUpgradeError` is never constructed
+   --> cli/src/marketplace_cmd.rs:495:8
+    |
+495 | struct JsonMarketplaceUpgradeError {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `print_upgrade_outcome` is never used
+   --> cli/src/marketplace_cmd.rs:500:4
+    |
+500 | fn print_upgrade_outcome(
+    |    ^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `OPENAI_BUNDLED_ALPHA_MARKETPLACE_NAME` is never used
+  --> cli/src/plugin_cmd.rs:48:7
+   |
+48 | const OPENAI_BUNDLED_ALPHA_MARKETPLACE_NAME: &str = "openai-bundled-alpha";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `OPENAI_PRIMARY_RUNTIME_MARKETPLACE_NAME` is never used
+  --> cli/src/plugin_cmd.rs:49:7
+   |
+49 | const OPENAI_PRIMARY_RUNTIME_MARKETPLACE_NAME: &str = "openai-primary-runtime";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `run_plugin_add` is never used
+   --> cli/src/plugin_cmd.rs:139:14
+    |
+139 | pub async fn run_plugin_add(
+    |              ^^^^^^^^^^^^^^
+
+warning: struct `JsonPluginAddOutput` is never constructed
+   --> cli/src/plugin_cmd.rs:224:8
+    |
+224 | struct JsonPluginAddOutput {
+    |        ^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_outcome` is never used
+   --> cli/src/plugin_cmd.rs:234:8
+    |
+233 | impl JsonPluginAddOutput {
+    | ------------------------ associated function in this implementation
+234 |     fn from_outcome(outcome: PluginInstallOutcome) -> Self {
+    |        ^^^^^^^^^^^^
+
+warning: function `run_plugin_list` is never used
+   --> cli/src/plugin_cmd.rs:246:14
+    |
+246 | pub async fn run_plugin_list(
+    |              ^^^^^^^^^^^^^^^
+
+warning: associated function `from_configured_plugin` is never used
+   --> cli/src/plugin_cmd.rs:534:8
+    |
+533 | impl PluginListEntry {
+    | -------------------- associated function in this implementation
+534 |     fn from_configured_plugin(
+    |        ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variants `Local`, `Git`, `GitSubdir`, and `Npm` are never constructed
+   --> cli/src/plugin_cmd.rs:563:5
+    |
+559 | enum JsonPluginSource {
+    |      ---------------- variants in this enum
+...
+563 |     Local {
+    |     ^^^^^
+...
+566 |     Git {
+    |     ^^^
+...
+573 |     GitSubdir {
+    |     ^^^^^^^^^
+...
+581 |     Npm {
+    |     ^^^
+    |
+    = note: `JsonPluginSource` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: associated function `from_marketplace_source` is never used
+   --> cli/src/plugin_cmd.rs:591:8
+    |
+590 | impl JsonPluginSource {
+    | --------------------- associated function in this implementation
+591 |     fn from_marketplace_source(source: MarketplacePluginSource) -> Self {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `configured_marketplace_sources` is never used
+   --> cli/src/plugin_cmd.rs:633:15
+    |
+633 | pub(crate) fn configured_marketplace_sources(
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `install_policy_label` is never used
+   --> cli/src/plugin_cmd.rs:666:4
+    |
+666 | fn install_policy_label(policy: MarketplacePluginInstallPolicy) -> &'static str {
+    |    ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `auth_policy_label` is never used
+   --> cli/src/plugin_cmd.rs:674:4
+    |
+674 | fn auth_policy_label(policy: MarketplacePluginAuthPolicy) -> &'static str {
+    |    ^^^^^^^^^^^^^^^^^
+
+warning: function `run_plugin_remove` is never used
+   --> cli/src/plugin_cmd.rs:681:14
+    |
+681 | pub async fn run_plugin_remove(
+    |              ^^^^^^^^^^^^^^^^^
+
+warning: struct `JsonPluginRemoveOutput` is never constructed
+   --> cli/src/plugin_cmd.rs:744:8
+    |
+744 | struct JsonPluginRemoveOutput {
+    |        ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_selection` is never used
+   --> cli/src/plugin_cmd.rs:751:8
+    |
+750 | impl JsonPluginRemoveOutput {
+    | --------------------------- associated function in this implementation
+751 |     fn from_selection(selection: PluginSelection) -> Self {
+    |        ^^^^^^^^^^^^^^
+
+warning: struct `PluginCommandContext` is never constructed
+   --> cli/src/plugin_cmd.rs:760:8
+    |
+760 | struct PluginCommandContext {
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `load_plugin_command_context` is never used
+   --> cli/src/plugin_cmd.rs:767:10
+    |
+767 | async fn load_plugin_command_context(
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `load_cli_auth_manager` is never used
+   --> cli/src/plugin_cmd.rs:788:21
+    |
+788 | pub(crate) async fn load_cli_auth_manager(config: &Config) -> Result<Arc<AuthManager>> {
+    |                     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `PluginSelection` is never constructed
+   --> cli/src/plugin_cmd.rs:792:8
+    |
+792 | struct PluginSelection {
+    |        ^^^^^^^^^^^^^^^
+
+warning: associated function `from_plugin_id` is never used
+   --> cli/src/plugin_cmd.rs:799:8
+    |
+798 | impl PluginSelection {
+    | -------------------- associated function in this implementation
+799 |     fn from_plugin_id(plugin_id: PluginId) -> Self {
+    |        ^^^^^^^^^^^^^^
+
+warning: function `parse_plugin_selection` is never used
+   --> cli/src/plugin_cmd.rs:809:4
+    |
+809 | fn parse_plugin_selection(
+    |    ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `RemoteMarketplaceListing` is never constructed
+   --> cli/src/plugin_cmd.rs:837:8
+    |
+837 | struct RemoteMarketplaceListing {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `fetch_remote_marketplaces` is never used
+   --> cli/src/plugin_cmd.rs:844:10
+    |
+844 | async fn fetch_remote_marketplaces(
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `resolve_remote_plugin` is never used
+   --> cli/src/plugin_cmd.rs:903:4
+    |
+903 | fn resolve_remote_plugin(
+    |    ^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `find_marketplace_for_plugin` is never used
+   --> cli/src/plugin_cmd.rs:926:4
+    |
+926 | fn find_marketplace_for_plugin(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `ConfiguredMarketplaceSnapshotIssue` is never constructed
+   --> cli/src/plugin_cmd.rs:963:19
+    |
+963 | pub(crate) struct ConfiguredMarketplaceSnapshotIssue {
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `ensure_configured_marketplace_snapshots_loaded` is never used
+   --> cli/src/plugin_cmd.rs:969:4
+    |
+969 | fn ensure_configured_marketplace_snapshots_loaded(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `configured_marketplace_snapshot_issues` is never used
+    --> cli/src/plugin_cmd.rs:1000:15
+     |
+1000 | pub(crate) fn configured_marketplace_snapshot_issues(
+     |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `is_implicit_system_marketplace_root` is never used
+    --> cli/src/plugin_cmd.rs:1092:4
+     |
+1092 | fn is_implicit_system_marketplace_root(
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `path_ends_with` is never used
+    --> cli/src/plugin_cmd.rs:1117:4
+     |
+1117 | fn path_ends_with(path: &Path, suffix: &[&str]) -> bool {
+     |    ^^^^^^^^^^^^^^
+
+warning: `codex-cli` (bin "codex" test) generated 48 warnings
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 13m 06s
+     Running unittests src/main.rs (target/debug/deps/codex-6e3c37ea74e7a633)
+
+running 290 tests
+test doctor::background::tests::running_background_server_reports_app_server_version ... ok
+test doctor::desktop::windows_security::tests::an_unavailable_reader_is_not_reported_as_clean ... ok
+test doctor::desktop_tests::stopped_desktop_does_not_report_a_failure ... ok
+test doctor::disk::tests::nonexistent_relative_codex_home_uses_current_directory_capacity ... ok
+test doctor::desktop::windows_security::tests::every_source_distinguishes_audits_from_blocks ... ok
+test doctor::desktop::windows_security::tests::only_trusted_codex_executables_are_reported ... ok
+test doctor::disk::tests::disk_capacity_is_reported_without_loaded_configuration ... ok
+test doctor::desktop::windows_security::tests::defender_distinguishes_detection_and_remediation ... ok
+test doctor::filesystem_paths::tests::blocked_probe_fixture ... ignored, subprocess fixture for the bounded filesystem probe test
+test doctor::desktop_tests::handshake_failure_in_the_middle_of_a_log_segment_is_detected ... ok
+test doctor::git::tests::warns_when_git_repo_has_no_git_executable ... ok
+test doctor::desktop_tests::current_desktop_session_reports_the_latest_local_handshake ... ok
+test doctor::disk::tests::disk_measurement_errors_produce_complete_warning_diagnostics ... ok
+test doctor::disk::tests::disk_capacity_thresholds_produce_complete_diagnostics ... ok
+test doctor::output::tests::detail_value_colors_inline_statuses_and_low_signal_values ... ok
+test doctor::desktop::windows_security::tests::evidence_is_bounded_redacted_and_correctly_classified ... ok
+test doctor::output::tests::redact_detail_distinguishes_database_paths_from_field_labels ... ok
+test doctor::output::tests::redact_detail_preserves_env_var_names ... ok
+test doctor::desktop_tests::failed_handshake_does_not_expose_sensitive_log_fields ... ok
+test doctor::output::tests::redact_detail_preserves_secret_presence_booleans ... ok
+test doctor::output::tests::redact_detail_sanitizes_secret_url_path_segments ... ok
+test doctor::output::tests::redact_detail_sanitizes_urls ... ok
+test doctor::output::tests::redact_detail_preserves_missing_env_diagnostics ... ok
+test doctor::output::tests::render_human_report_explains_terminal_warning_issue ... ok
+test daemon_update_tests::daemon_handoff_uses_selected_executable_and_propagates_failure ... ok
+test doctor::output::tests::render_human_report_can_emit_color ... ok
+test doctor::output::tests::render_human_report_includes_memories_db_in_state_health_summary ... ok
+test doctor::output::tests::render_human_report_includes_details_by_default_without_color ... ok
+test doctor::output::tests::render_human_report_includes_threads_row_in_environment ... ok
+test doctor::output::tests::render_human_report_includes_redacted_details ... ok
+test doctor::output::tests::render_human_report_supports_ascii_output ... ok
+test doctor::output::tests::render_human_report_supports_summary_output_without_color ... ok
+test doctor::output::tests::update_note_emphasizes_available_version_and_dims_context ... ok
+test doctor::progress::tests::progress_is_quiet_for_dumb_terminal ... ok
+test doctor::progress::tests::progress_is_quiet_for_json ... ok
+test doctor::output::tests::render_human_report_promotes_notes_without_changing_statuses ... ok
+test doctor::progress::tests::progress_is_quiet_for_non_tty ... ok
+test doctor::progress::tests::progress_is_shown_for_human_tty_output ... ok
+test daemon_update_tests::upstream_package_update_is_rejected ... ok
+test doctor::security::tests::detected_products_preserve_partial_inspection_visibility ... ok
+test doctor::security::tests::endpoint_product_guidance_preserves_structured_json_contract ... ok
+test doctor::security::tests::multiple_endpoint_products_each_get_distinct_guidance ... ok
+test doctor::security::tests::no_endpoint_products_require_no_remediation ... ok
+test doctor::security::tests::unavailable_endpoint_inspection_does_not_require_remediation ... ok
+test doctor::system::tests::system_check_handles_missing_os_language ... ok
+test doctor::system::tests::system_check_reports_os_language_locale_editor_and_pager_env ... ok
+test doctor::security::tests::each_endpoint_product_requires_vendor_specific_app_exclusions ... ok
+test doctor::output::tests::render_human_report_expands_feature_flags_with_all ... ok
+test doctor::tests::default_reachability_skips_upstream ... ok
+test doctor::tests::executable_path_exists_rejects_non_executable_file ... ok
+test doctor::filesystem_paths::tests::deduplicates_literal_paths_without_expanding_globs_or_special_paths ... ok
+test doctor::tests::config_overrides_from_interactive_preserves_global_options ... ok
+test doctor::tests::color_output_summary_reports_disabled_reasons ... ok
+test config_override_args::tests::preserves_scoped_overrides_and_forwarded_arguments ... ok
+test doctor::tests::mcp_check_does_not_probe_environment_stdio_on_the_host ... ok
+test doctor::tests::mcp_check_ignores_disabled_servers ... ok
+test doctor::tests::mcp_check_fails_required_remote_stdio_env_var ... ok
+test doctor::tests::mcp_check_skips_host_path_checks_for_remote_stdio ... ok
+test doctor::tests::mcp_check_validates_remote_stdio_cwd ... ok
+test doctor::background::tests::not_running_background_server_stays_ok_without_version ... ok
+test doctor::sandbox::tests::reports_missing_linux_sandbox_helper ... ok
+test doctor::background::tests::failed_version_probe_reports_unavailable ... ok
+test doctor::filesystem_paths::tests::attributes_home_relative_subtree_paths_to_their_config_layer ... ok
+test doctor::filesystem_paths::tests::excludes_scoped_origins_replaced_by_a_scalar_grant ... ok
+test doctor::tests::overall_status_prefers_fail ... ok
+test doctor::tests::provider_reachability_api_key_without_url_skips_upstream ... ok
+test doctor::tests::provider_reachability_mode_uses_api_key_auth ... ok
+test doctor::tests::provider_reachability_outcome_reports_required_failures ... ok
+test doctor::tests::provider_reachability_adds_models_route_probe_for_openai_compatible_base_urls ... ok
+test doctor::tests::provider_reachability_skips_route_probe_for_bedrock ... ok
+test doctor::tests::provider_reachability_uses_active_provider_endpoint ... ok
+test doctor::tests::provider_specific_auth_allows_non_openai_provider_without_env_key ... ok
+test doctor::tests::provider_specific_auth_fails_when_provider_env_key_is_missing ... ok
+test doctor::tests::read_probe_file_rejects_unreadable_file ... ok
+test doctor::tests::run_async_check_notifies_progress ... ok
+test doctor::tests::run_sync_check_notifies_progress ... ok
+test doctor::tests::redacted_json_report_structures_and_sanitizes_details ... ok
+test doctor::tests::should_enable_color_respects_terminal_inputs ... ok
+test doctor::tests::startup_warning_counts_group_known_sources ... ok
+test doctor::tests::stored_auth_validation_handles_personal_access_token ... ok
+test doctor::tests::stored_auth_validation_rejects_missing_api_key ... ok
+test doctor::tests::stored_auth_validation_rejects_missing_chatgpt_tokens ... ok
+test doctor::tests::terminal_check_allows_missing_tmux_details ... ok
+test doctor::tests::terminal_check_includes_windows_console_details ... ok
+test doctor::filesystem_paths::tests::returns_when_a_probe_process_does_not_exit ... ok
+test doctor::tests::terminal_check_reports_remote_indicators_as_present_only ... ok
+test doctor::tests::terminal_check_warns_for_declared_narrow_terminal ... ok
+test doctor::tests::terminal_check_warns_for_narrow_terminal ... ok
+test doctor::tests::terminal_check_warns_for_non_utf8_locale ... ok
+test doctor::tests::websocket_error_detail_preserves_categories_without_wire_values ... ok
+test doctor::tests::http_probe_treats_http_status_as_reachable ... ok
+test doctor::thread_inventory::tests::count_summary_caps_distinct_values ... ok
+test doctor::thread_inventory::tests::source_category_coarsens_structured_sources ... ok
+test doctor::thread_inventory::tests::thread_id_from_rollout_falls_back_for_legacy_non_meta_record ... ok
+test daemon_install::tests::running_daemon_replacement_prompt ... ok
+test doctor::background::tests::invalid_settings_are_not_reported_as_effective ... ok
+test doctor::tests::mcp_check_fails_required_missing_stdio_command ... ok
+test doctor::output::tests::copyable_items_use_check_status ... ok
+test doctor::git::tests::reports_git_candidates_and_repo_metadata ... ok
+test doctor::output::tests::missing_env_diagnostics_in_json_and_text ... ok
+test doctor::output::tests::render_human_report_snapshot_covers_environment_rows ... ok
+test doctor::tests::websocket_probe_human_output ... ok
+test doctor::tests::rollout_stats_details_count_plain_and_compressed_files ... ok
+test doctor::tests::terminal_check_dumb_requires_interactive_stream ... ok
+test doctor::tests::terminal_check_prioritizes_unreadable_terminfo_over_warnings ... ok
+test doctor::filesystem_paths::tests::attributes_paths_inherited_through_managed_profiles_to_their_config_layer ... ok
+test doctor::background::tests::configured_updates_and_missing_updater_record_are_visible ... ok
+test doctor::title::tests::terminal_title_accepts_configured_items ... ok
+test doctor::title::tests::terminal_title_omits_project_when_project_item_is_not_selected ... ok
+test doctor::thread_inventory::tests::thread_id_from_rollout_stops_after_legacy_header_line_limit ... ok
+test doctor::title::tests::terminal_title_project_value_uses_tui_truncation_shape ... ok
+test doctor::title::tests::terminal_title_reports_default_items_and_git_project_name ... ok
+test doctor::title::tests::terminal_title_reports_disabled_configuration ... ok
+test doctor::title::tests::terminal_title_reports_project_config_fallback ... ok
+test doctor::title::tests::terminal_title_warns_when_all_configured_items_are_invalid ... ok
+test doctor::title::tests::terminal_title_warns_for_invalid_configured_items ... ok
+test doctor::network::tests::provider_reachability_rejects_proxy_authentication_challenges ... ok
+test marketplace_cmd::tests::remove_subcommand_parses_marketplace_name ... ok
+test marketplace_cmd::tests::sparse_paths_parse_before_or_after_source ... ok
+test marketplace_cmd::tests::upgrade_subcommand_parses_optional_marketplace_name ... ok
+test exec_server_args_tests::exec_server_help_documents_remote_options ... ok
+test doctor::tests::provider_reachability_route_401_keeps_reachability_ok ... ok
+test doctor::tests::provider_reachability_route_404_fails_bad_base_url_path ... ok
+test exec_args_tests::exec_help_documents_cyber_access_program ... ok
+test doctor::tests::mcp_check_warns_for_optional_http_reachability ... ok
+test mcp_cmd::tests::application_network_loader_rejects_malformed_managed_policy ... ok
+test mcp_cmd::tests::oauth_client_secret_is_redacted_in_parsed_command_debug ... ok
+test mcp_cmd::tests::oauth_client_secret_requires_url_and_client_id_without_disclosure ... ok
+test mcp_login::tests::callback_line_accepts_crlf_and_eof_after_input ... ok
+test mcp_login::tests::callback_line_is_bounded_and_does_not_expose_input_in_errors ... ok
+test plugin_cmd::tests::plugin_list_preserves_other_output_errors ... ok
+test plugin_cmd::tests::plugin_list_treats_broken_pipe_as_success ... ok
+test remote_control_cmd::tests::daemon_app_server_human_lines_include_path_and_version ... ok
+test remote_control_cmd::tests::foreground_start_wait_reports_app_server_exit_before_ready ... ok
+test remote_control_cmd::tests::foreground_start_wait_stops_before_ready ... ok
+test remote_control_cmd::tests::foreground_wait_aborts_app_server_on_stop_signal ... ok
+test remote_control_cmd::tests::remote_control_daemon_json_rejects_unstartable_status ... ok
+test remote_control_cmd::tests::remote_control_human_lines_include_foreground_stop_hint_only ... ok
+test remote_control_cmd::tests::remote_control_human_start_messages_use_server_name ... ok
+test remote_control_cmd::tests::remote_control_json_output_marks_foreground_or_daemon ... ok
+test remote_control_cmd::tests::remote_control_pairing_human_output_labels_the_manual_code ... ok
+test remote_control_cmd::tests::remote_control_pairing_human_output_requires_manual_code ... ok
+test remote_control_cmd::tests::remote_control_pairing_json_output_preserves_pairing_artifacts ... ok
+test state_db_recovery::tests::backup_backs_up_only_failed_database_file ... ok
+test state_db_recovery::tests::backup_folder_uses_parent_of_first_backup_path ... ok
+test state_db_recovery::tests::backup_replaces_blocking_sqlite_home_file ... ok
+test tests::agents_subcommand_accepts_remote_session_options ... ok
+test mcp_cmd::tests::application_network_loader_denies_unlisted_destination_before_connect ... ok
+test tests::app_server_analytics_default_disabled_without_flag ... ok
+test tests::app_server_analytics_default_enabled_with_flag ... ok
+test tests::app_server_capability_token_flags_parse ... ok
+test tests::app_server_grpc_code_mode_host_url_parses_independently_of_listen_transport ... ok
+test tests::app_server_listen_invalid_url_fails_to_parse ... ok
+test mcp_cmd::tests::application_network_mcp_login_denies_even_an_allowed_mcp_server ... ok
+test tests::app_server_listen_stdio_url_parses ... ok
+test tests::app_server_listen_off_parses ... ok
+test tests::app_server_listen_unix_socket_url_parses ... ok
+test mcp_cmd::tests::application_network_mcp_add_denies_initial_oauth_discovery_before_connect ... ok
+test tests::app_server_listen_unix_socket_path_parses ... ok
+test tests::app_server_listen_websocket_url_parses ... ok
+test tests::app_server_proxy_sock_path_parses ... ok
+test tests::app_server_proxy_subcommand_parses ... ok
+test tests::app_server_rejects_removed_insecure_non_loopback_flag ... ok
+test tests::app_server_daemon_subcommands_parse ... ok
+test tests::app_server_remote_control_startup_flag_enables_remote_control ... ok
+test tests::app_server_signed_bearer_flags_parse ... ok
+test tests::app_server_stdio_flag_conflicts_with_listen ... ok
+test tests::app_server_stdio_flag_parses ... ok
+test tests::approve_for_me_configures_interactive_mode ... ok
+test tests::app_server_subcommands_reject_strict_config ... FAILED
+test tests::app_server_rejects_invalid_code_mode_host_urls ... ok
+test tests::approve_for_me_conflicts_with_explicit_interactive_permissions ... ok
+test tests::dangerous_bypass_conflicts_with_approval_policy ... ok
+test tests::approve_for_me_defaults_propagate_from_root_to_exec ... ok
+test tests::archive_merges_scoped_tui_flags ... ok
+test tests::debug_models_parses_bundled_flag ... ok
+test tests::delete_force_requires_uuid ... ok
+test tests::debug_prompt_input_parses_prompt_and_images ... ok
+test tests::exec_resume_accepts_output_flags_after_subcommand ... ok
+test tests::feature_toggles_accept_legacy_linux_sandbox_flag ... ok
+test tests::feature_toggles_accept_removed_enable_fanout_flag ... ok
+test tests::feature_toggles_accept_removed_image_detail_original_flag ... ok
+test tests::feature_toggles_accept_removed_item_ids_flag ... ok
+test tests::feature_toggles_known_features_generate_overrides ... ok
+test tests::feature_toggles_unknown_feature_errors ... ok
+test tests::exec_resume_last_accepts_prompt_positional ... ok
+test tests::exec_server_forward_parses_shared_remote_options ... ok
+test tests::features_enable_parses_feature_name ... ok
+test tests::exec_server_forward_requires_registration_and_destination ... ok
+test tests::fork_all_flag_sets_show_all ... ok
+test tests::features_disable_parses_feature_name ... ok
+test tests::fork_last_accepts_prompt_positional ... ok
+test tests::fork_picker_logic_none_and_not_last ... ok
+test tests::fork_picker_logic_last ... ok
+test tests::fork_last_rejects_explicit_session_and_prompt ... ok
+test tests::format_exit_messages_applies_color_when_enabled ... ok
+test tests::format_exit_messages_colors_commands_and_thread_name ... ok
+test tests::format_exit_messages_includes_resume_hint_for_fatal_exit ... ok
+test tests::fork_picker_logic_with_session_id ... ok
+test tests::format_exit_messages_includes_session_id_for_fatal_exit_without_resume_hint ... ok
+test tests::format_exit_messages_includes_session_id_without_resume_hint ... ok
+test tests::format_exit_messages_includes_resume_hint_without_color ... ok
+test tests::format_exit_messages_names_picker_item_when_thread_has_name ... ok
+test tests::format_exit_messages_skips_zero_usage ... ok
+test tests::fork_with_session_id_accepts_prompt_positional ... ok
+test tests::format_exit_messages_preserves_auth_env_through_tui_runner ... ok
+test tests::interactive_tui_future_stays_bounded ... ok
+test doctor::tests::mcp_http_probe_falls_back_to_get_when_head_times_out ... ok
+test doctor::tests::mcp_check_reports_both_missing_token_and_unreachable_url ... ok
+test tests::import_remains_an_interactive_prompt ... ok
+test tests::later_approve_for_me_overrides_root_tui_approval_policy ... ok
+test tests::later_approve_for_me_overrides_root_exec_sandbox ... ok
+test tests::later_exec_sandbox_partially_overrides_approve_for_me ... ok
+test tests::later_resume_approval_policy_partially_overrides_approve_for_me ... ok
+test tests::plugin_add_parses_under_plugin ... ok
+test tests::plugin_list_parses_under_plugin ... ok
+test tests::plugin_marketplace_add_parses_under_plugin ... ok
+test tests::plugin_marketplace_remove_parses_under_plugin ... ok
+test tests::profile_loader_overrides_use_explicit_codex_home ... ok
+test tests::marketplace_no_longer_parses_at_top_level ... ok
+test tests::plugin_marketplace_help_uses_plugin_namespace ... FAILED
+test tests::plugin_marketplace_upgrade_parses_under_plugin ... ok
+test tests::plugin_remove_parses_under_plugin ... ok
+test tests::profile_v2_rejects_non_plain_names_at_parse_time ... ok
+test tests::read_remote_auth_token_from_env_var_rejects_empty_values ... ok
+test tests::read_remote_auth_token_from_env_var_reports_missing_values ... ok
+test tests::read_remote_auth_token_from_env_var_trims_values ... ok
+test tests::not_so_yolo_alias_is_hidden_from_help ... ok
+test tests::profile_v2_is_rejected_for_config_management_subcommands ... ok
+test tests::reject_remote_auth_token_env_for_app_server_generate_internal_json_schema ... ok
+test tests::reject_remote_auth_token_env_for_app_server_proxy ... ok
+test tests::reject_remote_auth_token_env_for_app_server_version ... ok
+test tests::reject_remote_auth_token_env_for_non_interactive_subcommands ... ok
+test tests::reject_remote_mode_for_non_interactive_subcommands ... ok
+test tests::profile_v2_is_allowed_for_runtime_subcommands ... ok
+test tests::remote_auth_token_env_flag_parses_for_interactive_root ... ok
+test tests::qiri_removes_upstream_account_and_cloud_commands ... ok
+test tests::remote_control_pair_parses ... ok
+test tests::reject_remote_flag_for_remote_control ... ok
+test tests::queue_help_lists_supported_options ... ok
+test tests::responses_subcommand_is_not_registered ... ok
+test tests::remote_flag_parses_for_resume_subcommand ... ok
+test tests::resume_all_flag_sets_show_all ... ok
+test tests::remote_flag_parses_for_interactive_root ... ok
+test tests::resume_include_non_interactive_flag_sets_source_filter_override ... ok
+test tests::resume_last_accepts_prompt_positional ... ok
+test tests::resume_last_rejects_explicit_session_and_prompt ... ok
+test tests::resume_merges_dangerously_bypass_flag ... ok
+test tests::resume_merges_option_flags ... ok
+test tests::resume_and_fork_preserve_no_alt_screen ... ok
+test tests::resume_picker_logic_last ... ok
+test tests::resume_merges_bypass_hook_trust_flag ... ok
+test tests::resume_picker_logic_none_and_not_last ... ok
+test tests::resume_picker_logic_with_session_id ... ok
+test tests::resume_model_flag_applies_when_no_root_flags ... ok
+test tests::resume_with_session_id_accepts_prompt_positional ... ok
+test tests::resume_and_fork_preserve_no_daemon ... ok
+test tests::root_strict_config_is_rejected_for_unsupported_subcommands ... FAILED
+test tests::root_strict_config_is_supported_for_exec_server ... ok
+test tests::sandbox_help_only_shows_singular_permission_profile ... ok
+test tests::sandbox_parses_config_profile ... ok
+test tests::sandbox_parses_permissions_profile_short_alias ... ok
+test tests::sandbox_parses_legacy_permissions_profile_alias ... ok
+test tests::sandbox_parses_permission_profile ... ok
+test tests::sandbox_rejects_explicit_profile_controls_without_profile ... ok
+test tests::strict_config_with_compound_enable_errors ... ok
+test tests::serve_accepts_network_and_browser_origin_options ... ok
+test tests::serve_defaults_to_loopback_port_8765 ... ok
+test tests::strict_config_with_unknown_enable_errors ... ok
+test tests::strict_config_parses_for_supported_commands ... ok
+test tests::sandbox_uninstall_respects_command_separator ... ok
+test tests::update_parses_as_update_subcommand ... ok
+test tests::worktree_flag_rejects_unsupported_session_and_management_commands ... FAILED
+test tests::strict_config_with_unknown_disable_errors ... ok
+test tests::tcp_tunnel_is_hidden_and_accepts_its_control_input_contract ... ok
+test tests::worktree_flag_supports_interactive_exec_and_explicit_fork_positions ... ok
+test mcp_cmd::tests::application_network_mcp_add_discovers_when_policy_is_disabled ... ok
+test mcp_cmd::tests::application_network_loader_allows_listed_https_destination_to_connect ... ok
+test doctor::thread_inventory::tests::thread_id_from_rollout_rejects_unusable_headers ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_matches_compressed_rollouts_to_canonical_db_paths ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_ignores_compression_temp_files ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_uses_metadata_id_when_filename_and_db_disagree ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_reports_corrupt_compressed_rollout_without_stale_row ... ok
+test doctor::thread_inventory::tests::thread_id_from_rollout_uses_metadata_after_pre_header_record ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_ignores_invalid_utf8_after_session_metadata ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_prefers_plain_rollout_over_compressed_sibling ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_ok_when_rollouts_match_db ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_uses_compressed_metadata_id_and_legacy_filename_fallback ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_warns_for_missing_stale_and_mismatched_rows ... ok
+test doctor::thread_inventory::tests::thread_id_from_rollout_uses_metadata_at_header_line_limit ... ok
+
+failures:
+
+---- tests::app_server_subcommands_reject_strict_config stdout ----
+
+thread 'tests::app_server_subcommands_reject_strict_config' (2995629) panicked at cli/src/main.rs:4071:9:
+assertion failed: `(left == right)`
+
+[1mDiff[0m [31m< left[0m / [32mright >[0m :
+[31m<`--strict-config` is not supported for `[0m[1;48;5;52;31mqiri[0m[31m app-server proxy`[0m
+[32m>`--strict-config` is not supported for `[0m[1;48;5;22;32mcodex[0m[32m app-server proxy`[0m
+
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- tests::plugin_marketplace_help_uses_plugin_namespace stdout ----
+
+thread 'tests::plugin_marketplace_help_uses_plugin_namespace' (2995679) panicked at cli/src/main.rs:3149:9:
+Add, list, upgrade, or remove configured plugin marketplaces
+
+Usage: qiri plugin marketplace [OPTIONS] <COMMAND>
+
+Commands:
+  add      Add a local or Git marketplace to the configured marketplace sources
+  list     List plugin marketplaces Codex is currently considering and their roots
+  upgrade  Refresh configured Git marketplace snapshots
+  remove   Remove a configured marketplace source by name
+  help     Print this message or the help of the given subcommand(s)
+
+Options:
+  -c, --config <key=value>
+          Override a configuration value that would otherwise be loaded from the QIRI configuration
+          file (by default `~/.qiri-codex/config.toml`). Use a dotted path (`foo.bar.baz`) to
+          override nested values. The `value` portion is parsed as TOML. If it fails to parse as
+          TOML, the raw string is used as a literal.
+
+          Examples: - `-c model="DeepSeek-V4-Pro"` - `-c
+          'sandbox_permissions=["disk-full-read-access"]'` - `-c
+          shell_environment_policy.inherit=all`
+
+      --enable <FEATURE>
+          Enable a feature (repeatable). Equivalent to `-c features.<name>=true`
+
+      --disable <FEATURE>
+          Disable a feature (repeatable). Equivalent to `-c features.<name>=false`
+
+  -h, --help
+          Print help (see a summary with '-h')
+
+
+---- tests::root_strict_config_is_rejected_for_unsupported_subcommands stdout ----
+
+thread 'tests::root_strict_config_is_rejected_for_unsupported_subcommands' (2995725) panicked at cli/src/main.rs:4055:9:
+assertion failed: `(left == right)`
+
+[1mDiff[0m [31m< left[0m / [32mright >[0m :
+[31m<`--strict-config` is not supported for `[0m[1;48;5;52;31mqiri[0m[31m remote-control`[0m
+[32m>`--strict-config` is not supported for `[0m[1;48;5;22;32mcodex[0m[32m remote-control`[0m
+
+
+
+---- tests::worktree_flag_rejects_unsupported_session_and_management_commands stdout ----
+
+thread 'tests::worktree_flag_rejects_unsupported_session_and_management_commands' (2995743) panicked at cli/src/main.rs:2798:14:
+unsupported worktree command: ()
+
+
+failures:
+    tests::app_server_subcommands_reject_strict_config
+    tests::plugin_marketplace_help_uses_plugin_namespace
+    tests::root_strict_config_is_rejected_for_unsupported_subcommands
+    tests::worktree_flag_rejects_unsupported_session_and_management_commands
+
+test result: FAILED. 285 passed; 4 failed; 1 ignored; 0 measured; 0 filtered out; finished in 1.73s
+
+error: test failed, to rerun pass `-p codex-cli --bin codex`
