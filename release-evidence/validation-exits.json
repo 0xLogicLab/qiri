@@ -1,0 +1,13 @@
+{
+  "baseline_check": 101,
+  "release_check": 101,
+  "baseline_doctor": 0,
+  "release_doctor": 0,
+  "web_tests": 0,
+  "baseline_npm_tests": 1,
+  "release_npm_tests": 1,
+  "bash_syntax": 0,
+  "toml_parse": 0,
+  "relative_links": 0,
+  "diff_check": 0
+}

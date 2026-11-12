@@ -1,0 +1,17 @@
+git grep -niE 'chatgpt[.]com'
+exit=0, matching_lines=448
+
+git grep -niE 'developers[.]openai[.]com'
+exit=0, matching_lines=67
+
+git grep -niE 'llmapi[.]pcl'
+exit=1, matching_lines=0
+
+git grep -niE 'research-os[.]online'
+exit=1, matching_lines=0
+
+git grep -niE '100[.]75[.]'
+exit=1, matching_lines=0
+
+git grep -ni chatgpt -- docs
+exit=1, matching_lines=0

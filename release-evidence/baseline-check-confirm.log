@@ -1,0 +1,118 @@
+    Blocking waiting for file lock on build directory
+   Compiling aws-lc-rs v1.18.1
+    Checking aws-lc-sys v0.45.0
+   Compiling rustls v0.23.46
+    Checking rama-http-backend v0.3.0-alpha.4
+    Checking cached v0.56.0
+   Compiling darling_macro v0.23.0
+    Checking onig_sys v69.9.1
+    Checking addr2line v0.25.1
+   Compiling glib-sys v0.22.8
+   Compiling gobject-sys v0.22.6
+    Checking wayland-client v0.31.12
+    Checking calendrical_calculations v0.2.4
+   Compiling rustix v0.38.44
+   Compiling gstreamer-sys v0.25.2
+    Checking tree_magic_mini v3.2.2
+warning: glib-sys@0.22.8:
+error: failed to run custom build command for `glib-sys v0.22.8`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/.release-validation/baseline/codex-rs/target/debug/build/glib-sys-8a5ca9eb7a354183/build-script-build` (exit status: 1)
+  --- stdout
+  cargo:rerun-if-changed=/home/sig/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glib-sys-0.22.8/Cargo.toml
+  cargo:rerun-if-env-changed=GLIB_2.0_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+  cargo:warning=
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags glib-2.0 'glib-2.0 >= 2.56'
+
+  The system library `glib-2.0` required by crate `glib-sys` was not found.
+  The file `glib-2.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `glib-2.0.pc`.
+
+warning: build failed, waiting for other jobs to finish...
+warning: gobject-sys@0.22.6:
+error: failed to run custom build command for `gobject-sys v0.22.6`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/.release-validation/baseline/codex-rs/target/debug/build/gobject-sys-c33ff3be2ebe2eee/build-script-build` (exit status: 1)
+  --- stdout
+  cargo:rerun-if-changed=/home/sig/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gobject-sys-0.22.6/Cargo.toml
+  cargo:rerun-if-env-changed=GOBJECT_2.0_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+  cargo:warning=
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags gobject-2.0 'gobject-2.0 >= 2.56'
+
+  The system library `gobject-2.0` required by crate `gobject-sys` was not found.
+  The file `gobject-2.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gobject-2.0.pc`.
+
+warning: gstreamer-sys@0.25.2:
+error: failed to run custom build command for `gstreamer-sys v0.25.2`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/.release-validation/baseline/codex-rs/target/debug/build/gstreamer-sys-d3b2e1fe983245b3/build-script-build` (exit status: 1)
+  --- stdout
+  cargo:rerun-if-changed=/home/sig/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-sys-0.25.2/Cargo.toml
+  cargo:rerun-if-env-changed=GSTREAMER_1.0_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+  cargo:warning=
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags gstreamer-1.0 'gstreamer-1.0 >= 1.28'
+
+  The system library `gstreamer-1.0` required by crate `gstreamer-sys` was not found.
+  The file `gstreamer-1.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gstreamer-1.0.pc`.

@@ -1,0 +1,17 @@
+{
+  "patterns": {
+    "service-chat": 448,
+    "service-docs": 67
+  },
+  "remaining_domain_lines": 515,
+  "identifier_occurrences": 8033,
+  "identifier_lines": 7611,
+  "identifier_categories": {
+    "内部实现名": 7694,
+    "上游技术资料": 322,
+    "归因声明/协议说明": 14,
+    "许可证": 1,
+    "版权头": 2
+  },
+  "scope": "tracked product tree excluding REPORT-RELEASE.md and release-evidence/"
+}

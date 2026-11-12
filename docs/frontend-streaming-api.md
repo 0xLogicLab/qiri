@@ -238,4 +238,3 @@ qiri app-server generate-ts --experimental --out ./qiri-app-server-types
 ```
 
 生产客户端应使用生成的类型绑定，不要手工维护请求和事件类型副本。
-

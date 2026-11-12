@@ -1,0 +1,202 @@
+EEEEEE
+======================================================================
+ERROR: test_npm_archives_preserve_cli_runtime_without_standalone_executor (test_build_npm_package.NpmPackageTest.test_npm_archives_preserve_cli_runtime_without_standalone_executor) (package='codex-linux-x64')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/sig/files/qiri-release/codex-cli/tests/test_build_npm_package.py", line 67, in test_npm_archives_preserve_cli_runtime_without_standalone_executor
+    subprocess.run(
+  File "<stdin>", line 6, in traced
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py', '--package', 'codex-linux-x64', '--version', '1.2.3', '--vendor-src', '/tmp/tmp78xwlvci/vendor', '--staging-dir', '/tmp/tmp78xwlvci/staged', '--pack-output', '/tmp/tmp78xwlvci/package.tgz']' returned non-zero exit status 1.
+
+======================================================================
+ERROR: test_npm_archives_preserve_cli_runtime_without_standalone_executor (test_build_npm_package.NpmPackageTest.test_npm_archives_preserve_cli_runtime_without_standalone_executor) (package='codex-linux-arm64')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/sig/files/qiri-release/codex-cli/tests/test_build_npm_package.py", line 67, in test_npm_archives_preserve_cli_runtime_without_standalone_executor
+    subprocess.run(
+  File "<stdin>", line 6, in traced
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py', '--package', 'codex-linux-arm64', '--version', '1.2.3', '--vendor-src', '/tmp/tmp7ega422s/vendor', '--staging-dir', '/tmp/tmp7ega422s/staged', '--pack-output', '/tmp/tmp7ega422s/package.tgz']' returned non-zero exit status 1.
+
+======================================================================
+ERROR: test_npm_archives_preserve_cli_runtime_without_standalone_executor (test_build_npm_package.NpmPackageTest.test_npm_archives_preserve_cli_runtime_without_standalone_executor) (package='codex-darwin-x64')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/sig/files/qiri-release/codex-cli/tests/test_build_npm_package.py", line 67, in test_npm_archives_preserve_cli_runtime_without_standalone_executor
+    subprocess.run(
+  File "<stdin>", line 6, in traced
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py', '--package', 'codex-darwin-x64', '--version', '1.2.3', '--vendor-src', '/tmp/tmp7y_vjcqs/vendor', '--staging-dir', '/tmp/tmp7y_vjcqs/staged', '--pack-output', '/tmp/tmp7y_vjcqs/package.tgz']' returned non-zero exit status 1.
+
+======================================================================
+ERROR: test_npm_archives_preserve_cli_runtime_without_standalone_executor (test_build_npm_package.NpmPackageTest.test_npm_archives_preserve_cli_runtime_without_standalone_executor) (package='codex-darwin-arm64')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/sig/files/qiri-release/codex-cli/tests/test_build_npm_package.py", line 67, in test_npm_archives_preserve_cli_runtime_without_standalone_executor
+    subprocess.run(
+  File "<stdin>", line 6, in traced
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py', '--package', 'codex-darwin-arm64', '--version', '1.2.3', '--vendor-src', '/tmp/tmpeu2qa1so/vendor', '--staging-dir', '/tmp/tmpeu2qa1so/staged', '--pack-output', '/tmp/tmpeu2qa1so/package.tgz']' returned non-zero exit status 1.
+
+======================================================================
+ERROR: test_npm_archives_preserve_cli_runtime_without_standalone_executor (test_build_npm_package.NpmPackageTest.test_npm_archives_preserve_cli_runtime_without_standalone_executor) (package='codex-win32-x64')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/sig/files/qiri-release/codex-cli/tests/test_build_npm_package.py", line 67, in test_npm_archives_preserve_cli_runtime_without_standalone_executor
+    subprocess.run(
+  File "<stdin>", line 6, in traced
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py', '--package', 'codex-win32-x64', '--version', '1.2.3', '--vendor-src', '/tmp/tmp12fma2pj/vendor', '--staging-dir', '/tmp/tmp12fma2pj/staged', '--pack-output', '/tmp/tmp12fma2pj/package.tgz']' returned non-zero exit status 1.
+
+======================================================================
+ERROR: test_npm_archives_preserve_cli_runtime_without_standalone_executor (test_build_npm_package.NpmPackageTest.test_npm_archives_preserve_cli_runtime_without_standalone_executor) (package='codex-win32-arm64')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/sig/files/qiri-release/codex-cli/tests/test_build_npm_package.py", line 67, in test_npm_archives_preserve_cli_runtime_without_standalone_executor
+    subprocess.run(
+  File "<stdin>", line 6, in traced
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py', '--package', 'codex-win32-arm64', '--version', '1.2.3', '--vendor-src', '/tmp/tmp96gjvwyp/vendor', '--staging-dir', '/tmp/tmp96gjvwyp/staged', '--pack-output', '/tmp/tmp96gjvwyp/package.tgz']' returned non-zero exit status 1.
+
+----------------------------------------------------------------------
+Ran 1 test in 0.533s
+
+FAILED (errors=6)
+Traceback (most recent call last):
+  File "/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py", line 471, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py", line 210, in main
+    output_path = run_npm_pack(staging_dir, args.pack_output)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py", line 441, in run_npm_pack
+    stdout = subprocess.check_output(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'npm'
+
+Traceback (most recent call last):
+  File "/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py", line 471, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py", line 210, in main
+    output_path = run_npm_pack(staging_dir, args.pack_output)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py", line 441, in run_npm_pack
+    stdout = subprocess.check_output(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'npm'
+
+Traceback (most recent call last):
+  File "/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py", line 471, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py", line 210, in main
+    output_path = run_npm_pack(staging_dir, args.pack_output)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py", line 441, in run_npm_pack
+    stdout = subprocess.check_output(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'npm'
+
+Traceback (most recent call last):
+  File "/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py", line 471, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py", line 210, in main
+    output_path = run_npm_pack(staging_dir, args.pack_output)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py", line 441, in run_npm_pack
+    stdout = subprocess.check_output(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'npm'
+
+Traceback (most recent call last):
+  File "/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py", line 471, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py", line 210, in main
+    output_path = run_npm_pack(staging_dir, args.pack_output)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py", line 441, in run_npm_pack
+    stdout = subprocess.check_output(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'npm'
+
+Traceback (most recent call last):
+  File "/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py", line 471, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py", line 210, in main
+    output_path = run_npm_pack(staging_dir, args.pack_output)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py", line 441, in run_npm_pack
+    stdout = subprocess.check_output(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'npm'

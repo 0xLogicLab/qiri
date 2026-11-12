@@ -1,0 +1,65 @@
+EEEEEE
+======================================================================
+ERROR: test_npm_archives_preserve_cli_runtime_without_standalone_executor (test_build_npm_package.NpmPackageTest.test_npm_archives_preserve_cli_runtime_without_standalone_executor) (package='codex-linux-x64')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/sig/files/qiri-release/codex-cli/tests/test_build_npm_package.py", line 67, in test_npm_archives_preserve_cli_runtime_without_standalone_executor
+    subprocess.run(
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py', '--package', 'codex-linux-x64', '--version', '1.2.3', '--vendor-src', '/tmp/tmprph2k7j5/vendor', '--staging-dir', '/tmp/tmprph2k7j5/staged', '--pack-output', '/tmp/tmprph2k7j5/package.tgz']' returned non-zero exit status 1.
+
+======================================================================
+ERROR: test_npm_archives_preserve_cli_runtime_without_standalone_executor (test_build_npm_package.NpmPackageTest.test_npm_archives_preserve_cli_runtime_without_standalone_executor) (package='codex-linux-arm64')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/sig/files/qiri-release/codex-cli/tests/test_build_npm_package.py", line 67, in test_npm_archives_preserve_cli_runtime_without_standalone_executor
+    subprocess.run(
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py', '--package', 'codex-linux-arm64', '--version', '1.2.3', '--vendor-src', '/tmp/tmp23nd6lia/vendor', '--staging-dir', '/tmp/tmp23nd6lia/staged', '--pack-output', '/tmp/tmp23nd6lia/package.tgz']' returned non-zero exit status 1.
+
+======================================================================
+ERROR: test_npm_archives_preserve_cli_runtime_without_standalone_executor (test_build_npm_package.NpmPackageTest.test_npm_archives_preserve_cli_runtime_without_standalone_executor) (package='codex-darwin-x64')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/sig/files/qiri-release/codex-cli/tests/test_build_npm_package.py", line 67, in test_npm_archives_preserve_cli_runtime_without_standalone_executor
+    subprocess.run(
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py', '--package', 'codex-darwin-x64', '--version', '1.2.3', '--vendor-src', '/tmp/tmpt0xl101y/vendor', '--staging-dir', '/tmp/tmpt0xl101y/staged', '--pack-output', '/tmp/tmpt0xl101y/package.tgz']' returned non-zero exit status 1.
+
+======================================================================
+ERROR: test_npm_archives_preserve_cli_runtime_without_standalone_executor (test_build_npm_package.NpmPackageTest.test_npm_archives_preserve_cli_runtime_without_standalone_executor) (package='codex-darwin-arm64')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/sig/files/qiri-release/codex-cli/tests/test_build_npm_package.py", line 67, in test_npm_archives_preserve_cli_runtime_without_standalone_executor
+    subprocess.run(
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py', '--package', 'codex-darwin-arm64', '--version', '1.2.3', '--vendor-src', '/tmp/tmp3fb5jyak/vendor', '--staging-dir', '/tmp/tmp3fb5jyak/staged', '--pack-output', '/tmp/tmp3fb5jyak/package.tgz']' returned non-zero exit status 1.
+
+======================================================================
+ERROR: test_npm_archives_preserve_cli_runtime_without_standalone_executor (test_build_npm_package.NpmPackageTest.test_npm_archives_preserve_cli_runtime_without_standalone_executor) (package='codex-win32-x64')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/sig/files/qiri-release/codex-cli/tests/test_build_npm_package.py", line 67, in test_npm_archives_preserve_cli_runtime_without_standalone_executor
+    subprocess.run(
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py', '--package', 'codex-win32-x64', '--version', '1.2.3', '--vendor-src', '/tmp/tmpia14miny/vendor', '--staging-dir', '/tmp/tmpia14miny/staged', '--pack-output', '/tmp/tmpia14miny/package.tgz']' returned non-zero exit status 1.
+
+======================================================================
+ERROR: test_npm_archives_preserve_cli_runtime_without_standalone_executor (test_build_npm_package.NpmPackageTest.test_npm_archives_preserve_cli_runtime_without_standalone_executor) (package='codex-win32-arm64')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/sig/files/qiri-release/codex-cli/tests/test_build_npm_package.py", line 67, in test_npm_archives_preserve_cli_runtime_without_standalone_executor
+    subprocess.run(
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/sig/files/qiri-release/codex-cli/scripts/build_npm_package.py', '--package', 'codex-win32-arm64', '--version', '1.2.3', '--vendor-src', '/tmp/tmpwasbzw4c/vendor', '--staging-dir', '/tmp/tmpwasbzw4c/staged', '--pack-output', '/tmp/tmpwasbzw4c/package.tgz']' returned non-zero exit status 1.
+
+----------------------------------------------------------------------
+Ran 1 test in 1.021s
+
+FAILED (errors=6)

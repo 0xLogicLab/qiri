@@ -1,0 +1,9 @@
+{
+  "doctor_same_results": true,
+  "doctor_test_cases": 134,
+  "workspace_same_failing_build_scripts": [
+    "glib-sys v0.22.8",
+    "gobject-sys v0.22.6",
+    "gstreamer-sys v0.25.2"
+  ]
+}

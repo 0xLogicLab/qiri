@@ -1,0 +1,7 @@
+44bb27a feat(web): replace DDGS search with Keenable API
+f5aa796 feat(qiri): add general web search MCP and separate web tools
+995b95c fix(tui): fall back when daemon package is unavailable
+8cc707a Complete QIRI branding cleanup
+03acc8d Remove upstream account and feedback paths from QIRI
+fd4ef79 add frontend streaming server
+d538f76 Initial QIRI import

@@ -1,0 +1,1101 @@
+    Blocking waiting for file lock on artifact directory
+warning: function `auth_mode_to_api` is never used
+  --> app-server/src/auth_mode.rs:10:15
+   |
+10 | pub(crate) fn auth_mode_to_api(auth_mode: AuthMode) -> ApiAuthMode {
+   |               ^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `EXTERNAL_AUTH_REFRESH_TIMEOUT` is never used
+  --> app-server/src/external_auth.rs:18:7
+   |
+18 | const EXTERNAL_AUTH_REFRESH_TIMEOUT: Duration = Duration::from_secs(10);
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `ExternalAuthBridge` is never constructed
+  --> app-server/src/external_auth.rs:20:19
+   |
+20 | pub(crate) struct ExternalAuthBridge {
+   |                   ^^^^^^^^^^^^^^^^^^
+
+warning: associated items `new` and `refresh` are never used
+  --> app-server/src/external_auth.rs:26:19
+   |
+25 | impl ExternalAuthBridge {
+   | ----------------------- associated items in this implementation
+26 |     pub(crate) fn new(outgoing: Arc<OutgoingMessageSender>, auth: CodexAuth) -> Self {
+   |                   ^^^
+...
+33 |     async fn refresh(&self, context: ExternalAuthRefreshContext) -> std::io::Result<CodexAuth> {
+   |              ^^^^^^^
+
+warning: function `reload_mcp_config_best_effort` is never used
+  --> app-server/src/mcp_refresh.rs:23:21
+   |
+23 | pub(crate) async fn reload_mcp_config_best_effort(
+   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variant `BestEffort` is never constructed
+  --> app-server/src/mcp_refresh.rs:41:5
+   |
+39 | enum ReloadPolicy {
+   |      ------------ variant in this enum
+40 |     Strict,
+41 |     BestEffort,
+   |     ^^^^^^^^^^
+   |
+   = note: `ReloadPolicy` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: method `send_request` is never used
+   --> app-server/src/outgoing_message.rs:374:25
+    |
+268 | impl OutgoingMessageSender {
+    | -------------------------- method in this implementation
+...
+374 |     pub(crate) async fn send_request(
+    |                         ^^^^^^^^^^^^
+
+warning: enum `AccountNotification` is never used
+  --> app-server/src/account_notifications.rs:10:17
+   |
+10 | pub(crate) enum AccountNotification {
+   |                 ^^^^^^^^^^^^^^^^^^^
+
+warning: method `send_account_notification` is never used
+  --> app-server/src/account_notifications.rs:16:25
+   |
+15 | impl OutgoingMessageSender {
+   | -------------------------- method in this implementation
+16 |     pub(crate) async fn send_account_notification(
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `LOGIN_CHATGPT_TIMEOUT` is never used
+  --> app-server/src/request_processors/account_processor.rs:34:7
+   |
+34 | const LOGIN_CHATGPT_TIMEOUT: Duration = Duration::from_secs(10 * 60);
+   |       ^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `ACCOUNT_TOKEN_USAGE_FETCH_TIMEOUT` is never used
+  --> app-server/src/request_processors/account_processor.rs:35:7
+   |
+35 | const ACCOUNT_TOKEN_USAGE_FETCH_TIMEOUT: Duration = Duration::from_secs(/*secs*/ 10);
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `THREAD_USAGE_FETCH_TIMEOUT` is never used
+  --> app-server/src/request_processors/account_processor.rs:36:7
+   |
+36 | const THREAD_USAGE_FETCH_TIMEOUT: Duration = Duration::from_secs(/*secs*/ 60);
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `ACCOUNT_WORKSPACE_MESSAGES_FETCH_TIMEOUT` is never used
+  --> app-server/src/request_processors/account_processor.rs:37:7
+   |
+37 | const ACCOUNT_WORKSPACE_MESSAGES_FETCH_TIMEOUT: Duration =
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `LOGIN_ISSUER_OVERRIDE_ENV_VAR` is never used
+  --> app-server/src/request_processors/account_processor.rs:40:7
+   |
+40 | const LOGIN_ISSUER_OVERRIDE_ENV_VAR: &str = "CODEX_APP_SERVER_LOGIN_ISSUER";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `LOGIN_OPEN_APP_URL_OVERRIDE_ENV_VAR` is never used
+  --> app-server/src/request_processors/account_processor.rs:43:7
+   |
+43 | const LOGIN_OPEN_APP_URL_OVERRIDE_ENV_VAR: &str = "CODEX_APP_SERVER_DEV_OPEN_APP_URL";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variants `Browser` and `DeviceCode` are never constructed
+  --> app-server/src/request_processors/account_processor.rs:46:5
+   |
+45 | enum ActiveLogin {
+   |      ----------- variants in this enum
+46 |     Browser {
+   |     ^^^^^^^
+...
+50 |     DeviceCode {
+   |     ^^^^^^^^^^
+
+warning: method `login_id` is never used
+  --> app-server/src/request_processors/account_processor.rs:57:8
+   |
+56 | impl ActiveLogin {
+   | ---------------- method in this implementation
+57 |     fn login_id(&self) -> Uuid {
+   |        ^^^^^^^^
+
+warning: enum `CancelLoginError` is never used
+  --> app-server/src/request_processors/account_processor.rs:76:6
+   |
+76 | enum CancelLoginError {
+   |      ^^^^^^^^^^^^^^^^
+
+warning: enum `RefreshTokenRequestOutcome` is never used
+  --> app-server/src/request_processors/account_processor.rs:80:6
+   |
+80 | enum RefreshTokenRequestOutcome {
+   |      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: enum `BedrockLoginCredentials` is never used
+  --> app-server/src/request_processors/account_processor.rs:91:6
+   |
+91 | enum BedrockLoginCredentials {
+   |      ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: fields `thread_manager` and `outgoing` are never read
+   --> app-server/src/request_processors/account_processor.rs:109:5
+    |
+107 | pub(crate) struct AccountRequestProcessor {
+    |                   ----------------------- fields in this struct
+108 |     auth_manager: Arc<AuthManager>,
+109 |     thread_manager: Arc<ThreadManager>,
+    |     ^^^^^^^^^^^^^^
+110 |     outgoing: Arc<OutgoingMessageSender>,
+    |     ^^^^^^^^
+    |
+    = note: `AccountRequestProcessor` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: multiple associated items are never used
+    --> app-server/src/request_processors/account_processor.rs:166:25
+     |
+ 124 | impl AccountRequestProcessor {
+     | ---------------------------- associated items in this implementation
+...
+ 166 |     pub(crate) async fn login_account(
+     |                         ^^^^^^^^^^^^^
+...
+ 174 |     pub(crate) async fn logout_account(
+     |                         ^^^^^^^^^^^^^^
+...
+ 181 |     pub(crate) async fn cancel_login_account(
+     |                         ^^^^^^^^^^^^^^^^^^^^
+...
+ 199 |     pub(crate) async fn get_account_rate_limits(
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 208 |     pub(crate) async fn get_account_token_usage(
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 217 |     pub(crate) async fn get_workspace_messages(
+     |                         ^^^^^^^^^^^^^^^^^^^^^^
+...
+ 225 |     pub(crate) async fn send_add_credits_nudge_email(
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 248 |     fn current_account_updated_notification(&self) -> AccountUpdatedNotification {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 273 |     async fn maybe_refresh_plugin_caches_for_current_config(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 325 |     fn spawn_effective_plugins_changed_task(
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 338 |     async fn login_v2(
+     |              ^^^^^^^^
+...
+ 456 |     async fn login_api_key_common(
+     |              ^^^^^^^^^^^^^^^^^^^^
+...
+ 496 |     async fn login_api_key_v2(&self, request_id: ConnectionRequestId, params: LoginApiKeyParams) {
+     |              ^^^^^^^^^^^^^^^^
+...
+ 513 |     async fn login_amazon_bedrock_v2(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 608 |     async fn login_chatgpt_common(
+     |              ^^^^^^^^^^^^^^^^^^^^
+...
+ 659 |     fn login_chatgpt_device_code_start_error(err: IoError) -> JSONRPCErrorError {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 668 |     async fn login_chatgpt_v2(
+     |              ^^^^^^^^^^^^^^^^
+...
+ 680 |     async fn login_chatgpt_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^
+...
+ 692 |     async fn start_browser_login(
+     |              ^^^^^^^^^^^^^^^^^^^
+...
+ 762 |     async fn login_chatgpt_device_code_v2(&self, request_id: ConnectionRequestId) {
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 767 |     async fn login_chatgpt_device_code_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 834 |     async fn cancel_login_chatgpt_common(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 849 |     async fn cancel_login_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^
+...
+ 868 |     async fn login_chatgpt_auth_tokens(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 890 |     async fn login_chatgpt_auth_tokens_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 943 |     async fn send_login_success_notifications(&self, login_id: Option<Uuid>) {
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 954 |     async fn send_account_login_notifications(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 998 |     async fn send_chatgpt_login_completion_notifications(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1023 |     async fn logout_common(&self) -> std::result::Result<Option<AuthMode>, JSONRPCErrorError> {
+     |              ^^^^^^^^^^^^^
+...
+1053 |     async fn logout_v2(&self, request_id: ConnectionRequestId) -> Result<(), JSONRPCErrorError> {
+     |              ^^^^^^^^^
+...
+1076 |     async fn refresh_token_if_requested(&self, do_refresh: bool) -> RefreshTokenRequestOutcome {
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1108 |     async fn get_account_rate_limits_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1217 |     async fn get_account_token_usage_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1314 |     async fn get_workspace_messages_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1361 |     fn account_token_usage_response(profile: TokenUsageProfile) -> GetAccountTokenUsageResponse {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1384 |     fn workspace_messages_response(
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1398 |     async fn send_add_credits_nudge_email_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1407 |     async fn send_add_credits_nudge_email_inner(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1445 |     fn backend_credit_type(value: AddCreditsNudgeCreditType) -> BackendAddCreditsNudgeCreditType {
+     |        ^^^^^^^^^^^^^^^^^^^
+
+warning: function `workspace_message_from_backend` is never used
+    --> app-server/src/request_processors/account_processor.rs:1453:4
+     |
+1453 | fn workspace_message_from_backend(
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `workspace_message_timestamp_from_backend` is never used
+    --> app-server/src/request_processors/account_processor.rs:1465:4
+     |
+1465 | fn workspace_message_timestamp_from_backend(
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `workspace_message_type_from_backend` is never used
+    --> app-server/src/request_processors/account_processor.rs:1481:4
+     |
+1481 | fn workspace_message_type_from_backend(
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `workspace_messages_feature_disabled` is never used
+    --> app-server/src/request_processors/account_processor.rs:1491:4
+     |
+1491 | fn workspace_messages_feature_disabled(err: &BackendRequestError) -> bool {
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `LoginGuard` is never constructed
+  --> app-server/src/request_processors/account_processor/gateway_oauth.rs:19:8
+   |
+19 | struct LoginGuard(Arc<std::sync::Mutex<Option<ActiveGatewayLogin>>>);
+   |        ^^^^^^^^^^
+
+warning: method `gateway_oauth_login` is never used
+  --> app-server/src/request_processors/account_processor/gateway_oauth.rs:76:25
+   |
+29 | impl AccountRequestProcessor {
+   | ---------------------------- method in this implementation
+...
+76 |     pub(crate) async fn gateway_oauth_login(
+   |                         ^^^^^^^^^^^^^^^^^^^
+
+warning: constant `RATE_LIMIT_RESET_REQUEST_TIMEOUT` is never used
+ --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:3:7
+  |
+3 | const RATE_LIMIT_RESET_REQUEST_TIMEOUT: Duration = Duration::from_secs(/*secs*/ 10);
+  |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `RATE_LIMIT_RESET_DETAILS_REQUEST_TIMEOUT` is never used
+ --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:4:7
+  |
+4 | const RATE_LIMIT_RESET_DETAILS_REQUEST_TIMEOUT: Duration = Duration::from_secs(/*secs*/ 5);
+  |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `RATE_LIMIT_RESET_REQUEST_TIMEOUT_ENV_VAR` is never used
+ --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:6:7
+  |
+6 | const RATE_LIMIT_RESET_REQUEST_TIMEOUT_ENV_VAR: &str =
+  |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated items `detailed_rate_limit_reset_credits`, `consume_account_rate_limit_reset_credit`, and `rate_limit_reset_backend_client` are never used
+   --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:10:25
+    |
+  9 | impl AccountRequestProcessor {
+    | ---------------------------- associated items in this implementation
+ 10 |     pub(super) async fn detailed_rate_limit_reset_credits(
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 45 |     pub(crate) async fn consume_account_rate_limit_reset_credit(
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+100 |     async fn rate_limit_reset_backend_client(&self) -> Result<BackendClient, JSONRPCErrorError> {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `rate_limit_reset_credits_from_backend` is never used
+   --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:122:4
+    |
+122 | fn rate_limit_reset_credits_from_backend(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `rate_limit_reset_credit_from_backend` is never used
+   --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:136:4
+    |
+136 | fn rate_limit_reset_credit_from_backend(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `rate_limit_reset_credit_timestamp` is never used
+   --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:169:4
+    |
+169 | fn rate_limit_reset_credit_timestamp(timestamp: &str) -> Result<i64, String> {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: methods `list_account_sessions`, `workspace_memberships`, `switch_account_session`, `reload_workspace_config`, and `account_session_switch_response` are never used
+   --> app-server/src/request_processors/account_processor/workspace_switching.rs:13:25
+    |
+ 12 | impl AccountRequestProcessor {
+    | ---------------------------- methods in this implementation
+ 13 |     pub(crate) async fn list_account_sessions(
+    |                         ^^^^^^^^^^^^^^^^^^^^^
+...
+ 95 |     async fn workspace_memberships(
+    |              ^^^^^^^^^^^^^^^^^^^^^
+...
+113 |     pub(crate) async fn switch_account_session(
+    |                         ^^^^^^^^^^^^^^^^^^^^^^
+...
+226 |     async fn reload_workspace_config(&self) {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^
+...
+234 |     async fn account_session_switch_response(
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: method `unload_for_workspace_switch` is never used
+ --> app-server/src/request_processors/thread_processor/workspace_switching.rs:7:25
+  |
+6 | impl ThreadRequestProcessor {
+  | --------------------------- method in this implementation
+7 |     pub(crate) async fn unload_for_workspace_switch(&self) -> Result<(), JSONRPCErrorError> {
+  |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `TurnAdmissionPause` is never constructed
+  --> app-server/src/turn_admission.rs:35:19
+   |
+35 | pub(crate) struct TurnAdmissionPause(TurnAdmission);
+   |                   ^^^^^^^^^^^^^^^^^^
+
+warning: method `pause` is never used
+  --> app-server/src/turn_admission.rs:38:25
+   |
+37 | impl TurnAdmission {
+   | ------------------ method in this implementation
+38 |     pub(crate) async fn pause(&self) -> Result<TurnAdmissionPause, JSONRPCErrorError> {
+   |                         ^^^^^
+
+warning: `codex-app-server` (lib) generated 39 warnings
+   Compiling codex-cli v0.0.0 (/home/sig/files/qiri-release/codex-rs/cli)
+warning: fields `reason` and `turn_id` are never read
+    --> tui/src/app_event.rs:1676:9
+     |
+1674 |     SubmitFeedback {
+     |     -------------- fields in this variant
+1675 |         category: FeedbackCategory,
+1676 |         reason: Option<String>,
+     |         ^^^^^^
+1677 |         turn_id: Option<String>,
+     |         ^^^^^^^
+     |
+     = note: `AppEvent` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+     = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: variant `OpenFeedbackConsent` is never constructed
+    --> tui/src/app_event.rs:1669:5
+     |
+ 314 | pub(crate) enum AppEvent {
+     |                 -------- variant in this enum
+...
+1669 |     OpenFeedbackConsent {
+     |     ^^^^^^^^^^^^^^^^^^^
+     |
+     = note: `AppEvent` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: variants `BadResult`, `Bug`, `SafetyCheck`, and `Other` are never constructed
+    --> tui/src/app_event.rs:1863:5
+     |
+1862 | pub(crate) enum FeedbackCategory {
+     |                 ---------------- variants in this enum
+1863 |     BadResult,
+     |     ^^^^^^^^^
+1864 |     GoodResult,
+1865 |     Bug,
+     |     ^^^
+1866 |     SafetyCheck,
+     |     ^^^^^^^^^^^
+1867 |     Other,
+     |     ^^^^^
+     |
+     = note: `FeedbackCategory` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: function `feedback_selection_params` is never used
+   --> tui/src/bottom_pane/feedback_view.rs:132:15
+    |
+132 | pub(crate) fn feedback_selection_params(
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `make_feedback_item` is never used
+   --> tui/src/bottom_pane/feedback_view.rs:173:4
+    |
+173 | fn make_feedback_item(
+    |    ^^^^^^^^^^^^^^^^^^
+
+warning: constant `ANNOUNCEMENT_TIP_URL` is never used
+  --> tui/src/tooltips.rs:16:7
+   |
+16 | const ANNOUNCEMENT_TIP_URL: &str =
+   |       ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `preferred_tooltip` is never used
+  --> tui/src/tooltips.rs:47:15
+   |
+47 | pub(crate) fn preferred_tooltip<R: Rng + ?Sized>(
+   |               ^^^^^^^^^^^^^^^^^
+
+warning: static `ANNOUNCEMENT_TIP` is never used
+   --> tui/src/tooltips.rs:119:12
+    |
+119 |     static ANNOUNCEMENT_TIP: OnceLock<Option<AnnouncementTips>> = OnceLock::new();
+    |            ^^^^^^^^^^^^^^^^
+
+warning: constant `CURRENT_OS` is never used
+   --> tui/src/tooltips.rs:120:11
+    |
+120 |     const CURRENT_OS: TargetOs = TargetOs::current();
+    |           ^^^^^^^^^^
+
+warning: function `prewarm` is never used
+   --> tui/src/tooltips.rs:123:19
+    |
+123 |     pub(crate) fn prewarm(http_client_factory: HttpClientFactory) {
+    |                   ^^^^^^^
+
+warning: function `fetch_announcement_tip` is never used
+   --> tui/src/tooltips.rs:136:19
+    |
+136 |     pub(crate) fn fetch_announcement_tip(plan: Option<PlanType>) -> Option<String> {
+    |                   ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTipRaw` is never constructed
+   --> tui/src/tooltips.rs:144:12
+    |
+144 |     struct AnnouncementTipRaw {
+    |            ^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTipDocument` is never constructed
+   --> tui/src/tooltips.rs:155:12
+    |
+155 |     struct AnnouncementTipDocument {
+    |            ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTip` is never constructed
+   --> tui/src/tooltips.rs:160:12
+    |
+160 |     struct AnnouncementTip {
+    |            ^^^^^^^^^^^^^^^
+
+warning: enum `TargetOs` is never used
+   --> tui/src/tooltips.rs:172:10
+    |
+172 |     enum TargetOs {
+    |          ^^^^^^^^
+
+warning: associated function `current` is never used
+   --> tui/src/tooltips.rs:181:18
+    |
+180 |     impl TargetOs {
+    |     ------------- associated function in this implementation
+181 |         const fn current() -> Self {
+    |                  ^^^^^^^
+
+warning: function `fetch_announcement_tip_text` is never used
+   --> tui/src/tooltips.rs:193:14
+    |
+193 |     async fn fetch_announcement_tip_text(http_client_factory: HttpClientFactory) -> Option<String> {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTips` is never constructed
+   --> tui/src/tooltips.rs:205:23
+    |
+205 |     pub(super) struct AnnouncementTips(Vec<AnnouncementTip>);
+    |                       ^^^^^^^^^^^^^^^^
+
+warning: associated items `parse` and `select` are never used
+   --> tui/src/tooltips.rs:208:23
+    |
+207 |     impl AnnouncementTips {
+    |     --------------------- associated items in this implementation
+208 |         pub(super) fn parse(text: &str) -> Option<Self> {
+    |                       ^^^^^
+...
+221 |         pub(super) fn select(&self, plan: Option<PlanType>) -> Option<String> {
+    |                       ^^^^^^
+
+warning: associated items `from_raw`, `version_matches`, and `date_matches` are never used
+   --> tui/src/tooltips.rs:245:12
+    |
+244 |     impl AnnouncementTip {
+    |     -------------------- associated items in this implementation
+245 |         fn from_raw(raw: AnnouncementTipRaw) -> Option<Self> {
+    |            ^^^^^^^^
+...
+289 |         fn version_matches(&self, version: &str) -> bool {
+    |            ^^^^^^^^^^^^^^^
+...
+295 |         fn date_matches(&self, today: NaiveDate) -> bool {
+    |            ^^^^^^^^^^^^
+
+warning: `codex-tui` (lib) generated 20 warnings
+warning: unused import: `super::doctor_install_context`
+  --> cli/src/doctor/updates.rs:28:5
+   |
+28 | use super::doctor_install_context;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `super::doctor_managed_by_npm`
+  --> cli/src/doctor/updates.rs:29:5
+   |
+29 | use super::doctor_managed_by_npm;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `VERSION_FILE_NAME` is never used
+  --> cli/src/doctor/updates.rs:35:7
+   |
+35 | const VERSION_FILE_NAME: &str = "version.json";
+   |       ^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `GITHUB_LATEST_RELEASE_URL` is never used
+  --> cli/src/doctor/updates.rs:36:7
+   |
+36 | const GITHUB_LATEST_RELEASE_URL: &str = "https://api.github.com/repos/openai/codex/releases/latest";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `HOMEBREW_CASK_API_URL` is never used
+  --> cli/src/doctor/updates.rs:37:7
+   |
+37 | const HOMEBREW_CASK_API_URL: &str = "https://formulae.brew.sh/api/cask/codex.json";
+   |       ^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `push_cached_version_details` is never used
+   --> cli/src/doctor/updates.rs:341:4
+    |
+341 | fn push_cached_version_details(details: &mut Vec<String>, version_file: &Path) {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `fetch_latest_version` is never used
+   --> cli/src/doctor/updates.rs:375:10
+    |
+375 | async fn fetch_latest_version(
+    |          ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `fetch_latest_github_release_version` is never used
+   --> cli/src/doctor/updates.rs:390:10
+    |
+390 | async fn fetch_latest_github_release_version(
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `fetch_homebrew_cask_version` is never used
+   --> cli/src/doctor/updates.rs:405:10
+    |
+405 | async fn fetch_homebrew_cask_version(client: &RouteAwareClientPool) -> Result<String, String> {
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `VersionInfo` is never constructed
+   --> cli/src/doctor/updates.rs:462:8
+    |
+462 | struct VersionInfo {
+    |        ^^^^^^^^^^^
+
+warning: method `run` is never used
+   --> cli/src/marketplace_cmd.rs:126:18
+    |
+125 | impl MarketplaceCli {
+    | ------------------- method in this implementation
+126 |     pub async fn run(self) -> Result<()> {
+    |                  ^^^
+
+warning: function `run_add` is never used
+   --> cli/src/marketplace_cmd.rs:151:10
+    |
+151 | async fn run_add(config: Config, args: AddMarketplaceArgs) -> Result<()> {
+    |          ^^^^^^^
+
+warning: struct `JsonMarketplaceAddOutput` is never constructed
+   --> cli/src/marketplace_cmd.rs:197:8
+    |
+197 | struct JsonMarketplaceAddOutput {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_outcome` is never used
+   --> cli/src/marketplace_cmd.rs:204:8
+    |
+203 | impl JsonMarketplaceAddOutput {
+    | ----------------------------- associated function in this implementation
+204 |     fn from_outcome(outcome: MarketplaceAddOutcome) -> Self {
+    |        ^^^^^^^^^^^^
+
+warning: function `run_list` is never used
+   --> cli/src/marketplace_cmd.rs:213:10
+    |
+213 | async fn run_list(config: Config, args: ListMarketplaceArgs) -> Result<()> {
+    |          ^^^^^^^^
+
+warning: struct `JsonMarketplaceListOutput` is never constructed
+   --> cli/src/marketplace_cmd.rs:301:8
+    |
+301 | struct JsonMarketplaceListOutput {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_marketplaces` is never used
+   --> cli/src/marketplace_cmd.rs:306:8
+    |
+305 | impl JsonMarketplaceListOutput {
+    | ------------------------------ associated function in this implementation
+306 |     fn from_marketplaces(
+    |        ^^^^^^^^^^^^^^^^^
+
+warning: struct `JsonMarketplaceListEntry` is never constructed
+   --> cli/src/marketplace_cmd.rs:332:8
+    |
+332 | struct JsonMarketplaceListEntry {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `configured_marketplace_sources_by_root` is never used
+   --> cli/src/marketplace_cmd.rs:339:4
+    |
+339 | fn configured_marketplace_sources_by_root(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `run_upgrade` is never used
+   --> cli/src/marketplace_cmd.rs:367:10
+    |
+367 | async fn run_upgrade(
+    |          ^^^^^^^^^^^
+
+warning: function `run_remove` is never used
+   --> cli/src/marketplace_cmd.rs:401:10
+    |
+401 | async fn run_remove(config: Config, args: RemoveMarketplaceArgs) -> Result<()> {
+    |          ^^^^^^^^^^
+
+warning: struct `JsonMarketplaceRemoveOutput` is never constructed
+   --> cli/src/marketplace_cmd.rs:432:8
+    |
+432 | struct JsonMarketplaceRemoveOutput {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_outcome` is never used
+   --> cli/src/marketplace_cmd.rs:438:8
+    |
+437 | impl JsonMarketplaceRemoveOutput {
+    | -------------------------------- associated function in this implementation
+438 |     fn from_outcome(outcome: MarketplaceRemoveOutcome) -> Self {
+    |        ^^^^^^^^^^^^
+
+warning: function `print_upgrade_outcome_json` is never used
+   --> cli/src/marketplace_cmd.rs:448:4
+    |
+448 | fn print_upgrade_outcome_json(outcome: &PluginMarketplaceUpgradeOutcome) -> Result<()> {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `JsonMarketplaceUpgradeOutput` is never constructed
+   --> cli/src/marketplace_cmd.rs:466:8
+    |
+466 | struct JsonMarketplaceUpgradeOutput {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_outcome` is never used
+   --> cli/src/marketplace_cmd.rs:473:8
+    |
+472 | impl JsonMarketplaceUpgradeOutput {
+    | --------------------------------- associated function in this implementation
+473 |     fn from_outcome(outcome: &PluginMarketplaceUpgradeOutcome) -> Self {
+    |        ^^^^^^^^^^^^
+
+warning: struct `JsonMarketplaceUpgradeError` is never constructed
+   --> cli/src/marketplace_cmd.rs:495:8
+    |
+495 | struct JsonMarketplaceUpgradeError {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `print_upgrade_outcome` is never used
+   --> cli/src/marketplace_cmd.rs:500:4
+    |
+500 | fn print_upgrade_outcome(
+    |    ^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `OPENAI_BUNDLED_ALPHA_MARKETPLACE_NAME` is never used
+  --> cli/src/plugin_cmd.rs:48:7
+   |
+48 | const OPENAI_BUNDLED_ALPHA_MARKETPLACE_NAME: &str = "openai-bundled-alpha";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `OPENAI_PRIMARY_RUNTIME_MARKETPLACE_NAME` is never used
+  --> cli/src/plugin_cmd.rs:49:7
+   |
+49 | const OPENAI_PRIMARY_RUNTIME_MARKETPLACE_NAME: &str = "openai-primary-runtime";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `run_plugin_add` is never used
+   --> cli/src/plugin_cmd.rs:139:14
+    |
+139 | pub async fn run_plugin_add(
+    |              ^^^^^^^^^^^^^^
+
+warning: struct `JsonPluginAddOutput` is never constructed
+   --> cli/src/plugin_cmd.rs:224:8
+    |
+224 | struct JsonPluginAddOutput {
+    |        ^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_outcome` is never used
+   --> cli/src/plugin_cmd.rs:234:8
+    |
+233 | impl JsonPluginAddOutput {
+    | ------------------------ associated function in this implementation
+234 |     fn from_outcome(outcome: PluginInstallOutcome) -> Self {
+    |        ^^^^^^^^^^^^
+
+warning: function `run_plugin_list` is never used
+   --> cli/src/plugin_cmd.rs:246:14
+    |
+246 | pub async fn run_plugin_list(
+    |              ^^^^^^^^^^^^^^^
+
+warning: associated function `from_configured_plugin` is never used
+   --> cli/src/plugin_cmd.rs:534:8
+    |
+533 | impl PluginListEntry {
+    | -------------------- associated function in this implementation
+534 |     fn from_configured_plugin(
+    |        ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variants `Local`, `Git`, `GitSubdir`, and `Npm` are never constructed
+   --> cli/src/plugin_cmd.rs:563:5
+    |
+559 | enum JsonPluginSource {
+    |      ---------------- variants in this enum
+...
+563 |     Local {
+    |     ^^^^^
+...
+566 |     Git {
+    |     ^^^
+...
+573 |     GitSubdir {
+    |     ^^^^^^^^^
+...
+581 |     Npm {
+    |     ^^^
+    |
+    = note: `JsonPluginSource` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: associated function `from_marketplace_source` is never used
+   --> cli/src/plugin_cmd.rs:591:8
+    |
+590 | impl JsonPluginSource {
+    | --------------------- associated function in this implementation
+591 |     fn from_marketplace_source(source: MarketplacePluginSource) -> Self {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `configured_marketplace_sources` is never used
+   --> cli/src/plugin_cmd.rs:633:15
+    |
+633 | pub(crate) fn configured_marketplace_sources(
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `install_policy_label` is never used
+   --> cli/src/plugin_cmd.rs:666:4
+    |
+666 | fn install_policy_label(policy: MarketplacePluginInstallPolicy) -> &'static str {
+    |    ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `auth_policy_label` is never used
+   --> cli/src/plugin_cmd.rs:674:4
+    |
+674 | fn auth_policy_label(policy: MarketplacePluginAuthPolicy) -> &'static str {
+    |    ^^^^^^^^^^^^^^^^^
+
+warning: function `run_plugin_remove` is never used
+   --> cli/src/plugin_cmd.rs:681:14
+    |
+681 | pub async fn run_plugin_remove(
+    |              ^^^^^^^^^^^^^^^^^
+
+warning: struct `JsonPluginRemoveOutput` is never constructed
+   --> cli/src/plugin_cmd.rs:744:8
+    |
+744 | struct JsonPluginRemoveOutput {
+    |        ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_selection` is never used
+   --> cli/src/plugin_cmd.rs:751:8
+    |
+750 | impl JsonPluginRemoveOutput {
+    | --------------------------- associated function in this implementation
+751 |     fn from_selection(selection: PluginSelection) -> Self {
+    |        ^^^^^^^^^^^^^^
+
+warning: struct `PluginCommandContext` is never constructed
+   --> cli/src/plugin_cmd.rs:760:8
+    |
+760 | struct PluginCommandContext {
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `load_plugin_command_context` is never used
+   --> cli/src/plugin_cmd.rs:767:10
+    |
+767 | async fn load_plugin_command_context(
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `load_cli_auth_manager` is never used
+   --> cli/src/plugin_cmd.rs:788:21
+    |
+788 | pub(crate) async fn load_cli_auth_manager(config: &Config) -> Result<Arc<AuthManager>> {
+    |                     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `PluginSelection` is never constructed
+   --> cli/src/plugin_cmd.rs:792:8
+    |
+792 | struct PluginSelection {
+    |        ^^^^^^^^^^^^^^^
+
+warning: associated function `from_plugin_id` is never used
+   --> cli/src/plugin_cmd.rs:799:8
+    |
+798 | impl PluginSelection {
+    | -------------------- associated function in this implementation
+799 |     fn from_plugin_id(plugin_id: PluginId) -> Self {
+    |        ^^^^^^^^^^^^^^
+
+warning: function `parse_plugin_selection` is never used
+   --> cli/src/plugin_cmd.rs:809:4
+    |
+809 | fn parse_plugin_selection(
+    |    ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `RemoteMarketplaceListing` is never constructed
+   --> cli/src/plugin_cmd.rs:837:8
+    |
+837 | struct RemoteMarketplaceListing {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `fetch_remote_marketplaces` is never used
+   --> cli/src/plugin_cmd.rs:844:10
+    |
+844 | async fn fetch_remote_marketplaces(
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `resolve_remote_plugin` is never used
+   --> cli/src/plugin_cmd.rs:903:4
+    |
+903 | fn resolve_remote_plugin(
+    |    ^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `find_marketplace_for_plugin` is never used
+   --> cli/src/plugin_cmd.rs:926:4
+    |
+926 | fn find_marketplace_for_plugin(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `ConfiguredMarketplaceSnapshotIssue` is never constructed
+   --> cli/src/plugin_cmd.rs:963:19
+    |
+963 | pub(crate) struct ConfiguredMarketplaceSnapshotIssue {
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `ensure_configured_marketplace_snapshots_loaded` is never used
+   --> cli/src/plugin_cmd.rs:969:4
+    |
+969 | fn ensure_configured_marketplace_snapshots_loaded(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `configured_marketplace_snapshot_issues` is never used
+    --> cli/src/plugin_cmd.rs:1000:15
+     |
+1000 | pub(crate) fn configured_marketplace_snapshot_issues(
+     |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `is_implicit_system_marketplace_root` is never used
+    --> cli/src/plugin_cmd.rs:1092:4
+     |
+1092 | fn is_implicit_system_marketplace_root(
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `path_ends_with` is never used
+    --> cli/src/plugin_cmd.rs:1117:4
+     |
+1117 | fn path_ends_with(path: &Path, suffix: &[&str]) -> bool {
+     |    ^^^^^^^^^^^^^^
+
+warning: `codex-cli` (bin "codex" test) generated 58 warnings (run `cargo fix --bin "codex" -p codex-cli --tests` to apply 2 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2m 20s
+     Running unittests src/main.rs (target/debug/deps/codex-1a55752d41f8e809)
+
+running 134 tests
+test doctor::background::tests::running_background_server_reports_app_server_version ... ok
+test doctor::filesystem_paths::tests::blocked_probe_fixture ... ignored, subprocess fixture for the bounded filesystem probe test
+test doctor::desktop::windows_security::tests::an_unavailable_reader_is_not_reported_as_clean ... ok
+test doctor::disk::tests::disk_capacity_is_reported_without_loaded_configuration ... ok
+test doctor::disk::tests::nonexistent_relative_codex_home_uses_current_directory_capacity ... ok
+test doctor::desktop_tests::stopped_desktop_does_not_report_a_failure ... ok
+test doctor::git::tests::warns_when_git_repo_has_no_git_executable ... ok
+test doctor::desktop::windows_security::tests::every_source_distinguishes_audits_from_blocks ... ok
+test doctor::desktop::windows_security::tests::defender_distinguishes_detection_and_remediation ... ok
+test doctor::desktop_tests::handshake_failure_in_the_middle_of_a_log_segment_is_detected ... ok
+test doctor::desktop::windows_security::tests::only_trusted_codex_executables_are_reported ... ok
+test doctor::desktop_tests::current_desktop_session_reports_the_latest_local_handshake ... ok
+test doctor::disk::tests::disk_measurement_errors_produce_complete_warning_diagnostics ... ok
+test doctor::disk::tests::disk_capacity_thresholds_produce_complete_diagnostics ... ok
+test doctor::output::tests::detail_value_colors_inline_statuses_and_low_signal_values ... ok
+test doctor::output::tests::redact_detail_preserves_env_var_names ... ok
+test doctor::output::tests::redact_detail_preserves_secret_presence_booleans ... ok
+test doctor::output::tests::redact_detail_distinguishes_database_paths_from_field_labels ... ok
+test doctor::output::tests::redact_detail_preserves_missing_env_diagnostics ... ok
+test doctor::output::tests::redact_detail_sanitizes_secret_url_path_segments ... ok
+test doctor::output::tests::redact_detail_sanitizes_urls ... ok
+test doctor::desktop_tests::failed_handshake_does_not_expose_sensitive_log_fields ... ok
+test doctor::desktop::windows_security::tests::evidence_is_bounded_redacted_and_correctly_classified ... ok
+test doctor::output::tests::render_human_report_can_emit_color ... ok
+test doctor::output::tests::render_human_report_explains_terminal_warning_issue ... ok
+test doctor::output::tests::render_human_report_includes_details_by_default_without_color ... ok
+test doctor::output::tests::render_human_report_includes_threads_row_in_environment ... ok
+test doctor::output::tests::render_human_report_includes_redacted_details ... ok
+test doctor::output::tests::render_human_report_includes_memories_db_in_state_health_summary ... ok
+test doctor::output::tests::render_human_report_supports_ascii_output ... ok
+test doctor::output::tests::render_human_report_promotes_notes_without_changing_statuses ... ok
+test doctor::output::tests::update_note_emphasizes_available_version_and_dims_context ... ok
+test doctor::output::tests::render_human_report_supports_summary_output_without_color ... ok
+test doctor::progress::tests::progress_is_quiet_for_non_tty ... ok
+test doctor::progress::tests::progress_is_quiet_for_dumb_terminal ... ok
+test doctor::progress::tests::progress_is_shown_for_human_tty_output ... ok
+test doctor::progress::tests::progress_is_quiet_for_json ... ok
+test doctor::security::tests::detected_products_preserve_partial_inspection_visibility ... ok
+test doctor::security::tests::multiple_endpoint_products_each_get_distinct_guidance ... ok
+test doctor::security::tests::unavailable_endpoint_inspection_does_not_require_remediation ... ok
+test doctor::security::tests::no_endpoint_products_require_no_remediation ... ok
+test doctor::security::tests::endpoint_product_guidance_preserves_structured_json_contract ... ok
+test doctor::system::tests::system_check_handles_missing_os_language ... ok
+test doctor::output::tests::render_human_report_expands_feature_flags_with_all ... ok
+test doctor::system::tests::system_check_reports_os_language_locale_editor_and_pager_env ... ok
+test doctor::tests::default_reachability_skips_upstream ... ok
+test doctor::tests::executable_path_exists_rejects_non_executable_file ... ok
+test doctor::security::tests::each_endpoint_product_requires_vendor_specific_app_exclusions ... ok
+test doctor::filesystem_paths::tests::deduplicates_literal_paths_without_expanding_globs_or_special_paths ... ok
+test doctor::tests::color_output_summary_reports_disabled_reasons ... ok
+test doctor::tests::mcp_check_does_not_probe_environment_stdio_on_the_host ... ok
+test doctor::tests::config_overrides_from_interactive_preserves_global_options ... ok
+test doctor::tests::mcp_check_ignores_disabled_servers ... ok
+test doctor::tests::mcp_check_skips_host_path_checks_for_remote_stdio ... ok
+test doctor::tests::mcp_check_fails_required_remote_stdio_env_var ... ok
+test doctor::tests::mcp_check_validates_remote_stdio_cwd ... ok
+test doctor::tests::overall_status_prefers_fail ... ok
+test doctor::tests::provider_reachability_adds_models_route_probe_for_openai_compatible_base_urls ... ok
+test doctor::tests::provider_reachability_api_key_without_url_skips_upstream ... ok
+test doctor::tests::provider_reachability_mode_uses_api_key_auth ... ok
+test doctor::tests::provider_reachability_outcome_reports_required_failures ... ok
+test doctor::sandbox::tests::reports_missing_linux_sandbox_helper ... ok
+test doctor::background::tests::not_running_background_server_stays_ok_without_version ... ok
+test doctor::background::tests::failed_version_probe_reports_unavailable ... ok
+test doctor::filesystem_paths::tests::attributes_home_relative_subtree_paths_to_their_config_layer ... ok
+test doctor::filesystem_paths::tests::excludes_scoped_origins_replaced_by_a_scalar_grant ... ok
+test doctor::tests::provider_reachability_skips_route_probe_for_bedrock ... ok
+test doctor::tests::provider_reachability_uses_active_provider_endpoint ... ok
+test doctor::tests::provider_specific_auth_fails_when_provider_env_key_is_missing ... ok
+test doctor::tests::provider_specific_auth_allows_non_openai_provider_without_env_key ... ok
+test doctor::tests::run_async_check_notifies_progress ... ok
+test doctor::tests::read_probe_file_rejects_unreadable_file ... ok
+test doctor::tests::run_sync_check_notifies_progress ... ok
+test doctor::tests::should_enable_color_respects_terminal_inputs ... ok
+test doctor::tests::redacted_json_report_structures_and_sanitizes_details ... ok
+test doctor::tests::stored_auth_validation_handles_personal_access_token ... ok
+test doctor::tests::startup_warning_counts_group_known_sources ... ok
+test doctor::tests::stored_auth_validation_rejects_missing_api_key ... ok
+test doctor::tests::stored_auth_validation_rejects_missing_chatgpt_tokens ... ok
+test doctor::tests::terminal_check_allows_missing_tmux_details ... ok
+test doctor::tests::terminal_check_includes_windows_console_details ... ok
+test doctor::tests::terminal_check_reports_remote_indicators_as_present_only ... ok
+test doctor::tests::terminal_check_warns_for_declared_narrow_terminal ... ok
+test doctor::tests::terminal_check_warns_for_narrow_terminal ... ok
+test doctor::tests::terminal_check_warns_for_non_utf8_locale ... ok
+test doctor::tests::websocket_error_detail_preserves_categories_without_wire_values ... ok
+test doctor::filesystem_paths::tests::returns_when_a_probe_process_does_not_exit ... ok
+test doctor::thread_inventory::tests::count_summary_caps_distinct_values ... ok
+test doctor::thread_inventory::tests::source_category_coarsens_structured_sources ... ok
+test doctor::thread_inventory::tests::thread_id_from_rollout_falls_back_for_legacy_non_meta_record ... ok
+test doctor::tests::provider_reachability_route_404_fails_bad_base_url_path ... ok
+test doctor::thread_inventory::tests::thread_id_from_rollout_stops_after_legacy_header_line_limit ... ok
+test doctor::tests::http_probe_treats_http_status_as_reachable ... ok
+test doctor::network::tests::provider_reachability_rejects_proxy_authentication_challenges ... ok
+test doctor::tests::provider_reachability_route_401_keeps_reachability_ok ... ok
+test doctor::output::tests::copyable_items_use_check_status ... ok
+test doctor::output::tests::missing_env_diagnostics_in_json_and_text ... ok
+test doctor::git::tests::reports_git_candidates_and_repo_metadata ... ok
+test doctor::tests::mcp_check_fails_required_missing_stdio_command ... ok
+test doctor::output::tests::render_human_report_snapshot_covers_environment_rows ... ok
+test doctor::tests::rollout_stats_details_count_plain_and_compressed_files ... ok
+test doctor::background::tests::invalid_settings_are_not_reported_as_effective ... ok
+test doctor::background::tests::configured_updates_and_missing_updater_record_are_visible ... ok
+test doctor::tests::terminal_check_dumb_requires_interactive_stream ... ok
+test doctor::tests::websocket_probe_human_output ... ok
+test doctor::tests::terminal_check_prioritizes_unreadable_terminfo_over_warnings ... ok
+test doctor::filesystem_paths::tests::attributes_paths_inherited_through_managed_profiles_to_their_config_layer ... ok
+test doctor::title::tests::terminal_title_accepts_configured_items ... ok
+test doctor::title::tests::terminal_title_reports_disabled_configuration ... ok
+test doctor::title::tests::terminal_title_omits_project_when_project_item_is_not_selected ... ok
+test doctor::title::tests::terminal_title_warns_when_all_configured_items_are_invalid ... ok
+test doctor::title::tests::terminal_title_reports_project_config_fallback ... ok
+test doctor::title::tests::terminal_title_reports_default_items_and_git_project_name ... ok
+test doctor::title::tests::terminal_title_warns_for_invalid_configured_items ... ok
+test doctor::updates::tests::is_newer_compares_plain_semver ... ok
+test doctor::title::tests::terminal_title_project_value_uses_tui_truncation_shape ... ok
+test doctor::updates::tests::update_action_labels_install_contexts ... ok
+test doctor::updates::tests::windows_store_updates_compare_all_four_production_build_components ... ok
+test doctor::thread_inventory::tests::thread_id_from_rollout_rejects_unusable_headers ... ok
+test doctor::tests::mcp_check_reports_both_missing_token_and_unreachable_url ... ok
+test doctor::tests::mcp_check_warns_for_optional_http_reachability ... ok
+test doctor::tests::mcp_http_probe_falls_back_to_get_when_head_times_out ... ok
+test doctor::thread_inventory::tests::thread_id_from_rollout_uses_metadata_after_pre_header_record ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_ignores_compression_temp_files ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_ignores_invalid_utf8_after_session_metadata ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_uses_metadata_id_when_filename_and_db_disagree ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_ok_when_rollouts_match_db ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_prefers_plain_rollout_over_compressed_sibling ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_reports_corrupt_compressed_rollout_without_stale_row ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_uses_compressed_metadata_id_and_legacy_filename_fallback ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_matches_compressed_rollouts_to_canonical_db_paths ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_warns_for_missing_stale_and_mismatched_rows ... ok
+test doctor::thread_inventory::tests::thread_id_from_rollout_uses_metadata_at_header_line_limit ... ok
+test doctor::updates::tests::version_http_probe_decodes_json_and_rejects_invalid_responses ... ok
+
+test result: ok. 133 passed; 0 failed; 1 ignored; 0 measured; 160 filtered out; finished in 5.40s

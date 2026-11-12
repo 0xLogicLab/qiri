@@ -1,0 +1,26 @@
+{
+  "service-chat": {
+    "exit": 0,
+    "tracked_matching_lines": 448
+  },
+  "service-docs": {
+    "exit": 0,
+    "tracked_matching_lines": 67
+  },
+  "private-pcl": {
+    "exit": 1,
+    "tracked_matching_lines": 0
+  },
+  "private-research": {
+    "exit": 1,
+    "tracked_matching_lines": 0
+  },
+  "private-tailnet": {
+    "exit": 1,
+    "tracked_matching_lines": 0
+  },
+  "identifier": {
+    "exit": 0,
+    "tracked_matching_lines": 7968
+  }
+}
