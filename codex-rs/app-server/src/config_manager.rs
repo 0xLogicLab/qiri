@@ -563,7 +563,7 @@ impl ConfigManager {
                 let requested_provider = requested_provider
                     .as_deref()
                     .or(config.model_provider.as_deref())
-                    .unwrap_or("openai");
+                    .unwrap_or(codex_model_provider_info::LOCAL_PROVIDER_ID);
                 // Validate the saved route even when a client sends a provider override.
                 for provider in [
                     saved_provider.unwrap_or(requested_provider),
