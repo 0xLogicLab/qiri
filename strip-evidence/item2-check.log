@@ -1,0 +1,932 @@
+    Checking writeable v0.6.2
+    Checking zerotrie v0.2.4
+    Checking tokio-util v0.7.18
+    Checking rustls-webpki v0.103.16
+    Checking hmac v0.12.1
+    Checking x509-parser v0.18.1
+    Checking icu_locale_core v2.2.0
+    Checking potential_utf v0.1.4
+    Checking fixed_decimal v0.7.2
+    Checking aws-sigv4 v1.3.7
+    Checking aead v0.5.2
+    Checking hkdf v0.12.4
+    Checking icu_collections v2.2.0
+    Checking rfc6979 v0.4.0
+    Checking pbkdf2 v0.12.2
+    Checking aes-gcm v0.10.3
+    Checking chacha20poly1305 v0.10.1
+    Checking rustls v0.23.46
+    Checking elliptic-curve v0.13.8
+    Checking secret-service v4.0.0
+    Checking scrypt v0.11.0
+    Checking h2 v0.4.19
+    Checking tower v0.5.3
+    Checking rama-core v0.3.0-alpha.4
+    Checking tokio-stream v0.1.18
+    Checking codex-async-utils v0.0.0 (/home/sig/files/qiri-release/codex-rs/async-utils)
+    Checking crypto_secretbox v0.1.1
+    Checking clatter v2.2.0
+    Checking icu_provider v2.2.0
+    Checking primeorder v0.13.6
+    Checking ecdsa v0.16.9
+    Checking rcgen v0.14.9
+    Checking crypto_box v0.9.1
+    Checking nix v0.31.3
+   Compiling prost-build v0.14.3
+   Compiling instability v0.3.11
+    Checking tokio-test v0.4.5
+    Checking opentelemetry_sdk v0.31.0
+    Checking wayland-protocols v0.32.10
+    Checking rand_pcg v0.10.2
+    Checking icu_properties v2.2.0
+    Checking icu_normalizer v2.2.0
+    Checking icu_locale v2.2.0
+    Checking lru-slab v0.1.2
+    Checking p256 v0.13.2
+    Checking quinn-udp v0.5.14
+    Checking keyring v3.6.3
+    Checking backtrace v0.3.76
+    Checking ansi-to-tui v8.0.1
+    Checking tower-http v0.6.8
+    Checking dtor v0.1.1
+    Checking x11rb v0.13.2
+   Compiling tonic-prost-build v0.14.3
+    Checking color-spantrace v0.3.0
+    Checking hpke v0.12.0
+    Checking codex-user-verification v0.0.0 (/home/sig/files/qiri-release/codex-rs/user-verification)
+    Checking syntect v5.3.0
+    Checking codex-keyring-store v0.0.0 (/home/sig/files/qiri-release/codex-rs/keyring-store)
+    Checking eyre v0.6.12
+    Checking h3 v0.0.8 (https://github.com/hyperium/h3?rev=e07e69412876f7e26f026bd75a48b2704d8c8283#e07e6941)
+    Checking unicode-linebreak v0.1.5
+    Checking idna_adapter v1.2.1
+    Checking process-wrap v10.0.0
+    Checking icu_decimal v2.2.0
+    Checking age-core v0.12.0
+    Checking smawk v0.3.2
+    Checking color-eyre v0.6.5
+    Checking idna v1.1.0
+    Checking rama-http-types v0.3.0-alpha.4
+    Checking ctor v0.6.3
+    Checking codex-mermaid v0.0.0 (/home/sig/files/qiri-release/codex-rs/mermaid)
+    Checking ratatui-widgets v0.3.2
+    Checking ratatui-crossterm v0.1.2
+    Checking codex-realtime-webrtc v0.0.0 (/home/sig/files/qiri-release/codex-rs/realtime-webrtc)
+    Checking textwrap v0.16.2
+    Checking diffy v0.4.2
+   Compiling codex-code-mode-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/code-mode-protocol)
+    Checking age v0.12.1
+    Checking codex-utils-sleep-inhibitor v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/sleep-inhibitor)
+    Checking pathdiff v0.2.3
+    Checking codex-utils-elapsed v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/elapsed)
+    Checking url v2.5.8
+    Checking publicsuffix v2.3.0
+    Checking codex-utils-fuzzy-match v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/fuzzy-match)
+   Compiling codex-cli v0.0.0 (/home/sig/files/qiri-release/codex-rs/cli)
+    Checking codex-stdio-to-uds v0.0.0 (/home/sig/files/qiri-release/codex-rs/stdio-to-uds)
+    Checking clap_complete v4.5.65
+    Checking tokio-rustls v0.26.4
+    Checking codex-utils-rustls-provider v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/rustls-provider)
+    Checking tungstenite v0.27.0 (https://github.com/openai-oss-forks/tungstenite-rs?rev=4fffad30fe373adbdcffab9545e9e9bf4f2fc19f#4fffad30)
+    Checking quinn-proto v0.11.18
+    Checking two-face v0.5.1
+    Checking cookie_store v0.22.1
+    Checking hickory-proto v0.25.2
+    Checking codex-utils-path-uri v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/path-uri)
+    Checking mxc-sdk v1.0.0 (https://github.com/microsoft/mxc?rev=b21120168d70befe12356411423266bfef168446#b2112016)
+    Checking sqlx-core v0.9.0
+    Checking webbrowser v1.2.4
+    Checking sentry-types v0.46.1
+    Checking ratatui v0.30.2
+    Checking ratatui-macros v0.7.2
+    Checking hyper v1.11.1
+    Checking wayland-protocols-wlr v0.3.10
+    Checking codex-ansi-escape v0.0.0 (/home/sig/files/qiri-release/codex-rs/ansi-escape)
+    Checking tokio-tungstenite v0.28.0 (https://github.com/openai-oss-forks/tokio-tungstenite?rev=0e5b2d73aa18dd9f0a50ee9ff199d5aef7594186#0e5b2d73)
+    Checking rama-net v0.3.0-alpha.4
+    Checking wl-clipboard-rs v0.9.3
+    Checking hyper-util v0.1.20
+    Checking arboard v3.6.1
+    Checking sqlx-sqlite v0.9.0
+    Checking hickory-resolver v0.25.2
+    Checking quinn v0.11.9
+    Checking sentry-core v0.46.1
+    Checking hyper-rustls v0.27.7
+    Checking hyper-tls v0.6.0
+    Checking hyper-timeout v0.5.2
+    Checking axum v0.8.8
+    Checking reqwest v0.13.4
+    Checking wiremock v0.6.5
+    Checking sentry v0.46.1
+    Checking h3-quinn v0.0.10 (https://github.com/hyperium/h3?rev=e07e69412876f7e26f026bd75a48b2704d8c8283#e07e6941)
+    Checking tonic v0.14.3
+    Checking reqwest v0.12.28
+    Checking aws-smithy-http-client v1.1.12
+    Checking codex-tcp-tunnel v0.0.0 (/home/sig/files/qiri-release/codex-rs/tcp-tunnel)
+    Checking sqlx v0.9.0
+    Checking aws-smithy-runtime v1.9.5
+    Checking codex-http-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/http-client)
+    Checking opentelemetry-http v0.31.0
+    Checking oauth2 v5.0.0
+    Checking tonic-prost v0.14.3
+    Checking opentelemetry-proto v0.31.0
+    Checking rama-dns v0.3.0-alpha.4
+    Checking rama-http-headers v0.3.0-alpha.4
+    Checking rama-unix v0.3.0-alpha.4
+    Checking rama-udp v0.3.0-alpha.4
+    Checking rama-tls-rustls v0.3.0-alpha.4
+    Checking rmcp v3.5.1 (https://github.com/modelcontextprotocol/rust-sdk?rev=98a54789b80110ad210495c4ad845c89e1980471#98a54789)
+    Checking codex-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-client)
+    Checking codex-websocket-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/websocket-client)
+    Checking codex-workload-identity v0.0.0 (/home/sig/files/qiri-release/codex-rs/workload-identity)
+    Checking codex-responses-api-proxy v0.0.0 (/home/sig/files/qiri-release/codex-rs/responses-api-proxy)
+    Checking aws-runtime v1.5.17
+    Checking opentelemetry-otlp v0.31.0
+    Checking aws-sdk-signin v1.2.0
+    Checking aws-sdk-sts v1.95.0
+    Checking aws-sdk-sso v1.91.0
+    Checking aws-sdk-ssooidc v1.93.0
+    Checking rama-http v0.3.0-alpha.4
+    Checking rama-tcp v0.3.0-alpha.4
+    Checking aws-config v1.8.12
+    Checking rama-socks5 v0.3.0-alpha.4
+    Checking codex-aws-auth v0.0.0 (/home/sig/files/qiri-release/codex-rs/aws-auth)
+    Checking rama-http-core v0.3.0-alpha.4
+    Checking rama-http-backend v0.3.0-alpha.4
+    Checking codex-network-proxy v0.0.0 (/home/sig/files/qiri-release/codex-rs/network-proxy)
+    Checking codex-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/protocol)
+    Checking codex-file-system v0.0.0 (/home/sig/files/qiri-release/codex-rs/file-system)
+    Checking codex-api v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-api)
+    Checking codex-features v0.0.0 (/home/sig/files/qiri-release/codex-rs/features)
+    Checking codex-model-provider-info v0.0.0 (/home/sig/files/qiri-release/codex-rs/model-provider-info)
+    Checking codex-shell-command v0.0.0 (/home/sig/files/qiri-release/codex-rs/shell-command)
+    Checking codex-utils-output-truncation v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/output-truncation)
+    Checking codex-history v0.0.0 (/home/sig/files/qiri-release/codex-rs/history)
+    Checking codex-agent-identity v0.0.0 (/home/sig/files/qiri-release/codex-rs/agent-identity)
+    Checking codex-context-fragments v0.0.0 (/home/sig/files/qiri-release/codex-rs/context-fragments)
+    Checking codex-utils-audio v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/audio)
+    Checking codex-utils-sandbox-summary v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/sandbox-summary)
+    Checking codex-utils-approval-presets v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/approval-presets)
+    Checking codex-git-utils v0.0.0 (/home/sig/files/qiri-release/codex-rs/git-utils)
+    Checking codex-skills v0.0.0 (/home/sig/files/qiri-release/codex-rs/skills)
+    Checking codex-memories-read v0.0.0 (/home/sig/files/qiri-release/codex-rs/memories/read)
+    Checking codex-utils-cli v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/cli)
+    Checking codex-state v0.0.0 (/home/sig/files/qiri-release/codex-rs/state)
+    Checking codex-guardian-context v0.0.0 (/home/sig/files/qiri-release/codex-rs/guardian-context)
+    Checking codex-config v0.0.0 (/home/sig/files/qiri-release/codex-rs/config)
+    Checking codex-secrets v0.0.0 (/home/sig/files/qiri-release/codex-rs/secrets)
+    Checking codex-utils-git-discovery v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/git-discovery)
+    Checking codex-worktree v0.0.0 (/home/sig/files/qiri-release/codex-rs/worktree)
+    Checking codex-exec-server-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server-protocol)
+    Checking codex-prompts v0.0.0 (/home/sig/files/qiri-release/codex-rs/prompts)
+    Checking codex-otel v0.0.0 (/home/sig/files/qiri-release/codex-rs/otel)
+    Checking codex-response-debug-context v0.0.0 (/home/sig/files/qiri-release/codex-rs/response-debug-context)
+    Checking codex-agent-graph-store v0.0.0 (/home/sig/files/qiri-release/codex-rs/agent-graph-store)
+    Checking codex-windows-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/windows-sandbox-rs)
+    Checking codex-rollout v0.0.0 (/home/sig/files/qiri-release/codex-rs/rollout)
+    Checking codex-code-mode v0.0.0 (/home/sig/files/qiri-release/codex-rs/code-mode)
+    Checking codex-mxc-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/mxc-sandbox)
+    Checking codex-sandboxing v0.0.0 (/home/sig/files/qiri-release/codex-rs/sandboxing)
+    Checking codex-linux-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/linux-sandbox)
+    Checking codex-rollout-trace v0.0.0 (/home/sig/files/qiri-release/codex-rs/rollout-trace)
+    Checking codex-app-server-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-protocol)
+    Checking codex-login v0.0.0 (/home/sig/files/qiri-release/codex-rs/login)
+    Checking codex-exec-server v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server)
+    Checking codex-agent-roles v0.0.0 (/home/sig/files/qiri-release/codex-rs/agent-roles)
+    Checking codex-message-history v0.0.0 (/home/sig/files/qiri-release/codex-rs/message-history)
+    Checking codex-models-manager v0.0.0 (/home/sig/files/qiri-release/codex-rs/models-manager)
+    Checking codex-feedback v0.0.0 (/home/sig/files/qiri-release/codex-rs/feedback)
+    Checking codex-runtime-agent-instance v0.0.0 (/home/sig/files/qiri-release/codex-rs/runtime-agent-instance)
+    Checking codex-model-provider v0.0.0 (/home/sig/files/qiri-release/codex-rs/model-provider)
+    Checking codex-backend-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/backend-client)
+    Checking codex-cloud-config v0.0.0 (/home/sig/files/qiri-release/codex-rs/cloud-config)
+    Checking codex-utils-plugins v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/plugins)
+    Checking codex-rmcp-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/rmcp-client)
+    Checking codex-apply-patch v0.0.0 (/home/sig/files/qiri-release/codex-rs/apply-patch)
+    Checking codex-plugin v0.0.0 (/home/sig/files/qiri-release/codex-rs/plugin)
+    Checking codex-arg0 v0.0.0 (/home/sig/files/qiri-release/codex-rs/arg0)
+    Checking codex-connectors v0.0.0 (/home/sig/files/qiri-release/codex-rs/connectors)
+    Checking codex-hooks v0.0.0 (/home/sig/files/qiri-release/codex-rs/hooks)
+    Checking codex-tools v0.0.0 (/home/sig/files/qiri-release/codex-rs/tools)
+    Checking codex-message-board v0.0.0 (/home/sig/files/qiri-release/codex-rs/message-board)
+    Checking codex-mcp v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-mcp)
+    Checking codex-message-board-mcp v0.0.0 (/home/sig/files/qiri-release/codex-rs/message-board-mcp)
+    Checking codex-guardian-v3 v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/guardian-v3)
+    Checking codex-extension-api v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/extension-api)
+    Checking codex-agent-message-board-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/agent-message-board-client)
+    Checking codex-git-attribution v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/git-attribution)
+    Checking codex-multi-env-copy-file v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/multi-env-copy-file)
+    Checking codex-home v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-home)
+    Checking codex-agent-message-board-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/agent-message-board)
+    Checking codex-analytics v0.0.0 (/home/sig/files/qiri-release/codex-rs/analytics)
+    Checking codex-thread-store v0.0.0 (/home/sig/files/qiri-release/codex-rs/thread-store)
+    Checking codex-core-plugins v0.0.0 (/home/sig/files/qiri-release/codex-rs/core-plugins)
+    Checking codex-skills-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/skills)
+    Checking codex-guardian-reviewer v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/guardian-reviewer)
+    Checking codex-connectors-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/connectors)
+    Checking codex-core v0.0.0 (/home/sig/files/qiri-release/codex-rs/core)
+    Checking codex-memories-write v0.0.0 (/home/sig/files/qiri-release/codex-rs/memories/write)
+    Checking codex-app-server-transport v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-transport)
+    Checking codex-queue-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/queue)
+    Checking codex-guardian-v2 v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/guardian-v2)
+    Checking codex-history-notes-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/history-notes)
+    Checking codex-chatgpt v0.0.0 (/home/sig/files/qiri-release/codex-rs/chatgpt)
+    Checking codex-goal-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/goal)
+    Checking codex-image-generation-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/image-generation)
+    Checking codex-mcp-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/mcp)
+    Checking codex-memories-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/memories)
+    Checking codex-web-search-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/web-search)
+    Checking codex-lmstudio v0.0.0 (/home/sig/files/qiri-release/codex-rs/lmstudio)
+    Checking codex-ollama v0.0.0 (/home/sig/files/qiri-release/codex-rs/ollama)
+    Checking codex-app-server-test-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-test-client)
+warning: function `chatgpt_get_request` is never used
+  --> chatgpt/src/chatgpt_client.rs:54:21
+   |
+54 | pub(crate) async fn chatgpt_get_request<T: DeserializeOwned>(
+   |                     ^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-chatgpt` (lib) generated 1 warning
+    Checking codex-utils-oss v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/oss)
+    Checking codex-external-agent-migration v0.0.0 (/home/sig/files/qiri-release/codex-rs/external-agent-migration)
+    Checking codex-app-server-daemon v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-daemon)
+    Checking codex-app-server v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server)
+warning: function `auth_mode_to_api` is never used
+  --> app-server/src/auth_mode.rs:10:15
+   |
+10 | pub(crate) fn auth_mode_to_api(auth_mode: AuthMode) -> ApiAuthMode {
+   |               ^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `EXTERNAL_AUTH_REFRESH_TIMEOUT` is never used
+  --> app-server/src/external_auth.rs:18:7
+   |
+18 | const EXTERNAL_AUTH_REFRESH_TIMEOUT: Duration = Duration::from_secs(10);
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `ExternalAuthBridge` is never constructed
+  --> app-server/src/external_auth.rs:20:19
+   |
+20 | pub(crate) struct ExternalAuthBridge {
+   |                   ^^^^^^^^^^^^^^^^^^
+
+warning: associated items `new` and `refresh` are never used
+  --> app-server/src/external_auth.rs:26:19
+   |
+25 | impl ExternalAuthBridge {
+   | ----------------------- associated items in this implementation
+26 |     pub(crate) fn new(outgoing: Arc<OutgoingMessageSender>, auth: CodexAuth) -> Self {
+   |                   ^^^
+...
+33 |     async fn refresh(&self, context: ExternalAuthRefreshContext) -> std::io::Result<CodexAuth> {
+   |              ^^^^^^^
+
+warning: function `reload_mcp_config_best_effort` is never used
+  --> app-server/src/mcp_refresh.rs:23:21
+   |
+23 | pub(crate) async fn reload_mcp_config_best_effort(
+   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variant `BestEffort` is never constructed
+  --> app-server/src/mcp_refresh.rs:41:5
+   |
+39 | enum ReloadPolicy {
+   |      ------------ variant in this enum
+40 |     Strict,
+41 |     BestEffort,
+   |     ^^^^^^^^^^
+   |
+   = note: `ReloadPolicy` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: method `send_request` is never used
+   --> app-server/src/outgoing_message.rs:374:25
+    |
+268 | impl OutgoingMessageSender {
+    | -------------------------- method in this implementation
+...
+374 |     pub(crate) async fn send_request(
+    |                         ^^^^^^^^^^^^
+
+warning: enum `AccountNotification` is never used
+  --> app-server/src/account_notifications.rs:10:17
+   |
+10 | pub(crate) enum AccountNotification {
+   |                 ^^^^^^^^^^^^^^^^^^^
+
+warning: method `send_account_notification` is never used
+  --> app-server/src/account_notifications.rs:16:25
+   |
+15 | impl OutgoingMessageSender {
+   | -------------------------- method in this implementation
+16 |     pub(crate) async fn send_account_notification(
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `LOGIN_CHATGPT_TIMEOUT` is never used
+  --> app-server/src/request_processors/account_processor.rs:34:7
+   |
+34 | const LOGIN_CHATGPT_TIMEOUT: Duration = Duration::from_secs(10 * 60);
+   |       ^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `ACCOUNT_TOKEN_USAGE_FETCH_TIMEOUT` is never used
+  --> app-server/src/request_processors/account_processor.rs:35:7
+   |
+35 | const ACCOUNT_TOKEN_USAGE_FETCH_TIMEOUT: Duration = Duration::from_secs(/*secs*/ 10);
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `THREAD_USAGE_FETCH_TIMEOUT` is never used
+  --> app-server/src/request_processors/account_processor.rs:36:7
+   |
+36 | const THREAD_USAGE_FETCH_TIMEOUT: Duration = Duration::from_secs(/*secs*/ 60);
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `ACCOUNT_WORKSPACE_MESSAGES_FETCH_TIMEOUT` is never used
+  --> app-server/src/request_processors/account_processor.rs:37:7
+   |
+37 | const ACCOUNT_WORKSPACE_MESSAGES_FETCH_TIMEOUT: Duration =
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `LOGIN_ISSUER_OVERRIDE_ENV_VAR` is never used
+  --> app-server/src/request_processors/account_processor.rs:40:7
+   |
+40 | const LOGIN_ISSUER_OVERRIDE_ENV_VAR: &str = "CODEX_APP_SERVER_LOGIN_ISSUER";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `LOGIN_OPEN_APP_URL_OVERRIDE_ENV_VAR` is never used
+  --> app-server/src/request_processors/account_processor.rs:43:7
+   |
+43 | const LOGIN_OPEN_APP_URL_OVERRIDE_ENV_VAR: &str = "CODEX_APP_SERVER_DEV_OPEN_APP_URL";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variants `Browser` and `DeviceCode` are never constructed
+  --> app-server/src/request_processors/account_processor.rs:46:5
+   |
+45 | enum ActiveLogin {
+   |      ----------- variants in this enum
+46 |     Browser {
+   |     ^^^^^^^
+...
+50 |     DeviceCode {
+   |     ^^^^^^^^^^
+
+warning: method `login_id` is never used
+  --> app-server/src/request_processors/account_processor.rs:57:8
+   |
+56 | impl ActiveLogin {
+   | ---------------- method in this implementation
+57 |     fn login_id(&self) -> Uuid {
+   |        ^^^^^^^^
+
+warning: enum `CancelLoginError` is never used
+  --> app-server/src/request_processors/account_processor.rs:76:6
+   |
+76 | enum CancelLoginError {
+   |      ^^^^^^^^^^^^^^^^
+
+warning: enum `RefreshTokenRequestOutcome` is never used
+  --> app-server/src/request_processors/account_processor.rs:80:6
+   |
+80 | enum RefreshTokenRequestOutcome {
+   |      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: enum `BedrockLoginCredentials` is never used
+  --> app-server/src/request_processors/account_processor.rs:91:6
+   |
+91 | enum BedrockLoginCredentials {
+   |      ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: fields `thread_manager` and `outgoing` are never read
+   --> app-server/src/request_processors/account_processor.rs:109:5
+    |
+107 | pub(crate) struct AccountRequestProcessor {
+    |                   ----------------------- fields in this struct
+108 |     auth_manager: Arc<AuthManager>,
+109 |     thread_manager: Arc<ThreadManager>,
+    |     ^^^^^^^^^^^^^^
+110 |     outgoing: Arc<OutgoingMessageSender>,
+    |     ^^^^^^^^
+    |
+    = note: `AccountRequestProcessor` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: multiple associated items are never used
+    --> app-server/src/request_processors/account_processor.rs:166:25
+     |
+ 124 | impl AccountRequestProcessor {
+     | ---------------------------- associated items in this implementation
+...
+ 166 |     pub(crate) async fn login_account(
+     |                         ^^^^^^^^^^^^^
+...
+ 174 |     pub(crate) async fn logout_account(
+     |                         ^^^^^^^^^^^^^^
+...
+ 181 |     pub(crate) async fn cancel_login_account(
+     |                         ^^^^^^^^^^^^^^^^^^^^
+...
+ 199 |     pub(crate) async fn get_account_rate_limits(
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 208 |     pub(crate) async fn get_account_token_usage(
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 217 |     pub(crate) async fn get_workspace_messages(
+     |                         ^^^^^^^^^^^^^^^^^^^^^^
+...
+ 225 |     pub(crate) async fn send_add_credits_nudge_email(
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 248 |     fn current_account_updated_notification(&self) -> AccountUpdatedNotification {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 273 |     async fn maybe_refresh_plugin_caches_for_current_config(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 325 |     fn spawn_effective_plugins_changed_task(
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 338 |     async fn login_v2(
+     |              ^^^^^^^^
+...
+ 456 |     async fn login_api_key_common(
+     |              ^^^^^^^^^^^^^^^^^^^^
+...
+ 496 |     async fn login_api_key_v2(&self, request_id: ConnectionRequestId, params: LoginApiKeyParams) {
+     |              ^^^^^^^^^^^^^^^^
+...
+ 513 |     async fn login_amazon_bedrock_v2(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 608 |     async fn login_chatgpt_common(
+     |              ^^^^^^^^^^^^^^^^^^^^
+...
+ 659 |     fn login_chatgpt_device_code_start_error(err: IoError) -> JSONRPCErrorError {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 668 |     async fn login_chatgpt_v2(
+     |              ^^^^^^^^^^^^^^^^
+...
+ 680 |     async fn login_chatgpt_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^
+...
+ 692 |     async fn start_browser_login(
+     |              ^^^^^^^^^^^^^^^^^^^
+...
+ 762 |     async fn login_chatgpt_device_code_v2(&self, request_id: ConnectionRequestId) {
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 767 |     async fn login_chatgpt_device_code_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 834 |     async fn cancel_login_chatgpt_common(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 849 |     async fn cancel_login_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^
+...
+ 868 |     async fn login_chatgpt_auth_tokens(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 890 |     async fn login_chatgpt_auth_tokens_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 943 |     async fn send_login_success_notifications(&self, login_id: Option<Uuid>) {
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 954 |     async fn send_account_login_notifications(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 998 |     async fn send_chatgpt_login_completion_notifications(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1023 |     async fn logout_common(&self) -> std::result::Result<Option<AuthMode>, JSONRPCErrorError> {
+     |              ^^^^^^^^^^^^^
+...
+1053 |     async fn logout_v2(&self, request_id: ConnectionRequestId) -> Result<(), JSONRPCErrorError> {
+     |              ^^^^^^^^^
+...
+1076 |     async fn refresh_token_if_requested(&self, do_refresh: bool) -> RefreshTokenRequestOutcome {
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1108 |     async fn get_account_rate_limits_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1217 |     async fn get_account_token_usage_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1314 |     async fn get_workspace_messages_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1361 |     fn account_token_usage_response(profile: TokenUsageProfile) -> GetAccountTokenUsageResponse {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1384 |     fn workspace_messages_response(
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1398 |     async fn send_add_credits_nudge_email_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1407 |     async fn send_add_credits_nudge_email_inner(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1445 |     fn backend_credit_type(value: AddCreditsNudgeCreditType) -> BackendAddCreditsNudgeCreditType {
+     |        ^^^^^^^^^^^^^^^^^^^
+
+warning: function `workspace_message_from_backend` is never used
+    --> app-server/src/request_processors/account_processor.rs:1453:4
+     |
+1453 | fn workspace_message_from_backend(
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `workspace_message_timestamp_from_backend` is never used
+    --> app-server/src/request_processors/account_processor.rs:1465:4
+     |
+1465 | fn workspace_message_timestamp_from_backend(
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `workspace_message_type_from_backend` is never used
+    --> app-server/src/request_processors/account_processor.rs:1481:4
+     |
+1481 | fn workspace_message_type_from_backend(
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `workspace_messages_feature_disabled` is never used
+    --> app-server/src/request_processors/account_processor.rs:1491:4
+     |
+1491 | fn workspace_messages_feature_disabled(err: &BackendRequestError) -> bool {
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `LoginGuard` is never constructed
+  --> app-server/src/request_processors/account_processor/gateway_oauth.rs:19:8
+   |
+19 | struct LoginGuard(Arc<std::sync::Mutex<Option<ActiveGatewayLogin>>>);
+   |        ^^^^^^^^^^
+
+warning: method `gateway_oauth_login` is never used
+  --> app-server/src/request_processors/account_processor/gateway_oauth.rs:76:25
+   |
+29 | impl AccountRequestProcessor {
+   | ---------------------------- method in this implementation
+...
+76 |     pub(crate) async fn gateway_oauth_login(
+   |                         ^^^^^^^^^^^^^^^^^^^
+
+warning: constant `RATE_LIMIT_RESET_REQUEST_TIMEOUT` is never used
+ --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:3:7
+  |
+3 | const RATE_LIMIT_RESET_REQUEST_TIMEOUT: Duration = Duration::from_secs(/*secs*/ 10);
+  |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `RATE_LIMIT_RESET_DETAILS_REQUEST_TIMEOUT` is never used
+ --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:4:7
+  |
+4 | const RATE_LIMIT_RESET_DETAILS_REQUEST_TIMEOUT: Duration = Duration::from_secs(/*secs*/ 5);
+  |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `RATE_LIMIT_RESET_REQUEST_TIMEOUT_ENV_VAR` is never used
+ --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:6:7
+  |
+6 | const RATE_LIMIT_RESET_REQUEST_TIMEOUT_ENV_VAR: &str =
+  |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated items `detailed_rate_limit_reset_credits`, `consume_account_rate_limit_reset_credit`, and `rate_limit_reset_backend_client` are never used
+   --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:10:25
+    |
+  9 | impl AccountRequestProcessor {
+    | ---------------------------- associated items in this implementation
+ 10 |     pub(super) async fn detailed_rate_limit_reset_credits(
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 45 |     pub(crate) async fn consume_account_rate_limit_reset_credit(
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+100 |     async fn rate_limit_reset_backend_client(&self) -> Result<BackendClient, JSONRPCErrorError> {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `rate_limit_reset_credits_from_backend` is never used
+   --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:122:4
+    |
+122 | fn rate_limit_reset_credits_from_backend(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `rate_limit_reset_credit_from_backend` is never used
+   --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:136:4
+    |
+136 | fn rate_limit_reset_credit_from_backend(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `rate_limit_reset_credit_timestamp` is never used
+   --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:169:4
+    |
+169 | fn rate_limit_reset_credit_timestamp(timestamp: &str) -> Result<i64, String> {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: methods `list_account_sessions`, `workspace_memberships`, `switch_account_session`, `reload_workspace_config`, and `account_session_switch_response` are never used
+   --> app-server/src/request_processors/account_processor/workspace_switching.rs:13:25
+    |
+ 12 | impl AccountRequestProcessor {
+    | ---------------------------- methods in this implementation
+ 13 |     pub(crate) async fn list_account_sessions(
+    |                         ^^^^^^^^^^^^^^^^^^^^^
+...
+ 95 |     async fn workspace_memberships(
+    |              ^^^^^^^^^^^^^^^^^^^^^
+...
+113 |     pub(crate) async fn switch_account_session(
+    |                         ^^^^^^^^^^^^^^^^^^^^^^
+...
+226 |     async fn reload_workspace_config(&self) {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^
+...
+234 |     async fn account_session_switch_response(
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: method `unload_for_workspace_switch` is never used
+ --> app-server/src/request_processors/thread_processor/workspace_switching.rs:7:25
+  |
+6 | impl ThreadRequestProcessor {
+  | --------------------------- method in this implementation
+7 |     pub(crate) async fn unload_for_workspace_switch(&self) -> Result<(), JSONRPCErrorError> {
+  |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `TurnAdmissionPause` is never constructed
+  --> app-server/src/turn_admission.rs:35:19
+   |
+35 | pub(crate) struct TurnAdmissionPause(TurnAdmission);
+   |                   ^^^^^^^^^^^^^^^^^^
+
+warning: method `pause` is never used
+  --> app-server/src/turn_admission.rs:38:25
+   |
+37 | impl TurnAdmission {
+   | ------------------ method in this implementation
+38 |     pub(crate) async fn pause(&self) -> Result<TurnAdmissionPause, JSONRPCErrorError> {
+   |                         ^^^^^
+
+warning: `codex-app-server` (lib) generated 39 warnings
+    Checking codex-app-server-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-client)
+    Checking codex-exec-server-cli v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server-cli)
+    Checking codex-tui v0.0.0 (/home/sig/files/qiri-release/codex-rs/tui)
+    Checking codex-exec v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec)
+warning: fields `reason` and `turn_id` are never read
+    --> tui/src/app_event.rs:1676:9
+     |
+1674 |     SubmitFeedback {
+     |     -------------- fields in this variant
+1675 |         category: FeedbackCategory,
+1676 |         reason: Option<String>,
+     |         ^^^^^^
+1677 |         turn_id: Option<String>,
+     |         ^^^^^^^
+     |
+     = note: `AppEvent` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+     = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: variant `OpenFeedbackConsent` is never constructed
+    --> tui/src/app_event.rs:1669:5
+     |
+ 314 | pub(crate) enum AppEvent {
+     |                 -------- variant in this enum
+...
+1669 |     OpenFeedbackConsent {
+     |     ^^^^^^^^^^^^^^^^^^^
+     |
+     = note: `AppEvent` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: variants `BadResult`, `Bug`, `SafetyCheck`, and `Other` are never constructed
+    --> tui/src/app_event.rs:1863:5
+     |
+1862 | pub(crate) enum FeedbackCategory {
+     |                 ---------------- variants in this enum
+1863 |     BadResult,
+     |     ^^^^^^^^^
+1864 |     GoodResult,
+1865 |     Bug,
+     |     ^^^
+1866 |     SafetyCheck,
+     |     ^^^^^^^^^^^
+1867 |     Other,
+     |     ^^^^^
+     |
+     = note: `FeedbackCategory` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: function `feedback_selection_params` is never used
+   --> tui/src/bottom_pane/feedback_view.rs:132:15
+    |
+132 | pub(crate) fn feedback_selection_params(
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `make_feedback_item` is never used
+   --> tui/src/bottom_pane/feedback_view.rs:173:4
+    |
+173 | fn make_feedback_item(
+    |    ^^^^^^^^^^^^^^^^^^
+
+warning: constant `ANNOUNCEMENT_TIP_URL` is never used
+  --> tui/src/tooltips.rs:16:7
+   |
+16 | const ANNOUNCEMENT_TIP_URL: &str =
+   |       ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `preferred_tooltip` is never used
+  --> tui/src/tooltips.rs:47:15
+   |
+47 | pub(crate) fn preferred_tooltip<R: Rng + ?Sized>(
+   |               ^^^^^^^^^^^^^^^^^
+
+warning: static `ANNOUNCEMENT_TIP` is never used
+   --> tui/src/tooltips.rs:119:12
+    |
+119 |     static ANNOUNCEMENT_TIP: OnceLock<Option<AnnouncementTips>> = OnceLock::new();
+    |            ^^^^^^^^^^^^^^^^
+
+warning: constant `CURRENT_OS` is never used
+   --> tui/src/tooltips.rs:120:11
+    |
+120 |     const CURRENT_OS: TargetOs = TargetOs::current();
+    |           ^^^^^^^^^^
+
+warning: function `prewarm` is never used
+   --> tui/src/tooltips.rs:123:19
+    |
+123 |     pub(crate) fn prewarm(http_client_factory: HttpClientFactory) {
+    |                   ^^^^^^^
+
+warning: function `fetch_announcement_tip` is never used
+   --> tui/src/tooltips.rs:136:19
+    |
+136 |     pub(crate) fn fetch_announcement_tip(plan: Option<PlanType>) -> Option<String> {
+    |                   ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTipRaw` is never constructed
+   --> tui/src/tooltips.rs:144:12
+    |
+144 |     struct AnnouncementTipRaw {
+    |            ^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTipDocument` is never constructed
+   --> tui/src/tooltips.rs:155:12
+    |
+155 |     struct AnnouncementTipDocument {
+    |            ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTip` is never constructed
+   --> tui/src/tooltips.rs:160:12
+    |
+160 |     struct AnnouncementTip {
+    |            ^^^^^^^^^^^^^^^
+
+warning: enum `TargetOs` is never used
+   --> tui/src/tooltips.rs:172:10
+    |
+172 |     enum TargetOs {
+    |          ^^^^^^^^
+
+warning: associated function `current` is never used
+   --> tui/src/tooltips.rs:181:18
+    |
+180 |     impl TargetOs {
+    |     ------------- associated function in this implementation
+181 |         const fn current() -> Self {
+    |                  ^^^^^^^
+
+warning: function `fetch_announcement_tip_text` is never used
+   --> tui/src/tooltips.rs:193:14
+    |
+193 |     async fn fetch_announcement_tip_text(http_client_factory: HttpClientFactory) -> Option<String> {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTips` is never constructed
+   --> tui/src/tooltips.rs:205:23
+    |
+205 |     pub(super) struct AnnouncementTips(Vec<AnnouncementTip>);
+    |                       ^^^^^^^^^^^^^^^^
+
+warning: associated items `parse` and `select` are never used
+   --> tui/src/tooltips.rs:208:23
+    |
+207 |     impl AnnouncementTips {
+    |     --------------------- associated items in this implementation
+208 |         pub(super) fn parse(text: &str) -> Option<Self> {
+    |                       ^^^^^
+...
+221 |         pub(super) fn select(&self, plan: Option<PlanType>) -> Option<String> {
+    |                       ^^^^^^
+
+warning: associated items `from_raw`, `version_matches`, and `date_matches` are never used
+   --> tui/src/tooltips.rs:245:12
+    |
+244 |     impl AnnouncementTip {
+    |     -------------------- associated items in this implementation
+245 |         fn from_raw(raw: AnnouncementTipRaw) -> Option<Self> {
+    |            ^^^^^^^^
+...
+289 |         fn version_matches(&self, version: &str) -> bool {
+    |            ^^^^^^^^^^^^^^^
+...
+295 |         fn date_matches(&self, today: NaiveDate) -> bool {
+    |            ^^^^^^^^^^^^
+
+warning: `codex-tui` (lib) generated 20 warnings
+warning: unused import: `codex_http_client::ClientRouteClass`
+  --> cli/src/doctor/updates.rs:13:5
+   |
+13 | use codex_http_client::ClientRouteClass;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `super::doctor_install_context`
+  --> cli/src/doctor/updates.rs:28:5
+   |
+28 | use super::doctor_install_context;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::doctor_managed_by_npm`
+  --> cli/src/doctor/updates.rs:29:5
+   |
+29 | use super::doctor_managed_by_npm;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `MAX_VERSION_RESPONSE_BYTES` is never used
+  --> cli/src/doctor/updates.rs:33:7
+   |
+33 | const MAX_VERSION_RESPONSE_BYTES: usize = 1024 * 1024;
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `VERSION_FILE_NAME` is never used
+  --> cli/src/doctor/updates.rs:35:7
+   |
+35 | const VERSION_FILE_NAME: &str = "version.json";
+   |       ^^^^^^^^^^^^^^^^^
+
+warning: constant `GITHUB_LATEST_RELEASE_URL` is never used
+  --> cli/src/doctor/updates.rs:36:7
+   |
+36 | const GITHUB_LATEST_RELEASE_URL: &str = "https://api.github.com/repos/openai/codex/releases/latest";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `HOMEBREW_CASK_API_URL` is never used
+  --> cli/src/doctor/updates.rs:37:7
+   |
+37 | const HOMEBREW_CASK_API_URL: &str = "https://formulae.brew.sh/api/cask/codex.json";
+   |       ^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `push_cached_version_details` is never used
+   --> cli/src/doctor/updates.rs:341:4
+    |
+341 | fn push_cached_version_details(details: &mut Vec<String>, version_file: &Path) {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `update_action_label` is never used
+   --> cli/src/doctor/updates.rs:363:4
+    |
+363 | fn update_action_label(context: &InstallContext) -> &'static str {
+    |    ^^^^^^^^^^^^^^^^^^^
+
+warning: function `fetch_latest_version` is never used
+   --> cli/src/doctor/updates.rs:375:10
+    |
+375 | async fn fetch_latest_version(
+    |          ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `fetch_latest_github_release_version` is never used
+   --> cli/src/doctor/updates.rs:390:10
+    |
+390 | async fn fetch_latest_github_release_version(
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `fetch_homebrew_cask_version` is never used
+   --> cli/src/doctor/updates.rs:405:10
+    |
+405 | async fn fetch_homebrew_cask_version(client: &RouteAwareClientPool) -> Result<String, String> {
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `http_get_json` is never used
+   --> cli/src/doctor/updates.rs:416:10
+    |
+416 | async fn http_get_json<T>(client: &RouteAwareClientPool, url: &str) -> Result<T, String>
+    |          ^^^^^^^^^^^^^
+
+warning: function `is_newer` is never used
+   --> cli/src/doctor/updates.rs:446:4
+    |
+446 | fn is_newer(latest: &str, current: &str) -> Option<bool> {
+    |    ^^^^^^^^
+
+warning: function `parse_version` is never used
+   --> cli/src/doctor/updates.rs:453:4
+    |
+453 | fn parse_version(value: &str) -> Option<(u64, u64, u64)> {
+    |    ^^^^^^^^^^^^^
+
+warning: struct `VersionInfo` is never constructed
+   --> cli/src/doctor/updates.rs:462:8
+    |
+462 | struct VersionInfo {
+    |        ^^^^^^^^^^^
+
+warning: `codex-cli` (bin "codex") generated 16 warnings (run `cargo fix --bin "codex" -p codex-cli` to apply 3 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2m 33s

@@ -4585,22 +4585,17 @@ name = "codex-responses-api-proxy"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "bytes",
  "clap",
- "codex-http-client",
  "codex-process-hardening",
  "ctor 0.6.3",
- "http 1.4.0",
  "libc",
  "pretty_assertions",
  "reqwest 0.12.28",
  "serde",
  "serde_json",
  "tiny_http",
- "tokio",
  "tracing",
  "tracing-test",
- "url",
  "zeroize",
 ]
 

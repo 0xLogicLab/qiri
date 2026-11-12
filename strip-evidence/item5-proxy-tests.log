@@ -1,0 +1,89 @@
+    Blocking waiting for file lock on artifact directory
+   Compiling once_cell v1.21.4
+   Compiling stable_deref_trait v1.2.1
+   Compiling serde_core v1.0.228
+   Compiling displaydoc v0.2.5
+   Compiling smallvec v1.15.1
+   Compiling serde v1.0.228
+   Compiling libc v0.2.186
+   Compiling cc v1.2.55
+   Compiling litemap v0.8.1
+   Compiling writeable v0.6.2
+   Compiling zerofrom v0.1.6
+   Compiling futures-io v0.3.34
+   Compiling hashbrown v0.17.1
+   Compiling bitflags v2.13.1
+   Compiling rustls v0.23.46
+   Compiling tracing-core v0.1.36
+   Compiling subtle v2.6.1
+   Compiling regex-syntax v0.8.8
+   Compiling serde_json v1.0.149
+   Compiling time v0.3.47
+   Compiling yoke v0.8.2
+   Compiling futures-util v0.3.34
+   Compiling tracing-test-macro v0.2.5
+   Compiling zerovec v0.11.6
+   Compiling indexmap v2.14.0
+   Compiling tracing v0.1.44
+   Compiling tracing-log v0.2.0
+   Compiling potential_utf v0.1.4
+   Compiling openssl-sys v0.9.111
+   Compiling ring v0.17.14
+   Compiling mio v1.2.4
+   Compiling socket2 v0.6.3
+   Compiling getrandom v0.2.17
+   Compiling regex-automata v0.4.13
+   Compiling codex-process-hardening v0.0.0 (/home/sig/files/qiri-release/codex-rs/process-hardening)
+   Compiling tinystr v0.8.3
+   Compiling zerotrie v0.2.4
+   Compiling icu_collections v2.2.0
+   Compiling tokio v1.52.3
+   Compiling icu_locale_core v2.2.0
+   Compiling cookie v0.18.1
+   Compiling openssl v0.10.75
+   Compiling native-tls v0.2.14
+   Compiling icu_provider v2.2.0
+   Compiling icu_normalizer v2.2.0
+   Compiling icu_properties v2.2.0
+   Compiling zeroize v1.8.2
+   Compiling serde_urlencoded v0.7.1
+   Compiling matchers v0.2.0
+   Compiling rustls-pki-types v1.14.0
+   Compiling tracing-subscriber v0.3.22
+   Compiling webpki-roots v1.0.10
+   Compiling idna_adapter v1.2.1
+   Compiling idna v1.1.0
+   Compiling publicsuffix v2.3.0
+   Compiling url v2.5.8
+   Compiling tracing-test v0.2.5
+   Compiling cookie_store v0.22.1
+   Compiling rustls-webpki v0.103.16
+   Compiling tokio-util v0.7.18
+   Compiling tower v0.5.3
+   Compiling tower-http v0.6.8
+   Compiling h2 v0.4.19
+   Compiling tokio-native-tls v0.3.1
+   Compiling hyper v1.11.1
+   Compiling tokio-rustls v0.26.4
+   Compiling hyper-util v0.1.20
+   Compiling hyper-rustls v0.27.7
+   Compiling hyper-tls v0.6.0
+   Compiling reqwest v0.12.28
+   Compiling codex-responses-api-proxy v0.0.0 (/home/sig/files/qiri-release/codex-rs/responses-api-proxy)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1m 04s
+     Running unittests src/lib.rs (target/debug/deps/codex_responses_api_proxy-3106715ab6709952)
+
+running 10 tests
+test read_api_key::tests::errors_on_invalid_utf8 ... ok
+test read_api_key::tests::errors_on_invalid_characters ... ok
+test read_api_key::tests::errors_when_no_input_provided ... ok
+test read_api_key::tests::propagates_io_error ... ok
+test read_api_key::tests::errors_when_buffer_filled ... ok
+test read_api_key::tests::reads_key_with_no_newlines ... ok
+test read_api_key::tests::reads_key_and_trims_newlines ... ok
+test read_api_key::tests::reads_key_with_short_reads ... ok
+test dump::tests::response_body_dump_streams_body_and_writes_response_file ... ok
+test dump::tests::dump_request_writes_redacted_headers_and_json_body ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

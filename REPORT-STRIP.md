@@ -23,3 +23,9 @@
 删除 cloud-tasks / cloud-tasks-client / cloud-tasks-mock-client 整 crate、Cargo workspace/依赖/锁文件条目、Bazel 目标及 Windows 测试耗时表条目。删除 CLI `apply`（该命令实际从云任务下载 diff；本地 apply_patch 工具不受影响）、chatgpt 的任务客户端和专属夹具，以及 backend-client 的任务创建/查询/兄弟 turn API。chatgpt crate 仍被连接器调用，backend-client 仍被账号等功能调用，尚不能整删。
 
 验证：`cargo check --offline -p codex-cli -p codex-core -p codex-app-server` 通过；`cargo test --offline -p codex-backend-client --lib`：50 通过。日志在 strip-evidence，原有账号/连接器残留不计为已删除。
+
+### 5a. Responses 代理的官方绑定
+
+删除代理的 OpenAI GitHub OIDC 工作负载令牌交换、续期、参数和专属测试；删除官方 Responses 默认地址，`--upstream-url` 现在必填。保留 stdin API Key、POST /v1/responses 转发、流式响应、状态码和本地诊断 dump；拒绝重定向。文档以本地端点举例。未删除 Responses 协议层。
+
+验证：`cargo test --offline -p codex-responses-api-proxy --lib`：10 通过，0 失败。其他默认 provider / 官方认证路径仍需清理，不能据此宣称运行时已无官方服务路径。

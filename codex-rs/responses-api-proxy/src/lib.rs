@@ -28,20 +28,15 @@ use tiny_http::Response;
 use tiny_http::Server;
 use tiny_http::StatusCode;
 
-mod auth;
 mod dump;
-mod github_oidc;
 mod read_api_key;
-use auth::Auth;
 use dump::ExchangeDumper;
-use github_oidc::GithubOidc;
 use read_api_key::read_auth_header_from_stdin;
 
-const OPENAI_RESPONSES_URL: &str = "https://api.openai.com/v1/responses";
 
 /// CLI arguments for the proxy.
 #[derive(Clone, Debug, Parser)]
-#[command(name = "responses-api-proxy", about = "Minimal OpenAI responses proxy")]
+#[command(name = "responses-api-proxy", about = "Proxy for a custom Responses endpoint")]
 pub struct Args {
     /// Port to listen on. If not set, an ephemeral port is used.
     #[arg(long)]
@@ -55,64 +50,14 @@ pub struct Args {
     #[arg(long)]
     pub http_shutdown: bool,
 
-    /// Absolute URL the proxy should forward requests to (defaults to OpenAI).
-    #[arg(long, default_value = "https://api.openai.com/v1/responses")]
+    /// Absolute URL of the local or self-hosted Responses endpoint.
+    #[arg(long)]
     pub upstream_url: String,
 
     /// Directory where request/response dumps should be written as JSON.
     #[arg(long, value_name = "DIR")]
     pub dump_dir: Option<PathBuf>,
 
-    /// Authenticate to the OpenAI API using GitHub Actions workload identity.
-    /// In this mode stdin supplies the GitHub OIDC request token, not an API key.
-    #[arg(long, requires_all = ["oidc_audience", "identity_provider_id", "service_account_id", "github_oidc_request_url"])]
-    pub github_oidc: bool,
-
-    /// Audience configured on the OpenAI workload identity provider.
-    #[arg(long, requires = "github_oidc", value_name = "AUDIENCE")]
-    pub oidc_audience: Option<String>,
-
-    /// OpenAI workload identity provider ID.
-    #[arg(long, requires = "github_oidc", value_name = "ID")]
-    pub identity_provider_id: Option<String>,
-
-    /// OpenAI service account ID selected by the provider mapping.
-    #[arg(long, requires = "github_oidc", value_name = "ID")]
-    pub service_account_id: Option<String>,
-
-    /// HTTPS token-request URL from GitHub's runner-provided ACTIONS_ID_TOKEN_REQUEST_URL.
-    ///
-    /// Use the value directly from the trusted runner environment, never from
-    /// a workflow input or repository content. The proxy sends the GitHub
-    /// request credential to this URL.
-    #[arg(long, requires = "github_oidc", value_name = "URL")]
-    pub github_oidc_request_url: Option<String>,
-}
-
-impl Args {
-    fn auth(&self) -> Result<Auth> {
-        if self.github_oidc {
-            Auth::validate_federated_upstream(&self.upstream_url)?;
-            let provider = required(&self.identity_provider_id, "--identity-provider-id")?;
-            let service_account = required(&self.service_account_id, "--service-account-id")?;
-            let audience = required(&self.oidc_audience, "--oidc-audience")?;
-            let request_url = required(&self.github_oidc_request_url, "--github-oidc-request-url")?;
-            Auth::federated(
-                GithubOidc::from_stdin(request_url, audience)?,
-                provider.to_owned(),
-                service_account.to_owned(),
-            )
-        } else {
-            Ok(Auth::ApiKey(read_auth_header_from_stdin()?))
-        }
-    }
-}
-
-fn required<'a>(value: &'a Option<String>, name: &str) -> Result<&'a str> {
-    value
-        .as_deref()
-        .filter(|value| !value.trim().is_empty())
-        .ok_or_else(|| anyhow!("workload identity requires a nonempty {name}"))
 }
 
 #[derive(Serialize)]
@@ -128,12 +73,9 @@ struct ForwardConfig {
 
 /// Entry point for the library main, for parity with other crates.
 pub fn run_main(args: Args) -> Result<()> {
-    let auth = Arc::new(args.auth()?);
-    if args.github_oidc {
-        // Complete the initial exchange before publishing server info.
-        // API keys have already been validated when read from stdin.
-        auth.header()?;
-    }
+    let mut auth = HeaderValue::from_static(read_auth_header_from_stdin()?);
+    auth.set_sensitive(true);
+    let auth = Arc::new(auth);
 
     let upstream_url = Url::parse(&args.upstream_url).context("parsing --upstream-url")?;
     let host = match (upstream_url.host_str(), upstream_url.port()) {
@@ -163,7 +105,7 @@ pub fn run_main(args: Args) -> Result<()> {
         .map_err(|err| anyhow!("creating HTTP server: {err}"))?;
     let client = Arc::new(
         Client::builder()
-            .redirect(auth.redirect_policy())
+            .redirect(reqwest::redirect::Policy::none())
             // Disable reqwest's 30s default so long-lived response streams keep flowing.
             .timeout(None::<Duration>)
             .build()
@@ -226,7 +168,7 @@ fn write_server_info(path: &Path, port: u16) -> Result<()> {
 
 fn forward_request(
     client: &Client,
-    auth: &Auth,
+    auth: &HeaderValue,
     config: &ForwardConfig,
     dump_dir: Option<&ExchangeDumper>,
     mut req: Request,
@@ -276,15 +218,7 @@ fn forward_request(
         }
     }
 
-    let auth_header = match auth.header() {
-        Ok(value) => value,
-        Err(err) => {
-            // No token, request URL or upstream error body is exposed to the caller.
-            let _ = req.respond(Response::new_empty(StatusCode(502)));
-            return Err(err);
-        }
-    };
-    headers.insert(AUTHORIZATION, auth_header.value.clone());
+    headers.insert(AUTHORIZATION, auth.clone());
 
     headers.insert(HOST, config.host_header.clone());
 
@@ -300,11 +234,6 @@ fn forward_request(
     // implements `Read`, so we can use it directly as the body of the
     // `tiny_http::Response`.
     let status = upstream_resp.status();
-    if status == reqwest::StatusCode::UNAUTHORIZED {
-        // Do not replay a Responses POST. A subsequent request can obtain a
-        // fresh credential, but a late 401 must not evict one renewed in-flight.
-        auth_header.invalidate();
-    }
     let mut response_headers = Vec::new();
     for (name, value) in upstream_resp.headers().iter() {
         // Skip headers that tiny_http manages itself.
