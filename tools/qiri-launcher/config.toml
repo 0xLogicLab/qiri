@@ -18,8 +18,10 @@ developer_instructions = """
 """
 
 [model_providers.pcl]
-name = "PCL DeepSeek-V4-Pro"
-base_url = "https://llmapi.pcl.ac.cn/v1"
+name = "My OpenAI-compatible provider"
+# Replace this example with your own OpenAI-compatible Responses API root.
+# Set model above to an ID served by that endpoint; pcl is a local provider alias.
+base_url = "https://api.example.com/v1"
 env_key = "QIRI_API_KEY"
 env_key_instructions = "Set QIRI_API_KEY in ~/.qiri/.env."
 wire_api = "responses"
