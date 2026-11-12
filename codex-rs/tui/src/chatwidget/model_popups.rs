@@ -4,7 +4,6 @@
 //! into another, especially while Plan mode is active.
 
 use super::*;
-use crate::model_catalog::LUNA_RESERVE_MODEL;
 
 const ULTRA_REASONING_CONCURRENCY_WARNING_THRESHOLD: usize = 8;
 pub(super) const MODEL_SELECTION_VIEW_ID: &str = "model-selection";
@@ -46,44 +45,11 @@ impl ChatWidget {
         if !subtitle.is_empty() {
             header.push(Line::from(subtitle.dim()));
         }
-        if let Some(warning) = self.model_menu_warning_line() {
-            header.push(warning);
-        }
+
         Box::new(Paragraph::new(header).wrap(Wrap { trim: false }))
     }
 
-    fn model_menu_warning_line(&self) -> Option<Line<'static>> {
-        let base_url = self.custom_openai_base_url()?;
-        let warning = format!(
-            "Warning: The model provider base URL is overridden to {base_url}. Selecting models may not be supported or work properly."
-        );
-        Some(Line::from(warning.red()))
-    }
-
-    fn custom_openai_base_url(&self) -> Option<String> {
-        if !self.config.model_provider.is_openai() {
-            return None;
-        }
-
-        let base_url = self.config.model_provider.base_url.as_ref()?;
-        let trimmed = base_url.trim();
-        if trimmed.is_empty() {
-            return None;
-        }
-
-        let normalized = trimmed.trim_end_matches('/');
-        if normalized == DEFAULT_OPENAI_BASE_URL {
-            return None;
-        }
-
-        Some(trimmed.to_string())
-    }
-
     pub(crate) fn open_model_popup_with_presets(&mut self, presets: Vec<ModelPreset>) {
-        if self.restrict_model_picker_to_luna_reserve() {
-            self.open_luna_reserve_model_popup(presets, MODEL_SELECTION_VIEW_ID);
-            return;
-        }
         let presets: Vec<ModelPreset> = presets
             .into_iter()
             .filter(|preset| preset.show_in_picker)
@@ -211,13 +177,6 @@ impl ChatWidget {
     }
 
     pub(crate) fn open_all_models_popup(&mut self) {
-        if self.restrict_model_picker_to_luna_reserve() {
-            self.open_luna_reserve_model_popup(
-                self.model_catalog.try_list_models().unwrap_or_default(),
-                ALL_MODELS_SELECTION_VIEW_ID,
-            );
-            return;
-        }
         let presets = self
             .model_catalog
             .try_list_models()
@@ -300,15 +259,7 @@ impl ChatWidget {
         let thread_id = self.thread_id();
         let sparkle_thread = self.sparkle_thread_for_picker_action(&model_for_action);
         vec![Box::new(move |tx| {
-            if model_for_action == LUNA_RESERVE_MODEL {
-                // Reserve is temporary: update the active task without persisting a model default.
-                if let Some(thread_id) = thread_id {
-                    tx.send(AppEvent::UpdateLunaReserveReasoning {
-                        thread_id,
-                        effort: effort_for_action.clone(),
-                    });
-                }
-            } else if effort_for_action == Some(ReasoningEffortConfig::Ultra) {
+            if effort_for_action == Some(ReasoningEffortConfig::Ultra) {
                 tx.send(
                     AstraModelPickerAction::ApplyAdvancedReasoning {
                         effort: ReasoningEffortConfig::Ultra,
@@ -342,7 +293,6 @@ impl ChatWidget {
         selected_effort: Option<ReasoningEffortConfig>,
     ) -> bool {
         if !self.collaboration_modes_enabled()
-            || selected_model == LUNA_RESERVE_MODEL
             || self.active_mode_kind() != ModeKind::Plan
             || selected_model != self.current_model()
         {
@@ -478,27 +428,6 @@ impl ChatWidget {
         let in_plan_mode =
             self.collaboration_modes_enabled() && self.active_mode_kind() == ModeKind::Plan;
 
-        let warn_effort = if supported
-            .iter()
-            .any(|option| option.effort == ReasoningEffortConfig::XHigh)
-        {
-            Some(ReasoningEffortConfig::XHigh)
-        } else if supported
-            .iter()
-            .any(|option| option.effort == ReasoningEffortConfig::High)
-        {
-            Some(ReasoningEffortConfig::High)
-        } else {
-            None
-        };
-        let warning_text = warn_effort.as_ref().map(|effort| {
-            let effort_label = Self::reasoning_effort_label(effort);
-            format!("⚠ {effort_label} reasoning effort can quickly consume Plus plan rate limits")
-        });
-        let warn_for_model = preset.model.starts_with("gpt-5.1-codex")
-            || preset.model.starts_with("gpt-5.1-codex-max")
-            || preset.model.starts_with("gpt-5.2");
-
         let mut all_choices: Vec<ReasoningEffortConfig> = supported
             .iter()
             .map(|option| option.effort.clone())
@@ -564,18 +493,6 @@ impl ChatWidget {
                 .map(|option| option.description.to_string())
                 .filter(|text| !text.is_empty());
 
-            let show_warning = warn_for_model && warn_effort.as_ref() == Some(&effort);
-            let selected_description = if show_warning {
-                warning_text.as_ref().map(|warning_message| {
-                    description.as_ref().map_or_else(
-                        || warning_message.clone(),
-                        |d| format!("{d}\n{warning_message}"),
-                    )
-                })
-            } else {
-                None
-            };
-
             let choice_effort = Some(effort);
             let should_prompt_plan_mode_scope = self.should_prompt_plan_mode_reasoning_scope(
                 model_slug.as_str(),
@@ -590,7 +507,7 @@ impl ChatWidget {
             items.push(SelectionItem {
                 name: effort_label,
                 description,
-                selected_description,
+                selected_description: None,
                 is_current: is_current_model && Some(choice) == highlight_choice.as_ref(),
                 secondary_action: self
                     .session_model_selection_action(model_slug.clone(), choice_effort),

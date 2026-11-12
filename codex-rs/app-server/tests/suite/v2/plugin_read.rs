@@ -1685,9 +1685,9 @@ async fn plugin_read_returns_plugin_details_with_bundle_contents() -> Result<()>
     "developerName": "OpenAI",
     "category": "Productivity",
     "capabilities": ["Interactive", "Write"],
-    "websiteURL": "https://openai.com/",
-    "privacyPolicyURL": "https://openai.com/policies/row-privacy-policy/",
-    "termsOfServiceURL": "https://openai.com/policies/row-terms-of-use/",
+    "websiteURL": "https://example.net/",
+    "privacyPolicyURL": "https://example.net/policies/row-privacy-policy/",
+    "termsOfServiceURL": "https://example.net/policies/row-terms-of-use/",
     "defaultPrompt": [
       "Draft the reply",
       "Find my next action"
@@ -1921,7 +1921,7 @@ enabled = false
     assert_eq!(response.plugin.apps[0].name, "gmail");
     assert_eq!(
         response.plugin.apps[0].install_url.as_deref(),
-        Some("https://chatgpt.com/apps/gmail/gmail")
+        Some("https://service.example.test/apps/gmail/gmail")
     );
     assert_eq!(
         response.plugin.apps[0].category.as_deref(),

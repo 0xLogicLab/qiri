@@ -44,8 +44,7 @@ use codex_http_client::DestinationPolicy;
 use codex_http_client::NetworkPolicyController;
 use codex_login::CodexAuth;
 use codex_mcp::CODEX_APPS_MCP_SERVER_NAME;
-use codex_mcp::codex_apps_mcp_server_config;
-use codex_models_manager::bundled_models_response;
+use codex_mcp::local_mcp_server_config;
 use codex_protocol::config_types::ApprovalsReviewer;
 use codex_protocol::config_types::CollaborationMode;
 use codex_protocol::config_types::ModeKind;
@@ -112,6 +111,7 @@ use core_test_support::test_codex::TestCodex;
 use core_test_support::test_codex::TestCodexBuilder;
 use core_test_support::test_codex::test_codex;
 use core_test_support::test_codex::turn_permission_fields;
+use core_test_support::test_model_catalog as bundled_models_response;
 use core_test_support::wait_for_event;
 use core_test_support::wait_for_event_match;
 use core_test_support::wait_for_mcp_server;
@@ -2103,7 +2103,7 @@ async fn code_mode_mcp_metadata_keeps_originating_window_after_compaction() -> R
     let (release_tx, release_rx) = oneshot::channel();
     let control = Arc::new(ResultMetadataTestControl {
         server: Mutex::new(McpServerContribution::HostedApps {
-            config: Box::new(codex_apps_mcp_server_config(
+            config: Box::new(local_mcp_server_config(
                 &apps_server.chatgpt_base_url,
                 /*apps_mcp_product_sku*/ None,
                 /*originator*/ None,
@@ -2621,7 +2621,7 @@ async fn result_metadata_preserves_results_within_request_budget(
 #[test_case(true, true, false, false, "user@example.com", ToolMode::CodeModeOnly, ResultMetadataAnalytics::Config(None); "missing_metadata_stays_absent")]
 #[test_case(false, true, true, false, "user@example.com", ToolMode::CodeModeOnly, ResultMetadataAnalytics::Config(None); "feature_off_does_not_record")]
 #[test_case(true, false, true, false, "user@example.com", ToolMode::CodeModeOnly, ResultMetadataAnalytics::Config(None); "extension_owned_apps_do_not_record")]
-#[test_case(true, true, true, false, "employee@openai.com", ToolMode::CodeModeOnly, ResultMetadataAnalytics::Config(None); "employee_keeps_metadata")]
+#[test_case(true, true, true, false, "employee@example.net", ToolMode::CodeModeOnly, ResultMetadataAnalytics::Config(None); "employee_keeps_metadata")]
 #[test_case(true, true, true, false, "user@example.com", ToolMode::Direct, ResultMetadataAnalytics::Config(None); "direct_keeps_metadata")]
 #[test_case(true, true, true, true, "user@example.com", ToolMode::Direct, ResultMetadataAnalytics::Config(None); "direct_accepted_error_keeps_metadata")]
 #[test_case(true, true, false, false, "user@example.com", ToolMode::Direct, ResultMetadataAnalytics::Config(None); "direct_missing_metadata_stays_absent")]
@@ -2690,7 +2690,7 @@ async fn result_metadata_follows_call_binding(
         extensions.mcp_server_contributor(Arc::new(ResultMetadataTestControl {
             server: Mutex::new(McpServerContribution::Set {
                 name: CODEX_APPS_MCP_SERVER_NAME.to_string(),
-                config: Box::new(codex_apps_mcp_server_config(
+                config: Box::new(local_mcp_server_config(
                     &apps_server.chatgpt_base_url,
                     /*apps_mcp_product_sku*/ None,
                     /*originator*/ None,
@@ -2927,7 +2927,7 @@ async fn code_mode_result_metadata_keeps_prepared_call_binding_across_runtime_re
     let (release_tx, release_rx) = oneshot::channel();
     let control = Arc::new(ResultMetadataTestControl {
         server: Mutex::new(McpServerContribution::HostedApps {
-            config: Box::new(codex_apps_mcp_server_config(
+            config: Box::new(local_mcp_server_config(
                 &apps_server.chatgpt_base_url,
                 /*apps_mcp_product_sku*/ None,
                 /*originator*/ None,
@@ -2996,7 +2996,7 @@ async fn code_mode_result_metadata_keeps_prepared_call_binding_across_runtime_re
     // The next call uses an extension-owned binding, but the held call keeps its host proof.
     *control.server.lock().unwrap() = McpServerContribution::Set {
         name: CODEX_APPS_MCP_SERVER_NAME.to_string(),
-        config: Box::new(codex_apps_mcp_server_config(
+        config: Box::new(local_mcp_server_config(
             &refreshed_apps.chatgpt_base_url,
             /*apps_mcp_product_sku*/ None,
             /*originator*/ None,
@@ -3078,7 +3078,7 @@ async fn code_mode_late_result_metadata_with_large_arguments_survives_waits() ->
     let (release_tx, release_rx) = oneshot::channel();
     let control = Arc::new(ResultMetadataTestControl {
         server: Mutex::new(McpServerContribution::HostedApps {
-            config: Box::new(codex_apps_mcp_server_config(
+            config: Box::new(local_mcp_server_config(
                 &apps_server.chatgpt_base_url,
                 /*apps_mcp_product_sku*/ None,
                 /*originator*/ None,

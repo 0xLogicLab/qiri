@@ -10,8 +10,6 @@ mod mcp_login_tests;
 
 #[path = "tests/math_interruption_tests.rs"]
 mod math_interruption_tests;
-#[path = "tests/security_setup_tests.rs"]
-mod security_setup_tests;
 
 #[path = "tests/advanced_reasoning_tests.rs"]
 mod advanced_reasoning_tests;
@@ -19,12 +17,6 @@ mod advanced_reasoning_tests;
 mod agents_navigation_tests;
 #[path = "tests/approvals_reviewer_error_tests.rs"]
 mod approvals_reviewer_error_tests;
-#[path = "tests/backend_banner_fallback_tests.rs"]
-mod backend_banner_fallback_tests;
-#[path = "tests/backend_banner_recovery_tests.rs"]
-mod backend_banner_recovery_tests;
-#[path = "tests/backend_banner_startup_tests.rs"]
-mod backend_banner_startup_tests;
 #[path = "tests/background_exit_tests.rs"]
 mod background_exit_tests;
 #[path = "tests/background_task_defaults_tests.rs"]
@@ -49,8 +41,6 @@ mod home_cleanup_tests;
 mod key_chords;
 #[path = "tests/local_command_scroll_tests.rs"]
 mod local_command_scroll_tests;
-#[path = "tests/luna_reserve_recovery_tests.rs"]
-mod luna_reserve_recovery_tests;
 #[path = "tests/marketplace_upgrade_tests.rs"]
 mod marketplace_upgrade_tests;
 #[path = "tests/mcp_startup.rs"]
@@ -2363,7 +2353,7 @@ async fn archived_untracked_threads_do_not_appear_in_agent_picker() -> Result<()
             ServerNotification::ThreadAttachmentUpdated(ThreadAttachmentUpdatedNotification {
                 thread_id: attachment_thread_id.to_string(),
                 attachment_type: "pull_request".to_string(),
-                identity_key: r#"["github.com","openai","codex",123]"#.to_string(),
+                identity_key: r#"["github.com","local","codex",123]"#.to_string(),
                 attachment_id: "attachment-1".to_string(),
                 operation: ThreadAttachmentOperation::Deleted,
             }),
@@ -6761,7 +6751,7 @@ async fn ctrl_l_preserves_the_transcript_and_draft_after_clearing_the_screen() -
     let compact = transcript_composer::buffer_text(
         crate::custom_terminal::test_support::last_rendered_buffer(&tui.terminal),
     );
-    assert!(compact.contains("OpenAI Codex"));
+    assert!(compact.contains("穹 理  QIRI"));
     assert!(compact.contains("New exchange"));
     assert!(!compact.contains("Earlier exchange"));
     let ctrl_t = KeyEvent::new(KeyCode::Char('t'), KeyModifiers::CONTROL);
@@ -6863,7 +6853,6 @@ async fn make_test_app() -> Box<App> {
         last_thread_usage_status_cell: None,
         pending_thread_usage_history_refresh: false,
         overlay: None,
-        retained_analytics: None,
         deferred_history_lines: Vec::new(),
         has_emitted_history_lines: false,
         transcript_reflow: TranscriptReflowState::default(),
@@ -6995,7 +6984,6 @@ pub(super) async fn make_test_app_with_channels() -> (
             last_thread_usage_status_cell: None,
             pending_thread_usage_history_refresh: false,
             overlay: None,
-            retained_analytics: None,
             deferred_history_lines: Vec::new(),
             has_emitted_history_lines: false,
             transcript_reflow: TranscriptReflowState::default(),
@@ -8832,7 +8820,9 @@ async fn in_app_resume_uses_configured_or_explicit_cwd() -> Result<()> {
     ] {
         std::fs::write(
             codex_home.join("config.toml"),
-            format!("[tui]\nresume_cwd = \"{configured_mode}\"\n"),
+            format!(
+                "model = \"gpt-5.5\"\n[model_providers.local]\nname = \"Local\"\nbase_url = \"http://127.0.0.1:1/v1\"\n[tui]\nresume_cwd = \"{configured_mode}\"\n"
+            ),
         )?;
         for cwd in [
             &launch_cwd,
@@ -8967,6 +8957,11 @@ async fn in_app_resume_uses_configured_or_explicit_cwd() -> Result<()> {
             "keep this draft until attachment"
         );
         assert_eq!(app.chat_widget.config_ref().cwd.as_path(), active_cwd);
+        assert!(
+            !prepared.read_only,
+            "resume fixture must activate its explicit local provider: {:?}",
+            prepared.provider_error,
+        );
         let control = app
             .activate_prepared_session(&mut tui, app_server, prepared)
             .await?;
@@ -8977,10 +8972,14 @@ async fn in_app_resume_uses_configured_or_explicit_cwd() -> Result<()> {
             app.config.cwd.as_path(),
             &expected_cwd,
         ));
-        assert!(!crate::session_resume::cwds_differ(
-            app.chat_widget.config_ref().cwd.as_path(),
-            &expected_cwd,
-        ));
+        assert!(
+            !crate::session_resume::cwds_differ(
+                app.chat_widget.config_ref().cwd.as_path(),
+                &expected_cwd,
+            ),
+            "mode={configured_mode}, explicit={has_explicit_cwd}, remote={has_remote_exec}, runtime={has_runtime_cwd}: widget={:?}, expected={expected_cwd:?}",
+            app.chat_widget.config_ref().cwd
+        );
         assert_eq!(app.chat_widget.thread_id(), Some(thread_id));
     }
 
@@ -10562,7 +10561,7 @@ async fn inactive_thread_settings_notification_updates_cached_collaboration_mode
                 codex_app_server_protocol::ActivePermissionProfile::read_only(),
             ),
             model: "gpt-plan".to_string(),
-            model_provider: "openai".to_string(),
+            model_provider: "local".to_string(),
             service_tier: None,
             effort: collaboration_mode.settings.reasoning_effort.clone(),
             summary: None,

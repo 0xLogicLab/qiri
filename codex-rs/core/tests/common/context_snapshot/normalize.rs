@@ -530,7 +530,7 @@ pub(super) fn is_bundled_model_instructions(text: &str) -> bool {
     text == codex_models_manager::model_info::BASE_INSTRUCTIONS
         || PROMPTS
             .get_or_init(|| {
-                codex_models_manager::bundled_models_response()
+                crate::test_model_catalog()
                     .expect("bundled model catalog")
                     .models
                     .into_iter()

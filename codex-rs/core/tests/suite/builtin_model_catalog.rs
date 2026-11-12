@@ -4,9 +4,9 @@
 use anyhow::Result;
 use codex_core::config::ConfigBuilder;
 use codex_login::CodexAuth;
-use codex_models_manager::bundled_models_response;
 use core_test_support::responses;
 use core_test_support::test_codex::test_codex;
+use core_test_support::test_model_catalog as bundled_models_response;
 use pretty_assertions::assert_eq;
 use std::sync::Arc;
 use tempfile::TempDir;
@@ -44,7 +44,7 @@ openai_base_url = "{}/v1"
 [features]
 api_key_model_discovery = true
 [model_providers.openai]
-model_catalog_url = "https://chatgpt.com/backend-api/codex/models"
+model_catalog_url = "https://service.example.test/backend-api/codex/models"
 "#,
             inference.uri(),
         ),
@@ -59,7 +59,7 @@ model_catalog_url = "https://chatgpt.com/backend-api/codex/models"
             .model_catalog_url
             .as_deref()
             .map(String::as_str),
-        Some("https://chatgpt.com/backend-api/codex/models"),
+        Some("https://service.example.test/backend-api/codex/models"),
     );
     // Config validation uses the production allowlist. Redirect only this test's
     // runtime catalog client to a local server to capture credential routing.

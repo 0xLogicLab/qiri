@@ -6,10 +6,7 @@ before:
 / T R A N S C R I P T / / / / / / / / / / / / / / / / / / / / / / / / / / / / /
 /status
 
-  >_ OpenAI Codex (v0.0.0)
-
-  Visit https://chatgpt.com/settings/usage for up-to-date
-  information on rate limits and credits
+  >_ 穹 理  QIRI (v0.0.0)
 
   Model:        gpt-5.1-codex-max (reasoning none, summaries auto)
   Directory:    [[workspace]]
@@ -18,6 +15,9 @@ before:
 
   Token usage:  0 total  (0 input + 0 output)
   Limits:       refresh requested; run /status again shortly.
+
+
+
 
 
 
@@ -38,10 +38,7 @@ after:
 / T R A N S C R I P T / / / / / / / / / / / / / / / / / / / / / / / / / / / / /
 /status
 
-  >_ OpenAI Codex (v0.0.0)
-
-  Visit https://chatgpt.com/settings/usage for up-to-date
-  information on rate limits and credits
+  >_ 穹 理  QIRI (v0.0.0)
 
   Model:         gpt-5.1-codex-max (reasoning none, summaries auto)
   Directory:     [[workspace]]
@@ -54,6 +51,9 @@ after:
   Weekly limit:  [██████████████░░░░░░] 70% left (resets later)
 
 next message
+
+
+
 
 
 

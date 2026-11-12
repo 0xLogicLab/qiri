@@ -95,20 +95,8 @@ impl AppLinkViewParams {
         else {
             return None;
         };
-        if server_name == MCP_CODEX_APPS_SERVER_NAME {
-            let url = validate_external_url(url, /*require_chatgpt_host*/ true)?;
-            return Self::from_codex_apps_auth_url_parts(
-                thread_id,
-                server_name,
-                request_id,
-                meta.as_ref(),
-                message,
-                url.as_str(),
-                elicitation_id,
-            );
-        }
 
-        let url = validate_external_url(url, /*require_chatgpt_host*/ false)?;
+        let url = validate_external_url(url)?;
         Some(Self::from_generic_url_parts(
             thread_id,
             server_name,
@@ -203,7 +191,7 @@ impl AppLinkViewParams {
     }
 }
 
-pub(super) fn validate_external_url(url: &str, require_chatgpt_host: bool) -> Option<Url> {
+pub(super) fn validate_external_url(url: &str) -> Option<Url> {
     let parsed = Url::parse(url).ok()?;
     if parsed.scheme() != "https" || parsed.host_str().is_none() {
         return None;
@@ -211,18 +199,8 @@ pub(super) fn validate_external_url(url: &str, require_chatgpt_host: bool) -> Op
     if !parsed.username().is_empty() || parsed.password().is_some() {
         return None;
     }
-    if require_chatgpt_host && !is_allowed_chatgpt_auth_host(parsed.host_str()?) {
-        return None;
-    }
-    Some(parsed)
-}
 
-fn is_allowed_chatgpt_auth_host(host: &str) -> bool {
-    let host = host.to_ascii_lowercase();
-    host == "chatgpt.com"
-        || host == "chatgpt-staging.com"
-        || host.ends_with(".chatgpt.com")
-        || host.ends_with(".chatgpt-staging.com")
+    Some(parsed)
 }
 
 pub(crate) struct AppLinkView {
@@ -579,7 +557,7 @@ impl AppLinkView {
         if is_auth_suggestion {
             for line in wrap(
                 if is_codex_apps_auth {
-                    "Sign in to the app on ChatGPT in the browser window that just opened."
+                    "Complete authorization in the browser window that just opened."
                 } else {
                     "Complete authentication in the browser window that just opened."
                 },
@@ -946,30 +924,6 @@ mod tests {
     }
 
     #[test]
-    fn codex_apps_auth_url_elicitation_builds_auth_app_link_params() {
-        let target = suggestion_target();
-        let request =
-            auth_url_request("https://chatgpt.com/apps/google-calendar/connector_calendar");
-
-        let params = AppLinkViewParams::from_url_app_server_request(
-            target.thread_id,
-            &target.server_name,
-            target.request_id.clone(),
-            &request,
-        )
-        .expect("expected auth app link params");
-
-        assert_eq!(params.app_id, "connector_calendar");
-        assert_eq!(params.title, "Google Calendar");
-        assert_eq!(
-            params.url,
-            "https://chatgpt.com/apps/google-calendar/connector_calendar"
-        );
-        assert_eq!(params.suggestion_type, Some(AppLinkSuggestionType::Auth));
-        assert_eq!(params.elicitation_target, Some(target));
-    }
-
-    #[test]
     fn non_codex_apps_url_elicitation_builds_generic_app_link_params() {
         let target = generic_url_target();
         let request = codex_app_server_protocol::McpServerElicitationRequest::Url {
@@ -1003,26 +957,6 @@ mod tests {
                 elicitation_target: Some(target),
             }
         );
-    }
-
-    #[test]
-    fn codex_apps_auth_url_elicitation_rejects_untrusted_urls() {
-        let target = suggestion_target();
-        for url in [
-            "http://chatgpt.com/apps/google-calendar/connector_calendar",
-            "https://user:pass@chatgpt.com/apps/google-calendar/connector_calendar",
-            "https://chatgpt.com.evil.example/apps/google-calendar/connector_calendar",
-            "https://evilchatgpt.com/apps/google-calendar/connector_calendar",
-        ] {
-            let request = auth_url_request(url);
-            let params = AppLinkViewParams::from_url_app_server_request(
-                target.thread_id,
-                &target.server_name,
-                target.request_id.clone(),
-                &request,
-            );
-            assert!(params.is_none(), "expected {url} to be rejected");
-        }
     }
 
     #[test]
@@ -1675,7 +1609,7 @@ mod tests {
                 title: "Google Calendar".to_string(),
                 description: None,
                 instructions: "Sign in to this app in your browser, then return here.".to_string(),
-                url: "https://chatgpt.com/apps/google-calendar/connector_google_calendar"
+                url: "https://service.example.test/apps/google-calendar/connector_google_calendar"
                     .to_string(),
                 is_installed: true,
                 is_enabled: true,

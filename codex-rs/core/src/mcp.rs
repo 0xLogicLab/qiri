@@ -32,7 +32,6 @@ use codex_mcp::McpPluginAttribution;
 use codex_mcp::McpServerRegistration;
 use codex_mcp::McpToolCatalogCache;
 use codex_mcp::ToolInfo;
-use codex_mcp::codex_apps_mcp_server_config;
 use codex_mcp::configured_mcp_servers;
 use codex_mcp::effective_mcp_servers;
 use codex_plugin::AppConnectorId;
@@ -461,30 +460,6 @@ impl McpManager {
             .to_mcp_config_with_loaded_plugins(&loaded_plugins, selected_plugin_registrations);
         mcp_config.ema_state = Arc::clone(&self.ema_state);
         let mut catalog = mcp_config.mcp_server_catalog.to_builder();
-        // Isolated sessions do not inherit the implicit Apps connection.
-        if mcp_config.apps_enabled
-            && context
-                .thread_init()
-                .and_then(codex_extension_api::ExtensionDataInit::get::<SessionIsolation>)
-                .as_deref()
-                != Some(&SessionIsolation::Isolated)
-        {
-            catalog.register(McpServerRegistration::from_compatibility(
-                CODEX_APPS_MCP_SERVER_NAME.to_string(),
-                LEGACY_CODEX_APPS_REGISTRATION_ID,
-                codex_apps_mcp_server_config(
-                    &mcp_config.chatgpt_base_url,
-                    mcp_config.apps_mcp_product_sku.as_deref(),
-                    originator,
-                ),
-            ));
-        } else {
-            catalog.remove_compatibility(
-                CODEX_APPS_MCP_SERVER_NAME.to_string(),
-                LEGACY_CODEX_APPS_REGISTRATION_ID,
-            );
-        }
-
         for overlay in overlays {
             match overlay {
                 OrderedMcpOverlay::Set(registration) => catalog.register(*registration),

@@ -501,8 +501,8 @@ mod tests {
     fn markdown_link_label_survives_history_wrapping() {
         use pretty_assertions::assert_eq;
 
-        let destination = "https://developers.openai.com/";
-        let markdown = "Instead of a Markdown-labeled link. That is the most reliably clickable form. Official OpenAI documentation does not appear to document this exact terminal-link behavior; this is an inference from how terminal hyperlink rendering works. [OpenAI Developers](https://developers.openai.com/)";
+        let destination = "https://docs.example.net/";
+        let markdown = "Instead of a Markdown-labeled link. That is the most reliably clickable form. Official OpenAI documentation does not appear to document this exact terminal-link behavior; this is an inference from how terminal hyperlink rendering works. [OpenAI Developers](https://docs.example.net/)";
         for label in ["OpenAI Developers", "`OpenAI Developers`"] {
             for markdown in [
                 markdown.replace("[OpenAI Developers]", &format!("[{label}]")),

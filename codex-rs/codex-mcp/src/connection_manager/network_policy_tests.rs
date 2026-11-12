@@ -89,21 +89,27 @@ impl NetworkPolicyMetadataProvider for CapturedPolicy {
 #[tokio::test]
 async fn tool_calls_deliver_only_negotiated_trusted_network_policy() -> anyhow::Result<()> {
     for (url, provider_available, supports_policy, delivers_policy) in [
-        (Some("https://chatgpt.com/mcp"), true, true, true),
-        (Some("https://chatgpt.com/mcp"), true, false, false),
-        (Some("https://chatgpt.com/mcp"), false, true, false),
-        (Some("https://gov.chatgpt.com/mcp"), true, true, true),
+        (Some("https://service.example.test/mcp"), true, true, false),
+        (Some("https://service.example.test/mcp"), true, false, false),
+        (Some("https://service.example.test/mcp"), false, true, false),
         (
-            Some("https://chatgpt.com.attacker.example/mcp"),
+            Some("https://gov.service.example.test/mcp"),
             true,
             true,
             false,
         ),
-        (Some("http://chatgpt.com/mcp"), true, true, false),
+        (
+            Some("https://service.example.test.attacker.example/mcp"),
+            true,
+            true,
+            false,
+        ),
+        (Some("http://service.example.test/mcp"), true, true, false),
         (Some("https://third-party.example/mcp"), true, true, false),
         (None, true, true, false),
     ] {
-        let mut server_config = reusable_server_config(url.unwrap_or("https://chatgpt.com/mcp"));
+        let mut server_config =
+            reusable_server_config(url.unwrap_or("https://service.example.test/mcp"));
         if url.is_none() {
             server_config.transport = McpServerTransportConfig::Stdio {
                 command: "metadata-echo".to_string(),
@@ -127,7 +133,7 @@ async fn tool_calls_deliver_only_negotiated_trusted_network_policy() -> anyhow::
             "docs",
             catalog.server("docs"),
             provider_available,
-            "https://chatgpt.com",
+            "https://service.example.test",
         );
         let client_supports_policy = extensions
             .iter()

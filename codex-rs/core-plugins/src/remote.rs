@@ -165,11 +165,10 @@ impl RemotePluginServiceConfig {
         http_client_factory: HttpClientFactory,
         product_sku: Option<String>,
     ) -> Self {
-        let http_clients =
-            RouteAwareClientPool::with_chatgpt_cloudflare_cookies_without_request_logging(
-                http_client_factory,
-                ClientRouteClass::Api,
-            );
+        let http_clients = RouteAwareClientPool::new_without_request_logging(
+            http_client_factory,
+            ClientRouteClass::Api,
+        );
         Self {
             chatgpt_base_url,
             product_sku: product_sku.unwrap_or_else(|| CODEX_PRODUCT_SKU.to_string()),

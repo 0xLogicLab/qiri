@@ -26,7 +26,7 @@ fn thread_settings_for_test(
                 codex_app_server_protocol::ActivePermissionProfile::read_only(),
             ),
             model: model.to_string(),
-            model_provider: "openai".to_string(),
+            model_provider: "local".to_string(),
             service_tier: Some(ServiceTier::Fast.request_value().to_string()),
             effort: Some(ReasoningEffortConfig::High),
             summary: None,
@@ -53,7 +53,7 @@ fn configured_thread_session(thread_id: ThreadId) -> crate::session_state::Threa
         fork_parent_title: None,
         thread_name: None,
         model: "gpt-5.2".to_string(),
-        model_provider_id: "openai".to_string(),
+        model_provider_id: "local".to_string(),
         service_tier: None,
         approval_policy: AskForApproval::Never,
         approvals_reviewer: ApprovalsReviewer::User,
@@ -101,112 +101,6 @@ async fn session_header_uses_catalog_display_name_without_changing_model() {
         assert_chatwidget_snapshot!(format!("catalog_model_session_header_{name}"), rendered);
         assert_eq!(chat.current_model(), slug);
     }
-}
-
-#[tokio::test]
-async fn session_and_settings_sync_server_provider_id() {
-    let (mut chat, _rx, _op_rx) = make_chatwidget_manual(Some("gpt-5.2")).await;
-    chat.config.model_provider.base_url = Some("https://local-provider.example/v1".to_string());
-    chat.has_chatgpt_account = true;
-    chat.config
-        .features
-        .enable(Feature::CliDaybreak)
-        .expect("enable Daybreak");
-    chat.config
-        .model_providers
-        .insert("server-bedrock".into(), chat.config.model_provider.clone());
-    chat.local_settings.tui.status_line = Some(vec!["profile".into(), "provider".into()]);
-    chat.refresh_status_line();
-    assert_eq!(status_line_text(&chat), None);
-    let status = |chat: &mut ChatWidget| {
-        chat.add_status_output(
-            /*refreshing_rate_limits*/ false, /*request_id*/ None,
-        );
-        chat.transcript
-            .last_status_copy_targets
-            .as_ref()
-            .expect("status")
-            .handle
-            .copy_text()
-    };
-    assert!(!status(&mut chat).contains("Model provider:"));
-
-    let first_id = ThreadId::new();
-    let mut first = configured_thread_session(first_id);
-    first.model_provider_id = "server-ollama".to_string();
-    chat.status_account_display = Some(StatusAccountDisplay::ChatGpt {
-        email: None,
-        plan: None,
-        workspace: Some("account-123".to_string()),
-    });
-    let mut provider = chat.config.model_provider.clone();
-    provider.env_key = Some("CUSTOM_API_KEY".to_string());
-    provider.capabilities = Some(codex_model_provider_info::ModelProviderCapabilities {
-        cyber_access_programs: Some(true),
-        ..Default::default()
-    });
-    chat.config
-        .model_providers
-        .insert(first.model_provider_id.clone(), provider);
-    chat.handle_thread_session(first.clone());
-    assert!(chat.daybreak_account_eligible());
-    let displayed = status(&mut chat);
-    assert!(displayed.contains("Model provider:") && displayed.contains("server-ollama"));
-    assert!(!displayed.contains("local-provider.example"));
-    assert!(!displayed.contains("ChatGPT workspace:"));
-    assert_eq!(
-        status_line_text(&chat).as_deref(),
-        Some("provider: server-ollama")
-    );
-
-    let mut other = configured_thread_session(ThreadId::new());
-    other.model_provider_id = "server-bedrock".to_string();
-    chat.handle_thread_session_quiet(other);
-    assert!(!chat.daybreak_account_eligible());
-    let displayed = status(&mut chat);
-    assert!(displayed.contains("server-bedrock"));
-    assert!(!displayed.contains("server-ollama"));
-
-    chat.handle_thread_session_quiet(first);
-    assert_eq!(chat.config.model_provider_id, "server-ollama");
-    assert!(chat.daybreak_account_eligible());
-    chat.bottom_pane
-        .set_composer_text("/daybreak".to_string(), Vec::new(), Vec::new());
-    assert!(render_bottom_popup(&chat, /*width*/ 80).contains("broader access"));
-
-    chat.config.config_layer_stack = chat
-        .config
-        .config_layer_stack
-        .with_user_config_profile(
-            &chat.config.codex_home.join("work.config.toml"),
-            Some(&"work".parse().unwrap()),
-            toml::Table::new().into(),
-        )
-        .unwrap();
-    let mut updated = thread_settings_for_test("gpt-5.4", first_id);
-    updated.thread_settings.model_provider = "server-updated".to_string();
-    chat.handle_server_notification(
-        ServerNotification::ThreadSettingsUpdated(updated),
-        /*replay_kind*/ None,
-    );
-    assert!(status(&mut chat).contains("server-updated"));
-    assert!(!chat.daybreak_account_eligible());
-    insta::assert_snapshot!(
-        status_line_text(&chat).unwrap(),
-        @"profile: work · provider: server-updated"
-    );
-    let popup = render_bottom_popup(&chat, /*width*/ 80);
-    assert!(!popup.contains("broader access"));
-    assert_chatwidget_snapshot!("daybreak_hidden_after_provider_settings_change", popup);
-
-    let mut restored = thread_settings_for_test("gpt-5.4", first_id);
-    restored.thread_settings.model_provider = "server-ollama".to_string();
-    chat.handle_server_notification(
-        ServerNotification::ThreadSettingsUpdated(restored),
-        /*replay_kind*/ None,
-    );
-    assert!(chat.daybreak_account_eligible());
-    assert!(render_bottom_popup(&chat, /*width*/ 80).contains("broader access"));
 }
 
 fn start_safety_buffering_test_turn(
@@ -282,83 +176,6 @@ fn open_safety_buffering_retry_confirmation(
     }
     assert!(chat.turn_lifecycle.agent_turn_running);
     assert!(render_bottom_popup(chat, /*width*/ 80).contains("Stop this attempt and retry?"));
-}
-
-#[tokio::test]
-async fn safety_buffering_offers_one_retry_with_app_wording() {
-    let (mut chat, mut rx, mut op_rx) = make_chatwidget_manual(/*model_override*/ None).await;
-    let mut preset = get_available_model(&chat, "gpt-5.5");
-    preset.model = "faster-model".to_string();
-    preset.display_name = "Faster Model".to_string();
-    chat.model_catalog = Arc::new(ModelCatalog::new(vec![preset]));
-    let (thread_id, turn_id, _) = start_safety_buffering_test_turn(&mut chat, &mut op_rx);
-
-    let notification = safety_buffering_notification(thread_id, turn_id, Some("faster-model"));
-    chat.handle_server_notification(
-        ServerNotification::ModelSafetyBufferingUpdated(notification.clone()),
-        /*replay_kind*/ None,
-    );
-    chat.handle_server_notification(
-        ServerNotification::ModelSafetyBufferingUpdated(notification),
-        /*replay_kind*/ None,
-    );
-
-    let popup = render_bottom_popup(&chat, /*width*/ 80);
-    assert_chatwidget_snapshot!("safety_buffering_retry_prompt", popup);
-
-    chat.handle_key_event(KeyEvent::new(KeyCode::Down, KeyModifiers::NONE));
-    chat.handle_key_event(KeyEvent::new(KeyCode::Down, KeyModifiers::NONE));
-    chat.handle_key_event(KeyEvent::new(KeyCode::Enter, KeyModifiers::NONE));
-    let opened_url = loop {
-        match rx.try_recv() {
-            Ok(AppEvent::OpenUrlInBrowser { url }) => break url,
-            Ok(_) => continue,
-            Err(err) => panic!("expected learn-more URL event: {err}"),
-        }
-    };
-    assert_eq!(opened_url, "https://help.openai.com/en/articles/20001326");
-    assert!(render_bottom_popup(&chat, /*width*/ 80).contains(SAFETY_BUFFERING_HEADER_TEXT));
-
-    chat.handle_key_event(KeyEvent::new(KeyCode::Up, KeyModifiers::NONE));
-    chat.handle_key_event(KeyEvent::new(KeyCode::Up, KeyModifiers::NONE));
-    open_safety_buffering_retry_confirmation(&mut chat, &mut rx);
-    assert_chatwidget_snapshot!(
-        "safety_buffering_retry_confirmation",
-        render_bottom_popup(&chat, /*width*/ 80)
-    );
-    assert_chatwidget_snapshot!(
-        "safety_buffering_retry_confirmation_narrow",
-        render_bottom_popup(&chat, /*width*/ 40)
-    );
-    assert!(op_rx.try_recv().is_err());
-    while let Ok(event) = rx.try_recv() {
-        assert!(!matches!(event, AppEvent::RetrySafetyBufferedTurn { .. }));
-    }
-
-    chat.handle_key_event(KeyEvent::new(KeyCode::Down, KeyModifiers::NONE));
-    chat.handle_key_event(KeyEvent::new(KeyCode::Enter, KeyModifiers::NONE));
-    let (event_thread_id, event_turn_id, model, turn, prompt) = loop {
-        match rx.try_recv() {
-            Ok(AppEvent::RetrySafetyBufferedTurn {
-                thread_id,
-                turn_id,
-                model,
-                turn,
-                prompt,
-            }) => break (thread_id, turn_id, model, turn, prompt),
-            Ok(_) => continue,
-            Err(err) => panic!("expected safety-buffering retry event: {err}"),
-        }
-    };
-    assert_eq!(event_thread_id, thread_id);
-    assert_eq!(event_turn_id, turn_id);
-    assert_eq!(model, "faster-model");
-    assert_matches!(turn, Op::UserTurn { .. });
-    assert_eq!(prompt, UserMessage::from("Explain the request"));
-    assert!(
-        !render_bottom_popup(&chat, /*width*/ 80)
-            .contains("Press enter to confirm or esc to go back")
-    );
 }
 
 #[tokio::test]
@@ -1992,125 +1809,13 @@ async fn live_app_server_server_overloaded_error_renders_error() {
         let rendered = lines_to_single_string(&cells[0]);
         insta::allow_duplicates! {
             if message.is_empty() {
-                insta::assert_snapshot!(rendered, @"■ Codex is currently experiencing high load.");
+                insta::assert_snapshot!(rendered, @"■ QIRI is currently experiencing high load.");
             } else {
                 insta::assert_snapshot!(rendered, @"■ server overloaded");
             }
         }
         assert!(!chat.bottom_pane.is_task_running());
     }
-}
-
-#[tokio::test]
-async fn live_app_server_cyber_policy_error_renders_dedicated_notice() {
-    let (mut chat, mut rx, _op_rx) = make_chatwidget_manual(/*model_override*/ None).await;
-
-    chat.handle_server_notification(
-        ServerNotification::TurnStarted(TurnStartedNotification {
-            thread_id: "thread-1".to_string(),
-            turn: AppServerTurn {
-                id: "turn-1".to_string(),
-                root_turn_id: None,
-                items_view: codex_app_server_protocol::TurnItemsView::Full,
-                items: Vec::new(),
-                status: AppServerTurnStatus::InProgress,
-                error: None,
-                started_at: Some(0),
-                completed_at: None,
-                duration_ms: None,
-            },
-        }),
-        /*replay_kind*/ None,
-    );
-    drain_insert_history(&mut rx);
-
-    chat.handle_server_notification(
-        ServerNotification::Error(ErrorNotification {
-            error: AppServerTurnError {
-                misalignment: None,
-                message: "server fallback message".to_string(),
-                codex_error_info: Some(CodexErrorInfo::CyberPolicy),
-                additional_details: None,
-            },
-            will_retry: false,
-            thread_id: "thread-1".to_string(),
-            turn_id: "turn-1".to_string(),
-        }),
-        /*replay_kind*/ None,
-    );
-
-    let cells = drain_insert_history(&mut rx);
-    assert_eq!(cells.len(), 1);
-    let rendered = lines_to_single_string(&cells[0]);
-    assert!(rendered.contains("This content can’t be shown"));
-    assert!(rendered.contains("We take extra care with some cybersecurity requests"));
-    assert!(!rendered.contains("server fallback message"));
-    assert!(!chat.bottom_pane.is_task_running());
-}
-
-#[tokio::test]
-async fn app_server_safety_access_errors_render_dedicated_notice() {
-    let legacy_message = "Invalid prompt: we've limited access to this content for safety reasons.";
-    let bio_policy_message = "This content was flagged for possible biological risk.";
-    let cases = [
-        ("legacy plain message", legacy_message.to_string()),
-        (
-            "legacy JSON message",
-            json!({ "error": { "message": legacy_message } }).to_string(),
-        ),
-        ("bio policy plain message", bio_policy_message.to_string()),
-        (
-            "bio policy JSON message",
-            json!({ "error": { "message": bio_policy_message } }).to_string(),
-        ),
-        (
-            "bio policy code",
-            json!({ "error": { "code": "bio_policy", "message": "copy may change" } }).to_string(),
-        ),
-    ];
-    let mut rendered_cases = Vec::new();
-    for (case, message) in cases {
-        let (mut chat, mut rx, _op_rx) = make_chatwidget_manual(/*model_override*/ None).await;
-        chat.handle_non_retry_error(message, /*codex_error_info*/ None);
-
-        let cells = drain_insert_history(&mut rx);
-        assert_eq!(cells.len(), 1);
-        let rendered = lines_to_single_string(&cells[0]);
-        assert!(rendered.contains("This content can't be shown"));
-        assert!(rendered.contains("biological research"));
-        rendered_cases.push((case, rendered));
-    }
-
-    let canonical = &rendered_cases[0].1;
-    for (case, rendered) in &rendered_cases[1..] {
-        assert_eq!(rendered, canonical, "unexpected rendering for {case}");
-    }
-    insta::assert_snapshot!(
-        "app_server_bio_policy_error_renders_dedicated_notice",
-        rendered_cases.last().unwrap().1.as_str()
-    );
-}
-
-#[tokio::test]
-async fn live_app_server_model_verification_renders_warning() {
-    let (mut chat, mut rx, _op_rx) = make_chatwidget_manual(/*model_override*/ None).await;
-
-    chat.handle_server_notification(
-        ServerNotification::ModelVerification(ModelVerificationNotification {
-            thread_id: "thread-1".to_string(),
-            turn_id: "turn-1".to_string(),
-            verifications: vec![AppServerModelVerification::TrustedAccessForCyber],
-        }),
-        /*replay_kind*/ None,
-    );
-
-    let cells = drain_insert_history_transcript(&mut rx);
-    assert_eq!(cells.len(), 1);
-    let rendered = lines_to_single_string(&cells[0]);
-    assert!(rendered.contains("multiple flags for possible cybersecurity risk"));
-    assert!(rendered.contains("extra safety checks are on"));
-    assert!(rendered.contains("Trusted Access for Cyber"));
-    assert!(rendered.contains("https://chatgpt.com/cyber"));
 }
 
 #[tokio::test]

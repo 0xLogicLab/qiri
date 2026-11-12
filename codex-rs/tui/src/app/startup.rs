@@ -1014,7 +1014,6 @@ See the Codex keymap documentation for supported actions and examples."
             last_thread_usage_status_cell: None,
             pending_thread_usage_history_refresh: false,
             overlay: None,
-            retained_analytics: None,
             deferred_history_lines: Vec::new(),
             has_emitted_history_lines: false,
             transcript_reflow: TranscriptReflowState::default(),
@@ -1249,21 +1248,6 @@ See the Codex keymap documentation for supported actions and examples."
         // Kick off a non-blocking rate-limit prefetch so the first `/status`
         // already has data and available reset credits can be surfaced, without
         // delaying the initial frame render.
-        if requires_openai_auth && has_chatgpt_account {
-            crate::security_setup::prefetch(
-                &app.config,
-                &app_server,
-                app.app_event_tx.clone(),
-                app.chat_widget.security_setup_request_id,
-            );
-            let reset_hint_request_id = app.chat_widget.start_rate_limit_reset_startup_check();
-            app.refresh_rate_limits(
-                &app_server,
-                RateLimitRefreshOrigin::StartupPrefetch {
-                    reset_hint_request_id,
-                },
-            );
-        }
 
         let mut last_screen_size = tui.terminal.last_known_screen_size;
         let mut settled_size_tags = crate::terminal_size_telemetry::tags(last_screen_size);

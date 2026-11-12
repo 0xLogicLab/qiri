@@ -713,7 +713,7 @@ fn configured_provider_does_not_guess_ambiguous_alias_destinations() {
         assert!(!broker.host_requires_mitm("first.example", /*port*/ 443));
         assert!(!broker.host_requires_mitm("second.example", /*port*/ 443));
         if overlaps_builtin {
-            assert!(!broker.host_requires_mitm("api.openai.com", /*port*/ 443));
+            assert!(!broker.host_requires_mitm("www.example.net", /*port*/ 443));
         }
 
         env.insert("FIRST_TOKEN".to_string(), token.to_string());
@@ -815,7 +815,7 @@ fn configured_owner_keeps_prefixed_builtin_shaped_aliases_scoped() {
                 assert!(
                     !broker
                         .host_protocols_for_environment(
-                            "api.openai.com",
+                            "www.example.net",
                             /*port*/ 443,
                             environment_id,
                         )
@@ -828,7 +828,7 @@ fn configured_owner_keeps_prefixed_builtin_shaped_aliases_scoped() {
                     )])
                 };
                 for target in [
-                    "https://api.openai.com/v1/models",
+                    "https://www.example.net/v1/models",
                     "https://api.github.com/v1/models",
                     "https://configured.example/v2/models",
                     "https://configured.example/v1/models",
@@ -1297,7 +1297,7 @@ fn credential_rotation_preserves_alias_destination_ownership() {
             "OPENAI_API_KEY",
             "OPENAI_BASE_URL",
             "sk-proj-",
-            Some("api.openai.com"),
+            None,
         ),
     ] {
         for (environment, real_aliases, discover_parent) in [
@@ -2843,7 +2843,7 @@ fn explicit_invalid_destinations_clear_previous_dynamic_bindings() {
             "OPENAI_API_KEY",
             "OPENAI_BASE_URL",
             "sk-proj-abcdefghijklmnopqrstuvwxyz0123456789",
-            Some("api.openai.com"),
+            None,
         ),
         (
             "PROVIDER_TOKEN",

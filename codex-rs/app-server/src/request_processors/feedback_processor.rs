@@ -852,7 +852,7 @@ mod tests {
         let directory_cache_context = ConnectorDirectoryCacheContext::new(
             codex_home.path().to_path_buf(),
             ConnectorDirectoryCacheKey::new(
-                "https://chatgpt.com/backend-api".to_string(),
+                "https://service.example.test/backend-api".to_string(),
                 Some(account_id),
                 auth.get_chatgpt_user_id(),
                 auth.is_workspace_account(),
@@ -869,7 +869,7 @@ mod tests {
 
         let attachments = tool_cache_feedback_attachments(
             codex_home.path(),
-            "https://chatgpt.com/backend-api",
+            "https://service.example.test/backend-api",
             Some(&auth),
         )
         .into_iter()
@@ -898,7 +898,7 @@ mod tests {
         let directory_cache_context = ConnectorDirectoryCacheContext::new(
             codex_home.path().to_path_buf(),
             ConnectorDirectoryCacheKey::new(
-                "https://chatgpt.com/backend-api".to_string(),
+                "https://service.example.test/backend-api".to_string(),
                 /*account_id*/ None,
                 auth.get_chatgpt_user_id(),
                 auth.is_workspace_account(),
@@ -915,7 +915,7 @@ mod tests {
 
         let attachments = tool_cache_feedback_attachments(
             codex_home.path(),
-            "https://chatgpt.com/backend-api",
+            "https://service.example.test/backend-api",
             Some(&auth),
         )
         .into_iter()

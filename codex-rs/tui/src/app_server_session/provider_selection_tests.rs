@@ -113,7 +113,7 @@ async fn starts_and_forks_use_server_provider_unless_explicitly_selected() -> Re
 async fn selected_profile_provider_is_explicit() -> Result<()> {
     let home = tempfile::tempdir()?;
     let profile_path = AbsolutePathBuf::try_from(home.path().join("selected.config.toml"))?;
-    std::fs::write(&profile_path, "model_provider = \"openai\"\n")?;
+    std::fs::write(&profile_path, "model_provider = \"local\"\n")?;
     let config = ConfigBuilder::default()
         .codex_home(home.path().to_path_buf())
         .loader_overrides(codex_config::LoaderOverrides {
@@ -125,7 +125,7 @@ async fn selected_profile_provider_is_explicit() -> Result<()> {
         .await?;
     assert_eq!(
         provider_selection::explicit_provider(&config),
-        Some("openai".into())
+        Some("local".into())
     );
     Ok(())
 }
@@ -135,7 +135,7 @@ async fn required_provider_overrides_oss_history_selection() -> Result<()> {
     let home = tempfile::tempdir()?;
     std::fs::write(
         home.path().join("requirements.toml"),
-        "model_provider = 'openai'",
+        "model_provider = 'local'",
     )?;
     let config = ConfigBuilder::default()
         .codex_home(home.path().to_path_buf())
@@ -152,10 +152,10 @@ async fn required_provider_overrides_oss_history_selection() -> Result<()> {
         .await?;
     let mut server = crate::start_embedded_app_server_for_picker(&config).await?;
     server.model_provider_override = Some("ollama".into());
-    assert_eq!(config.model_provider_id, "openai");
+    assert_eq!(config.model_provider_id, "local");
     assert_eq!(
         server.history_model_provider(&config).await?,
-        Some("openai".into())
+        Some("local".into())
     );
     server.shutdown().await?;
     Ok(())

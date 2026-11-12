@@ -2,7 +2,6 @@
 
 use super::*;
 use crate::app_event::AppEvent;
-use crate::chatwidget::rate_limits::RATE_LIMIT_SWITCH_PROMPT_VIEW_ID;
 
 impl ChatWidget {
     pub(crate) fn set_daybreak_enabled(&mut self, enabled: bool) {
@@ -260,19 +259,12 @@ impl ChatWidget {
         self.invalidate_permission_discovery();
         self.permission_discovery = None;
         self.invalidate_connector_scope();
-        self.clear_pending_rate_limit_reset_requests();
-        self.clear_backend_banner();
-        self.luna_reserve_notice_account_id = None;
-        self.automatic_model_switch_state = backend_banners::AutomaticModelSwitchState::default();
+
         self.input_queue.rate_limit_recovery_pending = false;
-        self.add_credits_nudge_email_in_flight = None;
         self.codex_rate_limit_reached_type = None;
         self.codex_spend_control_reached = None;
         self.rate_limit_warnings = RateLimitWarningState::default();
         self.usage_notice_state = usage_notice::UsageNoticeState::default();
-        self.rate_limit_switch_prompt = RateLimitSwitchPromptState::Idle;
-        self.bottom_pane
-            .dismiss_view_by_id(RATE_LIMIT_SWITCH_PROMPT_VIEW_ID);
         let had_refreshing_status_outputs = !self.refreshing_status_outputs.is_empty();
         let now = Local::now();
         for (_, handle) in self.refreshing_status_outputs.drain(..) {
@@ -310,14 +302,6 @@ impl ChatWidget {
 
     /// Set the model in the widget's config copy and stored collaboration mode.
     pub(crate) fn set_model(&mut self, model: &str) {
-        if model != self.current_model() {
-            if self.current_model() == crate::model_catalog::LUNA_RESERVE_MODEL {
-                self.clear_reserve_return();
-            } else {
-                self.automatic_model_switch_state =
-                    backend_banners::AutomaticModelSwitchState::default();
-            }
-        }
         self.current_collaboration_mode = self.current_collaboration_mode.with_updates(
             Some(model.to_string()),
             /*effort*/ None,
@@ -499,7 +483,6 @@ impl ChatWidget {
     /// header/title (`refresh_model_display`) but forget the footer status line
     /// (`refresh_status_line`).
     pub(super) fn refresh_model_dependent_surfaces(&mut self) {
-        self.sync_backend_banner_view();
         self.refresh_model_display();
         self.refresh_status_line();
         self.refresh_open_model_picker();

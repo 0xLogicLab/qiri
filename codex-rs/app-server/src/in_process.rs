@@ -1020,6 +1020,7 @@ mod tests {
                 .request(ClientRequest::ThreadStart {
                     request_id: RequestId::Integer(2),
                     params: ThreadStartParams {
+                        model: Some("local-test-model".into()),
                         ephemeral: Some(true),
                         ..ThreadStartParams::default()
                     },
@@ -1336,7 +1337,10 @@ mod tests {
         let response = client
             .request(ClientRequest::ThreadStart {
                 request_id: RequestId::Integer(1),
-                params: ThreadStartParams::default(),
+                params: ThreadStartParams {
+                    model: Some("local-test-model".into()),
+                    ..Default::default()
+                },
             })
             .await
             .expect("thread/start transport should work")

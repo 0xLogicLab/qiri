@@ -34,12 +34,19 @@ use super::ImageRequest;
 use super::ImagegenArgs;
 use super::PreparedImageRequest;
 use super::imagegen_tool_spec;
-use super::request_for_call_args;
 use super::usage_limit_failure;
 use crate::IMAGE_GEN_NAMESPACE;
 use crate::IMAGEGEN_TOOL_NAME;
 use crate::artifact::image_generation_artifact_path;
 use crate::artifact::image_generation_output_hint;
+
+async fn request_for_call_args(
+    args: &ImagegenArgs,
+    history: &[ResponseItem],
+    environments: &[ToolEnvironment<'_>],
+) -> std::result::Result<PreparedImageRequest, codex_extension_api::FunctionCallError> {
+    super::request_for_call_args(args, history, environments, "local-image-model").await
+}
 
 const RESULT: &str = "cG5n";
 
@@ -123,7 +130,7 @@ async fn referenced_files_record_the_exact_bytes_read_for_each_request() {
                     .collect(),
                 prompt: args.prompt.clone(),
                 background: Some(ImageBackground::Opaque),
-                model: "gpt-image-2".to_string(),
+                model: "local-image-model".to_string(),
                 n: None,
                 quality: Some(ImageQuality::Auto),
                 size: Some("auto".to_string()),
@@ -259,7 +266,7 @@ async fn omitted_references_generate_with_fixed_defaults() {
                 output: None,
                 prompt: "paint a moonlit lake".to_string(),
                 background: Some(ImageBackground::Opaque),
-                model: "gpt-image-2".to_string(),
+                model: "local-image-model".to_string(),
                 n: None,
                 quality: Some(ImageQuality::Auto),
                 size: Some("auto".to_string()),
@@ -407,7 +414,7 @@ async fn recent_image_fallback_passes_file_backed_image_to_edit_request() {
                 }],
                 prompt: "change the lighting".to_string(),
                 background: Some(ImageBackground::Opaque),
-                model: "gpt-image-2".to_string(),
+                model: "local-image-model".to_string(),
                 n: None,
                 quality: Some(ImageQuality::Auto),
                 size: Some("auto".to_string()),
@@ -467,7 +474,7 @@ async fn recent_image_fallback_passes_file_backed_tool_output_to_edit_request() 
                 }],
                 prompt: "change the lighting".to_string(),
                 background: Some(ImageBackground::Opaque),
-                model: "gpt-image-2".to_string(),
+                model: "local-image-model".to_string(),
                 n: None,
                 quality: Some(ImageQuality::Auto),
                 size: Some("auto".to_string()),
@@ -677,7 +684,7 @@ fn expected_edit_request(prompt: &str, images: &[&str]) -> ImageEditRequest {
             .collect(),
         prompt: prompt.to_string(),
         background: Some(ImageBackground::Opaque),
-        model: "gpt-image-2".to_string(),
+        model: "local-image-model".to_string(),
         n: None,
         quality: Some(ImageQuality::Auto),
         size: Some("auto".to_string()),

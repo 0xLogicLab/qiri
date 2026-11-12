@@ -141,7 +141,7 @@ fn test_model_client_with_thread_id(
         /*attestation_provider*/ None,
         HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault),
         codex_model_provider::WorkspaceRoutingContext::new(
-            "https://chatgpt.com/backend-api".into(),
+            "https://service.example.test/backend-api".into(),
         ),
         Vec::new(),
     )
@@ -149,129 +149,6 @@ fn test_model_client_with_thread_id(
 
 fn test_model_provider() -> SharedModelProvider {
     test_model_client(SessionSource::Cli).state.provider.clone()
-}
-
-#[test_case::test_case(None; "credential_auth")]
-#[test_case::test_case(Some(RuntimeAuthMode::DualHeader); "dual_header")]
-#[test_case::test_case(Some(RuntimeAuthMode::AssertionOnly); "assertion_only")]
-#[tokio::test]
-async fn workspace_routed_http_rejects_redirects_without_a_routing_header(
-    runtime_mode: Option<RuntimeAuthMode>,
-) {
-    use codex_client::HttpTransport;
-    use codex_login::WorkspaceRouting;
-    use codex_login::WorkspaceRoutingRequest;
-    use codex_login::WorkspaceRoutingResolver;
-
-    struct Routing(Option<&'static str>);
-    impl WorkspaceRoutingResolver for Routing {
-        fn resolve(
-            &self,
-            _request: WorkspaceRoutingRequest,
-        ) -> Pin<
-            Box<
-                dyn std::future::Future<Output = std::io::Result<Option<WorkspaceRouting>>>
-                    + Send
-                    + '_,
-            >,
-        > {
-            Box::pin(async move {
-                Ok(self.0.map(|override_value| WorkspaceRouting {
-                    chatgpt_account_id: "account_id".into(),
-                    backend_origin: "https://gov.chatgpt.com".into(),
-                    account_routing_override: override_value.into(),
-                }))
-            })
-        }
-    }
-
-    for routing_override in [Some("NO_CONSTRAINT"), Some("us_cr"), None] {
-        let origin = MockServer::start().await;
-        let destination = MockServer::start().await;
-        Mock::given(method("POST"))
-            .respond_with(
-                ResponseTemplate::new(/*status*/ 307)
-                    .insert_header("location", format!("{}/responses", destination.uri())),
-            )
-            .mount(&origin)
-            .await;
-        Mock::given(method("POST"))
-            .respond_with(ResponseTemplate::new(/*status*/ 200))
-            .mount(&destination)
-            .await;
-        let manager =
-            AuthManager::from_auth_for_testing(CodexAuth::create_dummy_chatgpt_auth_for_testing());
-        let resolver: Arc<dyn WorkspaceRoutingResolver> = Arc::new(Routing(routing_override));
-        manager.set_workspace_routing_resolver(Arc::downgrade(&resolver));
-        let registration = MockServer::start().await;
-        Mock::given(method("POST"))
-            .and(path("/register"))
-            .respond_with(ResponseTemplate::new(200).set_body_json(json!({
-                "runtime_agent_instance_id": "runtime-a",
-                "agent_host_id": "host-a",
-                "actor": {"kind": "chatgpt", "user_id": "user-a", "account_id": "account_id"},
-            })))
-            .mount(&registration)
-            .await;
-        let runtime = Arc::new(RuntimeAuthManager::new(
-            manager.clone(),
-            AgentHostAuthorization::InstallationId {
-                installation_id: uuid::Uuid::nil(),
-            },
-            RuntimeRegistrationMetadata {
-                harness: None,
-                harness_version: None,
-                role: RuntimeRole::OrchestratorAndExecutor,
-            },
-            format!("{}/register", registration.uri()).parse().unwrap(),
-        ));
-        let mut client = test_model_client(SessionSource::Exec);
-        Arc::get_mut(&mut client.state).unwrap().provider = create_model_provider(
-            ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into())),
-            Some(manager),
-        );
-        if let Some(mode) = runtime_mode {
-            client = client.with_runtime_auth(runtime, mode).unwrap();
-        }
-        let mut setup = client
-            .current_client_setup(super::ClientRouting::Workspace)
-            .await
-            .unwrap();
-        if routing_override.is_some() {
-            assert_eq!(
-                setup.api_provider.base_url,
-                "https://gov.chatgpt.com/backend-api/codex"
-            );
-        }
-        // Exercise the resolved route's redirect policy against loopback HTTP servers.
-        setup.api_provider.base_url = origin.uri();
-        let transport = setup.build_api_transport("/responses").unwrap();
-        let request = setup
-            .api_provider
-            .build_request(http::Method::POST, "/responses")
-            .with_json(&json!({"input": "workspace content"}));
-        let result = transport.execute(request).await;
-        let reject_redirects = routing_override.is_some();
-        if reject_redirects {
-            assert!(
-                matches!(
-                    result,
-                    Err(TransportError::Http {
-                        retry_after: None,
-                        status: http::StatusCode::TEMPORARY_REDIRECT,
-                        ..
-                    })
-                ),
-                "workspace redirect must be rejected: {routing_override:?}"
-            );
-        } else {
-            assert_eq!(result.unwrap().status, http::StatusCode::OK);
-        }
-        assert_eq!(
-            destination.received_requests().await.unwrap().len(),
-            usize::from(!reject_redirects)
-        );
-    }
 }
 
 #[derive(Debug)]
@@ -398,69 +275,6 @@ async fn client_setup_accepts_command_credential_refresh() {
             ),
         );
         assert_ne!(setup.auth_owner_generation, client.auth_owner_generation());
-    }
-}
-
-#[tokio::test]
-async fn client_setup_rebuilds_chatgpt_refresh_but_rejects_account_switches() {
-    for (user, workspace, expected_calls) in [
-        ("user-a", "workspace-a", 2),
-        ("user-b", "workspace-a", 1),
-        ("user-a", "workspace-b", 1),
-    ] {
-        let token = |user: &str, revision: &str| {
-            let claims =
-                json!({"jti": revision, "https://api.openai.com/auth": {"chatgpt_user_id": user}});
-            let payload =
-                base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(claims.to_string());
-            format!("header.{payload}.signature")
-        };
-        let home = TempDir::new().unwrap();
-        let initial = CodexAuth::from_external_chatgpt_tokens(
-            &token("user-a", "initial"),
-            "workspace-a",
-            /*chatgpt_plan_type*/ None,
-        )
-        .unwrap();
-        let manager =
-            AuthManager::from_auth_for_testing_with_home(initial, home.path().to_path_buf());
-        let refreshed_token = token(user, "refreshed");
-        let mut info = test_model_provider().info().clone();
-        info.requires_openai_auth = true;
-        let provider = Arc::new(SetupRefreshProvider {
-            inner: create_model_provider(info, Some(manager.clone())),
-            refresh: SetupRefresh::ChatGpt {
-                home: home.path().to_path_buf(),
-                token: refreshed_token.clone(),
-                workspace: workspace.into(),
-            },
-            setup_calls: AtomicUsize::new(/*v*/ 0),
-        });
-        let mut client = test_model_client(SessionSource::Exec);
-        Arc::get_mut(&mut client.state).unwrap().provider = provider.clone();
-        let result = client
-            .current_client_setup(super::ClientRouting::ConfiguredProvider)
-            .await;
-        if expected_calls == 2 {
-            let setup = result.unwrap();
-            let mut headers = http::HeaderMap::new();
-            setup.api_auth.add_auth_headers(&mut headers).unwrap();
-            assert_eq!(
-                headers.get(http::header::AUTHORIZATION).unwrap(),
-                &format!("Bearer {refreshed_token}")
-            );
-            assert_eq!(setup.auth.unwrap().get_token().unwrap(), refreshed_token);
-            assert_eq!(
-                (setup.auth_revision, setup.auth_owner_generation),
-                (Some(*manager.auth_change_receiver().borrow()), Some(0))
-            );
-        } else {
-            assert_eq!(
-                result.err().expect("account switch must fail").to_string(),
-                "account changed while preparing model request"
-            );
-        }
-        assert_eq!(provider.setup_calls.load(Ordering::SeqCst), expected_calls);
     }
 }
 
@@ -597,7 +411,7 @@ async fn responses_request_includes_internal_metadata_for_provider_grant_or_firs
     without_omitted_metadata.mark_tool_calls_complete();
 
     let mut provider =
-        ModelProviderInfo::create_local_provider(Some("https://api.openai.com/v1".to_string()));
+        metadata_enabled_test_provider(Some("https://www.example.net/v1".to_string()));
     let mut api_provider = provider.to_api_provider(/*auth_mode*/ None)?;
     let mut client = test_model_client(SessionSource::Cli);
     Arc::get_mut(&mut client.state)
@@ -631,14 +445,18 @@ async fn responses_request_includes_internal_metadata_for_provider_grant_or_firs
     );
     responses_metadata.mcp_attribution = Some(attribution.clone());
     for (provider_grant, base_url, allowed) in [
-        (false, "https://api.openai.com/v1", true),
-        (false, "https://chatgpt.com/backend-api/codex", true),
-        (false, "https://api.chatgpt-staging.com/v1", true),
+        (false, "https://www.example.net/v1", false),
+        (
+            false,
+            "https://service.example.test/backend-api/codex",
+            false,
+        ),
+        (false, "https://api.staging.example.test/v1", false),
         (false, "https://proxy.example.com/v1", false),
-        (false, "http://api.openai.com/v1", false),
-        (false, "https://api.openai.com.evil.example/v1", false),
-        (false, "https://chatgpt.com.evil.example/v1", false),
-        (false, "https://api.openai.com@proxy.example.com/v1", false),
+        (false, "http://www.example.net/v1", false),
+        (false, "https://www.example.net.evil.example/v1", false),
+        (false, "https://service.example.test.evil.example/v1", false),
+        (false, "https://www.example.net@proxy.example.com/v1", false),
         (false, "not a URL", false),
         (true, "http://provider.example/v1", true),
     ] {
@@ -671,6 +489,12 @@ async fn responses_request_includes_internal_metadata_for_provider_grant_or_firs
                     without_omitted_metadata.clone(),
                 ]
             };
+            let mut expected_input = expected_input;
+            if !allowed {
+                for item in &mut expected_input {
+                    item.clear_internal_chat_message_metadata_passthrough();
+                }
+            }
             assert!(
                 request.input.ends_with(&expected_input),
                 "resolved endpoint: {base_url}, responses_lite: {responses_lite}",
@@ -815,8 +639,7 @@ fn responses_request_preserves_result_metadata_above_previous_aggregate_budget()
     };
     // Follow the sampling path: budget the request copy before client serialization.
     recorder.attach_to_prompt(&mut prompt.input, &mut Default::default());
-    let provider =
-        ModelProviderInfo::create_local_provider(Some("https://api.openai.com/v1".to_string()));
+    let provider = metadata_enabled_test_provider(Some("https://www.example.net/v1".to_string()));
     let api_provider = provider.to_api_provider(/*auth_mode*/ None)?;
     let mut client = test_model_client(SessionSource::Cli);
     Arc::get_mut(&mut client.state)
@@ -860,8 +683,8 @@ fn responses_request_preserves_result_metadata_above_previous_aggregate_budget()
 #[test]
 fn websocket_incremental_reuse_tracks_raw_result_metadata() -> anyhow::Result<()> {
     let provider = ModelProviderInfo {
-        include_internal_metadata: false,
-        ..ModelProviderInfo::create_local_provider(Some("https://api.openai.com/v1".to_string()))
+        include_internal_metadata: true,
+        ..metadata_enabled_test_provider(Some("https://www.example.net/v1".to_string()))
     };
     let mut api_provider = provider.to_api_provider(/*auth_mode*/ None)?;
     let mut client = test_model_client(SessionSource::Cli);
@@ -878,28 +701,28 @@ fn websocket_incremental_reuse_tracks_raw_result_metadata() -> anyhow::Result<()
     for (scenario, base_url, previous_metadata, current_metadata, expect_incremental) in [
         (
             "late_result",
-            "https://api.openai.com/v1",
+            "https://www.example.net/v1",
             None,
             Some("first"),
             false,
         ),
         (
             "unchanged_result",
-            "https://api.openai.com/v1",
+            "https://www.example.net/v1",
             Some("first"),
             Some("first"),
             true,
         ),
         (
             "changed_result",
-            "https://api.openai.com/v1",
+            "https://www.example.net/v1",
             Some("first"),
             Some("second"),
             false,
         ),
         (
             "ordinary_metadata_only",
-            "https://api.openai.com/v1",
+            "https://www.example.net/v1",
             None,
             None,
             true,
@@ -932,6 +755,9 @@ fn websocket_incremental_reuse_tracks_raw_result_metadata() -> anyhow::Result<()
             });
         previous_output.set_turn_id_if_missing("previous-turn");
         current_output.set_turn_id_if_missing("current-turn");
+        let mut info = client.state.provider.info().clone();
+        info.include_internal_metadata = scenario != "filtered_result";
+        Arc::get_mut(&mut client.state).unwrap().provider = create_model_provider(info, None);
         api_provider.base_url = base_url.to_string();
         let include_internal = client
             .state
@@ -1071,8 +897,7 @@ async fn responses_http_preserves_raw_tool_metadata_for_openai_custom_endpoint()
         .expect(/*requests*/ 1)
         .mount(&server)
         .await;
-    let mut provider =
-        ModelProviderInfo::create_local_provider(Some(format!("{}/v1", server.uri())));
+    let mut provider = metadata_enabled_test_provider(Some(format!("{}/v1", server.uri())));
     provider.requires_openai_auth = false;
     provider.supports_websockets = false;
     let mut client = test_model_client(SessionSource::Cli);
@@ -2137,7 +1962,7 @@ fn model_client_with_counting_attestation(
             Some(AuthManager::from_auth_for_testing(
                 CodexAuth::create_dummy_chatgpt_auth_for_testing(),
             )),
-            ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".to_string())),
+            metadata_enabled_test_provider(Some("http://localhost:8000/v1".to_string())),
         )
     } else {
         (
@@ -2165,50 +1990,11 @@ fn model_client_with_counting_attestation(
         })),
         HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault),
         codex_model_provider::WorkspaceRoutingContext::new(
-            "https://chatgpt.com/backend-api".into(),
+            "https://service.example.test/backend-api".into(),
         ),
         Vec::new(),
     );
     (model_client, attestation_calls)
-}
-
-#[test]
-fn thread_responses_headers_are_scoped_to_model_and_backend_auth() {
-    let (mut model_client, _) =
-        model_client_with_counting_attestation(/*include_attestation*/ true);
-    let headers = http::HeaderMap::from_iter([(
-        http::HeaderName::from_static("x-custom-request"),
-        http::HeaderValue::from_static("example"),
-    )]);
-    model_client.codex_responses_headers = Some(Arc::new(crate::CodexResponsesHeaders {
-        model: "selected-model".to_owned(),
-        headers: headers.clone(),
-    }));
-    let chatgpt_auth = CodexAuth::create_dummy_chatgpt_auth_for_testing();
-    let api_key_auth = CodexAuth::from_api_key("test-api-key");
-    for (auth, model, expected) in [
-        (Some(&chatgpt_auth), "selected-model", headers.clone()),
-        (Some(&chatgpt_auth), "other-model", http::HeaderMap::new()),
-        (
-            Some(&api_key_auth),
-            "selected-model",
-            http::HeaderMap::new(),
-        ),
-        (None, "selected-model", http::HeaderMap::new()),
-    ] {
-        assert_eq!(model_client.responses_headers(auth, model), expected);
-    }
-
-    Arc::get_mut(&mut model_client.state)
-        .expect("test client should have unique session state")
-        .provider = create_model_provider(
-        ModelProviderInfo::create_local_provider(Some("https://proxy.example.com/v1".to_owned())),
-        Some(AuthManager::from_auth_for_testing(chatgpt_auth.clone())),
-    );
-    assert_eq!(
-        model_client.responses_headers(Some(&chatgpt_auth), "selected-model"),
-        headers,
-    );
 }
 
 #[test_case::test_case(/*session_id_override*/ None; "own_session_id")]
@@ -2337,7 +2123,6 @@ async fn intercepted_output_reaches_trace_and_websocket_bookkeeping() -> anyhow:
     let (last_response_tx, last_response_rx) = tokio::sync::oneshot::channel();
     let mut stream = super::map_response_stream(
         codex_api::ResponseStream {
-            routing_affinity: None,
             rx_event,
             upstream_request_id: None,
             interrupt: None,
@@ -2418,4 +2203,12 @@ async fn inference_tools_changes_follow_full_specs_across_turns() {
             "step {index}"
         );
     }
+}
+
+fn metadata_enabled_test_provider(base_url: Option<String>) -> ModelProviderInfo {
+    let mut provider = ModelProviderInfo::create_local_provider(base_url);
+    provider.include_internal_metadata = true;
+    provider.requires_openai_auth = true;
+    provider.supports_websockets = true;
+    provider
 }

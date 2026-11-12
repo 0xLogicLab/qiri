@@ -1,9 +1,6 @@
 use url::Host;
 use url::Url;
 
-mod chatgpt_cloudflare_cookies;
-mod chatgpt_hosts;
-mod chatgpt_routing_affinity;
 mod client;
 mod client_builder;
 mod client_tls;
@@ -23,9 +20,6 @@ mod route_aware_redirect;
 mod tls_backend_fallback;
 mod transport;
 
-pub use crate::chatgpt_cloudflare_cookies::with_chatgpt_cloudflare_cookie_store;
-pub use crate::chatgpt_hosts::is_allowed_chatgpt_host;
-pub use crate::chatgpt_routing_affinity::ChatGptRoutingAffinity;
 pub use crate::client::HttpClient;
 pub use crate::client::HttpError;
 pub use crate::client_builder::HttpClientBuilder;

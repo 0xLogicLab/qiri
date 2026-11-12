@@ -93,18 +93,6 @@ impl ThreadLifecycleContributor<Config> for GuardianV2Extension {
             input
                 .thread_store
                 .insert(ConversationBackend::new(Arc::clone(&sampler)));
-            input
-                .thread_store
-                .remove::<super::decisions::DecisionsSampler>();
-            if input
-                .config
-                .features
-                .enabled(Feature::GuardianV2DecisionsComparison)
-                && let Some(decisions_sampler) =
-                    super::startup::decisions_sampler(&input, &self.auth_manager)
-            {
-                input.thread_store.insert(decisions_sampler);
-            }
             input.thread_store.insert(guardian_config);
             input.thread_store.insert(GuardianV2ScoreProgress::new(
                 input.extension_metrics.clone(),

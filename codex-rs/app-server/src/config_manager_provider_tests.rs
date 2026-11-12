@@ -19,8 +19,8 @@ use test_case::test_case;
 #[test_case(GCP_PROVIDER_ID, "project_id = 'example-project'\nlocation = 'us-central1'", "example-project", "other-project", None; "gcp_project")]
 #[test_case(GCP_PROVIDER_ID, "project_id = 'example-project'\nlocation = 'us-central1'", "us-central1", "us-east4", None; "gcp_location")]
 #[test_case(GCP_PROVIDER_ID, "project_id = 'example-project'\nauth.command = 'print-token'", "print-token", "other-token", None; "gcp_auth")]
-#[test_case("openai", "model_catalog_url = 'https://chatgpt.com/backend-api/codex/models'", "https://chatgpt.com/backend-api/codex/models", "https://chatgpt.com/backend-api/codex/other-models", None; "openai_catalog")]
-#[test_case("openai", "model_catalog_url = 'https://chatgpt.com/backend-api/codex/models'", "https://chatgpt.com/backend-api/codex/models", "https://chatgpt.com/backend-api/codex/other-models", Some("https://us.api.openai.com/v1"); "openai_regional_catalog")]
+#[test_case("local", "name = 'Local'\nmodel_catalog_url = 'https://service.example.test/backend-api/codex/models'", "https://service.example.test/backend-api/codex/models", "https://service.example.test/backend-api/codex/other-models", None; "openai_catalog")]
+#[test_case("local", "name = 'Local'\nmodel_catalog_url = 'https://service.example.test/backend-api/codex/models'", "https://service.example.test/backend-api/codex/models", "https://service.example.test/backend-api/codex/other-models", Some("https://us.www.example.net/v1"); "openai_regional_catalog")]
 #[tokio::test]
 async fn provider_requirements_resolve_builtin_overrides(
     provider_id: &str,
@@ -34,9 +34,14 @@ async fn provider_requirements_resolve_builtin_overrides(
     if let Some(base_url) = openai_base_url {
         std::fs::write(
             home.path().join("config.toml"),
-            format!("openai_base_url = '{base_url}'"),
+            format!("[model_providers.local]\nname = 'Local'\nbase_url = '{base_url}'"),
         )?;
     }
+    let provider_config = if let Some(base_url) = openai_base_url {
+        format!("{provider_config}\nbase_url = '{base_url}'")
+    } else {
+        provider_config.to_string()
+    };
     let requirements = format!(
         "model_provider = '{provider_id}'\n[model_providers.{provider_id}]\n{provider_config}"
     );
@@ -49,12 +54,12 @@ async fn provider_requirements_resolve_builtin_overrides(
     let current = manager
         .load_latest_config(Some(workspace.path().to_path_buf()))
         .await?;
-    if provider_id == "openai" {
+    if provider_id == "local" {
         assert_eq!(current.model_provider.base_url.as_deref(), openai_base_url);
         // Retained threads keep their inference route even if user defaults later change.
         std::fs::write(
             home.path().join("config.toml"),
-            "openai_base_url = 'https://eu.api.openai.com/v1'",
+            "openai_base_url = 'https://eu.www.example.net/v1'",
         )?;
     }
     manager.check_thread_model_provider(&current).await?;
@@ -258,7 +263,7 @@ async fn catalog_reload_uses_latest_model_provider() -> Result<()> {
         .load_startup_config(/*fallback_cwd*/ None)
         .await?
         .config;
-    assert_eq!(refreshed.model_provider_id, "openai");
+    assert_eq!(refreshed.model_provider_id, "local");
     Ok(())
 }
 
@@ -271,7 +276,7 @@ async fn input_provider_check_uses_effective_selection(key: &str, value: &str) -
     std::fs::write(
         home.path().join("config.toml"),
         r#"
-model_provider = "openai"
+model_provider = "local"
 [model_providers.gateway]
 name = "Gateway"
 "#,
@@ -315,7 +320,7 @@ name = "Gateway"
             .and_then(|error| error.downcast_ref::<ModelProviderError>()),
         Some(&ModelProviderError::ModelProviderMismatch {
             model_provider: "gateway".into(),
-            current_model_provider: "openai".into(),
+            current_model_provider: "local".into(),
         })
     );
     Ok(())

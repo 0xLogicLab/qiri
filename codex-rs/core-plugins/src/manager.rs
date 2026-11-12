@@ -207,12 +207,10 @@ impl PluginsConfigInput {
     /// Request metadata remains current; new config inputs own a new pool.
     pub fn remote_plugin_service_config(&self) -> RemotePluginServiceConfig {
         let http_clients = self.remote_http_clients.get_or_init(|| {
-            Arc::new(
-                RouteAwareClientPool::with_chatgpt_cloudflare_cookies_without_request_logging(
-                    self.http_client_factory.clone(),
-                    ClientRouteClass::Api,
-                ),
-            )
+            Arc::new(RouteAwareClientPool::new_without_request_logging(
+                self.http_client_factory.clone(),
+                ClientRouteClass::Api,
+            ))
         });
         RemotePluginServiceConfig {
             chatgpt_base_url: self.chatgpt_base_url.clone(),

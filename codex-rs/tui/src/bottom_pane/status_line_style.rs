@@ -21,11 +21,11 @@ const STATUS_LINE_COLOR_BRIGHTNESS_PERCENT: u16 = 100;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 enum StatusLineAccent {
+    Usage,
     Model,
     Path,
     Branch,
     State,
-    Usage,
     Limit,
     Metadata,
     Mode,

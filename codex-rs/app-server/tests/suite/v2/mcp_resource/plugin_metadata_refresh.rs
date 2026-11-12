@@ -18,9 +18,9 @@ async fn signed_image_renewal_preserves_live_mcp_and_plugin_skills() -> Result<(
     let responses_server = responses::start_mock_server().await;
     let listener = TcpListener::bind("127.0.0.1:0").await?;
     let base_url = format!("http://{}", listener.local_addr()?);
-    let original_logo = "https://files.openai.com/plugins/logo.png?sv=1&sr=b&sig=first&se=old";
-    let renewed_logo = "https://files.openai.com/plugins/logo.png?sv=1&sr=b&sig=second&se=new";
-    let changed_logo = "https://files.openai.com/plugins/new-logo.png?sv=1&sr=b&sig=third&se=new";
+    let original_logo = "https://files.example.net/plugins/logo.png?sv=1&sr=b&sig=first&se=old";
+    let renewed_logo = "https://files.example.net/plugins/logo.png?sv=1&sr=b&sig=second&se=new";
+    let changed_logo = "https://files.example.net/plugins/new-logo.png?sv=1&sr=b&sig=third&se=new";
     let installed = Arc::new(RwLock::new(json!({
         "id": "plugins~Plugin_00000000000000000000000000000000",
         "name": "demo-plugin",

@@ -170,7 +170,8 @@ use tracing::debug;
 use tracing::warn;
 
 const DEFAULT_MODEL_DISPLAY_NAME: &str = "loading";
-const TRUSTED_ACCESS_FOR_CYBER_VERIFICATION_WARNING: &str = "Your conversations have multiple flags for possible cybersecurity risk. Responses may take longer because extra safety checks are on. To get authorized for security work, join the Trusted Access for Cyber program: https://chatgpt.com/cyber";
+const TRUSTED_ACCESS_FOR_CYBER_VERIFICATION_WARNING: &str =
+    "The configured endpoint requires additional authorization for this request.";
 const MEMORIES_ENABLE_NOTICE: &str = "Memories will be enabled in the next session.";
 const MEMORIES_DOC_URL: &str = "https://github.com/0xLogicLab/qiri/blob/main/docs/config.md";
 const PLAN_MODE_REASONING_SCOPE_TITLE: &str = "Apply reasoning change";
@@ -338,24 +339,17 @@ mod permission_shortcuts;
 mod permissions_menu;
 pub(crate) use self::permissions_menu::auto_review_available;
 pub(crate) use self::permissions_menu::cyber_model_approval_reviewer;
-mod backend_banners;
 mod compaction;
-mod luna_reserve_model;
-mod luna_reserve_return;
-mod security_setup;
-pub(crate) use backend_banners::AutomaticModelSwitchReason;
 mod protocol;
 mod protocol_requests;
 mod rate_limits;
 mod usage_notice;
 use self::rate_limits::RateLimitErrorKind;
-use self::rate_limits::RateLimitSwitchPromptState;
 use self::rate_limits::RateLimitWarningState;
 use self::rate_limits::app_server_rate_limit_error_kind;
 pub(crate) use self::rate_limits::fallback_limit_label;
 use self::rate_limits::is_app_server_cyber_policy_error;
 mod recap;
-mod reset_credits;
 pub(crate) use self::rate_limits::limit_label_for_window;
 mod completion;
 mod realtime;
@@ -409,7 +403,6 @@ use self::transcript::TranscriptState;
 mod turn_lifecycle;
 mod turn_runtime;
 use self::turn_lifecycle::TurnLifecycleState;
-mod usage;
 mod user_messages;
 mod working_directory;
 use self::user_messages::MessageDelivery;
@@ -468,7 +461,6 @@ const USER_SHELL_COMMAND_HELP_HINT: &str = "Example: !ls";
 const ASK_FOR_APPROVAL_LABEL: &str = "Ask for approval";
 const APPROVE_FOR_ME_LABEL: &str = "Approve for me";
 const AUTO_REVIEW_DESCRIPTION: &str = "Only ask for actions detected as potentially unsafe";
-const DEFAULT_OPENAI_BASE_URL: &str = "https://api.openai.com/v1";
 const DEFAULT_STATUS_LINE_ITEMS: [&str; 3] = ["model-with-reasoning", "current-dir", "thread-name"];
 
 /// Common initialization parameters shared by all `ChatWidget` constructors.
@@ -575,34 +567,16 @@ pub(crate) struct ChatWidget {
     rate_limit_snapshots_by_limit_id: BTreeMap<String, RateLimitSnapshotDisplay>,
     refreshing_status_outputs: Vec<(u64, StatusHistoryHandle)>,
     next_status_refresh_request_id: u64,
-    pending_rate_limit_reset_request_id: Option<u64>,
-    pending_rate_limit_reset_idempotency_key: Option<String>,
-    rate_limit_reset_picker_request_id: Option<u64>,
-    pending_rate_limit_reset_hint_request_id: Option<u64>,
-    pending_usage_menu_rate_limit_request_id: Option<u64>,
-    pending_rate_limit_reset_hint: Option<PlainHistoryCell>,
-    available_rate_limit_reset_credits: Option<i64>,
-    next_rate_limit_reset_request_id: u64,
     plan_type: Option<PlanType>,
     codex_rate_limit_reached_type: Option<RateLimitReachedType>,
     codex_spend_control_reached: Option<bool>,
     rate_limit_warnings: RateLimitWarningState,
     clock_format: crate::clock_format::ClockFormat,
     usage_notice_state: usage_notice::UsageNoticeState,
-    backend_banner_state: backend_banners::BackendBannerState,
-    pub(crate) security_setup_request_id: uuid::Uuid,
-    security_setup_presented: bool,
-    security_setup_identity: Option<crate::security_setup::Identity>,
-    security_setup_dismissed: bool,
-    automatic_model_switch_state: backend_banners::AutomaticModelSwitchState,
-    backend_banner_notice_model: Option<String>,
     // Remember the account's Reserve entry notice across chats and transient banner refreshes.
-    luna_reserve_notice_account_id: Option<String>,
     pub(crate) warning_display_state: WarningDisplayState,
     pub(crate) composer_images: Option<crate::transcript_image::composer::ComposerImages>,
     pub(crate) rendered_selection: std::cell::RefCell<crate::rendered_selection::RenderedSelection>,
-    rate_limit_switch_prompt: RateLimitSwitchPromptState,
-    add_credits_nudge_email_in_flight: Option<rate_limits::PendingCreditsNudge>,
     adaptive_chunking: AdaptiveChunkingPolicy,
     // Stream lifecycle controller
     stream_controller: Option<StreamController>,
@@ -1227,7 +1201,6 @@ impl ChatWidget {
     fn flush_active_cell(&mut self) {
         if let Some(active) = self.transcript.take_active_cell() {
             self.app_event_tx.send(AppEvent::InsertHistoryCell(active));
-            self.request_pending_usage_output_insertion();
         }
     }
 
@@ -1259,7 +1232,6 @@ impl ChatWidget {
         };
         if let Some(active) = self.take_history_insertion_prefix(cell.as_ref()) {
             self.app_event_tx.send(AppEvent::InsertHistoryCell(active));
-            self.request_pending_usage_output_insertion();
         }
         self.app_event_tx.send(AppEvent::InsertHistoryCell(cell));
     }
@@ -1475,7 +1447,6 @@ impl ChatWidget {
                 computer.mark_failed();
             }
             self.add_boxed_history(cell);
-            self.request_pending_usage_output_insertion();
         }
     }
 
@@ -2021,7 +1992,6 @@ impl ChatWidget {
     pub(crate) fn active_cell_transcript_key(&self) -> Option<ActiveCellTranscriptKey> {
         let cell = self.transcript.active_cell.as_ref();
         let mut realtime_cells = self.realtime_conversation.live_transcript_cells();
-        let rate_limit_reset_hint = self.pending_rate_limit_reset_hint();
         if cell.is_none()
             && self
                 .realtime_conversation
@@ -2029,14 +1999,10 @@ impl ChatWidget {
                 .next()
                 .is_none()
             && self.realtime_conversation.pending_history_cells.is_empty()
-            && rate_limit_reset_hint.is_none()
         {
             return None;
         }
-        let live_sources: [Option<&dyn HistoryCell>; 2] = [
-            cell.map(AsRef::as_ref),
-            rate_limit_reset_hint.map(|cell| cell as &dyn HistoryCell),
-        ];
+        let live_sources: [Option<&dyn HistoryCell>; 1] = [cell.map(AsRef::as_ref)];
         Some(ActiveCellTranscriptKey {
             cacheable: live_sources
                 .into_iter()

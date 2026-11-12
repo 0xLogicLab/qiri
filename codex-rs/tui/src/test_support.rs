@@ -2,10 +2,10 @@
 
 use std::sync::LazyLock;
 
-use codex_models_manager::bundled_models_response;
 use codex_protocol::openai_models::ModelPreset;
 pub(crate) use codex_utils_absolute_path::test_support::PathBufExt;
 pub(crate) use codex_utils_absolute_path::test_support::test_path_buf;
+use core_test_support::test_model_catalog as bundled_models_response;
 use serde::Serialize;
 use serde::de::DeserializeOwned;
 
@@ -55,3 +55,41 @@ where
 }
 
 pub(crate) use crate::boxed_future;
+
+/// Caller-supplied model capabilities for tests; never part of the provider defaults.
+pub(crate) fn explicit_bedrock_test_catalog(
+    runtime: bool,
+    gov: bool,
+) -> codex_protocol::openai_models::ModelsResponse {
+    let source = bundled_models_response().expect("test catalog");
+    let mut models = Vec::new();
+    for prefix in if runtime {
+        vec!["global.openai.", "us.openai."]
+    } else {
+        vec!["openai."]
+    } {
+        for mut model in source.models.clone() {
+            if model.slug.contains("daybreak") || model.slug == "codex-auto-review" {
+                continue;
+            }
+            if gov && !matches!(model.slug.as_str(), "gpt-5.6-terra" | "gpt-5.6-luna") {
+                continue;
+            }
+            model.service_tiers.clear();
+            model.additional_speed_tiers.clear();
+            model.default_service_tier = None;
+            if matches!(model.slug.as_str(), "gpt-6-astra" | "gpt-6.1-sol") {
+                model
+                    .service_tiers
+                    .push(codex_protocol::openai_models::ModelServiceTier {
+                        id: "ultrafast".into(),
+                        name: "Ultrafast".into(),
+                        description: "Explicit test tier".into(),
+                    });
+            }
+            model.slug = format!("{prefix}{}", model.slug);
+            models.push(model);
+        }
+    }
+    codex_protocol::openai_models::ModelsResponse { models }
+}

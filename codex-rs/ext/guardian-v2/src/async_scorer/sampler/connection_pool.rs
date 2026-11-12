@@ -59,7 +59,6 @@ const RESPONSES_WEBSOCKETS_BETA: &str = "responses_websockets=2026-02-06";
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub(super) enum RequestMode {
     Regular,
-    GuardianClassifier,
 }
 
 pub(super) struct ConnectionPool {
@@ -400,15 +399,13 @@ impl ConnectionPool {
     fn headers(
         &self,
         thread_id: &str,
-        request_kind: RequestMode,
+        _request_kind: RequestMode,
     ) -> Result<HeaderMap, LunaSamplerError> {
         let mut headers = build_session_headers(
             Some(self.config.session_id.clone()),
             Some(thread_id.to_owned()),
         );
-        if request_kind == RequestMode::GuardianClassifier {
-            headers.insert("x-codex-guardian", HeaderValue::from_static("classifier"));
-        }
+
         headers.insert("x-openai-subagent", HeaderValue::from_static("guardian"));
         headers.insert(
             "x-codex-window-id",
@@ -431,25 +428,7 @@ impl ConnectionPool {
         Ok(headers)
     }
     async fn responses_request_kind(&self) -> RequestMode {
-        let provider = self.config.provider.info();
-        if self
-            .config
-            .provider
-            .auth()
-            .await
-            .as_ref()
-            .is_some_and(CodexAuth::uses_codex_backend)
-            && provider.is_openai()
-            && provider.requires_openai_auth
-            && provider.env_key.is_none()
-            && provider.experimental_bearer_token.is_none()
-            && provider.auth.is_none()
-            && provider.aws.is_none()
-        {
-            RequestMode::GuardianClassifier
-        } else {
-            RequestMode::Regular
-        }
+        RequestMode::Regular
     }
 
     async fn open_connection(

@@ -525,7 +525,7 @@ async fn shell_snapshot_v2_remote_managed_proxy_uses_prepared_execution_context(
     const PROFILE_GH_TOKEN: &str = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     const REQUEST_GH_TOKEN: &str = "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
     const VENDOR_TOKEN: &str = "vendor_abcdefgh";
-    const CUSTOM_HOST: &str = "chatgpt.com";
+    const CUSTOM_HOST: &str = "service.example.test";
     let configured_provider = shell_name == "bash" && shell_args.first() == Some(&"-c");
     let shell_path = format!("/bin/{shell_name}");
     if shell_name == "zsh" && !std::path::Path::new(&shell_path).exists() {
@@ -537,7 +537,7 @@ async fn shell_snapshot_v2_remote_managed_proxy_uses_prepared_execution_context(
     let api_host = if shell_name == "zsh" && !unset_destinations {
         CUSTOM_HOST
     } else {
-        "api.openai.com"
+        "www.example.net"
     };
     let home = TempDir::new()?;
     if credential_masking
@@ -560,7 +560,7 @@ async fn shell_snapshot_v2_remote_managed_proxy_uses_prepared_execution_context(
     if configured_provider {
         executor_env.extend([
             ("VENDOR_TOKEN", VENDOR_TOKEN.to_string()),
-            ("VENDOR_BASE_URL", "https://api.openai.com/v1".to_string()),
+            ("VENDOR_BASE_URL", "https://www.example.net/v1".to_string()),
         ]);
     }
     if let Some(upstream) = &upstream {
@@ -569,7 +569,7 @@ async fn shell_snapshot_v2_remote_managed_proxy_uses_prepared_execution_context(
         let inherited_api_host = if unset_destinations {
             CUSTOM_HOST
         } else {
-            "api.openai.com"
+            "www.example.net"
         };
         executor_env.extend([
             ("AUTH_ALIAS", format!("Bearer {API_KEY}")),
@@ -778,7 +778,7 @@ async fn shell_snapshot_v2_remote_managed_proxy_uses_prepared_execution_context(
                 ""
             };
             format!(
-                "{command}; test \"$GH_ENTERPRISE_TOKEN\" = executor-unbound-enterprise-token || exit 45; test \"$AUTH_ALIAS\" = \"Bearer $OPENAI_API_KEY\" || exit 42; printf '|%s' \"$OPENAI_API_KEY\"; curl --silent --show-error --fail --max-time 5 --noproxy '' --config \"$HOME/curl.conf\" {vendor_header} \"${{OPENAI_BASE_URL:-https://api.openai.com/v1}}/models\" >/dev/null"
+                "{command}; test \"$GH_ENTERPRISE_TOKEN\" = executor-unbound-enterprise-token || exit 45; test \"$AUTH_ALIAS\" = \"Bearer $OPENAI_API_KEY\" || exit 42; printf '|%s' \"$OPENAI_API_KEY\"; curl --silent --show-error --fail --max-time 5 --noproxy '' --config \"$HOME/curl.conf\" {vendor_header} \"${{OPENAI_BASE_URL:-https://www.example.net/v1}}/models\" >/dev/null"
             )
         } else {
             format!("{command}; test \"$OPENAI_API_KEY\" = '{API_KEY}' || exit 46")

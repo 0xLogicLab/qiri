@@ -170,9 +170,6 @@ pub fn install(registry: &mut ExtensionRegistryBuilder<Config>, auth_manager: Ar
     registry.tool_contributor(extension);
 }
 
-#[cfg(test)]
-#[path = "routing_tests.rs"]
-mod routing_tests;
 
 #[cfg(test)]
 mod tests {
@@ -228,7 +225,7 @@ mod tests {
         let thread_store = ExtensionData::new("11111111-1111-4111-8111-111111111111");
         let step_store = ExtensionData::new("step");
         thread_store.insert(WorkspaceRoutingContext::new(
-            "https://chatgpt.com/backend-api".to_string(),
+            "https://service.example.test/backend-api".to_string(),
         ));
         step_store.insert(WebSearchMode::Cached);
         thread_store.insert(WebSearchExtensionConfig {

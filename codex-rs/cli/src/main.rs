@@ -610,7 +610,7 @@ enum AppServerDaemonSubcommand {
     /// Update the daemon package (may interrupt running work).
     Update {
         /// Copy and pin this CLI package.
-        #[arg(long)]
+        #[arg(long, required = true)]
         from_cli: bool,
         /// Confirm replacing the daemon package without an interactive prompt.
         #[arg(short = 'y', long, requires = "from_cli")]
@@ -628,17 +628,6 @@ enum AppServerDaemonSubcommand {
 
     /// Print local CLI and running app-server versions as JSON.
     Version,
-
-    /// [internal] Run the detached pid-backed standalone updater loop.
-    #[clap(hide = true)]
-    PidUpdateLoop {
-        /// Check support for daemon-owned packages without starting the updater.
-        #[arg(long, hide = true)]
-        check_package_ownership: bool,
-        /// Authorize one production restoration of this selected release.
-        #[arg(long, hide = true)]
-        restore_release: Option<String>,
-    },
 }
 
 #[derive(Debug, Args)]
@@ -1282,19 +1271,11 @@ async fn dispatch_cli(
                     AppServerDaemonSubcommand::Version => {
                         print_app_server_daemon_output(AppServerLifecycleCommand::Version).await?;
                     }
-                    AppServerDaemonSubcommand::PidUpdateLoop {
-                        check_package_ownership: true,
-                        ..
-                    } => return Ok(None),
                     AppServerDaemonSubcommand::Update {
                         from_cli: false, ..
                     } => {
                         anyhow::bail!("QIRI does not use upstream daemon releases; use --from-cli")
                     }
-                    AppServerDaemonSubcommand::PidUpdateLoop {
-                        check_package_ownership: false,
-                        ..
-                    } => anyhow::bail!("QIRI daemon automatic updates are not configured"),
                 },
                 Some(AppServerSubcommand::Proxy(proxy_cli)) => {
                     let socket_path = match proxy_cli.socket_path {
@@ -1882,12 +1863,7 @@ async fn run_debug_prompt_input_command(
     {
         codex_multi_env_copy_file::install(&mut extensions);
     }
-    codex_git_attribution::install(
-        &mut extensions,
-        auth_manager,
-        config.chatgpt_base_url.clone(),
-        config.http_client_factory(),
-    );
+
     codex_skills_extension::install(&mut extensions, |config: &Config| {
         codex_skills_extension::SkillsExtensionConfig {
             include_instructions: config.include_skill_instructions,
@@ -2165,7 +2141,6 @@ fn app_server_subcommand_name(subcommand: Option<&AppServerSubcommand>) -> &'sta
             }
             AppServerDaemonSubcommand::Stop => "app-server daemon stop",
             AppServerDaemonSubcommand::Version => "app-server daemon version",
-            AppServerDaemonSubcommand::PidUpdateLoop { .. } => "app-server daemon pid-update-loop",
         },
         Some(AppServerSubcommand::Proxy(_)) => "app-server proxy",
         Some(AppServerSubcommand::GenerateTs(_)) => "app-server generate-ts",
@@ -3974,13 +3949,12 @@ mod tests {
             "--connect",
             "ws://127.0.0.1:8765",
             "--remote",
-            "https://example.openai.com",
+            "https://example.example.net",
             "--environment-id",
             "env-1",
             "--name",
             "forwarded",
             "--strict-config",
-            "--use-agent-identity-auth",
         ])
         .expect("parse forward");
         assert!(cli.remote.remote.is_none());
@@ -4001,7 +3975,7 @@ mod tests {
             vec![
                 "forward",
                 "--remote",
-                "https://example.openai.com",
+                "https://example.example.net",
                 "--environment-id",
                 "env-1",
             ],
@@ -4010,7 +3984,7 @@ mod tests {
                 "--connect",
                 "ws://127.0.0.1:8765",
                 "--remote",
-                "https://example.openai.com",
+                "https://example.example.net",
             ],
         ] {
             assert!(

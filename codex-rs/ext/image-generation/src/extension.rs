@@ -41,9 +41,10 @@ impl ImageGenerationExtensionConfig {
     /// Resolves the image provider and save root for a thread.
     fn from_config(config: &Config, resolve_save_root: &SaveRootResolver) -> Self {
         Self {
-            available: config.model_provider.is_openai()
-                || config.model_provider.requires_openai_auth
-                || config.model_provider.uses_openai_actor_authorization(),
+            available: config
+                .features
+                .enabled(codex_features::Feature::ImageGeneration)
+                && config.model_provider.base_url.is_some(),
             gif_enabled: config.features.image_generation_animation_enabled(),
             http_client_factory: config.http_client_factory(),
             provider: config.model_provider.clone(),

@@ -2556,7 +2556,7 @@ async fn stdio_mcp_tool_call_includes_sandbox_state_meta(
     let call_id = "sandbox-meta-call";
     let restricted_call_id = "owner-restricted-call";
     let namespace = format!("mcp__{server_name}");
-    let mut models = codex_models_manager::bundled_models_response()?;
+    let mut models = core_test_support::test_model_catalog()?;
     let model = models
         .models
         .iter_mut()

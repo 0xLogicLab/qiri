@@ -128,7 +128,7 @@ fn serialize_environment_context_with_foreign_windows_cwd() {
 #[test]
 fn serialize_environment_context_with_network() {
     let network = NetworkContext::new(
-        vec!["api.example.com".to_string(), "*.openai.com".to_string()],
+        vec!["api.example.com".to_string(), "*.example.net".to_string()],
         vec!["blocked.example.com".to_string()],
     );
     let context = environment_state(
@@ -149,7 +149,7 @@ fn serialize_environment_context_with_network() {
   <shell>bash</shell>
   <current_date>2026-02-26</current_date>
   <timezone>America/Los_Angeles</timezone>
-  <network enabled="true"><allowed>api.example.com,*.openai.com</allowed><denied>blocked.example.com</denied></network>
+  <network enabled="true"><allowed>api.example.com,*.example.net</allowed><denied>blocked.example.com</denied></network>
 </environment_context>"#,
         test_path_buf("/repo").display()
     );

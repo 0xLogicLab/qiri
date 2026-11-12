@@ -292,10 +292,11 @@ fn set_web_search_mode(turn: &mut TurnContext, mode: WebSearchMode) {
     });
 }
 
-fn use_chatgpt_auth(turn: &mut TurnContext) {
-    turn.auth_manager = Some(AuthManager::from_auth_for_testing(
-        CodexAuth::create_dummy_chatgpt_auth_for_testing(),
-    ));
+fn use_image_capable_provider(turn: &mut TurnContext) {
+    set_feature(turn, Feature::ImageGeneration, true);
+    turn.auth_manager = Some(AuthManager::from_auth_for_testing(CodexAuth::from_api_key(
+        "local-test-key",
+    )));
     turn.provider = create_model_provider(
         turn.config.model_provider.clone(),
         turn.auth_manager.clone(),
@@ -3233,7 +3234,7 @@ async fn hosted_web_search_and_standalone_image_generation_follow_runtime_gates(
     });
     let image_generation = probe_with(
         |turn| {
-            use_chatgpt_auth(turn);
+            use_image_capable_provider(turn);
             update_turn_settings_for_test(turn, |settings| {
                 Arc::make_mut(&mut settings.model_info).input_modalities =
                     vec![InputModality::Image];
@@ -3249,7 +3250,7 @@ async fn hosted_web_search_and_standalone_image_generation_follow_runtime_gates(
 
     let extension_disabled = probe_with(
         |turn| {
-            use_chatgpt_auth(turn);
+            use_image_capable_provider(turn);
             set_feature(turn, Feature::ImageGeneration, /*enabled*/ false);
             update_turn_settings_for_test(turn, |settings| {
                 Arc::make_mut(&mut settings.model_info).input_modalities =
@@ -3266,7 +3267,7 @@ async fn hosted_web_search_and_standalone_image_generation_follow_runtime_gates(
 
     let text_only_model = probe_with(
         |turn| {
-            use_chatgpt_auth(turn);
+            use_image_capable_provider(turn);
             update_turn_settings_for_test(turn, |settings| {
                 Arc::make_mut(&mut settings.model_info).input_modalities = vec![];
             });
@@ -3316,7 +3317,7 @@ async fn hosted_web_search_and_standalone_image_generation_follow_runtime_gates(
     );
 
     let code_mode_only = probe(|turn| {
-        use_chatgpt_auth(turn);
+        use_image_capable_provider(turn);
         set_features(turn, &[Feature::CodeModeOnly, Feature::MultiAgentV2]);
         set_web_search_mode(turn, WebSearchMode::Live);
         update_turn_settings_for_test(turn, |settings| {

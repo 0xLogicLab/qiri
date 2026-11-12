@@ -81,7 +81,6 @@ use codex_model_provider::ProviderCapabilities;
 use codex_model_provider_info::LMSTUDIO_OSS_PROVIDER_ID;
 use codex_model_provider_info::OLLAMA_OSS_PROVIDER_ID;
 use codex_model_provider_info::WireApi;
-use codex_models_manager::bundled_models_response;
 use codex_network_proxy::NetworkMode;
 use codex_prompts::ResolvedMessage;
 use codex_protocol::config_types::ModelProviderAuthInfo;
@@ -106,6 +105,7 @@ use codex_protocol::protocol::RealtimeVoice;
 use codex_protocol::protocol::SandboxPolicy;
 use codex_protocol_test_support::ContentItemTestExt;
 use codex_utils_path_uri::LegacyAppPathString;
+use core_test_support::test_model_catalog as bundled_models_response;
 use serde::Deserialize;
 use tempfile::tempdir;
 
@@ -1600,7 +1600,7 @@ allow_upstream_proxy = false
 mode = "full"
 
 [permissions.dev.network.domains]
-"openai.com" = "allow"
+"example.net" = "allow"
 
 [permissions.dev.network.mitm.hooks.github_write]
 host = "api.github.com"
@@ -1661,7 +1661,7 @@ strip_request_headers = ["authorization"]
                         mode: Some(NetworkMode::Full),
                         domains: Some(NetworkDomainPermissionsToml {
                             entries: BTreeMap::from([(
-                                "openai.com".to_string(),
+                                "example.net".to_string(),
                                 NetworkDomainPermissionToml::Allow,
                             )]),
                         }),
@@ -2682,7 +2682,7 @@ async fn permissions_profiles_network_disabled_by_default_does_not_start_proxy()
                         network: Some(NetworkToml {
                             domains: Some(NetworkDomainPermissionsToml {
                                 entries: BTreeMap::from([(
-                                    "openai.com".to_string(),
+                                    "example.net".to_string(),
                                     NetworkDomainPermissionToml::Allow,
                                 )]),
                             }),
@@ -3349,7 +3349,7 @@ async fn permission_profile_override_preserves_configured_network_policy_without
                             allow_upstream_proxy: Some(false),
                             domains: Some(NetworkDomainPermissionsToml {
                                 entries: BTreeMap::from([(
-                                    "openai.com".to_string(),
+                                    "example.net".to_string(),
                                     NetworkDomainPermissionToml::Allow,
                                 )]),
                             }),
@@ -6710,8 +6710,6 @@ async fn config_applies_managed_auth_store_and_chatgpt_base_url(
 
     Ok(())
 }
-
-
 
 #[tokio::test]
 async fn project_cannot_be_the_only_xaa_opt_in_source() -> std::io::Result<()> {
@@ -10328,7 +10326,7 @@ enabled = true
 
 [model_providers.local-custom]
 name = "OpenAI custom"
-base_url = "https://api.openai.com/v1"
+base_url = "https://www.example.net/v1"
 env_key = "OPENAI_API_KEY"
 wire_api = "responses"
 request_max_retries = 4            # retry failed HTTP requests

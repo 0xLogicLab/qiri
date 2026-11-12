@@ -104,7 +104,6 @@ pub(crate) use worktree_startup::ManagedTuiWorktree;
 
 mod activation_key_guard;
 mod additional_dirs;
-mod analytics;
 mod app;
 mod app_backtrack;
 mod app_command;
@@ -116,7 +115,6 @@ mod app_server_connection;
 mod app_server_session;
 mod approval_events;
 mod async_question_reply;
-mod backend_banners;
 mod backend_id;
 mod bottom_pane;
 mod branch_summary;
@@ -137,7 +135,6 @@ mod experimental_features;
 mod markdown_copy;
 mod permission_discovery;
 mod pets;
-mod security_setup;
 mod worktree_browser;
 pub use custom_terminal::Terminal;
 mod assistant_directives;
@@ -176,7 +173,6 @@ pub(crate) mod live_wrap;
 mod local_settings;
 mod rendered_selection;
 pub use live_wrap::RowBuilder;
-mod local_chatgpt_auth;
 mod managed_new_thread_defaults;
 mod markdown;
 mod markdown_render;
@@ -220,7 +216,6 @@ mod status;
 mod status_indicator_widget;
 mod streaming;
 mod style;
-mod subscription;
 mod system_motion;
 mod task_mentions;
 mod temporary_structured_request;
@@ -291,7 +286,79 @@ const AUTO_CONNECT_DAEMON_CONNECT_TIMEOUT: std::time::Duration =
     std::time::Duration::from_millis(50);
 
 #[allow(clippy::too_many_arguments)]
+#[cfg(not(test))]
+use start_embedded_app_server_configured as start_embedded_app_server;
+
+#[cfg(test)]
 async fn start_embedded_app_server(
+    arg0_paths: Arg0DispatchPaths,
+    mut config: Config,
+    mut cli_kv_overrides: Vec<(String, toml::Value)>,
+    loader_overrides: LoaderOverrides,
+    strict_config: bool,
+    cloud_config_bundle: CloudConfigBundleLoader,
+    feedback: codex_feedback::CodexFeedback,
+    log_db: Option<log_db::LogDbLayer>,
+    state_db: Option<StateDbHandle>,
+    environment_manager: Arc<EnvironmentManager>,
+    embedded_network_policy: codex_app_server_client::EmbeddedNetworkPolicy,
+) -> color_eyre::Result<InProcessAppServerClient> {
+    if config.model_provider_id == "local"
+        && config.model_provider.name == "Local"
+        && config.model_provider.base_url.is_none()
+    {
+        let endpoint = "http://127.0.0.1:1/v1";
+        config.model_provider.base_url = Some(endpoint.into());
+        cli_kv_overrides.push((
+            "model_providers.local.name".into(),
+            toml::Value::String("Local".into()),
+        ));
+        cli_kv_overrides.push((
+            "model_providers.local.base_url".into(),
+            toml::Value::String(endpoint.into()),
+        ));
+    }
+    // Explicit test capabilities replace the removed shipped catalog. Session and file defaults stay untouched.
+    let catalog = config
+        .model_catalog
+        .clone()
+        .unwrap_or(core_test_support::test_model_catalog()?);
+    if !catalog.models.is_empty()
+        && config
+            .config_layer_stack
+            .effective_config()
+            .get("model_catalog_json")
+            .is_none()
+    {
+        let path = config
+            .codex_home
+            .join(format!("test-model-catalog-{}.json", uuid::Uuid::new_v4()));
+        std::fs::write(&path, serde_json::to_vec(&catalog)?)?;
+        cli_kv_overrides.push((
+            "model_catalog_json".into(),
+            toml::Value::String(path.display().to_string()),
+        ));
+    }
+    if !catalog.models.is_empty() {
+        config.model_catalog = Some(catalog);
+    }
+    start_embedded_app_server_configured(
+        arg0_paths,
+        config,
+        cli_kv_overrides,
+        loader_overrides,
+        strict_config,
+        cloud_config_bundle,
+        feedback,
+        log_db,
+        state_db,
+        environment_manager,
+        embedded_network_policy,
+    )
+    .await
+}
+
+async fn start_embedded_app_server_configured(
     arg0_paths: Arg0DispatchPaths,
     config: Config,
     cli_kv_overrides: Vec<(String, toml::Value)>,
@@ -2304,7 +2371,7 @@ pub enum LoginStatus {
 async fn get_login_status(
     app_server: &mut AppServerSession,
 ) -> color_eyre::Result<(LoginStatus, GetAccountResponse)> {
-    let account = app_server.read_account().await?;
+    let account = app_server.read_provider_auth_state().await?;
     let login_status = match &account.account {
         Some(AppServerAccount::ApiKey {}) => LoginStatus::AuthMode(AuthMode::ApiKey),
         Some(AppServerAccount::Chatgpt { .. }) => LoginStatus::AuthMode(AuthMode::Chatgpt),

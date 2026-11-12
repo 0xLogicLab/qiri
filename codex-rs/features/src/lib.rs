@@ -98,7 +98,6 @@ impl Stage {
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum Feature {
     /// Preview consumer five-hour and weekly allowance history.
-    AnalyticsPlanHistory,
     /// Discover model catalogs for OpenAI API-key authentication.
     ApiKeyModelDiscovery,
     /// Forward explicit programs with builtin OpenAI API keys.
@@ -444,7 +443,6 @@ pub enum Feature {
     /// Enable Guardian V2 automatic approval reviews.
     GuardianV2,
     /// Run Decisions alongside Guardian V2 for measurement without changing approvals.
-    GuardianV2DecisionsComparison,
     /// Enable Guardian V3 integrations.
     GuardianV3,
     /// Removed compatibility flag for the unused Guardian extension prototype.
@@ -1114,16 +1112,6 @@ pub struct FeatureSpec {
 }
 
 pub const FEATURES: &[FeatureSpec] = &[
-    FeatureSpec {
-        id: Feature::AnalyticsPlanHistory,
-        key: "analytics_plan_history",
-        stage: Stage::Experimental {
-            name: "Analytics plan history",
-            menu_description: "Preview five-hour and weekly allowance history for consumer accounts in /analytics.",
-            announcement: "",
-        },
-        default_enabled: false,
-    },
     FeatureSpec {
         id: Feature::CliResumeAccountCheck,
         key: "cli_resume_account_check",
@@ -1969,7 +1957,7 @@ pub const FEATURES: &[FeatureSpec] = &[
         id: Feature::ImageGeneration,
         key: "image_generation",
         stage: Stage::Stable,
-        default_enabled: true,
+        default_enabled: false,
     },
     FeatureSpec {
         id: Feature::ImageGenerationAnimation,
@@ -2154,12 +2142,6 @@ pub const FEATURES: &[FeatureSpec] = &[
     FeatureSpec {
         id: Feature::GuardianV2,
         key: "guardianv2",
-        stage: Stage::UnderDevelopment,
-        default_enabled: false,
-    },
-    FeatureSpec {
-        id: Feature::GuardianV2DecisionsComparison,
-        key: "guardianv2_decisions_comparison",
         stage: Stage::UnderDevelopment,
         default_enabled: false,
     },

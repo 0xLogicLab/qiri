@@ -25,7 +25,6 @@ mod remote_control_client;
 mod settings;
 pub mod telemetry;
 mod thread_recovery;
-mod update_loop;
 
 use std::collections::BTreeMap;
 use std::io::Write;
@@ -294,16 +293,6 @@ pub async fn set_remote_control(mode: RemoteControlMode) -> Result<RemoteControl
     Box::pin(Daemon::from_environment()?.set_remote_control(mode)).await
 }
 
-pub async fn run_pid_update_loop(
-    http_client_factory: codex_http_client::HttpClientFactory,
-    restore_release: Option<String>,
-) -> Result<()> {
-    ensure_supported_platform()?;
-    #[cfg(windows)]
-    backend::windows::ensure_not_elevated()?;
-    update_loop::run(http_client_factory, restore_release).await
-}
-
 pub use backend::stderr_log::stderr_writer;
 
 /// Routes managed app-server logs through a bounded queue to a dedicated file worker.
@@ -316,15 +305,6 @@ pub fn maintain_stderr_log() -> Result<()> {
             .with_extension("stderr.log"),
     );
     Ok(())
-}
-
-pub async fn update(
-    http_client_factory: codex_http_client::HttpClientFactory,
-) -> Result<UpdateOutput> {
-    ensure_supported_platform()?;
-    #[cfg(windows)]
-    backend::windows::ensure_not_elevated()?;
-    update_loop::request_manual_update(&Daemon::from_environment()?, http_client_factory).await
 }
 
 #[cfg(any(unix, windows))]
@@ -493,13 +473,7 @@ impl Daemon {
                 self.wait_until_ready().await?,
             )
         };
-        if backend.is_some()
-            && let Err(err) = managed.ensure_managed_updater(&settings).await
-        {
-            self.diagnostic(format_args!(
-                "warning: failed to ensure managed updater after app-server start: {err:#}"
-            ));
-        }
+
         Ok(managed
             .output(status, backend, pid, Some(info.app_server_version))
             .await)
@@ -539,11 +513,7 @@ impl Daemon {
         }
         let pid = managed.start_managed_backend(&settings).await?;
         let info = self.wait_until_ready().await?;
-        if let Err(err) = managed.ensure_managed_updater(&settings).await {
-            eprintln!(
-                "warning: failed to ensure managed updater after app-server restart: {err:#}"
-            );
-        }
+
         Ok(managed
             .output(
                 LifecycleStatus::Restarted,
@@ -863,11 +833,7 @@ impl Daemon {
                 .await?;
             let _ = self.start_managed_backend(&settings).await?;
             let info = self.wait_until_ready().await?;
-            if let Err(err) = self.ensure_managed_updater(&settings).await {
-                eprintln!(
-                    "warning: failed to ensure managed updater after remote-control change: {err:#}"
-                );
-            }
+
             Some(info.app_server_version)
         } else {
             None
@@ -925,52 +891,11 @@ impl Daemon {
         let backend = backend::pid_backend(managed.backend_paths(&settings));
         backend.start().await?;
         let info = self.wait_until_ready().await?;
-        let auto_update_enabled = managed.ensure_managed_updater(&settings).await?;
-        #[cfg(unix)]
-        // Older automatic updaters have no manual request socket to wait for.
-        if auto_update_enabled
-            && managed_install::supports_daemon_command(
-                &managed.managed_codex_bin,
-                &["update", "--help"],
-            )
-            .await
-        {
-            use std::os::unix::fs::FileTypeExt;
-
-            let updater = backend::pid_update_loop_backend(managed.backend_paths(&settings));
-            let path = managed.manual_update_socket_path();
-            // Match the manual-update client's startup allowance: the updater
-            // verifies its executable before publishing its listener.
-            let deadline = tokio::time::Instant::now() + Duration::from_secs(30);
-            loop {
-                // Do not connect: even an empty probe can consume a one-shot
-                // updater's restore authority. Old updaters also publish sockets.
-                let running = updater.is_starting_or_running().await?;
-                if running
-                    && tokio::fs::metadata(&path)
-                        .await
-                        .is_ok_and(|metadata| metadata.file_type().is_socket())
-                {
-                    break;
-                }
-                if !running || tokio::time::Instant::now() >= deadline {
-                    let reason = if running { "timed out" } else { "exited" };
-                    let mut context = format!(
-                        "daemon updater {reason} before becoming ready on {}",
-                        path.display()
-                    );
-                    backend::append_stderr_log_tail_context(&managed.update_pid_file, &mut context)
-                        .await;
-                    return Err(anyhow!(context));
-                }
-                sleep(START_POLL_INTERVAL).await;
-            }
-        }
         let managed_codex_version = managed.managed_codex_version_best_effort().await;
         Ok(BootstrapOutput {
             status: BootstrapStatus::Bootstrapped,
             backend: BackendKind::Pid,
-            auto_update_enabled,
+            auto_update_enabled: false,
             remote_control_enabled: settings.remote_control_enabled,
             managed_codex_path: managed.managed_codex_bin,
             managed_codex_version,
@@ -1013,45 +938,6 @@ impl Daemon {
         backend.start().await
     }
 
-    async fn ensure_managed_updater(&self, settings: &DaemonSettings) -> Result<bool> {
-        let updater = backend::pid_update_loop_backend(self.backend_paths(settings));
-        if !settings.auto_update_enabled {
-            updater.stop().await?;
-            return Ok(false);
-        }
-        if !self.is_stable_standalone_release()? {
-            // An installer publishes current and the latest marker separately.
-            // Keep its updater alive while that publication may be in progress.
-            if !self.has_latest_selection_marker() {
-                updater.stop().await?;
-            }
-            return Ok(false);
-        }
-        let Ok(codex_bin) =
-            managed_install::resolved_managed_codex_bin(&self.managed_codex_bin).await
-        else {
-            if !self.has_latest_selection_marker() {
-                updater.stop().await?;
-            }
-            return Ok(false);
-        };
-        if !managed_install::supports_daemon_update_loop(&codex_bin).await
-            || !self.is_stable_standalone_release()?
-            || !managed_install::resolved_managed_codex_bin(&self.managed_codex_bin)
-                .await
-                .is_ok_and(|selected| selected == codex_bin)
-        {
-            if !self.has_latest_selection_marker() {
-                updater.stop().await?;
-            }
-            return Ok(false);
-        }
-        backend::pid_update_loop_backend(self.backend_paths_with_bin(settings, &codex_bin))
-            .start()
-            .await?;
-        Ok(true)
-    }
-
     fn is_stable_standalone_release(&self) -> Result<bool> {
         let codex_home = self
             .settings_file
@@ -1086,14 +972,7 @@ impl Daemon {
     }
 
     async fn is_bootstrapped(&self, settings: &DaemonSettings) -> Result<bool> {
-        if !settings.auto_update_enabled
-            || !self.is_stable_standalone_release()?
-            || !managed_install::supports_daemon_update_loop(&self.managed_codex_bin).await
-        {
-            return Ok(self.running_backend_instance(settings).await?.is_some());
-        }
-        let updater = backend::pid_update_loop_backend(self.backend_paths(settings));
-        updater.is_starting_or_running().await
+        Ok(self.running_backend_instance(settings).await?.is_some())
     }
 
     fn ensure_managed_codex_bin(&self) -> Result<()> {

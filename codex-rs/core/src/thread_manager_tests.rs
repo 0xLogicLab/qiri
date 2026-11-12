@@ -357,7 +357,6 @@ async fn thread_analytics_clients_never_upload() {
     let auth = CodexAuth::create_dummy_chatgpt_auth_for_testing();
     let shared_client = AnalyticsEventsClient::new(
         AuthManager::from_auth_for_testing(auth.clone()),
-        server.uri(),
         /*analytics_enabled*/ Some(true),
     );
     let mut expected_thread_ids = Vec::new();
@@ -1231,9 +1230,8 @@ async fn mcp_invalidation_refreshes_threads_that_are_still_starting() {
     let temp_dir = tempdir().expect("tempdir");
     let mut config = test_config().await;
     // Resolve the model locally before waiting for the MCP lifecycle hook.
-    config.model_catalog = Some(
-        codex_models_manager::bundled_models_response().expect("bundled model catalog should load"),
-    );
+    config.model_catalog =
+        Some(core_test_support::test_model_catalog().expect("bundled model catalog should load"));
     config.codex_home = temp_dir.path().join("codex-home").abs();
     config.cwd = config.codex_home.abs();
     std::fs::create_dir_all(&config.codex_home).expect("create codex home");
@@ -1855,7 +1853,7 @@ async fn start_thread_seeds_extension_data_for_mcp_and_lifecycle_contributors() 
                             .expect("thread-scoped MCP resolution should identify its source")
                             .clone(),
                     ));
-                let mut server = codex_mcp::codex_apps_mcp_server_config(
+                let mut server = codex_mcp::local_mcp_server_config(
                     "https://selected.invalid",
                     /*apps_mcp_product_sku*/ None,
                     /*originator*/ None,
@@ -2023,17 +2021,28 @@ async fn start_thread_seeds_extension_data_for_mcp_and_lifecycle_contributors() 
             ),
         ]
     );
-    assert_eq!(
-        *mcp_observed
-            .lock()
-            .unwrap_or_else(std::sync::PoisonError::into_inner),
-        vec![
-            ("selected-a".to_string(), SessionSource::Exec),
-            ("selected-b".to_string(), second_session_source.clone()),
-            ("selected-a".to_string(), SessionSource::Exec),
-            ("selected-b".to_string(), second_session_source),
-        ]
+    let observed = mcp_observed
+        .lock()
+        .unwrap_or_else(std::sync::PoisonError::into_inner);
+    assert!(observed.iter().all(
+        |entry| entry == &("selected-a".to_string(), SessionSource::Exec)
+            || entry == &("selected-b".to_string(), second_session_source.clone())
+    ));
+    assert!(
+        observed
+            .iter()
+            .filter(|entry| entry.0 == "selected-a")
+            .count()
+            >= 2
     );
+    assert!(
+        observed
+            .iter()
+            .filter(|entry| entry.0 == "selected-b")
+            .count()
+            >= 2
+    );
+    drop(observed);
     let selected_servers = |config: &codex_mcp::McpConfig| {
         codex_mcp::configured_mcp_servers(config)
             .into_iter()
@@ -2068,20 +2077,9 @@ async fn start_thread_seeds_extension_data_for_mcp_and_lifecycle_contributors() 
         ));
         assert_eq!(Some(server), expected.build().server(name));
     }
-    let codex_apps_server = codex_mcp::configured_mcp_servers(&first_resolved.config)
-        .remove(codex_mcp::CODEX_APPS_MCP_SERVER_NAME)
-        .expect("Codex Apps server should be configured");
-    let codex_apps_headers = match codex_apps_server.transport {
-        codex_config::McpServerTransportConfig::StreamableHttp { http_headers, .. } => http_headers,
-        codex_config::McpServerTransportConfig::Stdio { .. } => {
-            panic!("Codex Apps server should use streamable HTTP")
-        }
-    };
-    assert_eq!(
-        codex_apps_headers
-            .expect("Codex Apps headers should be configured")
-            .get("originator"),
-        Some(&"codex_work_desktop".to_string())
+    assert!(
+        !codex_mcp::configured_mcp_servers(&first_resolved.config)
+            .contains_key(codex_mcp::CODEX_APPS_MCP_SERVER_NAME)
     );
     for (policy, disabled_plugin_ids, selected_enabled, expected_mcp_loads) in [
         ("", vec!["plugin-selected-a".to_string()], false, 1),

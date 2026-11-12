@@ -3,7 +3,6 @@
 use anyhow::Result;
 use codex_features::Feature;
 use codex_login::CodexAuth;
-use codex_models_manager::bundled_models_response;
 use codex_models_manager::manager::RefreshStrategy;
 use codex_protocol::openai_models::ModelServiceTier;
 use codex_protocol::openai_models::ModelsResponse;
@@ -18,6 +17,7 @@ use core_test_support::responses;
 use core_test_support::skip_if_no_network;
 use core_test_support::test_codex::TestCodex;
 use core_test_support::test_codex::test_codex;
+use core_test_support::test_model_catalog as bundled_models_response;
 use core_test_support::wait_for_event;
 use pretty_assertions::assert_eq;
 use serde_json::json;

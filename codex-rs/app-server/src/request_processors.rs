@@ -291,7 +291,6 @@ use codex_app_server_protocol::WindowsSandboxSetupMode;
 use codex_app_server_protocol::WindowsSandboxSetupStartParams;
 use codex_app_server_protocol::WindowsSandboxSetupStartResponse;
 use codex_arg0::Arg0DispatchPaths;
-use codex_chatgpt::connectors;
 use codex_config::CloudConfigBundleLoadError;
 use codex_config::CloudConfigBundleLoadErrorCode;
 use codex_config::ConfigLayerStack;
@@ -490,7 +489,6 @@ use uuid::Uuid;
 use codex_app_server_protocol::ServerRequest;
 
 pub(crate) mod account_processor;
-mod apps_processor;
 mod bedrock_auth;
 mod catalog_processor;
 mod command_exec_processor;
@@ -532,7 +530,6 @@ mod turn_processor;
 mod windows_sandbox_processor;
 
 pub(crate) use account_processor::AccountRequestProcessor;
-pub(crate) use apps_processor::AppsRequestProcessor;
 pub(crate) use catalog_processor::CatalogRequestProcessor;
 pub(crate) use command_exec_processor::CommandExecRequestProcessor;
 pub(crate) use config_processor::ConfigRequestProcessor;

@@ -67,10 +67,10 @@ fn user_verification_is_projected_only_to_the_host_owned_plugin_service() {
     use crate::catalog::McpServerRegistration;
     use crate::catalog::ResolvedMcpCatalog;
     use crate::mcp::CODEX_APPS_MCP_SERVER_NAME;
-    use crate::mcp::codex_apps_mcp_server_config;
+    use crate::mcp::local_mcp_server_config;
     use codex_rmcp_client::McpProtocolMode;
 
-    let config = codex_apps_mcp_server_config(
+    let config = local_mcp_server_config(
         "https://example.com",
         /*apps_mcp_product_sku*/ None,
         /*originator*/ None,
@@ -91,7 +91,7 @@ fn user_verification_is_projected_only_to_the_host_owned_plugin_service() {
             CODEX_APPS_MCP_SERVER_NAME,
             /*server*/ None,
             /*advertise_network_policy*/ true,
-            "https://chatgpt.com",
+            "https://service.example.test",
         ),
         ClientMcpExtensions::new([(
             OPENAI_ELICITATION_EXTENSION_ID.to_string(),
@@ -149,7 +149,7 @@ fn user_verification_is_projected_only_to_the_host_owned_plugin_service() {
                 name,
                 catalog.server(name),
                 /*advertise_network_policy*/ false,
-                "https://chatgpt.com",
+                "https://service.example.test",
             ),
             ClientMcpExtensions::new([(OPENAI_ELICITATION_EXTENSION_ID.to_string(), settings)]),
         );

@@ -78,7 +78,6 @@ impl App {
         self.render_inserted_history_cell(tui, &cell, deferred);
         // A committed cell can unblock a settled /usage card that was waiting
         // behind a transient active cell or a provisional stream tail.
-        self.chat_widget.request_pending_usage_output_insertion();
         if is_session_header {
             self.merge_startup_warnings(tui, &history_cell::StartupWarningsCell::default());
         }
@@ -274,11 +273,7 @@ impl App {
                 .is_some_and(|cell| cell.as_any().is::<history_cell::AgentMessageCell>())
     }
 
-    fn insert_pending_usage_output(&mut self, tui: &mut tui::Tui) {
-        if let Some(cell) = self.chat_widget.take_pending_rate_limit_reset_hint() {
-            self.insert_history_cell(tui, Box::new(history_cell::SessionNoticeCell(cell)));
-        }
-    }
+    fn insert_pending_usage_output(&mut self, tui: &mut tui::Tui) {}
 
     pub(super) fn insert_pending_usage_output_if_ready(&mut self, tui: &mut tui::Tui) {
         if self.pending_usage_output_insertion_blocked() {
@@ -434,7 +429,6 @@ impl App {
         self.deferred_history_lines.clear();
         self.has_emitted_history_lines = false;
         self.transcript_reflow.clear();
-        self.chat_widget.clear_pending_rate_limit_reset_hint();
         self.initial_history_replay_buffer = None;
         self.scrollback_has_older_history = false;
         self.backtrack = BacktrackState::default();

@@ -38,19 +38,25 @@ use tokio::sync::Mutex;
 #[tokio::test]
 async fn prepared_realtime_routing_follows_selected_api_key_and_explicit_overrides() {
     for (api_key, base_url, realtime_base_url, expected_url, expected_fedramp_header) in [
-        ("legacy-key", None, None, "https://api.openai.com/v1", None),
+        (
+            "legacy-key",
+            Some("https://www.example.net/v1"),
+            None,
+            "https://www.example.net/v1",
+            None,
+        ),
         (
             "sk-proj-fedramp-synthetic-test-key",
+            Some("https://custom.example/v1"),
             None,
-            None,
-            "https://gov.api.openai.com/v1",
+            "https://custom.example/v1",
             Some("true"),
         ),
         (
             "sk-svcacct-fedramp-synthetic-test-key",
+            Some("https://custom.example/v1"),
             None,
-            None,
-            "https://gov.api.openai.com/v1",
+            "https://custom.example/v1",
             Some("true"),
         ),
         (

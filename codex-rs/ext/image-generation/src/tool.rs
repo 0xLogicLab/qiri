@@ -65,7 +65,6 @@ use crate::artifact::image_generation_artifact_path;
 use crate::artifact::image_generation_output_hint;
 use crate::backend::CodexImagesBackend;
 
-const IMAGE_MODEL: &str = "gpt-image-2";
 const MAX_EDIT_IMAGES: usize = 5;
 const MAX_EXECUTOR_GENERATED_IMAGE_BYTES: usize = 32 * 1024 * 1024;
 const MAX_EXECUTOR_GENERATED_IMAGE_BASE64_BYTES: usize =
@@ -173,8 +172,13 @@ impl ImageGenerationTool {
         let PreparedImageRequest {
             request,
             input_images,
-        } = request_for_call_args(&args, call.conversation_history.items(), &call.environments)
-            .await?;
+        } = request_for_call_args(
+            &args,
+            call.conversation_history.items(),
+            &call.environments,
+            &call.model,
+        )
+        .await?;
         call.turn_item_emitter
             .emit_started(extension_turn_item(
                 ImageGenerationItem {
@@ -510,6 +514,7 @@ async fn request_for_call_args(
     args: &ImagegenArgs,
     history: &[ResponseItem],
     environments: &[ToolEnvironment<'_>],
+    model: &str,
 ) -> Result<PreparedImageRequest, FunctionCallError> {
     let background = if args.transparent_background {
         ImageBackground::Transparent
@@ -530,7 +535,7 @@ async fn request_for_call_args(
                     prompt: args.prompt.clone(),
                     output: args.gif.map(ImageOutput::Gif),
                     background: Some(background),
-                    model: IMAGE_MODEL.to_string(),
+                    model: model.to_owned(),
                     n: None,
                     quality: Some(ImageQuality::Auto),
                     size: Some("auto".to_string()),
@@ -580,7 +585,7 @@ async fn request_for_call_args(
             prompt: args.prompt.clone(),
             output: args.gif.map(ImageOutput::Gif),
             background: Some(background),
-            model: IMAGE_MODEL.to_string(),
+            model: model.to_owned(),
             n: None,
             quality: Some(ImageQuality::Auto),
             size: Some("auto".to_string()),

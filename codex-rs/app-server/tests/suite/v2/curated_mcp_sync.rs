@@ -79,7 +79,7 @@ impl CuratedMcpSyncFixture {
         run_git(
             &real_git,
             &curated_repo,
-            &["config", "user.email", "codex-tests@openai.com"],
+            &["config", "user.email", "codex-tests@example.net"],
         )?;
         run_git(
             &real_git,

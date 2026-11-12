@@ -740,7 +740,6 @@ impl Session {
             && let Some(parent) = &pending.0
             && responses_metadata.parent_response_id.as_deref() == Some(parent.id.as_str())
         {
-            responses_metadata.parent_routing_affinity = parent.routing_affinity.clone();
         }
         responses_metadata.tool_namespaces_info = if step_context
             .turn
@@ -1716,10 +1715,7 @@ impl Session {
                 AnalyticsEventsClient::disabled()
             } else {
                 analytics_events_client.unwrap_or_else(|| {
-                    AnalyticsEventsClient::new(
-                        Arc::clone(&auth_manager),
-                        config.analytics_enabled,
-                    )
+                    AnalyticsEventsClient::new(Arc::clone(&auth_manager), config.analytics_enabled)
                 })
             };
             analytics_events_client.update_thread_product_sku(

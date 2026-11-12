@@ -1,12 +1,7 @@
-mod account;
-
 mod account_gcp;
 mod account_thread_usage;
 mod agent_message_board;
 mod analytics;
-mod app_installed;
-mod app_list;
-mod app_read;
 mod application_network;
 #[path = "attached_thread_tests.rs"]
 mod attached_thread;
@@ -141,7 +136,6 @@ mod rollout_compress;
 mod rollout_migration;
 mod safety_check_downgrade;
 #[cfg(not(target_os = "windows"))]
-mod selected_capability_stack;
 mod selected_environment;
 mod server_diagnostics;
 #[cfg(not(target_os = "windows"))]
@@ -187,7 +181,6 @@ mod turn_steer;
 mod view_image;
 mod web_search;
 mod windows_sandbox_setup;
-mod workspace_routing;
 
 mod user_verification;
 mod user_verification_mcp;

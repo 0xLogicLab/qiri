@@ -2,10 +2,6 @@
 source: tui/src/onboarding/gcp_tests.rs
 expression: terminal.backend().to_string()
 ---
-  Sign in with ChatGPT to use Codex as part of your paid plan
-  or connect an API key for usage-based billing
+Configure credentials for your selected endpoint
 
-> 1. Sign in with ChatGPT
-  2. Sign in with Device Code
-  3. Sign in another way
-  Press enter to continue
+> 1. API key for a local/custom endpoint

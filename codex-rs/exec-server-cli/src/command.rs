@@ -97,20 +97,11 @@ pub struct ExecServerCommand {
     #[arg(long = "name", value_name = "NAME", global = true)]
     name: Option<String>,
 
-    /// Use Agent Identity auth from CODEX_ACCESS_TOKEN for remote registration.
-    #[arg(
-        long = "use-agent-identity-auth",
-        requires = "exec_server_remote",
-        conflicts_with = "aws_sigv4",
-        global = true
-    )]
-    use_agent_identity_auth: bool,
-
     /// Read rotating executor credentials from stdin; exit when the pipe closes.
     #[arg(
         long = "executor-credential-stdin",
         requires = "exec_server_remote",
-        conflicts_with_all = ["use_agent_identity_auth", "aws_sigv4"],
+        conflicts_with = "aws_sigv4",
         global = true
     )]
     executor_credential_stdin: bool,
@@ -229,12 +220,7 @@ impl ExecServerCommand {
                 )
                 .await?
             } else {
-                load_exec_server_remote_auth_provider(
-                    &config,
-                    &base_url,
-                    self.use_agent_identity_auth,
-                )
-                .await?
+                load_exec_server_remote_auth_provider(&config, &base_url).await?
             };
             let mut remote_config = codex_exec_server::RemoteEnvironmentConfig::new_with_transport(
                 base_url,
@@ -343,7 +329,6 @@ impl ExecServerCommand {
             && self.command.is_none()
             && !self.executor_credential_stdin
             && !self.aws_sigv4
-            && !self.use_agent_identity_auth
     }
 
     fn validate_remote_transport(&self) -> anyhow::Result<()> {

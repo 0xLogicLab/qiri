@@ -503,7 +503,7 @@ async fn multi_agent_v2_spawn_fork_turns_all_applies_agent_type_override() {
 }
 
 fn service_tier_test_catalog() -> codex_protocol::openai_models::ModelsResponse {
-    let mut catalog = codex_models_manager::bundled_models_response().expect("bundled models");
+    let mut catalog = core_test_support::test_model_catalog().expect("bundled models");
     let mut model = catalog
         .models
         .iter()

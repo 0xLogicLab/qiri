@@ -83,7 +83,7 @@ stream_max_retries = 0
             .codex_home(home.path().to_path_buf())
             .build()
             .await?;
-        let mut catalog = codex_models_manager::bundled_models_response()?;
+        let mut catalog = core_test_support::test_model_catalog()?;
         catalog
             .models
             .iter_mut()

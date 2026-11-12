@@ -174,7 +174,7 @@ async fn cli_fork_omits_implicit_model_and_effort() -> Result<()> {
     });
     assert!(
         crate::app::startup_prompts::should_show_model_migration_prompt(
-            "openai",
+            "local",
             "gpt-5.5",
             "server-model",
             &Default::default(),
@@ -277,8 +277,8 @@ async fn fresh_startup_uses_server_defaults_with_explicit_and_managed_precedence
             None,
         ),
         ("cli_effort", true, None, Some("low"), None),
-        ("cli_provider", false, None, None, Some("openai")),
-        ("kv_provider", false, None, None, Some("openai")),
+        ("cli_provider", false, None, None, Some("local")),
+        ("kv_provider", false, None, None, Some("local")),
         (
             "profile_model",
             false,
@@ -341,8 +341,8 @@ requires_openai_auth = false
                 ("approval_policy".into(), "never".into()),
             ]),
             "migration" => harness_overrides.model = Some("old-model".into()),
-            "cli_provider" => harness_overrides.model_provider = Some("openai".into()),
-            "kv_provider" => cli_kv_overrides.push(("model_provider".into(), "openai".into())),
+            "cli_provider" => harness_overrides.model_provider = Some("local".into()),
+            "kv_provider" => cli_kv_overrides.push(("model_provider".into(), "local".into())),
             "cli_effort" => cli_kv_overrides.push((
                 "model_reasoning_effort".to_string(),
                 TomlValue::String("low".to_string()),
@@ -660,7 +660,7 @@ async fn fresh_startup_reads_destination_and_cleared_model_uses_catalog() -> Res
             let rendered = render_bottom_popup(&app.chat_widget, /*width*/ 80)
                 .replace(&destination.path().display().to_string(), "<PROJECT>");
             insta::assert_snapshot!(rendered, @r"
-            › Ask Codex to do anything
+            › Ask QIRI to do anything
 
               GPT-6.1-Sol high · <PROJECT>
             ");
@@ -918,7 +918,7 @@ async fn bootstrap_failure_shuts_down_every_initial_backend() -> Result<()> {
             assert!(matches!(
                 request.operation,
                 CloudOperation::Request(request)
-                    if matches!(*request, codex_app_server_protocol::ClientRequest::GetAccount { .. })
+                    if matches!(*request, codex_app_server_protocol::ClientRequest::GetAuthStatus { .. })
             ));
             request
                 .response
@@ -934,6 +934,6 @@ async fn bootstrap_failure_shuts_down_every_initial_backend() -> Result<()> {
             }
         }
     );
-    assert!(result.unwrap_err().to_string().contains("account/read"));
+    assert!(result.unwrap_err().to_string().contains("getAuthStatus"));
     Ok(())
 }

@@ -123,40 +123,18 @@ fn read_http_message(stream: &mut impl Read) -> String {
 }
 
 #[test]
-fn cloned_factories_share_chatgpt_cookie_stores_without_changing_value_equality() {
-    let factory =
-        HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault).with_chatgpt_cookies([
-            HeaderValue::from_static("first=true"),
-            HeaderValue::from_static("second=true"),
-        ]);
-    let cloned = factory.clone();
-
-    assert!(Arc::ptr_eq(
-        &factory.chatgpt_cookie_store().expect("configured store"),
-        &cloned.chatgpt_cookie_store().expect("shared store"),
-    ));
-    assert_eq!(
-        factory,
-        HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault).with_chatgpt_cookies([
-            HeaderValue::from_static("first=true"),
-            HeaderValue::from_static("second=true"),
-        ])
-    );
-}
-
-#[test]
 fn websocket_route_uses_http_equivalent_for_system_resolution() {
     let env = MapEnv {
         values: HashMap::new(),
     };
     let route = resolve_proxy_route(
         &env,
-        "wss://api.openai.com/v1/responses",
+        "wss://www.example.net/v1/responses",
         OutboundProxyPolicy::RespectSystemProxy,
         |request_url, origin| {
-            assert_eq!(request_url, "https://api.openai.com/v1/responses");
+            assert_eq!(request_url, "https://www.example.net/v1/responses");
             assert_eq!(origin.scheme, "https");
-            assert_eq!(origin.host, "api.openai.com");
+            assert_eq!(origin.host, "www.example.net");
             assert_eq!(origin.port, 443);
             SystemProxyDecision::Proxy {
                 url: "http://proxy.example:8080".to_string(),
@@ -180,7 +158,7 @@ fn reqwest_default_route_preserves_transport_proxy_behavior() {
     };
     let route = resolve_proxy_route(
         &env,
-        "wss://api.openai.com/v1/responses",
+        "wss://www.example.net/v1/responses",
         OutboundProxyPolicy::ReqwestDefault,
         |_, _| panic!("default policy should not resolve system proxy settings"),
     );
@@ -296,7 +274,7 @@ fn unavailable_system_route_preserves_wss_http_proxy_fallback() {
 
     let route = resolve_proxy_route(
         &env,
-        "wss://api.openai.com/v1/responses",
+        "wss://www.example.net/v1/responses",
         OutboundProxyPolicy::RespectSystemProxy,
         |_, _| SystemProxyDecision::Unavailable {
             failure: RouteFailureClass::ProxyResolutionUnavailable,
@@ -690,25 +668,25 @@ fn reports_direct_and_unsupported_proxy_tokens() {
 fn no_proxy_matches_exact_suffix_wildcard_and_port() {
     let origin = RequestOrigin {
         scheme: "https".to_string(),
-        host: "auth.openai.com".to_string(),
+        host: "auth.example.net".to_string(),
         port: 443,
     };
-    assert!(no_proxy_matches_origin("auth.openai.com", &origin));
-    assert!(!no_proxy_matches_origin("openai.com", &origin));
-    assert!(no_proxy_matches_origin(".openai.com", &origin));
-    assert!(no_proxy_matches_origin("*.openai.com", &origin));
-    assert!(no_proxy_matches_origin("auth.openai.com:443", &origin));
-    assert!(!no_proxy_matches_origin("auth.openai.com:8443", &origin));
+    assert!(no_proxy_matches_origin("auth.example.net", &origin));
+    assert!(!no_proxy_matches_origin("example.net", &origin));
+    assert!(no_proxy_matches_origin(".example.net", &origin));
+    assert!(no_proxy_matches_origin("*.example.net", &origin));
+    assert!(no_proxy_matches_origin("auth.example.net:443", &origin));
+    assert!(!no_proxy_matches_origin("auth.example.net:8443", &origin));
 }
 
 #[test]
 fn system_proxy_cache_key_preserves_url_specific_pac_decisions() {
-    let request_url = "https://auth.openai.com/oauth/token?access_token=secret";
+    let request_url = "https://auth.example.net/oauth/token?access_token=secret";
     let cache_key = system_proxy_cache_key(request_url);
 
     assert_ne!(
         cache_key,
-        system_proxy_cache_key("https://auth.openai.com/oauth/revoke")
+        system_proxy_cache_key("https://auth.example.net/oauth/revoke")
     );
     assert!(!cache_key.contains(request_url));
 }

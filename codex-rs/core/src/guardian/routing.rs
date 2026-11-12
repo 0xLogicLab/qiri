@@ -3,12 +3,9 @@
 
 use std::sync::Arc;
 
-use codex_http_client::ChatGptRoutingAffinity;
-
 #[derive(Clone, Debug)]
 pub(crate) struct ParentResponse {
     pub(crate) id: String,
-    pub(crate) routing_affinity: Option<ChatGptRoutingAffinity>,
 }
 
 /// Installed for the exclusive lifetime of one review, including its inference retries.

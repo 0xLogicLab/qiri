@@ -177,12 +177,12 @@ async fn refreshes_immediately_periodically_and_stops_when_dropped() {
     ));
 
     // The catalog follows a new managed route without reusing the old endpoint.
-    std::fs::write(&requirements_path, "model_provider = 'openai'").unwrap();
+    std::fs::write(&requirements_path, "model_provider = 'local'").unwrap();
     catalog.invalidate().await;
     catalog.list_models(RefreshStrategy::Offline).await.unwrap();
     assert_eq!(
         catalog.current().await.unwrap().0.model_provider_id,
-        "openai"
+        "local"
     );
     std::fs::remove_file(&requirements_path).unwrap();
     catalog.invalidate().await;
@@ -325,14 +325,14 @@ async fn catalog_reload_recovers_after_cloud_failure() -> anyhow::Result<()> {
     ));
     failed.store(true, Ordering::SeqCst);
     catalog.invalidate().await;
-    assert_eq!(catalog.current().await?.0.model_provider_id, "openai");
+    assert_eq!(catalog.current().await?.0.model_provider_id, "local");
     assert!(catalog.list_models(RefreshStrategy::Offline).await.is_err());
     failed.store(false, Ordering::SeqCst);
     // Exercise the same online request used by the periodic background worker.
     catalog.list_models(RefreshStrategy::Online).await?;
     assert_eq!(catalog.current().await?.0.model_provider_id, "ollama");
     assert!(
-        !catalog
+        catalog
             .list_models(RefreshStrategy::Offline)
             .await?
             .is_empty()
@@ -372,9 +372,7 @@ async fn catalog_reload_recovers_original_project_after_startup_fallback() -> an
     .await?;
     let models = codex_core::build_models_manager(&config, Arc::clone(&auth));
     let catalog = ModelCatalog::new(manager, Some(project_path.clone()), config, models, auth);
-    let mut model = codex_models_manager::bundled_models_response()?
-        .models
-        .remove(0);
+    let mut model = core_test_support::test_model_catalog()?.models.remove(0);
     model.slug = "project-model".into();
     std::fs::write(
         project_path.join(".codex/catalog.json"),

@@ -21,7 +21,7 @@ fn catalog_cache_freshness_honors_ttl() {
 fn catalog_cache_paths_are_isolated_by_scope_and_collection() {
     let codex_home = Path::new("/tmp/codex-home");
     let cache_key_for_scope = |scope| RemotePluginCatalogCacheKey {
-        chatgpt_base_url: "https://chatgpt.com/backend-api".to_string(),
+        chatgpt_base_url: "https://service.example.test/backend-api".to_string(),
         account_id: Some("account-id".to_string()),
         chatgpt_user_id: Some("user-id".to_string()),
         is_workspace_account: true,
@@ -49,7 +49,7 @@ fn catalog_cache_paths_are_isolated_by_scope_and_collection() {
 fn global_catalog_cache_reuses_legacy_cache_file() {
     let codex_home = tempfile::tempdir().expect("create codex home");
     let config = RemotePluginServiceConfig::new(
-        "https://chatgpt.com/backend-api".to_string(),
+        "https://service.example.test/backend-api".to_string(),
         crate::test_support::test_http_client_factory(),
         /*product_sku*/ None,
     );
@@ -57,7 +57,7 @@ fn global_catalog_cache_reuses_legacy_cache_file() {
     let legacy_cache_path = codex_home
         .path()
         .join(REMOTE_PLUGIN_CATALOG_DISK_CACHE_DIR)
-        .join("f22564d6f8ca89f6.json");
+        .join("846c6b20bd96d885.json");
     let legacy_cache = serde_json::json!({
         "schema_version": REMOTE_PLUGIN_CATALOG_DISK_CACHE_SCHEMA_VERSION,
         "plugins": [],
@@ -98,7 +98,7 @@ fn global_catalog_cache_reuses_legacy_cache_file() {
 fn freshness_probe_defers_plugin_validation_until_full_read() {
     let codex_home = tempfile::tempdir().expect("create codex home");
     let config = RemotePluginServiceConfig::new(
-        "https://chatgpt.com/backend-api".to_string(),
+        "https://service.example.test/backend-api".to_string(),
         crate::test_support::test_http_client_factory(),
         /*product_sku*/ None,
     );
@@ -175,7 +175,7 @@ fn freshness_probe_defers_plugin_validation_until_full_read() {
 fn header_auth_does_not_cache_private_catalogs_without_a_stable_identity() {
     let codex_home = tempfile::tempdir().expect("create codex home");
     let config = RemotePluginServiceConfig::new(
-        "https://chatgpt.com/backend-api".to_string(),
+        "https://service.example.test/backend-api".to_string(),
         crate::test_support::test_http_client_factory(),
         /*product_sku*/ None,
     );

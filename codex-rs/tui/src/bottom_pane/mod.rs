@@ -2142,10 +2142,7 @@ impl BottomPane {
         if let Some(tool_suggestion) = request.tool_suggestion()
             && let Some(install_url) = tool_suggestion.install_url.clone()
         {
-            let Some(install_url) = app_link_view::validate_external_url(
-                &install_url,
-                /*require_chatgpt_host*/ false,
-            ) else {
+            let Some(install_url) = app_link_view::validate_external_url(&install_url) else {
                 self.app_event_tx.resolve_elicitation(
                     request.thread_id(),
                     request.server_name().to_string(),
@@ -2598,12 +2595,6 @@ impl BottomPane {
         }
     }
 
-    pub(crate) fn set_luna_reserve_active(&mut self, active: bool) {
-        if self.composer.set_luna_reserve_active(active) {
-            self.request_redraw();
-        }
-    }
-
     pub(crate) fn set_status_line_enabled(&mut self, enabled: bool) {
         if self.composer.set_status_line_enabled(enabled) {
             self.request_redraw();
@@ -2869,59 +2860,6 @@ mod tests {
 
         pane.handle_key_event(KeyEvent::new(KeyCode::Esc, KeyModifiers::NONE));
         assert_eq!(pane.inline_banner_lifecycle(), (true, true));
-    }
-
-    #[test]
-    fn backend_banner_snapshots_and_numbered_actions() {
-        for (kind, action, label) in [
-            ("personal_limit", "view_usage", "View usage"),
-            ("workspace_member_credits", "notify_owner", "Notify owner"),
-        ] {
-            let banner = crate::backend_banners::BackendBanner::parse(&serde_json::json!({
-                "banner_type": kind,
-                "presentation": "dismissible",
-                "title": "Usage limit\u{7} reached",
-                "description": "Your included usage is depleted.\nChoose an action to continue.",
-                "ctas": [
-                    {"action": "unsupported", "label": "Hidden action"},
-                    {"action": "view_usage", "label": "Open usage settings"},
-                    {"action": action, "label": label},
-                    {"action": "view_usage", "label": "Extra action"}
-                ]
-            }))
-            .expect("valid optional banner");
-            let (tx, mut rx) = unbounded_channel();
-            let mut pane = test_pane(AppEventSender::new(tx));
-            pane.set_inline_banner(Some(
-                banner.actionable_banner(crate::clock_format::ClockFormat::TwentyFourHour),
-            ));
-            let width = 44;
-            let area = Rect::new(
-                /*x*/ 0,
-                /*y*/ 0,
-                width,
-                pane.desired_height(width),
-            );
-            assert_snapshot!(
-                format!("backend_banner_{kind}"),
-                render_snapshot(&pane, area)
-            );
-            pane.handle_key_event(KeyEvent::new(KeyCode::Char('2'), KeyModifiers::NONE));
-            let selected = match rx.try_recv().expect("numbered CTA dispatch") {
-                AppEvent::OpenUrlInBrowser { url } => url,
-                AppEvent::SendAddCreditsNudgeEmail { credit_type } => format!("{credit_type:?}"),
-                other => panic!("unexpected banner action: {other:?}"),
-            };
-            assert_eq!(
-                selected,
-                if action == "view_usage" {
-                    "https://chatgpt.com/settings/usage"
-                } else {
-                    "Credits"
-                }
-            );
-            assert!(pane.inline_banner.is_some());
-        }
     }
 
     #[derive(Default)]

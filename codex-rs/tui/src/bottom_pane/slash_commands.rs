@@ -76,7 +76,6 @@ pub(crate) fn builtins_for_input(flags: BuiltinCommandFlags) -> Vec<(&'static st
         .filter(|(_, cmd)| flags.collaboration_modes_enabled || *cmd != SlashCommand::Plan)
         .filter(|(_, cmd)| flags.connectors_enabled || *cmd != SlashCommand::Apps)
         .filter(|(_, cmd)| flags.plugins_command_enabled || *cmd != SlashCommand::Plugins)
-        .filter(|(_, cmd)| flags.token_activity_command_enabled || *cmd != SlashCommand::Usage)
         .filter(|(_, cmd)| flags.goal_command_enabled || *cmd != SlashCommand::Goal)
         .filter(|(_, cmd)| flags.worktrees_enabled || *cmd != SlashCommand::Worktree)
         .filter(|(_, cmd)| flags.voice_command_enabled || *cmd != SlashCommand::Voice)
@@ -301,18 +300,6 @@ mod tests {
         let mut flags = all_enabled_flags();
         flags.voice_command_enabled = false;
         assert_eq!(find_builtin_command("voice", flags), None);
-    }
-
-    #[test]
-    fn usage_command_is_hidden_from_input_when_account_token_activity_is_disabled() {
-        let mut flags = all_enabled_flags();
-        flags.token_activity_command_enabled = false;
-        assert_eq!(
-            builtins_for_input(flags)
-                .into_iter()
-                .find(|(_, command)| *command == SlashCommand::Usage),
-            None
-        );
     }
 
     #[test]

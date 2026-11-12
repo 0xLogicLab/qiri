@@ -91,7 +91,7 @@ async fn curated_git_requirements_control_plugin_skills() -> Result<()> {
             "openai".to_string(),
             /*plugins_enabled*/ true,
             /*remote_plugin_enabled*/ false,
-            "https://chatgpt.com/backend-api/".to_string(),
+            "https://service.example.test/backend-api/".to_string(),
             HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault),
             /*product_sku*/ None,
         );

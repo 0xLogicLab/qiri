@@ -1663,9 +1663,9 @@ async fn plugin_list_returns_plugin_interface_with_absolute_asset_paths() -> Res
     "developerName": "OpenAI",
     "category": "Productivity",
     "capabilities": ["Interactive", "Write"],
-    "websiteURL": "https://openai.com/",
-    "privacyPolicyURL": "https://openai.com/policies/row-privacy-policy/",
-    "termsOfServiceURL": "https://openai.com/policies/row-terms-of-use/",
+    "websiteURL": "https://example.net/",
+    "privacyPolicyURL": "https://example.net/policies/row-privacy-policy/",
+    "termsOfServiceURL": "https://example.net/policies/row-terms-of-use/",
     "defaultPrompt": [
       "Starter prompt for trying a plugin",
       "Find my next action"
@@ -1717,15 +1717,15 @@ async fn plugin_list_returns_plugin_interface_with_absolute_asset_paths() -> Res
     assert_eq!(interface.category.as_deref(), Some("Design"));
     assert_eq!(
         interface.website_url.as_deref(),
-        Some("https://openai.com/")
+        Some("https://example.net/")
     );
     assert_eq!(
         interface.privacy_policy_url.as_deref(),
-        Some("https://openai.com/policies/row-privacy-policy/")
+        Some("https://example.net/policies/row-privacy-policy/")
     );
     assert_eq!(
         interface.terms_of_service_url.as_deref(),
-        Some("https://openai.com/policies/row-terms-of-use/")
+        Some("https://example.net/policies/row-terms-of-use/")
     );
     assert_eq!(
         interface.default_prompt,

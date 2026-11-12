@@ -51,7 +51,7 @@ const PR_ATTRIBUTION: &str = "Generated with QIRI.";
 const ATTRIBUTION_DISABLED: &str = "attribution is disabled for the current workspace";
 const LEGACY_COMMIT_ATTRIBUTION_INSTRUCTIONS: &str = "\
 When you write or edit a git commit message, ensure the message ends with this trailer exactly once:
-Co-authored-by: Codex <noreply@openai.com>
+Co-authored-by: Codex <noreply@example.net>
 
 Rules:
 - Keep existing trailers and append this trailer at the end if missing.

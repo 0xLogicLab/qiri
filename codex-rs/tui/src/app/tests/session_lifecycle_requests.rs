@@ -59,207 +59,6 @@ fn is_recording_client_disconnect(error: &WebSocketError) -> bool {
     }
 }
 
-#[tokio::test]
-async fn daybreak_command_persists_and_confirms_each_selection() -> Result<()> {
-    use codex_protocol::openai_models::ModelAccessPrograms;
-    use codex_protocol::turn_input::CyberAccessProgram;
-
-    let (mut app, mut events, mut ops) = make_test_app_with_channels().await;
-    let (mut server, requests, proxy) = start_recording_app_server(
-        &app.config,
-        /*blocked_thread_list*/ None,
-        /*failed_thread_name*/ None,
-    )
-    .await?;
-    let mut enabled_config = app.config.clone();
-    enabled_config.daybreak_enabled = true;
-    let startup = crate::app_server_session::start_thread_with_request_handle(
-        server.request_handle(),
-        &app.local_settings,
-        enabled_config.clone(),
-        crate::app_server_session::ThreadParamsMode::Embedded,
-        /*remote_cwd_override*/ None,
-        server.thread_tool_transport(),
-        crate::app_server_session::StartupLaunchChoices::default(),
-    )
-    .await?;
-    assert!(startup.session.daybreak_enabled);
-    enabled_config.ephemeral = true;
-    let ephemeral = server.start_thread(&enabled_config).await?;
-    assert!(ephemeral.session.daybreak_enabled);
-    let starts = recorded_params(&requests, "thread/start");
-    assert_eq!(starts[0]["daybreakEnabled"], true);
-    assert!(starts[1]["daybreakEnabled"].is_null());
-
-    let started = server.start_thread(&app.config).await?;
-    let thread_id = started.session.thread_id;
-    app.active_thread_id = Some(thread_id);
-    app.chat_widget.handle_thread_session_quiet(started.session);
-    app.chat_widget.update_account_state(
-        /*status_account_display*/ None, /*plan_type*/ None,
-        /*has_chatgpt_account*/ true, /*has_codex_backend_auth*/ true,
-    );
-    app.chat_widget.open_model_popup();
-    let request_id = std::iter::from_fn(|| events.try_recv().ok())
-        .find_map(|event| match event {
-            AppEvent::FetchModels { request_id } => Some(request_id),
-            _ => None,
-        })
-        .expect("model catalog request");
-    let mut model = crate::test_support::TEST_MODEL_PRESETS[0].clone();
-    model.model = app.chat_widget.current_model().to_string();
-    model.available_access_programs = Some(ModelAccessPrograms {
-        cyber: vec![
-            CyberAccessProgram::Standard,
-            CyberAccessProgram::DaybreakBlue,
-        ],
-    });
-    let mut unsupported_model = model.clone();
-    unsupported_model.model = "standard-only".into();
-    unsupported_model.available_access_programs = Some(ModelAccessPrograms {
-        cyber: vec![CyberAccessProgram::Standard],
-    });
-    app.chat_widget
-        .on_models_loaded(request_id, Ok(vec![model, unsupported_model]));
-    app.chat_widget
-        .handle_key_event(KeyEvent::from(KeyCode::Esc));
-
-    let mut tui = crate::tui::test_support::make_test_tui()?;
-    let mut confirmations = Vec::new();
-    for enabled in [true, false] {
-        app.chat_widget.insert_str("/daybreak");
-        app.chat_widget
-            .handle_key_event(KeyEvent::from(KeyCode::Esc));
-        app.chat_widget
-            .handle_key_event(KeyEvent::from(KeyCode::Enter));
-        let selection = std::iter::from_fn(|| events.try_recv().ok())
-            .find(|event| matches!(event, AppEvent::PersistDaybreakSelection { .. }))
-            .expect("Daybreak selection event");
-        app.handle_event(&mut tui, &mut server, selection).await?;
-        confirmations.push(next_history_message(&mut events));
-        assert_eq!(
-            server
-                .thread_read(thread_id, /*include_turns*/ false)
-                .await?
-                .daybreak_enabled,
-            Some(enabled)
-        );
-        assert_eq!(app.config.daybreak_enabled, enabled);
-        let writes = recorded_params(&requests, "config/batchWrite");
-        let edit = &writes.last().expect("config write")["edits"][0];
-        assert_eq!(edit["keyPath"], "daybreak");
-        assert_eq!(edit["value"], enabled);
-    }
-    insta::assert_snapshot!("daybreak_toggle_confirmations", confirmations.join("\n\n"));
-
-    app.chat_widget.set_daybreak_enabled(/*enabled*/ true);
-    app.chat_widget
-        .handle_key_event(KeyEvent::from(KeyCode::Esc));
-    app.chat_widget
-        .apply_external_edit("side prompt".to_string());
-    app.chat_widget
-        .handle_key_event(KeyEvent::from(KeyCode::Enter));
-    let turn = next_user_turn_op(&mut ops);
-    let mut unsupported_turn = turn.clone();
-    let Op::UserTurn { model, .. } = &mut unsupported_turn else {
-        unreachable!("expected user turn");
-    };
-    *model = "standard-only".into();
-    while events.try_recv().is_ok() {}
-    app.submit_thread_op(&mut server, thread_id, unsupported_turn)
-        .await?;
-    assert!(recorded_params(&requests, "turn/start").is_empty());
-    assert!(next_history_message(&mut events).contains("Daybreak support for model standard-only"));
-
-    app.chat_widget
-        .set_side_conversation_active(/*active*/ true);
-    app.submit_thread_op(&mut server, thread_id, turn.clone())
-        .await?;
-    app.chat_widget
-        .set_side_conversation_active(/*active*/ false);
-    app.submit_thread_op(&mut server, thread_id, turn.clone())
-        .await?;
-    let background_thread_id = server.start_thread(&app.config).await?.session.thread_id;
-    app.side_threads.insert(
-        background_thread_id,
-        crate::app::side::SideThreadState::new(thread_id),
-    );
-    app.submit_thread_op(&mut server, background_thread_id, turn.clone())
-        .await?;
-    let turns = recorded_params(&requests, "turn/start");
-    assert_eq!(turns.len(), 3);
-    assert_eq!(turns[0]["cyberAccessProgram"], "standard");
-    assert_eq!(turns[1]["cyberAccessProgram"], "daybreakBlue");
-    assert_eq!(turns[2]["cyberAccessProgram"], "standard");
-    app.chat_widget
-        .set_feature_enabled(Feature::CliDaybreak, /*enabled*/ false);
-    for target in [thread_id, background_thread_id] {
-        app.submit_thread_op(&mut server, target, turn.clone())
-            .await?;
-    }
-    let turns = recorded_params(&requests, "turn/start");
-    assert!(turns[3]["cyberAccessProgram"].is_null());
-    assert!(turns[4]["cyberAccessProgram"].is_null());
-    app.chat_widget
-        .set_feature_enabled(Feature::CliDaybreak, /*enabled*/ true);
-    app.chat_widget.set_daybreak_enabled(/*enabled*/ true);
-    app.chat_widget
-        .set_feature_enabled(Feature::ApiKeyCyberAccessPrograms, /*enabled*/ false);
-    let models = app.chat_widget.model_catalog().models.clone();
-    app.chat_widget.update_account_state(
-        Some(crate::status::StatusAccountDisplay::ApiKey),
-        /*plan_type*/ None,
-        /*has_chatgpt_account*/ false,
-        /*has_codex_backend_auth*/ false,
-    );
-    assert!(!app.chat_widget.daybreak_enabled);
-    let request_id = std::iter::from_fn(|| events.try_recv().ok())
-        .filter_map(|event| match event {
-            AppEvent::FetchModels { request_id } => Some(request_id),
-            _ => None,
-        })
-        .last()
-        .expect("account model refresh");
-    assert!(app.chat_widget.on_models_loaded(request_id, Ok(models)));
-    for (cli_daybreak, api_key_cyber_access_programs, enabled) in [
-        (false, false, true),
-        (false, true, true),
-        (true, false, true),
-        (true, true, true),
-        (true, true, false),
-    ] {
-        app.chat_widget
-            .set_feature_enabled(Feature::CliDaybreak, cli_daybreak);
-        app.chat_widget.set_feature_enabled(
-            Feature::ApiKeyCyberAccessPrograms,
-            api_key_cyber_access_programs,
-        );
-        app.chat_widget.set_daybreak_enabled(enabled);
-        app.submit_thread_op(&mut server, thread_id, turn.clone())
-            .await?;
-    }
-    let turns = recorded_params(&requests, "turn/start");
-    assert_eq!(
-        turns[5..]
-            .iter()
-            .map(|turn| turn["cyberAccessProgram"].as_str())
-            .collect::<Vec<_>>(),
-        vec![None, None, None, Some("daybreakBlue"), Some("standard")]
-    );
-    while events.try_recv().is_ok() {}
-
-    let missing_thread_id = ThreadId::new();
-    app.active_thread_id = Some(missing_thread_id);
-    app.persist_daybreak_selection(&mut server, missing_thread_id, /*enabled*/ true)
-        .await;
-    assert!(next_history_message(&mut events).contains("Failed to read the thread"));
-    assert!(!app.chat_widget.daybreak_enabled);
-    assert!(!app.config.daybreak_enabled);
-    server.shutdown().await?;
-    proxy.await??;
-    Ok(())
-}
-
 async fn complete_managed_worktree_creation(
     app: &mut App,
     tui: &mut crate::tui::Tui,
@@ -1938,10 +1737,10 @@ async fn dynamic_tool_requests_ignore_other_namespaces_and_dispatch_tui_namespac
         history_capabilities,
         expected_program,
     ) in [
-        (true, Chatgpt, false, Current, Some("daybreakBlue")),
+        (true, Chatgpt, false, Current, None),
         (false, Chatgpt, false, Current, None),
         (true, ApiKey, false, Current, None),
-        (true, ApiKey, true, Current, Some("daybreakBlue")),
+        (true, ApiKey, true, Current, None),
         (true, Chatgpt, false, ConfigReadUnsupported(-32601), None),
         (true, Chatgpt, false, ConfigReadUnsupported(-32600), None),
     ] {
@@ -1975,7 +1774,7 @@ async fn check_dynamic_tool_requests(
     app.config.model_provider.base_url = Some(api_url.clone());
     app.config.codex_home = codex_home.path().to_path_buf().abs();
     app.config.sqlite = SqliteConfig::new_for_testing(codex_home.path().abs());
-    let mut catalog = codex_models_manager::bundled_models_response()?;
+    let mut catalog = core_test_support::test_model_catalog()?;
     for model in &mut catalog.models {
         model.available_access_programs =
             Some(codex_protocol::openai_models::ModelAccessPrograms {
@@ -3203,7 +3002,7 @@ async fn underfilled_scrollback_fetches_older_pages_without_opening_the_transcri
         overlay.set_highlight_cell(Some(0));
         let partial = render_overlay(overlay);
         assert!(partial.contains("Earlier messages available."));
-        assert!(!partial.contains("OpenAI Codex"));
+        assert!(!partial.contains("穹 理  QIRI"));
         assert!(!partial.contains("This is a test announcement"));
         assert!(!partial.contains('%'));
 
@@ -3213,7 +3012,7 @@ async fn underfilled_scrollback_fetches_older_pages_without_opening_the_transcri
         )?;
         let loading = render_overlay(overlay);
         assert!(loading.contains("Loading earlier messages…"));
-        assert!(!loading.contains("OpenAI Codex"));
+        assert!(!loading.contains("穹 理  QIRI"));
         assert!(!loading.contains('%'));
     } else {
         panic!("expected transcript overlay");
@@ -3812,7 +3611,7 @@ model_reasoning_effort = "low"
             app.config.model_provider_id.as_str(),
             app.chat_widget.current_reasoning_effort()
         ),
-        ("gpt-5.4", "openai", Some(ReasoningEffortConfig::Low))
+        ("gpt-5.4", "local", Some(ReasoningEffortConfig::Low))
     );
     // Provider selection belongs to host config, not project config.
     let host_config = home.join("config.toml");
@@ -4809,15 +4608,13 @@ fn fresh_session_keeps_its_name_and_draft_when_cycling_backends() -> Result<()> 
                 .await
                 .expect("switch the named conversation with its draft");
                 assert_eq!(backends.displayed_owner(), destination);
-                expected_defaults.get_mut(&project_key).unwrap().insert(
-                    "chatgpt:user-a".to_string(), "remote.work".to_string(),
-                );
                 assert_eq!(saved_defaults()?, expected_defaults);
                 assert_eq!(app.local_settings.tui.default_hosts, expected_defaults);
                 write_user("user-b");
                 assert_eq!(app.other_new_session_backend(&backends).await, Some(source));
                 write_user("user-a");
-                assert_eq!(app.other_new_session_backend(&backends).await, None);
+                // Stored official account files cannot change local backend selection.
+                assert_eq!(app.other_new_session_backend(&backends).await, Some(source));
 
                 assert_eq!(app.agents_overview.pending_usage, None);
                 assert!(!app.agents_overview.usage_disabled);
@@ -4854,9 +4651,6 @@ fn fresh_session_keeps_its_name_and_draft_when_cycling_backends() -> Result<()> 
                 .await
                 .expect("switch back with the draft");
                 assert_eq!(backends.displayed_owner(), source);
-                expected_defaults.get_mut(&project_key).unwrap().insert(
-                    "chatgpt:user-a".to_string(), "local".to_string(),
-                );
                 assert_eq!(saved_defaults()?, expected_defaults);
 
                 assert_eq!(app.chat_widget.composer_text_with_pending(), "unsent draft");

@@ -420,7 +420,7 @@ mod tests {
         let transport = CapturingTransport::new();
         let client = RealtimeCallClient::new(
             transport.clone(),
-            provider("https://api.openai.com/v1"),
+            provider("https://www.example.net/v1"),
             Arc::new(DummyAuth),
         );
 
@@ -439,7 +439,7 @@ mod tests {
 
         let request = transport.last_request.lock().unwrap().clone().unwrap();
         assert_eq!(request.method, Method::POST);
-        assert_eq!(request.url, "https://api.openai.com/v1/realtime/calls");
+        assert_eq!(request.url, "https://www.example.net/v1/realtime/calls");
         assert_eq!(
             request.headers.get(CONTENT_TYPE).unwrap(),
             HeaderValue::from_static("application/sdp")
@@ -463,7 +463,7 @@ mod tests {
             CapturingTransport::with_location("/v1/realtime/calls/calls/rtc_backend_test");
         let client = RealtimeCallClient::new(
             transport.clone(),
-            provider("https://chatgpt.com/backend-api/codex"),
+            provider("https://service.example.test/backend-api/codex"),
             Arc::new(DummyAuth),
         );
 
@@ -484,7 +484,7 @@ mod tests {
         assert_eq!(request.method, Method::POST);
         assert_eq!(
             request.url,
-            "https://chatgpt.com/backend-api/codex/realtime/calls"
+            "https://service.example.test/backend-api/codex/realtime/calls"
         );
         assert_eq!(
             request.body,
@@ -497,7 +497,7 @@ mod tests {
         let transport = CapturingTransport::new();
         let client = RealtimeCallClient::new(
             transport.clone(),
-            provider("https://api.openai.com/v1"),
+            provider("https://www.example.net/v1"),
             Arc::new(DummyAuth),
         );
 
@@ -521,7 +521,7 @@ mod tests {
         assert_eq!(request.method, Method::POST);
         assert_eq!(
             request.url,
-            "https://api.openai.com/v1/realtime/calls?intent=quicksilver&architecture=avas"
+            "https://www.example.net/v1/realtime/calls?intent=quicksilver&architecture=avas"
         );
         assert_eq!(
             request.headers.get(CONTENT_TYPE).unwrap(),
@@ -562,7 +562,7 @@ mod tests {
         let transport = CapturingTransport::with_location("/v1/live/rtc_frameless");
         let client = RealtimeCallClient::new(
             transport.clone(),
-            provider("https://api.openai.com/v1"),
+            provider("https://www.example.net/v1"),
             Arc::new(DummyAuth),
         );
 
@@ -577,7 +577,7 @@ mod tests {
         assert_eq!(response.call_id, "rtc_frameless");
         let request = transport.last_request.lock().unwrap().clone().unwrap();
         assert_eq!(request.method, Method::POST);
-        assert_eq!(request.url, "https://api.openai.com/v1/live");
+        assert_eq!(request.url, "https://www.example.net/v1/live");
         let Some(RequestBody::Raw(body)) = request.body else {
             panic!("multipart body should be raw");
         };
@@ -592,7 +592,7 @@ mod tests {
         let transport = CapturingTransport::new();
         let client = RealtimeCallClient::new(
             transport.clone(),
-            provider("https://api.openai.com/v1"),
+            provider("https://www.example.net/v1"),
             Arc::new(DummyAuth),
         );
 
@@ -617,7 +617,7 @@ mod tests {
         assert_eq!(request.method, Method::POST);
         assert_eq!(
             request.url,
-            "https://api.openai.com/v1/realtime/calls?intent=quicksilver&architecture=avas"
+            "https://www.example.net/v1/realtime/calls?intent=quicksilver&architecture=avas"
         );
     }
 
@@ -626,7 +626,7 @@ mod tests {
         let transport = CapturingTransport::new();
         let client = RealtimeCallClient::new(
             transport.clone(),
-            provider("https://api.openai.com/v1"),
+            provider("https://www.example.net/v1"),
             Arc::new(DummyAuth),
         );
 
@@ -650,7 +650,7 @@ mod tests {
         let transport = CapturingTransport::new();
         let client = RealtimeCallClient::new(
             transport.clone(),
-            provider("https://chatgpt.com/backend-api/codex"),
+            provider("https://service.example.test/backend-api/codex"),
             Arc::new(DummyAuth),
         );
 
@@ -674,7 +674,7 @@ mod tests {
         assert_eq!(request.method, Method::POST);
         assert_eq!(
             request.url,
-            "https://chatgpt.com/backend-api/codex/realtime/calls?intent=quicksilver&architecture=avas"
+            "https://service.example.test/backend-api/codex/realtime/calls?intent=quicksilver&architecture=avas"
         );
         let mut expected_session = realtime_session_json(realtime_session_config("sess-backend"))
             .expect("session should encode");
@@ -699,7 +699,7 @@ mod tests {
         let transport = CapturingTransport::with_location("/v1/live/rtc_backend_frameless");
         let client = RealtimeCallClient::new(
             transport.clone(),
-            provider("https://chatgpt.com/backend-api/codex"),
+            provider("https://service.example.test/backend-api/codex"),
             Arc::new(DummyAuth),
         );
         let mut session_config = frameless_bidi_session_config("sess-backend");
@@ -724,7 +724,7 @@ mod tests {
         assert_eq!(request.method, Method::POST);
         assert_eq!(
             request.url,
-            "https://chatgpt.com/backend-api/codex/realtime/calls?intent=quicksilver&architecture=avas"
+            "https://service.example.test/backend-api/codex/realtime/calls?intent=quicksilver&architecture=avas"
         );
         let Some(RequestBody::Json(body)) = request.body else {
             panic!("backend request body should be JSON");
@@ -753,7 +753,7 @@ mod tests {
         let transport = CapturingTransport::without_location();
         let client = RealtimeCallClient::new(
             transport,
-            provider("https://api.openai.com/v1"),
+            provider("https://www.example.net/v1"),
             Arc::new(DummyAuth),
         );
 

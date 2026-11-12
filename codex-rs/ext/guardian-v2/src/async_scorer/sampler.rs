@@ -36,7 +36,8 @@ use thiserror::Error;
 use tokio::sync::oneshot;
 use uuid::Uuid;
 
-pub(crate) const MODEL: &str = "gpt-5.6-luna";
+#[cfg(test)]
+pub(crate) const MODEL: &str = "local-review-model";
 pub(crate) const CLASSIFICATION_TOKEN_USAGE_METRIC: &str =
     "codex.guardian_v2.classification.token_usage";
 const MAX_OUTPUT_BYTES: usize = 8 * 1024;
@@ -45,6 +46,8 @@ const MAX_CONCURRENT_REQUESTS: usize = 16;
 
 /// Host-owned provider, authentication, and attribution for one Luna connection.
 pub struct LunaSamplerConfig {
+    /// Explicit model selected by the caller or its configured catalog.
+    pub model: String,
     /// Provider and credentials selected for the owning thread.
     pub provider: SharedModelProvider,
     /// Provider and feature policy shared with ordinary model requests.
@@ -228,7 +231,7 @@ impl LunaSampler {
         auth_owner_generation: Option<u64>,
     ) -> execution::SamplingExecution {
         let api_request = ResponsesApiRequest {
-            model: MODEL.to_owned(),
+            model: self.config.model.clone(),
             input,
             tools: None,
             tool_choice: "none".to_owned(),

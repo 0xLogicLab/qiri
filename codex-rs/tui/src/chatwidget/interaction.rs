@@ -361,7 +361,7 @@ impl ChatWidget {
                     self.refresh_startup_recovery();
                 }
                 crate::startup_recovery::submitted(&input_result);
-                self.sync_backend_banner_view();
+
                 if should_pause_active_goal {
                     self.pause_active_goal_for_interrupt();
                 }

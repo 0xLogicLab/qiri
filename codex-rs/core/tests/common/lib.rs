@@ -210,14 +210,21 @@ pub async fn load_default_config_for_test_with_cloud_config_bundle(
     codex_home: &TempDir,
     cloud_config_bundle: CloudConfigBundleLoader,
 ) -> Config {
-    ConfigBuilder::default()
+    let mut config = ConfigBuilder::default()
         .loader_overrides(LoaderOverrides::without_managed_config_for_tests())
         .codex_home(codex_home.path().to_path_buf())
         .harness_overrides(default_test_overrides())
         .cloud_config_bundle(cloud_config_bundle)
         .build()
         .await
-        .expect("defaults for test should always succeed")
+        .expect("defaults for test should always succeed");
+    config
+        .model
+        .get_or_insert_with(|| "local-test-model".to_string());
+    config
+        .model_catalog
+        .get_or_insert_with(|| test_model_catalog().expect("synthetic local catalog"));
+    config
 }
 
 pub fn managed_network_requirements_loader() -> CloudConfigBundleLoader {
@@ -766,4 +773,43 @@ macro_rules! skip_if_host_windows {
             return $return_value;
         }
     }};
+}
+
+/// Synthetic capabilities explicitly selected by tests; never shipped as the default catalog.
+/// Historical model IDs are aliases exercising wire compatibility, not service presets.
+pub fn test_model_catalog()
+-> Result<codex_protocol::openai_models::ModelsResponse, serde_json::Error> {
+    codex_models_manager::test_support::synthetic_models_response()
+}
+
+/// Tests opt into a caller-owned OAuth callback; production never activates stored service tokens.
+pub async fn install_local_fixture_oauth(
+    auth: &codex_login::AuthManager,
+    home: &std::path::Path,
+) -> anyhow::Result<()> {
+    struct FixtureOAuth(std::path::PathBuf);
+    impl codex_login::ExternalAuth for FixtureOAuth {
+        fn resolve(&self) -> codex_login::ExternalAuthFuture<'_, codex_login::CodexAuth> {
+            Box::pin(async move {
+                let resolve = || -> std::io::Result<codex_login::CodexAuth> {
+                    let data: serde_json::Value =
+                        serde_json::from_slice(&std::fs::read(self.0.join("auth.json"))?)
+                            .map_err(std::io::Error::other)?;
+                    let token = data["tokens"]["access_token"].as_str().unwrap_or_default();
+                    let account = data["tokens"]["account_id"].as_str().unwrap_or_default();
+                    codex_login::CodexAuth::from_external_chatgpt_tokens(token, account, None)
+                };
+                resolve()
+            })
+        }
+        fn refresh(
+            &self,
+            _context: codex_login::ExternalAuthRefreshContext,
+        ) -> codex_login::ExternalAuthFuture<'_, codex_login::CodexAuth> {
+            self.resolve()
+        }
+    }
+    auth.set_external_auth(std::sync::Arc::new(FixtureOAuth(home.to_path_buf())))
+        .await?;
+    Ok(())
 }

@@ -252,7 +252,6 @@ async fn delegate_start_never_uploads_analytics_even_when_enabled() {
         .await;
     let client = AnalyticsEventsClient::new(
         AuthManager::from_auth_for_testing(CodexAuth::create_dummy_chatgpt_auth_for_testing()),
-        server.uri(),
         /*analytics_enabled*/ Some(true),
     );
     let (mut parent_session, parent_ctx, _rx_events) =

@@ -7,7 +7,7 @@ expression: contents
   If the link doesn't open automatically,
 press c to copy it:
 
-  https://auth.openai.com/oauth/authorize?re
+  https://auth.example.net/oauth/authorize?re
 sponse_type=code&client_id=app_EMoamEEZ73f0C
 kXaXp7hrann&redirect_uri=http%3A%2F%2Flocalh
 ost%3A1455%2Fauth%2Fcallback&scope=openid%20

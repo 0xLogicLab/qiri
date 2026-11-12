@@ -232,7 +232,7 @@ async fn consume_timeout_releases_account_auth_queue() -> Result<()> {
         .and(path("/api/codex/accounts/check"))
         .respond_with(
             ResponseTemplate::new(200).set_body_json(json!({"accounts": [{
-                "id": "account-123", "workspace_backend_origin": "https://chatgpt.com",
+                "id": "account-123", "workspace_backend_origin": "https://service.example.test",
                 "account_routing_override": "NO_CONSTRAINT"
             }]})),
         )

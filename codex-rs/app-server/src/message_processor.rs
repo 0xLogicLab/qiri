@@ -26,7 +26,6 @@ use crate::outgoing_message::RequestContext;
 use crate::plugin_config_reload;
 use crate::plugin_config_reload::PluginStartupConfig;
 use crate::request_processors::AccountRequestProcessor;
-use crate::request_processors::AppsRequestProcessor;
 use crate::request_processors::CatalogRequestProcessor;
 use crate::request_processors::CommandExecRequestProcessor;
 use crate::request_processors::ConfigRequestProcessor;
@@ -61,7 +60,6 @@ use crate::thread_state::ConnectionCapabilities;
 use crate::thread_state::ThreadStateManager;
 use crate::transport::AppServerTransport;
 use crate::transport::RemoteControlHandle;
-use crate::turn_cost_worker::TurnCostWorker;
 use codex_analytics::AnalyticsEventsClient;
 use codex_analytics::AppServerRpcTransport;
 use codex_app_server_protocol::ClientNotification;
@@ -153,10 +151,8 @@ pub(crate) struct MessageProcessor {
     outgoing: Arc<OutgoingMessageSender>,
     startup_warnings: StartupWarnings,
     models_refresh_worker: ModelsRefreshWorker,
-    turn_cost_worker: Option<TurnCostWorker>,
     skills_watcher: Arc<SkillsWatcher>,
     account_processor: Arc<AccountRequestProcessor>,
-    apps_processor: AppsRequestProcessor,
     catalog_processor: CatalogRequestProcessor,
     command_exec_processor: CommandExecRequestProcessor,
     process_exec_processor: ProcessExecRequestProcessor,
@@ -424,8 +420,6 @@ impl MessageProcessor {
             Arc::clone(&auth_manager),
         ));
         let models_refresh_worker = crate::models_refresh_worker::spawn(&model_catalog);
-        let turn_cost_worker =
-            TurnCostWorker::spawn(Arc::clone(&config), Arc::clone(&auth_manager));
         thread_manager
             .plugins_manager()
             .set_analytics_events_client(analytics_events_client.clone());
@@ -464,13 +458,7 @@ impl MessageProcessor {
             config_manager.clone(),
             Arc::clone(&model_catalog),
         );
-        let apps_processor = AppsRequestProcessor::new(
-            auth_manager.clone(),
-            Arc::clone(&thread_manager),
-            outgoing.clone(),
-            config_manager.clone(),
-            app_list_shutdown_token,
-        );
+
         let catalog_processor = CatalogRequestProcessor::new(
             outgoing.clone(),
             Arc::clone(&skills_watcher),
@@ -556,7 +544,6 @@ impl MessageProcessor {
             state_db.clone(),
             log_db,
             Arc::clone(&skills_watcher),
-            turn_cost_worker.as_ref().map(TurnCostWorker::handle),
             config_warnings.clone(),
             sample_responses,
         );
@@ -571,7 +558,6 @@ impl MessageProcessor {
             thread_state_manager,
             thread_watch_manager,
             Arc::clone(&skills_watcher),
-            turn_cost_worker.as_ref().map(TurnCostWorker::handle),
         );
         if let Some(startup_config) = plugin_startup_tasks {
             // Keep plugin startup warmups aligned at app-server startup.
@@ -635,10 +621,8 @@ impl MessageProcessor {
                 config: config_warnings,
             },
             models_refresh_worker,
-            turn_cost_worker,
             skills_watcher,
             account_processor,
-            apps_processor,
             catalog_processor,
             command_exec_processor,
             process_exec_processor,
@@ -666,7 +650,6 @@ impl MessageProcessor {
 
     pub(crate) fn clear_runtime_references(&self) {
         self.account_processor.clear_external_auth();
-        self.apps_processor.shutdown();
         self.models_refresh_worker.shutdown();
         self.skills_watcher.shutdown();
     }
@@ -898,9 +881,7 @@ impl MessageProcessor {
 
     pub(crate) async fn drain_background_tasks(&self) {
         self.models_refresh_worker.shutdown();
-        if let Some(worker) = &self.turn_cost_worker {
-            worker.shutdown();
-        }
+
         self.thread_processor.drain_background_tasks().await;
     }
 
@@ -1687,15 +1668,11 @@ impl MessageProcessor {
             ClientRequest::PluginShareDelete { params, .. } => {
                 self.plugin_processor.plugin_share_delete(params).await
             }
-            ClientRequest::AppsRead { params, .. } => self.apps_processor.apps_read(params).await,
-            ClientRequest::AppsList { params, .. } => {
-                self.apps_processor.apps_list(&request_id, params).await
-            }
-            ClientRequest::AppsInstalled { params, .. } => self
-                .apps_processor
-                .apps_installed(params)
-                .await
-                .map(|response| Some(response.into())),
+            ClientRequest::AppsRead { .. }
+            | ClientRequest::AppsList { .. }
+            | ClientRequest::AppsInstalled { .. } => Err(invalid_request(
+                "Hosted apps are unsupported; configure a custom MCP server",
+            )),
             ClientRequest::SkillsConfigWrite { params, .. } => {
                 self.catalog_processor.skills_config_write(params).await
             }
@@ -1851,8 +1828,10 @@ impl MessageProcessor {
                     .windows_sandbox_setup_start(&request_id, params)
                     .await
             }
-            ClientRequest::LoginAccount { .. } => {
-                Err(invalid_request("QIRI account login is disabled"))
+            ClientRequest::LoginAccount { params, .. } => {
+                self.account_processor
+                    .login_account(request_id.clone(), params)
+                    .await
             }
             ClientRequest::BedrockDiscover { params, .. } => {
                 self.account_processor.bedrock_discover(params).await
@@ -1873,9 +1852,12 @@ impl MessageProcessor {
                     .await
                     .map(|response| Some(response.into()))
             }
-            ClientRequest::GatewayOAuthLogin { .. } => {
-                Err(invalid_request("QIRI account login is disabled"))
-            }
+            ClientRequest::GatewayOAuthLogin { .. } => Box::pin(
+                self.account_processor
+                    .gateway_oauth_login(connection_id, &session.rpc_gate),
+            )
+            .await
+            .map(|response| Some(response.into())),
             ClientRequest::GatewayOAuthCancel { .. } => {
                 Box::pin(self.account_processor.gateway_oauth_cancel(connection_id))
                     .await

@@ -19,7 +19,6 @@ use codex_extension_api::McpServerContributionContext;
 use codex_extension_api::McpServerContributor;
 use codex_features::Feature;
 use codex_login::CodexAuth;
-use codex_models_manager::bundled_models_response;
 use codex_protocol::approvals::ElicitationAction;
 use codex_protocol::approvals::ElicitationRequest;
 use codex_protocol::approvals::ElicitationRequestEvent;
@@ -51,6 +50,7 @@ use core_test_support::skip_if_wine_exec;
 use core_test_support::test_codex::TestCodex;
 use core_test_support::test_codex::test_codex;
 use core_test_support::test_codex::turn_permission_fields;
+use core_test_support::test_model_catalog as bundled_models_response;
 use core_test_support::wait_for_event;
 use core_test_support::wait_for_event_match;
 use pretty_assertions::assert_eq;
@@ -866,118 +866,6 @@ async fn interrupting_concurrent_step_preparation_prevents_sampling() -> Result<
     assert!(
         response.requests().is_empty(),
         "releasing the cancelled MCP startup must not revive the aborted turn"
-    );
-    Ok(())
-}
-
-#[test_case(ResponseTemplate::new(200).set_body_json(json!({"enabled": false, "plugins": []})); "endpoint disabled")]
-#[test_case(ResponseTemplate::new(503); "fetch failure")]
-#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-async fn unavailable_recommendations_preserve_legacy_workflow(
-    response: ResponseTemplate,
-) -> Result<()> {
-    skip_if_no_network!(Ok(()));
-
-    let server = start_mock_server().await;
-    let apps_server = AppsTestServer::mount(&server).await?;
-    mount_recommendations(&server, response).await;
-    let call_id = "list-installable-tools";
-    let mock = mount_sse_sequence(
-        &server,
-        vec![
-            sse(vec![
-                ev_response_created("resp-1"),
-                ev_function_call(call_id, LIST_AVAILABLE_PLUGINS_TO_INSTALL_TOOL_NAME, "{}"),
-                ev_completed("resp-1"),
-            ]),
-            sse(vec![
-                ev_response_created("resp-2"),
-                ev_assistant_message("msg-1", "done"),
-                ev_completed("resp-2"),
-            ]),
-        ],
-    )
-    .await;
-    let auth = CodexAuth::create_dummy_chatgpt_auth_for_testing();
-    let mut builder = test_codex()
-        .with_auth(auth.clone())
-        .with_pre_build_hook(|home| {
-            std::fs::write(
-                home.join("config.toml"),
-                "[apps.calendar]\nenabled = false\n",
-            )
-            .expect("write disabled calendar app");
-        })
-        .with_config(move |config| {
-            configure_apps_without_search_tool(config, &apps_server.chatgpt_base_url);
-            config.tool_suggest.discoverables.extend(
-                [CALENDAR_CONNECTOR_ID, "connector_missing"].map(|id| ToolSuggestDiscoverable {
-                    kind: ToolSuggestDiscoverableType::Connector,
-                    id: id.to_string(),
-                }),
-            );
-        });
-    let test = builder.build_with_auto_env(&server).await?;
-    let cache_key = ConnectorDirectoryCacheKey::new(
-        server.uri(),
-        auth.get_account_id(),
-        auth.get_chatgpt_user_id(),
-        auth.is_workspace_account(),
-    );
-    let client = codex_login::default_client::create_client();
-    codex_connectors::list_all_connectors_with_options(
-        ConnectorDirectoryCacheContext::new(test.home.path().to_path_buf(), cache_key),
-        auth.is_workspace_account(),
-        /*force_refetch*/ true,
-        |path| {
-            let request = client.get(format!("{}{path}", server.uri()));
-            async move { Ok(request.send().await?.json().await?) }
-        },
-    )
-    .await?;
-    test.submit_turn_with_approval_and_permission_profile(
-        "list tools",
-        AskForApproval::Never,
-        PermissionProfile::Disabled,
-    )
-    .await?;
-
-    let requests = mock.requests();
-    assert_eq!(requests.len(), 2);
-    let request = &requests[0];
-    assert!(
-        !request
-            .message_input_texts("developer")
-            .join("\n")
-            .contains("<recommended_plugins>")
-    );
-    assert_legacy_tools(&request.body_json());
-    let output = requests[1]
-        .function_call_output_text(call_id)
-        .expect("list tool output");
-    let output: Value = serde_json::from_str(&output)?;
-    assert_eq!(
-        output["tools"],
-        json!([
-            {
-                "id": DISCOVERABLE_GMAIL_ID,
-                "name": "Gmail",
-                "description": "Find and summarize email threads.",
-                "tool_type": "connector",
-                "has_skills": false,
-                "mcp_server_names": [],
-                "app_connector_ids": []
-            },
-            {
-                "id": "connector_missing",
-                "name": "connector_missing",
-                "description": null,
-                "tool_type": "connector",
-                "has_skills": false,
-                "mcp_server_names": [],
-                "app_connector_ids": []
-            }
-        ])
     );
     Ok(())
 }

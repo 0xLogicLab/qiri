@@ -130,6 +130,7 @@ impl Harness {
             /*enable_codex_api_key_env*/ false,
         )
         .await?;
+        core_test_support::install_local_fixture_oauth(&auth, home.path()).await?;
         let provider = Arc::new(BlockingProvider::default());
         let factory_provider = Arc::clone(&provider);
         let service = Arc::new(Service {

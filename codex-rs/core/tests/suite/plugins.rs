@@ -379,7 +379,6 @@ async fn shared_analytics_client_preserves_session_products() -> Result<()> {
         codex_core::test_support::auth_manager_from_auth(
             CodexAuth::create_dummy_chatgpt_auth_for_testing(),
         ),
-        server.uri(),
         /*analytics_enabled*/ Some(true),
     );
     let mut products = [Some("aeon"), Some("tpp"), None];

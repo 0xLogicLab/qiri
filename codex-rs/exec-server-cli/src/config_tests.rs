@@ -13,10 +13,10 @@ fn exec_server_remote_auth_accepts_api_key_auth() {
 #[test]
 fn exec_server_remote_api_key_auth_accepts_https_openai_domains() {
     for base_url in [
-        "https://openai.com/api",
-        "https://service.openai.com/api",
-        "https://openai.org/api",
-        "https://service.openai.org/api",
+        "https://example.net/api",
+        "https://service.example.net/api",
+        "https://example.org/api",
+        "https://service.example.org/api",
     ] {
         assert!(validate_api_key_remote_host(base_url).is_ok());
     }
@@ -36,26 +36,20 @@ fn exec_server_remote_api_key_auth_accepts_http_loopback() {
 #[test]
 fn exec_server_remote_api_key_auth_rejects_http_openai_domain() {
     for base_url in [
-        "http://service.openai.com/api",
-        "http://service.openai.org/api",
+        "http://service.example.net/api",
+        "http://service.example.org/api",
     ] {
         let error = validate_api_key_remote_host(base_url)
             .expect_err("reject plaintext OpenAI destination");
 
         assert_eq!(
             error.to_string(),
-            "remote exec-server API-key authentication is restricted to HTTPS openai.com and openai.org hosts and subdomains or loopback hosts"
+            "remote exec-server API-key authentication requires HTTPS or a loopback HTTP endpoint"
         );
     }
 }
 
 #[test]
-fn exec_server_remote_api_key_auth_rejects_suffix_spoof() {
-    let error = validate_api_key_remote_host("https://service.openai.org.evil.example/api")
-        .expect_err("reject suffix spoof");
-
-    assert_eq!(
-        error.to_string(),
-        "remote exec-server API-key authentication is restricted to HTTPS openai.com and openai.org hosts and subdomains or loopback hosts"
-    );
+fn exec_server_remote_api_key_auth_accepts_explicit_custom_https_endpoint() {
+    assert!(validate_api_key_remote_host("https://custom.example.test/api").is_ok());
 }

@@ -3327,7 +3327,7 @@ async fn agent_started_proxy_denies_brokered_provider_alias() -> Result<()> {
 }
 
 pub(super) fn guardian_parent_catalog() -> ModelsResponse {
-    let template = codex_models_manager::bundled_models_response()
+    let template = core_test_support::test_model_catalog()
         .expect("bundled model catalog")
         .models
         .into_iter()

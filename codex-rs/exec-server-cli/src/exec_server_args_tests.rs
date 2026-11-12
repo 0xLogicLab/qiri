@@ -35,7 +35,6 @@ fn exec_server_defaults_preserve_local_and_noise_modes() {
             "env-1",
             "--remote-transport",
             "noise",
-            "--use-agent-identity-auth",
         ],
     ] {
         let command = exec_server_from_args(&args);
@@ -159,11 +158,11 @@ fn exec_server_rejects_missing_or_conflicting_remote_options() {
                 "--aws-sigv4",
                 "--use-agent-identity-auth",
             ],
-            ErrorKind::ArgumentConflict,
+            ErrorKind::UnknownArgument,
         ),
         (
             vec!["--executor-credential-stdin", "--use-agent-identity-auth"],
-            ErrorKind::ArgumentConflict,
+            ErrorKind::UnknownArgument,
         ),
         (
             vec![
@@ -300,13 +299,12 @@ fn exec_server_forward_parses_shared_remote_options() {
         "--connect",
         "ws://127.0.0.1:8765",
         "--remote",
-        "https://example.openai.com",
+        "https://example.example.net",
         "--environment-id",
         "env-1",
         "--name",
         "forwarded",
         "--strict-config",
-        "--use-agent-identity-auth",
     ])
     .expect("parse forward");
     assert_matches!(cli.command, ExecServerCommand {
@@ -315,9 +313,8 @@ fn exec_server_forward_parses_shared_remote_options() {
         environment_id: Some(environment_id),
         name: Some(name),
         strict_config: true,
-        use_agent_identity_auth: true,
         ..
-    } if connect == "ws://127.0.0.1:8765" && remote == "https://example.openai.com" && environment_id == "env-1" && name == "forwarded");
+    } if connect == "ws://127.0.0.1:8765" && remote == "https://example.example.net" && environment_id == "env-1" && name == "forwarded");
 }
 
 #[test]

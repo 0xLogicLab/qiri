@@ -1,4 +1,3 @@
-use super::apps_processor::APP_READ_MAX_IDS;
 use super::config_processor::reload_user_config;
 use super::*;
 use crate::error_code::internal_error;
@@ -9,6 +8,7 @@ use codex_app_server_protocol::PluginSharePrincipalRole;
 use codex_app_server_protocol::PluginShareTargetRole;
 use codex_config::types::McpServerConfig;
 use codex_config::types::PluginsConfigToml;
+use codex_core::connectors;
 use codex_core_plugins::OPENAI_CURATED_MARKETPLACE_NAME;
 use codex_core_plugins::PluginListBackgroundTaskOptions;
 use codex_core_plugins::PluginMarketplaceContext;
@@ -2145,53 +2145,14 @@ async fn load_plugin_app_summaries(
         .map(|app| app.0.clone())
         .filter(|app_id| seen_app_ids.insert(app_id.clone()))
         .collect::<Vec<_>>();
-    let mut metadata_by_id = HashMap::new();
-    if let Some(auth) = auth.filter(|auth| {
-        config
-            .features
-            .apps_enabled_for_auth(auth.uses_codex_backend())
-    }) {
-        metadata_by_id.extend(
-            codex_connectors::ConnectorMetadataStore::new(
-                config.chatgpt_base_url.clone(),
-                auth.get_account_id(),
-                auth.get_chatgpt_user_id(),
-                auth.is_workspace_account(),
-            )
-            .fresh_records(&app_ids, /*include_tools*/ false),
-        );
-        for app_ids in app_ids.chunks(APP_READ_MAX_IDS) {
-            match connectors::read_connector_metadata(
-                config, auth, app_ids, /*include_tools*/ false,
-            )
-            .await
-            {
-                Ok(result) => metadata_by_id.extend(
-                    result
-                        .apps
-                        .into_iter()
-                        .map(|metadata| (metadata.id.clone(), metadata)),
-                ),
-                Err(err) => {
-                    warn!("failed to load app metadata for plugin: {err:#}");
-                    break;
-                }
-            }
-        }
-    }
-
     app_ids
         .into_iter()
         .map(|app_id| {
-            let (name, description) = metadata_by_id
-                .remove(&app_id)
-                .map(|metadata| (metadata.name, metadata.description))
-                .unwrap_or_else(|| (app_id.clone(), None));
+            let name = app_id.clone();
+            let description = None;
             let category = app_category_by_id.get(&app_id).cloned();
             AppSummary {
-                install_url: Some(codex_connectors::metadata::connector_install_url(
-                    &name, &app_id,
-                )),
+                install_url: None,
                 id: app_id,
                 name,
                 description,

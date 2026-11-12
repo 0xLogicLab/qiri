@@ -60,7 +60,7 @@ impl AppServerSession {
             config
                 .config
                 .model_provider
-                .unwrap_or_else(|| "openai".to_string())
+                .unwrap_or_else(|| "local".to_string())
         }))
     }
 }

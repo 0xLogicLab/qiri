@@ -37,7 +37,7 @@ use std::sync::atomic::AtomicUsize;
 use std::sync::atomic::Ordering;
 
 const GOV_CLOUD_GUIDANCE_URL: &str =
-    "https://learn.chatgpt.com/docs/enterprise/govcloud-configuration";
+    "https://docs.aws.amazon.com/govcloud-us/latest/UserGuide/what-is-govcloud.html";
 
 #[derive(Clone)]
 pub(super) struct BedrockState {
@@ -459,7 +459,7 @@ impl BedrockState {
                 lines.push("".into());
                 lines.push(Line::from(vec![
                     "  Setup guide: ".into(),
-                    "https://learn.chatgpt.com/docs/amazon-bedrock"
+                    "https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html"
                         .cyan()
                         .underlined(),
                 ]));

@@ -52,8 +52,6 @@ use crate::wrapping::word_wrap_lines;
 use std::sync::Arc;
 use std::sync::RwLock;
 
-const CHATGPT_USAGE_URL: &str = "https://chatgpt.com/settings/usage";
-
 #[derive(Debug, Clone)]
 struct StatusContextWindowData {
     percent_remaining: i64,
@@ -134,7 +132,6 @@ struct StatusHistoryCell {
     collaboration_mode: Option<String>,
     model_provider: Option<String>,
     remote_connection: Option<RemoteConnectionStatus>,
-    show_chatgpt_usage_link: bool,
     account: Option<StatusAccountDisplay>,
     thread_name: Option<String>,
     session_id: Option<String>,
@@ -352,7 +349,6 @@ impl StatusHistoryCell {
             &approval,
             workspace_root_suffix.as_deref(),
         );
-        let show_chatgpt_usage_link = requires_openai_auth;
         let mut account = compose_account_display(account_display);
         let workspace_matches_provider = if remote_connection.is_some() {
             // A connected server owns the provider definitions; only the built-in ID is certain.
@@ -413,7 +409,6 @@ impl StatusHistoryCell {
             collaboration_mode: collaboration_mode.map(ToString::to_string),
             model_provider,
             remote_connection: remote_connection.cloned(),
-            show_chatgpt_usage_link,
             account,
             thread_name,
             session_id,
@@ -761,20 +756,11 @@ impl StatusHistoryCell {
         }
         let mut lines = Vec::new();
 
-        let account_value = self.account.as_ref().map(|account| match account {
-            StatusAccountDisplay::ChatGpt { email, plan, .. } => match (email, plan) {
-                (Some(email), Some(plan)) => format!("{email} ({plan})"),
-                (Some(email), None) => email.clone(),
-                (None, Some(plan)) => plan.clone(),
-                (None, None) => "Account".to_string(),
-            },
-            StatusAccountDisplay::ApiKey => "API key configured".to_string(),
-        });
-
-        let workspace = match &self.account {
-            Some(StatusAccountDisplay::ChatGpt { workspace, .. }) => workspace.as_deref(),
+        let account_value = match self.account.as_ref() {
+            Some(StatusAccountDisplay::ApiKey) => Some("API key configured".to_string()),
             _ => None,
         };
+        let workspace: Option<&str> = None;
 
         let mut labels: Vec<String> = vec!["Model", "Directory", "Permissions", "Agents.md"]
             .into_iter()
@@ -885,10 +871,7 @@ impl StatusHistoryCell {
         }
 
         lines.push(Line::from(Vec::<Span<'static>>::new()));
-        // Hide token usage only for ChatGPT subscribers
-        if !matches!(self.account, Some(StatusAccountDisplay::ChatGpt { .. })) {
-            lines.push(formatter.line("Token usage", self.token_usage_spans()));
-        }
+        lines.push(formatter.line("Token usage", self.token_usage_spans()));
 
         if let Some(spans) = self.context_window_spans() {
             lines.push(formatter.line("Context window", spans));
@@ -917,26 +900,7 @@ impl StatusHistoryCell {
         );
         rendered.push(Line::default());
         // Providers such as Bedrock manage limits and billing elsewhere.
-        if self.show_chatgpt_usage_link {
-            rendered.extend(word_wrap_lines(
-                [
-                    Line::from(vec![
-                        "Visit ".fg(accent_color()),
-                        CHATGPT_USAGE_URL.fg(accent_color()).underlined(),
-                        " for up-to-date".fg(accent_color()),
-                    ]),
-                    "information on rate limits and credits"
-                        .fg(accent_color())
-                        .into(),
-                ],
-                RtOptions::new(available_width)
-                    .initial_indent(indent.into())
-                    .subsequent_indent(indent.into())
-                    .word_separator(textwrap::WordSeparator::AsciiSpace)
-                    .word_splitter(textwrap::WordSplitter::NoHyphenation),
-            ));
-            rendered.push(Line::default());
-        }
+
         // Keep every value, including long paths and IDs, aligned beneath its first line.
         // At widths too small for the label column, use the outer indent instead.
         let continuation = if value_width > 0 {
@@ -985,22 +949,7 @@ impl HistoryCell for Arc<StatusHistoryCell> {
             crate::terminal_hyperlinks::plain_hyperlink_lines(self.display_lines(width));
         // The usage URL has a known destination; wrapping preserves its underlined spans.
         // Attach that destination to every fragment instead of searching for the full URL.
-        if self.show_chatgpt_usage_link {
-            for line in &mut lines {
-                let mut column = 0;
-                for span in &line.line.spans {
-                    let end = column + span.width();
-                    if span.style.add_modifier.contains(Modifier::UNDERLINED) {
-                        line.hyperlinks
-                            .push(crate::terminal_hyperlinks::TerminalHyperlink::web(
-                                column..end,
-                                CHATGPT_USAGE_URL.to_string(),
-                            ));
-                    }
-                    column = end;
-                }
-            }
-        }
+
         lines
     }
 

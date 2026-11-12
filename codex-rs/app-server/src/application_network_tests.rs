@@ -28,7 +28,7 @@ async fn embedded_transports_stay_blocked_until_the_same_policy_is_published() -
     let server = MockServer::start().await;
     Mock::given(method("GET"))
         .respond_with(ResponseTemplate::new(200))
-        .expect(2)
+        .expect(1)
         .mount(&server)
         .await;
     let home = tempdir()?;
@@ -43,7 +43,6 @@ async fn embedded_transports_stay_blocked_until_the_same_policy_is_published() -
         .loader_overrides(overrides.clone())
         .build()
         .await?;
-    config.chatgpt_base_url = server.uri();
     let cloud_endpoint = format!("{}/api/codex/config/bundle", server.uri());
     let policy = EmbeddedNetworkPolicy::load(&overrides).await;
     let bootstrap_auth = policy.bind_bootstrap_auth(config.auth_config());
@@ -97,14 +96,14 @@ async fn embedded_transports_stay_blocked_until_the_same_policy_is_published() -
         Err(NetworkPolicyDenied::Destination),
     );
     caller_client.get(server.uri()).send().await?;
-    worktree_client.get(&cloud_endpoint).send().await?;
+    assert!(worktree_client.get(&cloud_endpoint).send().await.is_err());
     assert!(
         caller_factory
             .network_policy()
             .acquire_for_unsupported_sdk()
             .is_ok()
     );
-    assert_eq!(server.received_requests().await.unwrap().len(), 2);
+    assert_eq!(server.received_requests().await.unwrap().len(), 1);
     std::fs::write(&requirements, "[malformed")?;
     assert!(manager.refresh_application_network_policy().await.is_err());
     assert!(caller_client.get(server.uri()).send().await.is_err());

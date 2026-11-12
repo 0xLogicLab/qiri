@@ -10,8 +10,8 @@ set -e
 
 # Default the work directory to WORKSPACE_ROOT_DIR if not provided.
 WORK_DIR="${WORKSPACE_ROOT_DIR:-$(pwd)}"
-# Default allowed domains - can be overridden with QIRI_ALLOWED_DOMAINS env var
-QIRI_ALLOWED_DOMAINS="${QIRI_ALLOWED_DOMAINS:?Set QIRI_ALLOWED_DOMAINS explicitly}"
+# Require an explicit allowlist; accept the legacy variable without a service default.
+QIRI_ALLOWED_DOMAINS="${QIRI_ALLOWED_DOMAINS:-${OPENAI_ALLOWED_DOMAINS:?Set QIRI_ALLOWED_DOMAINS explicitly}}"
 
 # Parse optional flag.
 if [ "$1" = "--work_dir" ]; then

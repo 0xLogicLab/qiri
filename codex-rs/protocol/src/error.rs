@@ -191,11 +191,9 @@ pub enum CodexErrorDetails {
     ResponseStreamFailed(ResponseStreamFailed),
     #[error("{0}")]
     ConnectionFailed(ConnectionFailedError),
-    #[error("Quota exceeded. Check your plan and billing details.")]
+    #[error("The configured endpoint quota is exhausted.")]
     QuotaExceeded,
-    #[error(
-        "To use Codex with your ChatGPT plan, upgrade to Plus: https://chatgpt.com/explore/plus."
-    )]
+    #[error("The configured endpoint does not include access to this model.")]
     UsageNotIncluded,
     #[error("We’re currently experiencing high demand, which may cause temporary errors.")]
     InternalServerError,
@@ -739,8 +737,6 @@ pub struct UsageLimitReachedError {
 
 impl std::fmt::Display for UsageLimitReachedError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        // Reserve is a fallback for exhausted ordinary usage, so keep the standard
-        // promo/plan recovery copy below instead of suggesting another model.
         if let Some(limit_name) = self
             .rate_limits
             .as_ref()
@@ -748,7 +744,6 @@ impl std::fmt::Display for UsageLimitReachedError {
             .map(str::trim)
             .filter(|name| !name.is_empty())
             && !limit_name.eq_ignore_ascii_case("codex")
-            && !limit_name.eq_ignore_ascii_case("gpt-reserve")
         {
             return write!(
                 f,
@@ -757,91 +752,10 @@ impl std::fmt::Display for UsageLimitReachedError {
             );
         }
 
-        if let Some(rate_limit_reached_type) = self.rate_limit_reached_type {
-            match rate_limit_reached_type {
-                RateLimitReachedType::WorkspaceOwnerCreditsDepleted => {
-                    return write!(
-                        f,
-                        "Your workspace is out of credits. Add credits to continue."
-                    );
-                }
-                RateLimitReachedType::WorkspaceMemberCreditsDepleted => {
-                    return write!(
-                        f,
-                        "Your workspace is out of credits. Ask your workspace owner to refill in order to continue."
-                    );
-                }
-                RateLimitReachedType::WorkspaceOwnerUsageLimitReached => {
-                    return write!(
-                        f,
-                        "You hit your spend cap set in your workspace. Increase your spend cap to continue."
-                    );
-                }
-                RateLimitReachedType::WorkspaceMemberUsageLimitReached => {
-                    return write!(
-                        f,
-                        "You hit your spend cap set by the owner of your workspace. Ask an owner to increase your spend cap to continue."
-                    );
-                }
-                RateLimitReachedType::RateLimitReached => {
-                    // Generic limits intentionally use the existing promo or plan copy below.
-                }
-            }
-        }
-
-        if let Some(promo_message) = &self.promo_message {
-            return write!(
-                f,
-                "You’ve hit your usage limit. {promo_message},{}",
-                retry_suffix_after_or(self.resets_at.as_ref())
-            );
-        }
-
-        let message = match self.plan_type.as_ref() {
-            Some(PlanType::Known(KnownPlan::Plus)) => format!(
-                "You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits{}",
-                retry_suffix_after_or(self.resets_at.as_ref())
-            ),
-            Some(PlanType::Known(
-                KnownPlan::Team
-                | KnownPlan::SelfServeBusinessProLite
-                | KnownPlan::SelfServeBusinessUsageBased
-                | KnownPlan::Business
-                | KnownPlan::Ent26
-                | KnownPlan::EnterpriseCbpAutomation
-                | KnownPlan::EnterpriseCbpUsageBased
-                | KnownPlan::Sci
-                | KnownPlan::SciPlus,
-            )) => {
-                format!(
-                    "You’ve hit your usage limit. To get more access now, send a request to your admin{}",
-                    retry_suffix_after_or(self.resets_at.as_ref())
-                )
-            }
-            Some(PlanType::Known(KnownPlan::Free)) | Some(PlanType::Known(KnownPlan::Go)) => {
-                format!(
-                    "You’ve hit your usage limit. Upgrade to Plus to continue using Codex (https://chatgpt.com/explore/plus),{}",
-                    retry_suffix_after_or(self.resets_at.as_ref())
-                )
-            }
-            Some(PlanType::Known(KnownPlan::Pro | KnownPlan::ProLite | KnownPlan::ProMax)) => {
-                format!(
-                    "You’ve hit your usage limit. Visit https://chatgpt.com/settings/usage to purchase more credits{}",
-                    retry_suffix_after_or(self.resets_at.as_ref())
-                )
-            }
-            Some(PlanType::Known(
-                KnownPlan::Enterprise | KnownPlan::Edu | KnownPlan::EduPlus | KnownPlan::EduPro,
-            )) => format!(
-                "You’ve hit your usage limit.{}",
-                retry_suffix(self.resets_at.as_ref())
-            ),
-            Some(PlanType::Unknown(_)) | None => format!(
-                "You’ve hit your usage limit.{}",
-                retry_suffix(self.resets_at.as_ref())
-            ),
-        };
-
+        let message = format!(
+            "You’ve hit your usage limit.{}",
+            retry_suffix(self.resets_at.as_ref())
+        );
         write!(f, "{message}")
     }
 }

@@ -213,7 +213,6 @@ mod app_server_event_targets;
 mod app_server_events;
 pub(crate) mod app_server_requests;
 mod app_server_thread_ownership;
-mod backend_banner_fallback;
 mod backend_events;
 pub(crate) mod backend_selection;
 pub(crate) mod backend_sessions;
@@ -579,7 +578,6 @@ pub(crate) struct App {
 
     // Alternate-screen overlays: transcript, diff, and analytics.
     pub(crate) overlay: Option<Overlay>,
-    pub(crate) retained_analytics: Option<Box<crate::analytics::AnalyticsView>>,
     pub(crate) deferred_history_lines: Vec<crate::terminal_hyperlinks::HyperlinkLine>,
     has_emitted_history_lines: bool,
     transcript_reflow: TranscriptReflowState,

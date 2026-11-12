@@ -211,7 +211,7 @@ async fn guardian_session_inherits_parent_http_fallback(
         config.guardian_policy_config = Some(configured_policy.to_string());
         config.guardian_policy_template = Some(configured_template.to_string());
         config.model_catalog =
-            Some(codex_models_manager::bundled_models_response().expect("valid catalog"));
+            Some(core_test_support::test_model_catalog().expect("valid catalog"));
     });
     let test = builder.build_with_auto_env(&server).await?;
 
@@ -327,7 +327,7 @@ async fn guardian_custom_gateway_selects_reviewer_by_catalog_origin(
 ) -> Result<()> {
     skip_if_no_network!(Ok(()));
     let server = start_mock_server().await;
-    let mut reviewer_model = codex_models_manager::bundled_models_response()?
+    let mut reviewer_model = core_test_support::test_model_catalog()?
         .models
         .into_iter()
         .find(|model| model.slug == "codex-auto-review")
@@ -498,7 +498,7 @@ for (const phase of ["before", "after"]) {
             config.permissions.approval_policy = Constrained::allow_any(AskForApproval::OnRequest);
             config.approvals_reviewer = ApprovalsReviewer::User;
             config.model_catalog =
-                Some(codex_models_manager::bundled_models_response().expect("valid catalog"));
+                Some(core_test_support::test_model_catalog().expect("valid catalog"));
         })
         .build_with_auto_env(&server)
         .await?;
@@ -954,7 +954,7 @@ async fn guardian_session_prewarms_and_is_reused_for_first_review(
 
     let credits_enabled = auth.uses_codex_backend();
     let requests_parent_credits = credits_enabled && auth.is_chatgpt_auth();
-    let bundled_models = codex_models_manager::bundled_models_response()?.models;
+    let bundled_models = core_test_support::test_model_catalog()?.models;
     let catalog_auto_review = bundled_models
         .iter()
         .find(|model| model.slug == expected_model)

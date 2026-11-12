@@ -1422,117 +1422,6 @@ async fn usage_error_slash_command_is_available_from_local_recall() {
 }
 
 #[tokio::test]
-async fn usage_command_without_backend_auth_reports_provider_unavailable() {
-    let (mut chat, mut rx, _op_rx) = make_chatwidget_manual(/*model_override*/ None).await;
-
-    submit_composer_text(&mut chat, "/usage");
-
-    let rendered = drain_insert_history(&mut rx)
-        .iter()
-        .map(|cell| lines_to_single_string(cell))
-        .collect::<Vec<_>>()
-        .join("\n");
-    assert!(
-        rendered.contains("Usage data is unavailable for the active model provider."),
-        "expected provider availability error, got: {rendered:?}"
-    );
-    assert_eq!(recall_latest_after_clearing(&mut chat), "/usage");
-}
-
-#[tokio::test]
-async fn usage_command_with_args_without_backend_auth_reports_provider_unavailable() {
-    let (mut chat, mut rx, _op_rx) = make_chatwidget_manual(/*model_override*/ None).await;
-
-    submit_composer_text(&mut chat, "/usage weekly");
-
-    let rendered = drain_insert_history(&mut rx)
-        .iter()
-        .map(|cell| lines_to_single_string(cell))
-        .collect::<Vec<_>>()
-        .join("\n");
-    assert!(
-        rendered.contains("Usage data is unavailable for the active model provider."),
-        "expected provider availability error, got: {rendered:?}"
-    );
-    assert_eq!(recall_latest_after_clearing(&mut chat), "/usage weekly");
-}
-
-#[tokio::test]
-async fn usage_command_with_invalid_view_reports_usage_snapshot() {
-    let (mut chat, mut rx, _op_rx) = make_chatwidget_manual(/*model_override*/ None).await;
-    set_chatgpt_auth(&mut chat);
-
-    submit_composer_text(&mut chat, "/usage monthly");
-
-    let rendered = drain_insert_history(&mut rx)
-        .iter()
-        .map(|cell| lines_to_single_string(cell))
-        .collect::<Vec<_>>()
-        .join("\n");
-    assert_chatwidget_snapshot!("usage_command_with_invalid_view_reports_usage", rendered);
-    assert_eq!(recall_latest_after_clearing(&mut chat), "/usage monthly");
-}
-
-#[tokio::test]
-async fn usage_views_open_the_requested_summary_mode() {
-    use crate::analytics::TokenActivityView;
-    for (argument, expected) in [
-        ("daily", TokenActivityView::Daily),
-        ("weekly", TokenActivityView::Weekly),
-        ("cumulative", TokenActivityView::Cumulative),
-    ] {
-        let (mut chat, mut rx, _op_rx) = make_chatwidget_manual(/*model_override*/ None).await;
-        set_chatgpt_auth(&mut chat);
-        chat.dispatch_command_with_args(SlashCommand::Usage, argument.to_string(), Vec::new());
-        match rx.try_recv().unwrap() {
-            AppEvent::OpenAnalytics { view } => assert_eq!(view, Some(expected)),
-            other => panic!("expected Analytics, got {other:?}"),
-        }
-    }
-}
-
-#[tokio::test]
-async fn usage_command_runs_with_backend_auth_without_chatgpt_account_flag() {
-    let (mut chat, mut rx, _op_rx) = make_chatwidget_manual(/*model_override*/ None).await;
-    chat.update_account_state(
-        /*status_account_display*/ None, /*plan_type*/ None,
-        /*has_chatgpt_account*/ false, /*has_codex_backend_auth*/ true,
-    );
-
-    chat.dispatch_command_with_args(SlashCommand::Usage, "daily".to_string(), Vec::new());
-
-    assert_matches!(
-        rx.try_recv(),
-        Ok(AppEvent::OpenAnalytics {
-            view: Some(crate::analytics::TokenActivityView::Daily)
-        })
-    );
-    assert!(!chat.has_chatgpt_account());
-}
-
-#[tokio::test]
-async fn usage_command_runs_with_backend_auth_from_widget_init() {
-    let (mut chat, mut rx, _op_rx) = make_chatwidget_manual_with_auth(
-        /*model_override*/ None,
-        /*has_chatgpt_account*/ false,
-        /*has_codex_backend_auth*/ true,
-        FrameRequester::test_dummy(),
-    )
-    .await;
-
-    chat.dispatch_command_with_args(SlashCommand::Usage, "daily".to_string(), Vec::new());
-
-    assert_matches!(
-        rx.try_recv(),
-        Ok(AppEvent::OpenAnalytics {
-            view: Some(crate::analytics::TokenActivityView::Daily)
-        })
-    );
-    assert!(!chat.has_chatgpt_account());
-    assert!(chat.has_codex_backend_auth());
-}
-
-#[tokio::test]
 async fn unrecognized_slash_command_is_not_added_to_local_recall() {
     let (mut chat, mut rx, _op_rx) = make_chatwidget_manual(/*model_override*/ None).await;
 
@@ -1598,15 +1487,6 @@ async fn slash_exit_aliases_request_exit() {
         chat.dispatch_command(command);
         assert_matches!(rx.try_recv(), Ok(AppEvent::Exit(ExitMode::ShutdownFirst)));
     }
-}
-
-#[tokio::test]
-async fn slash_logout_requests_app_server_logout() {
-    let (mut chat, mut rx, _op_rx) = make_chatwidget_manual(/*model_override*/ None).await;
-
-    chat.dispatch_command(SlashCommand::Logout);
-
-    assert_matches!(rx.try_recv(), Ok(AppEvent::Logout));
 }
 
 #[tokio::test]
@@ -2227,16 +2107,6 @@ async fn slash_copy_picker_remains_available_from_parent_owned_threads() {
         op_rx.try_recv().is_err(),
         "copy must not submit an agent turn"
     );
-}
-
-#[tokio::test]
-async fn slash_daybreak_offers_an_application_when_unavailable() {
-    assert_daybreak_catalog_and_account_gates("openai").await;
-}
-
-#[tokio::test]
-async fn slash_daybreak_custom_provider_requires_capability() {
-    assert_daybreak_catalog_and_account_gates("proxy").await;
 }
 
 async fn assert_daybreak_catalog_and_account_gates(provider_id: &str) {
@@ -3155,7 +3025,7 @@ async fn slash_pets_opens_picker() {
     chat.dispatch_command(SlashCommand::Pets);
 
     assert!(chat.bottom_pane.has_active_view());
-    assert_matches!(rx.try_recv(), Err(TryRecvError::Empty));
+    assert_matches!(rx.try_recv(), Ok(AppEvent::PetPreviewRequested { pet_id }) if pet_id == "disabled");
 
     let popup = render_bottom_popup(&chat, /*width*/ 80);
     assert_chatwidget_snapshot!("slash_pets_picker", popup);
@@ -3323,22 +3193,6 @@ async fn slash_fork_with_name_requests_named_fork() {
         Ok(AppEvent::ForkCurrentSession {
             name: Some(name)
         }) if name == "Add User"
-    );
-}
-
-#[tokio::test]
-async fn slash_app_requests_desktop_handoff() {
-    let (mut chat, mut rx, _op_rx) = make_chatwidget_manual(/*model_override*/ None).await;
-    let thread_id = ThreadId::new();
-    chat.thread_id = Some(thread_id);
-
-    chat.dispatch_command(SlashCommand::App);
-
-    assert_matches!(
-        rx.try_recv(),
-        Ok(AppEvent::OpenDesktopThread {
-            thread_id: actual_thread_id,
-        }) if actual_thread_id == thread_id
     );
 }
 

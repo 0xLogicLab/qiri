@@ -1043,7 +1043,7 @@ async fn plugin_detail_popup_shows_local_share_context_as_read_only_snapshot() {
             remote_plugin_id: "plugins~Plugin_docs".to_string(),
             remote_version: Some("7".to_string()),
             discoverability: Some(PluginShareDiscoverability::Private),
-            share_url: Some("https://chatgpt.com/codex/plugins/share/docs".to_string()),
+            share_url: Some("https://service.example.test/codex/plugins/share/docs".to_string()),
             creator_account_user_id: None,
             creator_name: Some("Test User".to_string()),
             share_principals: None,
@@ -3314,7 +3314,7 @@ async fn memories_reset_confirmation_snapshot() {
     assert_chatwidget_snapshot!("memories_reset_confirmation", popup);
 
     chat.handle_key_event(KeyEvent::from(KeyCode::Esc));
-    assert!(render_bottom_popup(&chat, /*width*/ 80).contains("Choose how Codex uses"));
+    assert!(render_bottom_popup(&chat, /*width*/ 80).contains("Choose how QIRI uses"));
     chat.handle_key_event(KeyEvent::from(KeyCode::Esc));
     assert!(chat.no_modal_or_popup_active());
 }

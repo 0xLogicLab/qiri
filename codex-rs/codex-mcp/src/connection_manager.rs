@@ -22,7 +22,6 @@ mod status;
 #[path = "connection_manager/tool_catalog.rs"]
 mod tool_catalog;
 
-use startup::chatgpt_auth_provider_for_server;
 use startup::emit_update;
 use startup::mcp_init_error_display;
 use startup::mcp_startup_failure_reason;
@@ -65,8 +64,7 @@ use crate::server::McpServerMetadata;
 use crate::tools::ToolFilter;
 use crate::tools::ToolInfo;
 use crate::tools::filter_tools;
-use crate::trusted_access::ENTITLEMENT_CONTEXT_KEY;
-use crate::trusted_access::TrustedAccessContext;
+const ENTITLEMENT_CONTEXT_KEY: &str = "openai/entitlementContext";
 use anyhow::Context;
 use anyhow::Result;
 use anyhow::anyhow;
@@ -344,7 +342,6 @@ pub(crate) struct McpConnectionSet {
     prefix_mcp_tool_names: bool,
     non_prefixed_mcp_tool_servers: Vec<String>,
     elicitation_requests: ElicitationRequestManager,
-    pub(crate) trusted_access: Option<TrustedAccessContext>,
 }
 
 impl McpConnectionSet {
@@ -360,7 +357,6 @@ impl McpConnectionSet {
     ) -> Self {
         let same_owner = previous.as_ref().is_some_and(|state| state.same_owner);
         let previous = previous.map(|state| state.connections);
-        let trusted_access = TrustedAccessContext::from_runtime(&input);
         let McpRuntimeInput {
             startup_policy,
             config,
@@ -442,17 +438,6 @@ impl McpConnectionSet {
         };
         let tool_plugin_context = Arc::new(tool_plugin_context);
         let startup_submit_id = submit_id;
-        let static_chatgpt_auth_provider = auth
-            .filter(|auth| auth.uses_codex_backend())
-            .map(codex_model_provider::auth_provider_from_auth);
-        let codex_apps_auth_provider = auth_manager.as_ref().and_then(|auth_manager| {
-            auth.filter(|auth| auth.uses_codex_backend()).map(|auth| {
-                codex_model_provider::auth_provider_from_auth_manager(
-                    Arc::clone(auth_manager),
-                    auth,
-                )
-            })
-        });
         for (server_name, server) in mcp_servers
             .into_iter()
             .filter(|(_, server)| server.enabled())
@@ -577,21 +562,7 @@ impl McpConnectionSet {
             // AuthManager across refreshes. In the hosted-plugin path, this
             // is the ChatGPT /ps/mcp connection. User-configured MCP
             // registrations keep their existing configured auth path.
-            let chatgpt_auth_provider = if server_name == CODEX_APPS_MCP_SERVER_NAME {
-                codex_apps_auth_provider
-                    .clone()
-                    .or_else(|| static_chatgpt_auth_provider.clone())
-            } else {
-                static_chatgpt_auth_provider.clone()
-            };
-            // If Codex Apps has an env bearer token, that is its auth path. Do
-            // not also attach the ambient CodexAuth provider.
-            let runtime_auth_provider =
-                if server_name == CODEX_APPS_MCP_SERVER_NAME && uses_env_bearer_token {
-                    None
-                } else {
-                    chatgpt_auth_provider_for_server(&server, chatgpt_auth_provider)
-                };
+            let runtime_auth_provider: Option<codex_api::SharedAuthProvider> = None;
             let discover_local_stdio = config.discover_local_stdio
                 && server.can_discover_local_stdio(&server_name, runtime_auth_provider.as_ref());
             let protocol_mode = if discover_local_stdio {
@@ -1102,7 +1073,6 @@ impl McpConnectionSet {
             prefix_mcp_tool_names,
             non_prefixed_mcp_tool_servers,
             elicitation_requests: elicitation_requests.clone(),
-            trusted_access,
         };
         let summary_publication_gate = publication_gate;
         tokio::spawn(async move {
@@ -1162,7 +1132,6 @@ impl McpConnectionSet {
             prefix_mcp_tool_names,
             non_prefixed_mcp_tool_servers: Vec::new(),
             elicitation_requests: ElicitationRequestManager::default(),
-            trusted_access: None,
         }
     }
 

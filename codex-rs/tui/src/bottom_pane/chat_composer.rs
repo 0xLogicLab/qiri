@@ -4,7 +4,7 @@
 //! before ordinary attachment pruning, including after each semantic repeat action.
 //!
 //! It edits [`TextArea`] and attachments, routes popup keys, makes completed slash commands atomic,
-//! and handles Enter/newlines. It shows Luna Reserve's yellow arrow and detects unbracketed paste
+//! and handles Enter/newlines. Its prompt follows the selected reasoning effort and detects unbracketed paste
 //! bursts, especially on Windows. Paste timing uses Tokio's clock so asynchronous flush deadlines
 //! and input classification share a clock, including in paused-time tests. Copy shortcuts and right
 //! clicks preserve selected draft text.
@@ -546,7 +546,6 @@ fn parent_owned_command_is_allowed(command: SlashCommand, args: &str) -> bool {
                 | SlashCommand::Status
                 | SlashCommand::Warnings
                 | SlashCommand::Daemon
-                | SlashCommand::Usage
                 | SlashCommand::Ide
                 | SlashCommand::DebugConfig
                 | SlashCommand::Theme
@@ -642,7 +641,6 @@ pub(crate) struct ChatComposer {
     voice_strip: Option<VoiceStrip>,
     effort_status_line_transition: Option<EffortStatusLineTransition>,
     effort_observed: bool,
-    luna_reserve_active: bool,
     attachments: AttachmentState,
     placeholder_text: String,
     blocks_direct_input: bool,
@@ -829,7 +827,6 @@ impl ChatComposer {
             voice_strip: None,
             effort_status_line_transition: None,
             effort_observed: false,
-            luna_reserve_active: false,
             attachments: AttachmentState::default(),
             placeholder_text,
             blocks_direct_input: false,
@@ -4610,15 +4607,7 @@ impl Renderable for ChatComposer {
     }
 }
 
-impl ChatComposer {
-    pub(crate) fn set_luna_reserve_active(&mut self, active: bool) -> bool {
-        if self.luna_reserve_active == active {
-            return false;
-        }
-        self.luna_reserve_active = active;
-        true
-    }
-}
+impl ChatComposer {}
 
 impl ChatComposer {
     pub(crate) fn render_with_mask(&self, area: Rect, buf: &mut Buffer, mask_char: Option<char>) {
@@ -4963,11 +4952,6 @@ impl ChatComposer {
             let prompt = if self.draft.input_enabled {
                 if self.draft.is_bash_mode {
                     Span::from("!").light_red().bold()
-                } else if self.luna_reserve_active {
-                    // Reserve keeps one arrow at every reasoning effort; only its foreground changes.
-                    "›"
-                        .fg(crate::terminal_palette::best_color((246, 197, 67)))
-                        .bold()
                 } else if let Some(tier) = self.effort_tier {
                     let charge = self
                         .effort_ignition

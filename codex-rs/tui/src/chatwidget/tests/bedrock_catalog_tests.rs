@@ -24,7 +24,10 @@ async fn bedrock_astra_model_and_reasoning_pickers() {
         ),
     ] {
         let presets = create_model_provider(provider_info, /*auth_manager*/ None)
-            .models_manager_without_cache(/*config_model_catalog*/ None)
+            .models_manager_without_cache(Some(crate::test_support::explicit_bedrock_test_catalog(
+                name.starts_with("runtime"),
+                false,
+            )))
             .list_models(
                 RefreshStrategy::Offline,
                 HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault),
@@ -97,7 +100,9 @@ async fn bedrock_govcloud_model_pickers() {
             ModelProviderInfo::create_amazon_bedrock_provider(/*aws*/ None);
         provider_info.base_url = Some(format!("https://bedrock-mantle.{region}.api.aws/openai/v1"));
         let presets = create_model_provider(provider_info, /*auth_manager*/ None)
-            .models_manager_without_cache(/*config_model_catalog*/ None)
+            .models_manager_without_cache(Some(crate::test_support::explicit_bedrock_test_catalog(
+                false, true,
+            )))
             .list_models(
                 RefreshStrategy::Offline,
                 HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault),
@@ -159,7 +164,10 @@ async fn bedrock_ultrafast_slash_command_selects_and_clears_tier() {
         ),
     ] {
         let presets = create_model_provider(provider_info.clone(), /*auth_manager*/ None)
-            .models_manager_without_cache(/*config_model_catalog*/ None)
+            .models_manager_without_cache(Some(crate::test_support::explicit_bedrock_test_catalog(
+                name.starts_with("runtime"),
+                false,
+            )))
             .list_models(
                 RefreshStrategy::Offline,
                 HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault),
@@ -189,7 +197,7 @@ async fn bedrock_ultrafast_slash_command_selects_and_clears_tier() {
         chat.handle_key_event(KeyEvent::from(KeyCode::Enter));
         assert_eq!(chat.current_service_tier(), Some("default"));
 
-        let mut custom_model = codex_models_manager::bundled_models_response()
+        let mut custom_model = core_test_support::test_model_catalog()
             .expect("bundled catalog")
             .models
             .into_iter()

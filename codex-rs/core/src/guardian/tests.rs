@@ -168,6 +168,9 @@ async fn guardian_test_session_turn_and_rx(
         .expect("session should be uniquely owned")
         .thread_id = fixed_guardian_parent_session_id();
     let mut config = (*turn.config).clone();
+    config.model_catalog =
+        Some(core_test_support::test_model_catalog().expect("explicit test catalog"));
+    config.model_provider.include_internal_metadata = true;
     config.model_provider.base_url = Some(format!("{}/v1", server.uri()));
     let config = Arc::new(config);
     let models_manager = test_support::models_manager_with_provider(
@@ -289,6 +292,9 @@ async fn guardian_test_session_and_turn_with_base_url(
     let (mut session, mut turn) = crate::session::tests::make_session_and_context().await;
     session.thread_id = fixed_guardian_parent_session_id();
     let mut config = (*turn.config).clone();
+    config.model_catalog =
+        Some(core_test_support::test_model_catalog().expect("explicit test catalog"));
+    config.model_provider.include_internal_metadata = true;
     config.model_provider.base_url = Some(format!("{base_url}/v1"));
     let config = Arc::new(config);
     let models_manager = test_support::models_manager_with_provider(
@@ -945,7 +951,7 @@ async fn build_guardian_prompt_delta_mode_preserves_original_numbering() -> anyh
     assert!(text.contains("[5] user: Please also push the second docs fix."));
     assert!(text.contains("[6] assistant: I need approval for the second push."));
     assert!(text.contains(">>> TRANSCRIPT DELTA END\n"));
-    assert!(text.contains("The Codex agent has requested the following next action:\n"));
+    assert!(text.contains("The QIRI agent has requested the following next action:\n"));
     assert!(!text.contains("[1] user: Please check the repo visibility"));
     assert_eq!(prompt.transcript_cursor.transcript_entry_count, 6);
 
@@ -1503,7 +1509,7 @@ async fn build_guardian_prompt_items_explains_network_access_review_scope() -> a
     );
     assert!(text.contains("\"trigger\""));
     assert!(text.contains("Network access JSON:"));
-    assert!(!text.contains("The Codex agent has requested the following action:"));
+    assert!(!text.contains("The QIRI agent has requested the following action:"));
     assert!(!text.contains("Planned action JSON:"));
     assert!(!text.contains("Retry reason:"));
     assert!(!text.contains("Network access to \"example.com\" is blocked by policy."));
@@ -1999,7 +2005,7 @@ async fn guardian_request_model_for_auto_review(
                 .services
                 .models_manager = Arc::new(StaticModelsManager::new(
                 Some(auth_manager),
-                codex_models_manager::bundled_models_response().expect("valid catalog"),
+                core_test_support::test_model_catalog().expect("valid catalog"),
                 codex_models_manager::ModelOrigin::ExplicitConfig,
             ));
             crate::guardian::test_host::install(&session, &turn.config);
@@ -2110,7 +2116,7 @@ async fn guardian_review_uses_model_catalog_override_when_preferred_review_model
     );
     assert_eq!(
         analytics_result.guardian_model_provider_id.as_deref(),
-        Some(OPENAI_PROVIDER_ID)
+        Some("local")
     );
 
     Ok(())
@@ -2148,7 +2154,7 @@ async fn guardian_review_uses_preferred_review_model_without_model_catalog_overr
     );
     assert_eq!(
         analytics_result.guardian_model_provider_id.as_deref(),
-        Some(OPENAI_PROVIDER_ID)
+        Some("local")
     );
 
     Ok(())
@@ -2186,7 +2192,7 @@ async fn guardian_review_records_missing_auto_review_model_in_analytics_metadata
     );
     assert_eq!(
         analytics_result.guardian_model_provider_id.as_deref(),
-        Some(OPENAI_PROVIDER_ID)
+        Some("local")
     );
 
     Ok(())
@@ -2219,7 +2225,10 @@ async fn guardian_review_request_layout_matches_model_visible_request_snapshot()
     session.thread_id = fixed_guardian_parent_session_id();
     let temp_cwd = TempDir::new()?;
     let mut config = (*turn.config).clone();
+    config.model_catalog =
+        Some(core_test_support::test_model_catalog().expect("explicit test catalog"));
     config.cwd = temp_cwd.abs();
+    config.model_provider.include_internal_metadata = true;
     config.model_provider.base_url = Some(format!("{}/v1", server.uri()));
     config.memories.use_memories = true;
     config
@@ -2374,9 +2383,9 @@ async fn guardian_review_request_layout_matches_model_visible_request_snapshot()
     // Check exact separators before the snapshot normalizes trailing whitespace.
     let guardian_user_text = request.message_input_texts("user").concat();
     assert!(guardian_user_text.contains(">>> TRANSCRIPT START\n"));
-    assert!(guardian_user_text.contains("The Codex agent has requested the following action:\n"));
+    assert!(guardian_user_text.contains("The QIRI agent has requested the following action:\n"));
     assert!(guardian_user_text.contains(&format!(
-        ">>> TRANSCRIPT END\nReviewed Codex session id: {}\n",
+        ">>> TRANSCRIPT END\nReviewed QIRI session id: {}\n",
         fixed_guardian_parent_session_id()
     )));
     assert!(
@@ -2818,7 +2827,7 @@ async fn guardian_reuses_prompt_cache_key_and_appends_prior_reviews() -> anyhow:
                 .message_input_texts("user")
                 .join("\n")
                 .contains(&format!(
-                    "Reviewed Codex session id: {}",
+                    "Reviewed QIRI session id: {}",
                     fixed_guardian_parent_session_id()
                 ))
         );
@@ -3059,6 +3068,9 @@ async fn guardian_review_surfaces_responses_api_errors_in_rejection_reason() -> 
     let (mut session, mut turn, rx) =
         crate::session::tests::make_session_and_context_with_rx().await;
     let mut config = (*turn.config).clone();
+    config.model_catalog =
+        Some(core_test_support::test_model_catalog().expect("explicit test catalog"));
+    config.model_provider.include_internal_metadata = true;
     config.model_provider.base_url = Some(format!("{}/v1", server.uri()));
     let config = Arc::new(config);
     let models_manager = test_support::models_manager_with_provider(
@@ -3965,11 +3977,13 @@ async fn guardian_review_session_config_clears_context_overrides_for_distinct_ef
         .services
         .models_manager = Arc::new(StaticModelsManager::new(
         Some(auth_manager),
-        codex_models_manager::bundled_models_response().expect("valid catalog"),
+        core_test_support::test_model_catalog().expect("valid catalog"),
         codex_models_manager::ModelOrigin::ExplicitConfig,
     ));
     crate::guardian::test_host::install(&session, &turn.config);
     let mut config = (*turn.config).clone();
+    config.model_catalog =
+        Some(core_test_support::test_model_catalog().expect("explicit test catalog"));
     config.model = Some("codex-auto-review".to_string());
     config.model_context_window = Some(900_000);
     config.model_auto_compact_token_limit = Some(600_000);
@@ -4009,6 +4023,8 @@ async fn guardian_review_session_config_preserves_context_overrides_for_same_eff
         codex_models_manager::ModelOrigin::ExplicitConfig,
     ));
     let mut config = (*turn.config).clone();
+    config.model_catalog =
+        Some(core_test_support::test_model_catalog().expect("explicit test catalog"));
     config.model = Some("stale-parent-model".to_string());
     config.model_context_window = Some(128_000);
     config.model_auto_compact_token_limit = Some(100_000);

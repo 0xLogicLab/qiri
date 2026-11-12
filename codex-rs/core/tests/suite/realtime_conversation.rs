@@ -663,7 +663,7 @@ async fn conversation_start_defaults_to_v2_and_gpt_realtime_1_5() -> Result<()> 
         }),
         json!({
             "startedVersion": RealtimeConversationVersion::V2,
-            "handshakeUri": "/v1/realtime?model=gpt-realtime-1.5",
+            "handshakeUri": "/v1/realtime?model=gpt-5.5",
             "voice": "marin",
             "instructions": "backend prompt",
         })
@@ -741,7 +741,7 @@ async fn conversation_websocket_transports_send_codex_headers_without_creating_a
     .expect("realtime websocket connection failed");
     let (expected_uri, expected_realtime_session_id) = match transport {
         ConversationStartTransport::Websocket => (
-            "/v1/live?model=gpt-live-1-codex",
+            "/v1/live?model=gpt-5.5",
             Some(conversation.thread_id.to_string()),
         ),
         ConversationStartTransport::ExistingCall { .. } => ("/v1/live/rtc_existing", None),
@@ -804,15 +804,15 @@ async fn conversation_websocket_transports_send_codex_headers_without_creating_a
     Ok(())
 }
 
-#[test_case(None, "gpt-live-1-codex", None, None; "default model without source")]
+#[test_case(None, "gpt-5.5", None, None; "default model without source")]
 #[test_case(Some("session-override-model"), "session-override-model", None, None; "explicit model without source")]
-#[test_case(None, "gpt-live-1-codex", Some(ThreadSource::User), Some("user".to_string()); "user source")]
-#[test_case(None, "gpt-live-1-codex", Some(ThreadSource::Feature("voice_chat".to_string())), Some("voice_chat".to_string()); "voice chat source")]
-#[test_case(None, "gpt-live-1-codex", Some(ThreadSource::Feature("realtime_voice".to_string())), Some("realtime_voice".to_string()); "realtime voice source")]
-#[test_case(None, "gpt-live-1-codex", Some(ThreadSource::GuardianReview), Some("guardian_review".to_string()); "child shares parent session")]
-#[test_case(None, "gpt-live-1-codex", Some(ThreadSource::Feature("x".repeat(/*n*/ 256))), Some("x".repeat(/*n*/ 256)); "source at byte limit")]
-#[test_case(None, "gpt-live-1-codex", Some(ThreadSource::Feature("x".repeat(/*n*/ 257))), None; "oversized source omitted")]
-#[test_case(None, "gpt-live-1-codex", Some(ThreadSource::Feature("é\r\n\"".to_string())), Some("é\r\n\"".to_string()); "source escaped for headers")]
+#[test_case(None, "gpt-5.5", Some(ThreadSource::User), Some("user".to_string()); "user source")]
+#[test_case(None, "gpt-5.5", Some(ThreadSource::Feature("voice_chat".to_string())), Some("voice_chat".to_string()); "voice chat source")]
+#[test_case(None, "gpt-5.5", Some(ThreadSource::Feature("realtime_voice".to_string())), Some("realtime_voice".to_string()); "realtime voice source")]
+#[test_case(None, "gpt-5.5", Some(ThreadSource::GuardianReview), Some("guardian_review".to_string()); "child shares parent session")]
+#[test_case(None, "gpt-5.5", Some(ThreadSource::Feature("x".repeat(/*n*/ 256))), Some("x".repeat(/*n*/ 256)); "source at byte limit")]
+#[test_case(None, "gpt-5.5", Some(ThreadSource::Feature("x".repeat(/*n*/ 257))), None; "oversized source omitted")]
+#[test_case(None, "gpt-5.5", Some(ThreadSource::Feature("é\r\n\"".to_string())), Some("é\r\n\"".to_string()); "source escaped for headers")]
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
 async fn conversation_webrtc_frameless_chatgpt_sends_codex_headers_to_backend(
     model: Option<&str>,

@@ -428,7 +428,7 @@ async fn tool_call_metadata_stays_out_of_raw_response_item_notifications(
             .account_id("account-123")
             .chatgpt_account_id("account-123")
             .chatgpt_user_id("user-123")
-            .email("employee@openai.com"),
+            .email("employee@example.net"),
         AuthCredentialsStoreMode::File,
     )?;
 

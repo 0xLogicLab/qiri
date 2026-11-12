@@ -13,7 +13,7 @@ expression: strip_osc8_for_snapshot(&popup)
      Source           Local
      Auth             Auth on install
      Version          remote 7
-     Sharing          Private · creator Test User · https://chatgpt.com/codex/plugins/share/docs
+     Sharing          Private · creator Test User · https://service.example.test/codex/plugins/share/docs
      Skills           No plugin skills
      Hooks            No plugin hooks
 ↓

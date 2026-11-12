@@ -44,7 +44,6 @@ use crate::service_tier_resolution;
 use crate::session_state::MessageHistoryMetadata;
 use crate::session_state::ThreadSessionState;
 use crate::status::StatusAccountDisplay;
-use crate::status::plan_type_display_name;
 use crate::terminal_visualization_instructions::with_terminal_visualization_instructions;
 use codex_app_server_client::AppServerClient;
 use codex_app_server_client::AppServerPath;
@@ -787,7 +786,7 @@ impl AppServerSession {
 
     pub(crate) async fn bootstrap(&mut self, config: &Config) -> Result<AppServerBootstrap> {
         let started_at = Instant::now();
-        let account = self.read_account().await?;
+        let account = self.read_provider_auth_state().await?;
         let mut bootstrap = self.bootstrap_with_account(config, account).await?;
         bootstrap.duration = started_at.elapsed();
         Ok(bootstrap)
@@ -798,7 +797,7 @@ impl AppServerSession {
         config: &Config,
     ) -> Result<AppServerBootstrap> {
         let started_at = Instant::now();
-        let account = self.read_account().await?;
+        let account = self.read_provider_auth_state().await?;
         let mut bootstrap = self
             .bootstrap_with_account_inner(config, account, EmptyCatalogFallback::ManagedNewThread)
             .await?;
@@ -943,31 +942,8 @@ impl AppServerSession {
                 FeedbackAudience::External,
                 false,
             ),
-            Some(Account::Chatgpt {
-                email,
-                plan_type,
-                workspace_name,
-            }) => {
-                let feedback_audience = if email
-                    .as_deref()
-                    .is_some_and(|email| email.ends_with("@openai.com"))
-                {
-                    FeedbackAudience::OpenAiEmployee
-                } else {
-                    FeedbackAudience::External
-                };
-                (
-                    email.clone(),
-                    Some(TelemetryAuthMode::Chatgpt),
-                    Some(StatusAccountDisplay::ChatGpt {
-                        email,
-                        plan: Some(plan_type_display_name(plan_type)),
-                        workspace: workspace_display(workspace_name, account.workspace_routing),
-                    }),
-                    Some(plan_type),
-                    feedback_audience,
-                    true,
-                )
+            Some(Account::Chatgpt { .. }) => {
+                (None, None, None, None, FeedbackAudience::External, false)
             }
             Some(Account::AmazonBedrock { .. } | Account::Gcp {}) => {
                 (None, None, None, None, FeedbackAudience::External, false)
@@ -1002,17 +978,24 @@ impl AppServerSession {
     ///
     /// Used by both `bootstrap` (to populate the initial UI) and `get_login_status`
     /// (to check auth mode without the overhead of a full bootstrap).
-    pub(crate) async fn read_account(&mut self) -> Result<GetAccountResponse> {
-        let account_request_id = self.next_request_id();
-        self.request_handle
-            .request_typed(ClientRequest::GetAccount {
-                request_id: account_request_id,
-                params: GetAccountParams {
-                    refresh_token: false,
+    pub(crate) async fn read_provider_auth_state(&mut self) -> Result<GetAccountResponse> {
+        let request_id = self.next_request_id();
+        let status: codex_app_server_protocol::GetAuthStatusResponse = self
+            .request_handle
+            .request_typed(ClientRequest::GetAuthStatus {
+                request_id,
+                params: codex_app_server_protocol::GetAuthStatusParams {
+                    include_token: Some(false),
+                    refresh_token: Some(false),
                 },
             })
-            .await
-            .map_err(|err| bootstrap_request_error("account/read failed during TUI bootstrap", err))
+            .await?;
+        Ok(GetAccountResponse {
+            account: matches!(status.auth_method, Some(AuthMode::ApiKey))
+                .then_some(Account::ApiKey {}),
+            requires_openai_auth: false,
+            workspace_routing: None,
+        })
     }
 
     pub(crate) async fn next_event(&mut self) -> Option<AppServerSessionEvent> {
@@ -2106,7 +2089,7 @@ pub(crate) fn status_account_display_from_auth_mode(
         | Some(AuthMode::AgentIdentity)
         | Some(AuthMode::PersonalAccessToken) => Some(StatusAccountDisplay::ChatGpt {
             email: None,
-            plan: plan_type.map(plan_type_display_name),
+            plan: None,
             workspace: None,
         }),
         Some(AuthMode::Headers)
@@ -2982,113 +2965,6 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn bootstrap_reuses_prefetched_account_without_another_account_read() -> Result<()> {
-        let codex_home = tempfile::tempdir()?;
-        let mut config = build_config(&codex_home).await;
-        let mut catalog = codex_models_manager::bundled_models_response()?;
-        for model in &mut catalog.models {
-            model.available_access_programs = Some(ModelAccessPrograms {
-                cyber: vec![
-                    CyberAccessProgram::Standard,
-                    CyberAccessProgram::DaybreakBlue,
-                ],
-            });
-        }
-        config.model_catalog = Some(catalog);
-        let mut app_server = crate::start_embedded_app_server_for_picker(&config).await?;
-        let next_request_id = app_server.next_request_id;
-        let account = GetAccountResponse {
-            workspace_routing: None,
-            account: Some(Account::Chatgpt {
-                email: Some("teammate@openai.com".to_string()),
-                plan_type: codex_protocol::account::PlanType::Plus,
-                workspace_name: None,
-            }),
-            requires_openai_auth: true,
-        };
-
-        let bootstrap = app_server.bootstrap_with_account(&config, account).await?;
-
-        assert_eq!(app_server.next_request_id, next_request_id + 2);
-        assert_eq!(
-            (
-                bootstrap.account_email.as_deref(),
-                bootstrap.auth_mode,
-                bootstrap.plan_type,
-                bootstrap.feedback_audience,
-                bootstrap.has_chatgpt_account,
-            ),
-            (
-                Some("teammate@openai.com"),
-                Some(TelemetryAuthMode::Chatgpt),
-                Some(codex_protocol::account::PlanType::Plus),
-                FeedbackAudience::OpenAiEmployee,
-                true,
-            )
-        );
-
-        // Account-specific catalog filtering at startup and before/after thread creation.
-        let models = bootstrap.available_models;
-        assert!(
-            models
-                .iter()
-                .any(|model| model.available_access_programs.is_some())
-        );
-        let client_home = tempfile::tempdir()?;
-        let key = "features.api_key_cyber_access_programs";
-        for (server_enabled, cli_override, forwarding_enabled) in [
-            (false, None, false),
-            (true, None, true),
-            (false, Some(true), true),
-            (true, Some(false), false),
-        ] {
-            std::fs::write(
-                codex_home.path().join("config.toml"),
-                format!("[features]\napi_key_cyber_access_programs = {server_enabled}\n"),
-            )?;
-            let client_config = ConfigBuilder::default()
-                .codex_home(client_home.path().to_path_buf())
-                .cli_overrides(
-                    cli_override
-                        .into_iter()
-                        .map(|value| (key.into(), value.into()))
-                        .collect(),
-                )
-                .build()
-                .await?;
-            let api_key = app_server
-                .bootstrap_with_account(
-                    &client_config,
-                    GetAccountResponse {
-                        account: Some(Account::ApiKey {}),
-                        requires_openai_auth: true,
-                        workspace_routing: None,
-                    },
-                )
-                .await?;
-            let mut expected = models.clone();
-            if !forwarding_enabled {
-                for model in &mut expected {
-                    model.available_access_programs = None;
-                }
-            }
-            assert_eq!(api_key.available_models, expected);
-            let thread = app_server.start_thread(&client_config).await?;
-            let refreshed = app_server
-                .constrain_api_key_models(
-                    &client_config,
-                    Some(thread.session.thread_id),
-                    /*requirements*/ None,
-                    models.clone(),
-                )
-                .await;
-            assert_eq!(refreshed, expected);
-        }
-        app_server.shutdown().await?;
-        Ok(())
-    }
-
-    #[tokio::test]
     async fn bootstrap_reads_account_when_no_prefetched_account_is_available() -> Result<()> {
         let codex_home = tempfile::tempdir()?;
         let config = build_config(&codex_home).await;
@@ -3115,7 +2991,7 @@ mod tests {
         );
         let account = GetAccountResponse {
             account: Some(Account::Chatgpt {
-                email: Some("teammate@openai.com".to_string()),
+                email: Some("teammate@example.net".to_string()),
                 plan_type: codex_protocol::account::PlanType::Plus,
                 workspace_name: None,
             }),
@@ -5009,47 +4885,5 @@ mod tests {
         .expect("session should map");
 
         assert_eq!(session.forked_from_id, Some(forked_from_id));
-    }
-
-    #[test]
-    fn status_account_display_from_auth_mode_uses_remapped_plan_labels() {
-        let business = status_account_display_from_auth_mode(
-            Some(AuthMode::Chatgpt),
-            Some(codex_protocol::account::PlanType::EnterpriseCbpUsageBased),
-        );
-        assert!(matches!(
-            business,
-            Some(StatusAccountDisplay::ChatGpt {
-                email: None,
-                plan: Some(ref plan),
-                ..
-            }) if plan == "Enterprise"
-        ));
-
-        let team = status_account_display_from_auth_mode(
-            Some(AuthMode::Chatgpt),
-            Some(codex_protocol::account::PlanType::SelfServeBusinessUsageBased),
-        );
-        assert!(matches!(
-            team,
-            Some(StatusAccountDisplay::ChatGpt {
-                email: None,
-                plan: Some(ref plan),
-                ..
-            }) if plan == "Business"
-        ));
-
-        let business_prolite = status_account_display_from_auth_mode(
-            Some(AuthMode::Chatgpt),
-            Some(codex_protocol::account::PlanType::SelfServeBusinessProLite),
-        );
-        assert!(matches!(
-            business_prolite,
-            Some(StatusAccountDisplay::ChatGpt {
-                email: None,
-                plan: Some(ref plan),
-                ..
-            }) if plan == "Business Premium"
-        ));
     }
 }

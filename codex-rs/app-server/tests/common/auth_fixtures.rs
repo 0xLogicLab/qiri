@@ -27,7 +27,7 @@ pub async fn mount_workspace_routing(server: &wiremock::MockServer) {
                 .and_then(|value| value.to_str().ok())
                 .unwrap_or("account-123");
             wiremock::ResponseTemplate::new(200).set_body_json(json!({
-                "accounts": [{"id": account_id, "workspace_backend_origin": "https://chatgpt.com",
+                "accounts": [{"id": account_id, "workspace_backend_origin": "https://service.example.test",
                     "account_routing_override": "NO_CONSTRAINT"}],
             }))
         })

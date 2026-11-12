@@ -60,7 +60,7 @@ async fn guardian_reused_reviewer_avoids_stale_catalog_lookup() -> Result<()> {
     skip_if_no_network!(Ok(()));
 
     let server = MockServer::start().await;
-    let bundled = codex_models_manager::bundled_models_response()?;
+    let bundled = core_test_support::test_model_catalog()?;
     let catalog = ModelsResponse {
         models: bundled
             .models

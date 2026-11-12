@@ -64,7 +64,6 @@ const OPENAI_CURATED_TAB_ID: &str = "marketplace:openai-curated";
 const PLUGIN_ROW_PREFIX_WIDTH: usize = 6;
 const LOADING_ANIMATION_DELAY: Duration = Duration::from_secs(1);
 const LOADING_ANIMATION_INTERVAL: Duration = Duration::from_millis(100);
-const APPS_HELP_ARTICLE_URL: &str = "https://help.openai.com/en/articles/11487775-apps-in-chatgpt";
 const PERSONAL_MARKETPLACE_RELATIVE_PATH: &str = ".agents/plugins/marketplace.json";
 const REMOTE_LOADING_TAB_ID_PREFIX: &str = "remote-loading:";
 const REMOTE_EMPTY_TAB_ID_PREFIX: &str = "remote-empty:";
@@ -326,7 +325,6 @@ impl Renderable for PluginDisclosureLine {
         Paragraph::new(self.line.clone())
             .wrap(Wrap { trim: false })
             .render(area, buf);
-        mark_url_hyperlink(buf, area, APPS_HELP_ARTICLE_URL);
     }
 
     fn desired_height(&self, width: u16) -> u16 {

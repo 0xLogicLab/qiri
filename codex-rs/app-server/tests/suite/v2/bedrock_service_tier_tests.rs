@@ -76,7 +76,7 @@ async fn bedrock_model_list_preserves_custom_service_tiers(
     model_id: &str,
 ) -> anyhow::Result<()> {
     let home = TempDir::new()?;
-    let mut model = codex_models_manager::bundled_models_response()?
+    let mut model = core_test_support::test_model_catalog()?
         .models
         .into_iter()
         .find(|model| model.slug == "gpt-6-astra")

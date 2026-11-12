@@ -169,12 +169,7 @@ impl OnboardingScreen {
         #[cfg(not(target_os = "windows"))]
         let show_windows_create_sandbox_hint = false;
         if show_login_screen {
-            let highlighted_mode =
-                if auth_config.is_login_method_allowed(ForcedLoginMethod::Chatgpt) {
-                    SignInOption::ChatGpt
-                } else {
-                    SignInOption::OtherMethods
-                };
+            let highlighted_mode = SignInOption::ApiKey;
             if let Some(app_server_request_handle) = app_server_request_handle {
                 steps.push(Step::Auth(AuthModeWidget {
                     request_frame: tui.frame_requester(),
@@ -315,11 +310,6 @@ impl OnboardingScreen {
 
     fn handle_app_server_notification(&mut self, notification: ServerNotification) {
         match notification {
-            ServerNotification::AccountLoginCompleted(notification) => {
-                if let Some(widget) = self.auth_widget_mut() {
-                    widget.on_account_login_completed(notification);
-                }
-            }
             ServerNotification::AccountUpdated(notification) => {
                 if let Some(widget) = self.auth_widget_mut() {
                     widget.on_account_updated(notification);
@@ -632,8 +622,6 @@ async fn run_onboarding_screen_inner(
     use tokio_stream::StreamExt;
     let mut directory_trust_persisted = false;
     // One-time guard to fully clear the screen after ChatGPT login success message is shown
-    let mut did_full_clear_after_success = false;
-    let mut pending_copy: Option<(u64, String)> = None;
 
     tui.draw(u16::MAX, |frame| {
         frame.render_widget_ref(&onboarding_screen, frame.area());
@@ -651,36 +639,7 @@ async fn run_onboarding_screen_inner(
                     tui.screen_size_for_event(&event)?;
                     match event {
                         TuiEvent::Key(key_event) => {
-                            let copy_link = if key_event.kind == KeyEventKind::Press
-                                && keys::COPY_LINK.is_pressed(key_event)
-                                && let Some(Step::Auth(widget)) = onboarding_screen.current_steps().last()
-                                && let Ok(state) = widget.sign_in_state.read()
-                                && let SignInState::ChatGptContinueInBrowser(state) = &*state
-                                && !state.auth_url.is_empty()
-                            {
-                                Some((state.login_id.clone(), Arc::<str>::from(state.auth_url.as_str())))
-                            } else {
-                                None
-                            };
-                            if let Some((login_id, url)) = copy_link {
-                                let result = tui.clipboard.copy(url, CopyFormat::PlainText, tui.frame_requester());
-                                let message = match result {
-                                    Ok(CopyStatus::Pending(id)) => {
-                                        pending_copy = Some((id, login_id));
-                                        "Copying link…".to_string()
-                                    }
-                                    Ok(CopyStatus::Busy) => "Clipboard busy; try again".to_string(),
-                                    Ok(CopyStatus::Confirmed) => "Copied link to clipboard".to_string(),
-                                    Ok(CopyStatus::Unconfirmed) => "Copy requested; check your clipboard".to_string(),
-                                    Err(error) => format!("Could not copy link: {error}"),
-                                };
-                                if let Some(Step::Auth(widget)) = onboarding_screen.current_steps_mut().into_iter().last() {
-                                    *widget.error.write().unwrap_or_else(std::sync::PoisonError::into_inner) = Some(message);
-                                }
-                                tui.frame_requester().schedule_frame();
-                            } else {
-                                onboarding_screen.handle_key_event(key_event);
-                            }
+                            onboarding_screen.handle_key_event(key_event);
                             if !directory_trust_persisted {
                                 directory_trust_persisted = persist_selected_trust(
                                     &mut onboarding_screen,
@@ -697,63 +656,6 @@ async fn run_onboarding_screen_inner(
                         | TuiEvent::Resize(_)
                         | TuiEvent::FocusGained
                         | TuiEvent::FocusLost => {
-                            if let Some((id, result)) = tui.clipboard.poll().cloned()
-                                && let Some((pending_id, login_id)) = &pending_copy
-                                && id == *pending_id
-                            {
-                                if let Some(Step::Auth(widget)) = onboarding_screen.current_steps_mut().into_iter().last()
-                                    && widget.sign_in_state.read().is_ok_and(|state| {
-                                        matches!(&*state, SignInState::ChatGptContinueInBrowser(state) if state.login_id == *login_id)
-                                    })
-                                {
-                                    let message = match result {
-                                        Ok(CopyStatus::Confirmed) => "Copied link to clipboard".to_string(),
-                                        Ok(CopyStatus::Unconfirmed) => "Copy requested; check your clipboard".to_string(),
-                                        Ok(CopyStatus::Busy | CopyStatus::Pending(_)) => "Clipboard busy; try again".to_string(),
-                                        Err(error) => format!("Could not copy link: {error}"),
-                                    };
-                                    *widget.error.write().unwrap_or_else(std::sync::PoisonError::into_inner) = Some(message);
-                                }
-                                pending_copy = None;
-                            }
-                            for step in &onboarding_screen.steps {
-                                if let Step::Welcome(widget) = step {
-                                    if matches!(&event, TuiEvent::Resume) {
-                                        widget.set_presentation(crate::empty_state_animation::Presentation::Hidden);
-                                    }
-                                    widget.set_focused(tui.is_terminal_focused());
-                                }
-                            }
-                            if !did_full_clear_after_success
-                                && onboarding_screen.steps.iter().any(|step| {
-                                    if let Step::Auth(w) = step {
-                                        w.sign_in_state.read().is_ok_and(|g| {
-                                            matches!(&*g, super::auth::SignInState::ChatGptSuccessMessage)
-                                        })
-                                    } else {
-                                        false
-                                    }
-                                })
-                            {
-                                // Reset any lingering SGR (underline/color) before clearing
-                                let _ = ratatui::crossterm::execute!(
-                                    std::io::stdout(),
-                                    ratatui::crossterm::style::SetAttribute(
-                                        ratatui::crossterm::style::Attribute::Reset
-                                    ),
-                                    ratatui::crossterm::style::SetAttribute(
-                                        ratatui::crossterm::style::Attribute::NoUnderline
-                                    ),
-                                    ratatui::crossterm::style::SetForegroundColor(
-                                        ratatui::crossterm::style::Color::Reset
-                                    ),
-                                    ratatui::crossterm::style::SetBackgroundColor(
-                                        ratatui::crossterm::style::Color::Reset
-                                    )
-                                );
-                                let _ = tui.terminal.clear();
-                                did_full_clear_after_success = true;
-                            }
                             tui.draw(u16::MAX, |frame| {
                                 frame.render_widget_ref(&onboarding_screen, frame.area());
                             })?;

@@ -2508,8 +2508,8 @@ mod tests {
     fn guardian_assessment_aborted_emits_completed_review_payload() {
         let conversation_id = ThreadId::new();
         let action = codex_protocol::protocol::GuardianAssessmentAction::NetworkAccess {
-            target: "api.openai.com:443".to_string(),
-            host: "api.openai.com".to_string(),
+            target: "www.example.net:443".to_string(),
+            host: "www.example.net".to_string(),
             protocol: codex_protocol::protocol::NetworkApprovalProtocol::Https,
             port: 443,
         };

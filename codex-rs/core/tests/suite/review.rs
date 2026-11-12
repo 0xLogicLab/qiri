@@ -999,8 +999,8 @@ async fn review_uses_custom_review_model_from_config() {
     let codex = Arc::clone(&test.codex);
     std::fs::remove_file(codex_home.path().join("models_cache.json"))
         .expect("initial empty model catalog should be cached");
-    let mut models = codex_models_manager::bundled_models_response()
-        .expect("bundled model catalog should parse");
+    let mut models =
+        core_test_support::test_model_catalog().expect("bundled model catalog should parse");
     let model = models
         .models
         .iter_mut()

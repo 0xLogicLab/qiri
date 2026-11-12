@@ -375,18 +375,6 @@ async fn prepare_from_package(
         }
         .await;
         if let Err(error) = stopped {
-            if let Err(restore_error) = async {
-                daemon
-                    .current_installation()?
-                    .ensure_managed_updater(settings)
-                    .await
-            }
-            .await
-            {
-                eprintln!(
-                    "warning: failed to restore the daemon updater after replacement failed: {restore_error:#}"
-                );
-            }
             return Err(error);
         }
     }

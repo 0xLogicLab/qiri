@@ -945,7 +945,7 @@ mod tests {
     fn web_search_tool_config_merge_prefers_overlay_values() {
         let base = WebSearchToolConfig {
             context_size: Some(WebSearchContextSize::Low),
-            allowed_domains: Some(vec!["openai.com".to_string()]),
+            allowed_domains: Some(vec!["example.net".to_string()]),
             location: Some(WebSearchLocation {
                 country: Some("US".to_string()),
                 region: Some("CA".to_string()),
@@ -966,7 +966,7 @@ mod tests {
 
         let expected = WebSearchToolConfig {
             context_size: Some(WebSearchContextSize::High),
-            allowed_domains: Some(vec!["openai.com".to_string()]),
+            allowed_domains: Some(vec!["example.net".to_string()]),
             location: Some(WebSearchLocation {
                 country: Some("US".to_string()),
                 region: Some("WA".to_string()),

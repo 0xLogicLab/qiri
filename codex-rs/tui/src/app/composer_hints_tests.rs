@@ -126,57 +126,6 @@ async fn usage_notice_preserves_composer_geometry_on_recovery() -> Result<()> {
 }
 
 #[tokio::test]
-async fn usage_notice_yields_to_interactions_and_blocking_banners() {
-    let mut app = crate::app::test_support::make_test_app().await;
-    app.local_settings.tui.show_tooltips = true;
-    let hint = app.composer_hint(/*width*/ 80);
-    app.chat_widget
-        .on_rate_limit_snapshot(Some(quota(/*used_percent*/ 92)));
-    let notice = app.composer_hint(/*width*/ 80);
-    assert!(notice.is_some());
-    assert_ne!(notice, hint);
-    let notice_line = notice.as_ref().map(|notice| notice.line.clone());
-    app.transcript_view.begin_search();
-    assert_eq!(app.composer_hint(/*width*/ 80), None);
-    app.transcript_view = Default::default();
-    assert_eq!(app.composer_hint(/*width*/ 80), notice);
-    app.chat_widget.open_warnings(&app.transcript_cells);
-    assert_eq!(app.composer_hint(/*width*/ 80), None);
-    app.chat_widget.handle_key_event(KeyCode::Esc.into());
-    assert_eq!(app.composer_hint(/*width*/ 80), notice);
-
-    for (spend_control, reached_type) in [
-        (Some(true), None),
-        (
-            None,
-            Some(codex_app_server_protocol::RateLimitReachedType::RateLimitReached),
-        ),
-    ] {
-        let mut update = quota(/*used_percent*/ 92);
-        update.spend_control_reached = spend_control;
-        update.rate_limit_reached_type = reached_type;
-        app.chat_widget.on_rate_limit_snapshot(Some(update));
-        assert_eq!(app.chat_widget.usage_notice(/*width*/ 80), None);
-    }
-    app.chat_widget
-        .on_rate_limit_snapshot(Some(quota(/*used_percent*/ 92)));
-    assert_eq!(app.chat_widget.usage_notice(/*width*/ 78), notice_line);
-    app.chat_widget.update_backend_banner(
-        &serde_json::from_value(serde_json::json!({
-            "rateLimits": quota(/*used_percent*/ 92),
-            "rateLimitUpsell": {
-                "banner_type": "selected_model_limit", "title": "Usage limit reached",
-                "description": "Choose another model.", "ctas": [],
-            },
-        }))
-        .unwrap(),
-    );
-    assert_eq!(app.chat_widget.usage_notice(/*width*/ 80), None);
-    app.chat_widget.clear_backend_banner();
-    assert_eq!(app.chat_widget.usage_notice(/*width*/ 78), notice_line);
-}
-
-#[tokio::test]
 async fn escape_closes_shortcut_help_before_transcript_backtracking() -> Result<()> {
     let mut app = crate::app::test_support::make_test_app().await;
     let mut server = Box::pin(crate::start_embedded_app_server_for_picker(&app.config)).await?;

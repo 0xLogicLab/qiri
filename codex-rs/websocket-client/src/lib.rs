@@ -1,5 +1,4 @@
-//! Proxy-aware WebSocket connection setup shared by Codex API clients, reusing the HTTP factory's
-//! ChatGPT cookie store for secure handshakes.
+//! Proxy-aware WebSocket connections sharing the configured HTTP network policy.
 
 mod dialer;
 
@@ -32,7 +31,6 @@ use tokio_tungstenite::tungstenite::Message;
 use tokio_tungstenite::tungstenite::handshake::client::Request;
 use tokio_tungstenite::tungstenite::handshake::client::Response;
 use tokio_tungstenite::tungstenite::http::Uri;
-use tokio_tungstenite::tungstenite::http::header::COOKIE;
 use tokio_tungstenite::tungstenite::protocol::WebSocketConfig;
 
 /// Recovers a deterministic policy denial from Tungstenite's I/O error boundary.
@@ -168,11 +166,6 @@ impl WebSocketConnector {
             .acquire(&url)
             .map_err(policy_error)?;
         let connect = async {
-            if !request.headers().contains_key(COOKIE)
-                && let Some(cookies) = self.http_client_factory.chatgpt_cookie_header(&uri)
-            {
-                request.headers_mut().insert(COOKIE, cookies);
-            }
             let proxy_route = route.await.map_err(WebSocketError::Io)?;
             let result = dialer::connect(
                 request,
@@ -184,28 +177,10 @@ impl WebSocketConnector {
             )
             .boxed()
             .await;
-            // Like HTTP responses, rejected upgrades can also refresh infrastructure cookies.
-            match &result {
-                Ok((_, response)) => self
-                    .http_client_factory
-                    .store_chatgpt_response_cookies(&uri, response.headers()),
-                Err(WebSocketError::Http(response)) => self
-                    .http_client_factory
-                    .store_chatgpt_response_cookies(&uri, response.headers()),
-                Err(_) => {}
-            }
-            result.map(|(inner, response)| {
-                let routing_affinity = codex_http_client::ChatGptRoutingAffinity::from_response(
-                    &uri,
-                    response.headers(),
-                );
-                (inner, response, routing_affinity)
-            })
+            result
         };
-        let (inner, response, routing_affinity) =
-            permit.run(connect).await.map_err(policy_error)??;
+        let (inner, response) = permit.run(connect).await.map_err(policy_error)??;
         let mut connection = WebSocketConnection::new(inner, permit);
-        connection.routing_affinity = routing_affinity;
         Ok((connection, response))
     }
 }
@@ -230,7 +205,6 @@ fn is_loopback_destination(uri: &Uri) -> bool {
 /// without knowing which concrete network stream route selection produced. Independent revocation
 /// waits preserve both task wakers when the stream and sink are split.
 pub struct WebSocketConnection {
-    routing_affinity: Option<codex_http_client::ChatGptRoutingAffinity>,
     inner: Option<ConnectionInner>,
     permit: NetworkPermit,
     read_revoked: BoxFuture<'static, ()>,
@@ -255,7 +229,6 @@ impl WebSocketConnection {
         let read_permit = permit.clone();
         let write_permit = permit.clone();
         Self {
-            routing_affinity: None,
             inner: Some(inner),
             permit,
             read_revoked: async move { read_permit.revoked().await }.boxed(),
@@ -265,9 +238,6 @@ impl WebSocketConnection {
     }
 
     /// The scoped routing cookie from this connection's handshake, never account cookies.
-    pub fn routing_affinity(&self) -> Option<&codex_http_client::ChatGptRoutingAffinity> {
-        self.routing_affinity.as_ref()
-    }
 
     fn poll_policy(
         &mut self,

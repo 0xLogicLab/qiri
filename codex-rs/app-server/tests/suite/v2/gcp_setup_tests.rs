@@ -96,7 +96,7 @@ async fn setup_gcp_saves_overrides_restores_adc_and_refreshes_catalog() -> Resul
     let home = TempDir::new()?;
     let home = home.path();
     write_fake_gcloud(home)?;
-    let mut catalog = codex_models_manager::bundled_models_response()?;
+    let mut catalog = core_test_support::test_model_catalog()?;
     catalog.models.retain(|model| model.slug == "gpt-6.1-sol");
     let model = catalog
         .models

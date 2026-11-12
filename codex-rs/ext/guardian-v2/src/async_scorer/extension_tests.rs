@@ -2125,7 +2125,7 @@ async fn contributor_samples_tool_calls_with_the_existing_luna_pool() -> Result<
     .await?;
     let thread_id = test.session_configured.thread_id;
     let thread_store = test.codex.thread_extension_data();
-    assert_eq!(request["model"], "gpt-5.6-luna");
+    assert_eq!(request["model"], test.codex.config_snapshot().await.model);
     let classifier_thread_id = request["client_metadata"]["thread_id"]
         .as_str()
         .expect("classifier thread ID");
@@ -2195,7 +2195,7 @@ async fn contributor_samples_tool_calls_with_the_existing_luna_pool() -> Result<
         {"type": "input_text", "text": ">>> RETAINED USER INSTRUCTIONS END\n\n"},
         {
             "type": "input_text",
-            "text": "The Codex agent has requested the following action:\n"
+            "text": "The QIRI agent has requested the following action:\n"
         },
         {"type": "input_text", "text": ">>> APPROVAL REQUEST START\n"},
         {"type": "input_text", "text": "Planned action JSON:\n"},
@@ -3246,6 +3246,10 @@ async fn assert_parent_compaction_reuse(parent_context_for_review: bool) -> Resu
 
     let thread_server = responses::start_mock_server().await;
     let test = test_codex()
+        .with_model(MODEL)
+        .with_model_info_override(MODEL, |model| {
+            model.comp_hash = Some("local-review-checkpoint".to_owned());
+        })
         .with_config(move |config| {
             config.approvals_reviewer = ApprovalsReviewer::AutoReview;
 
@@ -3273,6 +3277,7 @@ async fn assert_parent_compaction_reuse(parent_context_for_review: bool) -> Resu
     let auth_manager = AuthManager::from_auth_for_testing(CodexAuth::from_api_key("test-api-key"));
     let mut config = test.config.clone();
     config.model_provider = provider_info;
+    config.model = Some(MODEL.to_owned());
     config.features.enable(Feature::GuardianV2)?;
     let parent_model = test
         .thread_manager
@@ -3825,6 +3830,3 @@ async fn cached_score_publication_rejects_delayed_results_without_changing_cover
     assert!(!progress.inspect(Some("active-overflow")).oversized);
     Ok(())
 }
-
-#[path = "decisions_lifecycle_tests.rs"]
-mod decisions_lifecycle_tests;

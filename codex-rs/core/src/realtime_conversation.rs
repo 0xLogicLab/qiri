@@ -112,8 +112,6 @@ const HANDOFF_STREAM_FLUSH_INTERVAL: Duration = Duration::from_millis(200);
 const HANDOFF_STREAM_TRUNCATION_MARKER: &str = "\n…output truncated…\n";
 const AGENT_FINAL_MESSAGE_PREFIX: &str = "\"Agent Final Message\":\n\n";
 const STANDALONE_HANDOFF_ID: &str = "codex";
-const DEFAULT_REALTIME_MODEL: &str = "gpt-realtime-1.5";
-const DEFAULT_FRAMELESS_REALTIME_MODEL: &str = "gpt-live-1-codex";
 pub(crate) const REALTIME_USER_TEXT_PREFIX: &str = "[USER] ";
 pub(crate) const REALTIME_BACKEND_TEXT_PREFIX: &str = "[BACKEND] ";
 const REALTIME_V2_HANDOFF_COMPLETE_ACKNOWLEDGEMENT: &str =
@@ -1643,10 +1641,7 @@ pub(crate) async fn build_realtime_session_config(
             .model
             .clone()
             .or_else(|| config.experimental_realtime_ws_model.clone())
-            .unwrap_or_else(|| match version {
-                RealtimeWsVersion::V1 | RealtimeWsVersion::V2 => DEFAULT_REALTIME_MODEL.to_string(),
-                RealtimeWsVersion::V3 => DEFAULT_FRAMELESS_REALTIME_MODEL.to_string(),
-            }),
+            .unwrap_or(sess.thread_config_snapshot().await.model),
     );
     let event_parser = match version {
         RealtimeWsVersion::V1 => RealtimeEventParser::V1,

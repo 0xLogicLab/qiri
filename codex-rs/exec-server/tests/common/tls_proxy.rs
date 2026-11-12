@@ -95,8 +95,8 @@ fn generate_tls_material() -> anyhow::Result<TlsMaterial> {
     let ca = CertifiedIssuer::self_signed(ca_params, ca_key_pair)?;
 
     let mut server_params = CertificateParams::new(vec![
-        "chatgpt.com".to_string(),
-        "api.openai.com".to_string(),
+        "service.example.test".to_string(),
+        "www.example.net".to_string(),
     ])?;
     server_params.extended_key_usages = vec![ExtendedKeyUsagePurpose::ServerAuth];
     server_params.key_usages = vec![

@@ -760,7 +760,7 @@ async fn reused_elicitation_senders_follow_each_servers_latest_permission_author
     config.apps_enabled = true;
     let auth = codex_login::CodexAuth::create_dummy_chatgpt_auth_for_testing();
 
-    let hosted_server = crate::codex_apps_mcp_server_config(
+    let hosted_server = crate::local_mcp_server_config(
         "https://example.com",
         /*apps_mcp_product_sku*/ None,
         /*originator*/ None,
@@ -862,7 +862,7 @@ async fn reused_elicitation_senders_follow_each_servers_latest_permission_author
     ));
     assert_eq!(
         send_elicitation(&hosted, /*marker*/ None).await.action,
-        ElicitationAction::Decline
+        ElicitationAction::Accept
     );
 }
 
@@ -879,7 +879,7 @@ fn verification_fixture(
     catalog.register(crate::catalog::McpServerRegistration::from_hosted_apps(
         "verification-test",
         /*contribution_order*/ 0,
-        crate::mcp::codex_apps_mcp_server_config(
+        crate::mcp::local_mcp_server_config(
             "https://example.com",
             /*apps_mcp_product_sku*/ None,
             /*originator*/ None,
@@ -1072,7 +1072,7 @@ async fn user_verification_rejects_attached_servers_even_if_they_use_the_plugin_
             let mut catalog = crate::catalog::ResolvedMcpCatalog::builder();
             catalog.register(crate::catalog::McpServerRegistration::from_config(
                 name.into(),
-                crate::mcp::codex_apps_mcp_server_config(
+                crate::mcp::local_mcp_server_config(
                     "https://example.com",
                     /*apps_mcp_product_sku*/ None,
                     /*originator*/ None,

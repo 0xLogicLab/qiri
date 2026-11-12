@@ -14,7 +14,8 @@ enum BudgetOutcome {
 async fn catalog_budget_fixture(base_url: String, window: i64) -> Result<GuardianFailureFixture> {
     let server = responses::start_mock_server().await;
     let test = test_codex()
-        .with_model_info_override(MODEL, move |model| {
+        .with_model("gpt-5.5")
+        .with_model_info_override("gpt-5.5", move |model| {
             model.context_window = Some(window);
             model.effective_context_window_percent = 50;
             model.comp_hash = Some("budget-checkpoint".to_owned());
@@ -54,6 +55,11 @@ async fn catalog_budget_fixture(base_url: String, window: i64) -> Result<Guardia
             thread_store: test.codex.thread_extension_data(),
         })
         .await;
+    assert_eq!(
+        test.codex.thread_extension_data().get::<LunaSampler>().unwrap().max_input_tokens(),
+        usize::try_from(window / 2).unwrap(),
+        "classifier must use the explicitly configured catalog budget",
+    );
     Ok(GuardianFailureFixture {
         test,
         registry,

@@ -59,7 +59,6 @@ pub enum SlashCommand {
     Cd,
     #[strum(to_string = "pwd", serialize = "cwd")]
     Pwd,
-    Usage,
     DebugConfig,
     Title,
     Statusline,
@@ -122,7 +121,6 @@ impl SlashCommand {
             SlashCommand::Status => "show current session configuration and token usage",
             SlashCommand::Cd => "change the current working directory",
             SlashCommand::Pwd => "show the current working directory",
-            SlashCommand::Usage => "view account usage or use a usage limit reset",
             SlashCommand::DebugConfig => "show config layers and requirement sources for debugging",
             SlashCommand::Title => "configure which items appear in the terminal title",
             SlashCommand::Statusline => "configure which items appear in the status line",
@@ -191,7 +189,6 @@ impl SlashCommand {
                 | SlashCommand::Raw
                 | SlashCommand::Cd
                 | SlashCommand::Pwd
-                | SlashCommand::Usage
                 | SlashCommand::Pets
                 | SlashCommand::Side
                 | SlashCommand::Btw
@@ -213,7 +210,6 @@ impl SlashCommand {
                 | SlashCommand::Daemon
                 | SlashCommand::Warnings
                 | SlashCommand::Pwd
-                | SlashCommand::Usage
                 | SlashCommand::Ide
         )
     }
@@ -287,7 +283,6 @@ impl SlashCommand {
             | SlashCommand::Daemon
             | SlashCommand::Warnings
             | SlashCommand::Pwd
-            | SlashCommand::Usage
             | SlashCommand::DebugConfig
             | SlashCommand::Ps
             | SlashCommand::Stop
@@ -318,8 +313,6 @@ impl SlashCommand {
             SlashCommand::Logout
             | SlashCommand::Feedback
             | SlashCommand::Apps
-            | SlashCommand::Plugins
-            | SlashCommand::Usage
             | SlashCommand::App
             | SlashCommand::Daybreak => false,
             SlashCommand::Copy => !cfg!(target_os = "android"),
@@ -380,24 +373,5 @@ mod tests {
             SlashCommand::from_str("approve"),
             Ok(SlashCommand::AutoReview)
         );
-    }
-
-    #[test]
-    fn qiri_hides_account_cloud_and_feedback_commands() {
-        for command in [
-            SlashCommand::Logout,
-            SlashCommand::Feedback,
-            SlashCommand::Apps,
-            SlashCommand::Plugins,
-            SlashCommand::Usage,
-            SlashCommand::App,
-            SlashCommand::Daybreak,
-        ] {
-            assert!(
-                !command.is_visible(),
-                "{} should be hidden",
-                command.command()
-            );
-        }
     }
 }

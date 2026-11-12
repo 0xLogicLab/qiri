@@ -56,8 +56,6 @@ use super::LunaSamplingRequest;
 mod request;
 #[path = "retained_sampling_tests.rs"]
 mod retained;
-#[path = "sampler_routing_tests.rs"]
-mod routing;
 
 impl LunaSampler {
     // Drive the production retained sampler to completion for transport tests. Tests of
@@ -240,12 +238,13 @@ pub(in crate::async_scorer) async fn proxy_websocket_servers_with_http(
 
 pub(in crate::async_scorer) fn sampler_config(base_url: String) -> LunaSamplerConfig {
     LunaSamplerConfig {
+        model: super::MODEL.to_owned(),
         api_key_cyber_access_programs: ApiKeyCyberAccessPrograms::Disabled,
         workspace_routing: codex_model_provider::WorkspaceRoutingContext::new(
-            "https://chatgpt.com/backend-api".into(),
+            "https://service.example.test/backend-api".into(),
         ),
         provider: create_model_provider(
-            ModelProviderInfo::create_local_provider(Some(base_url)),
+            authenticated_test_provider(Some(base_url)),
             Some(AuthManager::from_auth_for_testing(CodexAuth::from_api_key(
                 "test-api-key",
             ))),
@@ -531,86 +530,6 @@ impl ExternalAuth for RefreshableAuth {
 }
 
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-async fn classifier_sends_guardian_header_only_with_codex_backend_auth() -> Result<()> {
-    skip_if_no_network!(Ok(()));
-
-    for (auth, base_path, expected_header, expected_service_tier) in [
-        (
-            CodexAuth::create_dummy_chatgpt_auth_for_testing(),
-            "/backend-api/codex",
-            Some("classifier"),
-            None,
-        ),
-        (
-            CodexAuth::Headers(AuthHeaders::new(http::HeaderMap::new())),
-            "/api/codex",
-            Some("classifier"),
-            None,
-        ),
-        (
-            CodexAuth::from_api_key("test-api-key"),
-            "/api/codex",
-            None,
-            Some("priority"),
-        ),
-        (
-            CodexAuth::create_dummy_chatgpt_auth_for_testing(),
-            "/v1",
-            Some("classifier"),
-            None,
-        ),
-        (
-            CodexAuth::from_api_key("test-api-key"),
-            "/v1",
-            None,
-            Some("priority"),
-        ),
-    ] {
-        let events = vec![
-            ev_assistant_message("classification", "low"),
-            ev_completed("response-1"),
-        ];
-        let mut connections = vec![Vec::new(); INITIAL_WEBSOCKET_CONNECTIONS - 1];
-        connections.push(vec![events]);
-        let server = responses::start_websocket_server(connections).await;
-        let base_url = format!(
-            "http://{}{base_path}",
-            server.uri().trim_start_matches("ws://")
-        );
-        let mut config = sampler_config(base_url.clone());
-        config.provider = create_model_provider(
-            ModelProviderInfo::create_local_provider(Some(base_url)),
-            Some(AuthManager::from_auth_for_testing(auth)),
-        );
-        config.service_tier = Some("priority".to_owned());
-        let sampler = connect_sampler(config).await?;
-
-        assert_eq!(sampler.sample(sample_request("turn-1")).await?, "low");
-        for handshake in server.handshakes() {
-            assert_eq!(handshake.uri(), format!("{base_path}/responses"));
-            assert_eq!(
-                handshake.header("x-codex-guardian").as_deref(),
-                expected_header
-            );
-            assert_eq!(handshake.header("x-codex-routing-hint"), None);
-        }
-        let request = server
-            .wait_for_request(
-                /*connection_index*/ INITIAL_WEBSOCKET_CONNECTIONS - 1,
-                /*request_index*/ 0,
-            )
-            .await
-            .body_json();
-        assert_eq!(request["service_tier"].as_str(), expected_service_tier);
-
-        drop(sampler);
-        server.shutdown().await;
-    }
-
-    Ok(())
-}
-
-#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
 async fn preconnected_sampler_reuses_authenticated_websocket_for_classifications() -> Result<()> {
     skip_if_no_network!(Ok(()));
 
@@ -650,14 +569,15 @@ async fn preconnected_sampler_reuses_authenticated_websocket_for_classifications
         ))))
         .await?;
     let provider = create_model_provider(
-        ModelProviderInfo::create_local_provider(Some(base_url)),
+        authenticated_test_provider(Some(base_url)),
         Some(manager.clone()),
     );
 
     let sampler = connect_sampler(LunaSamplerConfig {
+        model: super::MODEL.to_owned(),
         api_key_cyber_access_programs: ApiKeyCyberAccessPrograms::Disabled,
         workspace_routing: codex_model_provider::WorkspaceRoutingContext::new(
-            "https://chatgpt.com/backend-api".into(),
+            "https://service.example.test/backend-api".into(),
         ),
         provider,
         http_client_factory: HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault),
@@ -800,7 +720,7 @@ async fn preconnected_sampler_reuses_authenticated_websocket_for_classifications
     for (index, request) in requests.iter().enumerate() {
         let request = request.body_json();
         assert_eq!(request["type"], "response.create");
-        assert_eq!(request["model"], "gpt-5.6-luna");
+        assert_eq!(request["model"], "local-review-model");
         assert_eq!(request["input"][0]["tools"], json!([]));
         assert_classifier_instructions(&request);
         assert_eq!(request["tool_choice"], "none");
@@ -829,15 +749,16 @@ async fn sampler_returns_classification_token_before_terminal_response_events() 
     let server = responses::start_websocket_server_with_headers(vec![config]).await;
     let base_url = proxy_websocket_servers(&[&idle_server, &server]).await?;
     let provider = create_model_provider(
-        ModelProviderInfo::create_local_provider(Some(base_url)),
+        authenticated_test_provider(Some(base_url)),
         Some(AuthManager::from_auth_for_testing(CodexAuth::from_api_key(
             "test-api-key",
         ))),
     );
     let sampler = connect_sampler(LunaSamplerConfig {
+        model: super::MODEL.to_owned(),
         api_key_cyber_access_programs: ApiKeyCyberAccessPrograms::Disabled,
         workspace_routing: codex_model_provider::WorkspaceRoutingContext::new(
-            "https://chatgpt.com/backend-api".into(),
+            "https://service.example.test/backend-api".into(),
         ),
         provider,
         http_client_factory: HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault),
@@ -1219,10 +1140,14 @@ async fn parent_response_id_survives_classifier_transport_retry() -> Result<()> 
         let mut config = sampler_config(base_url.clone());
         if uses_codex_backend {
             config.provider = create_model_provider(
-                ModelProviderInfo::create_local_provider(Some(format!(
-                    "{}/backend-api/codex",
-                    base_url.trim_end_matches("/v1")
-                ))),
+                {
+                    let mut info = authenticated_test_provider(Some(format!(
+                        "{}/backend-api/codex",
+                        base_url.trim_end_matches("/v1")
+                    )));
+                    info.include_internal_metadata = true;
+                    info
+                },
                 Some(AuthManager::from_auth_for_testing(
                     CodexAuth::create_dummy_chatgpt_auth_for_testing(),
                 )),
@@ -1303,4 +1228,12 @@ async fn sampler_records_401_recovery_separately_from_transport_retries() -> Res
         ],])
     );
     Ok(())
+}
+
+pub(in crate::async_scorer) fn authenticated_test_provider(
+    base_url: Option<String>,
+) -> ModelProviderInfo {
+    let mut info = ModelProviderInfo::create_local_provider(base_url);
+    info.requires_openai_auth = true;
+    info
 }

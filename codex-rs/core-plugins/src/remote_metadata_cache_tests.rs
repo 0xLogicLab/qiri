@@ -31,7 +31,7 @@ enabled = true
     remote.interface = Some(
         serde_json::from_value(serde_json::json!({
             "capabilities": [], "screenshots": [], "screenshotUrls": [],
-            "logoUrl": "https://files.openai.com/logo.png?sig=old"
+            "logoUrl": "https://files.example.net/logo.png?sig=old"
         }))
         .unwrap(),
     );
@@ -79,7 +79,7 @@ enabled = true
     );
 
     let interface = remote.interface.as_mut().unwrap();
-    interface.logo_url = Some("https://files.openai.com/logo.png?sig=new".to_string());
+    interface.logo_url = Some("https://files.example.net/logo.png?sig=new".to_string());
     interface.display_name = Some("Updated display name".to_string());
     interface.capabilities = vec!["Updated store badge".to_string()];
     assert!(!manager.write_remote_installed_plugins_cache(vec![remote.clone()]));

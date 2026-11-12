@@ -8,7 +8,7 @@ Tool for accessing the internet.
 Examples of different commands available in this tool:
 * `search_query`: {"search_query": [{"q": "What is the capital of France?"}, {"q": "What is the capital of belgium?"}]}. Searches the internet for a given query (and optionally with a domain or recency filter)
 * `image_query`: {"image_query":[{"q": "waterfalls"}]}.
-* `open`: {"open": [{"ref_id": "turn0search0"}, {"ref_id": "https://www.openai.com", "lineno": 120}]}
+* `open`: {"open": [{"ref_id": "turn0search0"}, {"ref_id": "https://www.example.com", "lineno": 120}]}
 * `click`: {"click": [{"ref_id": "turn0fetch3", "id": 17}]}
 * `find`: {"find": [{"ref_id": "turn0fetch3", "pattern": "Annie Case"}]}
 * `screenshot`: {"screenshot": [{"ref_id": "turn1view0", "pageno": 0}, {"ref_id": "turn1view0", "pageno": 3}]}

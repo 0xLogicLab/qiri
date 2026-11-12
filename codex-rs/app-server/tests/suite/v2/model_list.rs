@@ -52,9 +52,7 @@ async fn api_key_model_discovery_startup_enablement_respects_user_config(
     catalog_opt_in: bool,
 ) -> Result<()> {
     let server = MockServer::start().await;
-    let mut remote_model = codex_models_manager::bundled_models_response()?
-        .models
-        .remove(0);
+    let mut remote_model = core_test_support::test_model_catalog()?.models.remove(0);
     remote_model.slug = "rollout-model".into();
     remote_model.visibility = codex_protocol::openai_models::ModelVisibility::List;
     remote_model.supported_in_api = true;
@@ -127,7 +125,7 @@ requires_openai_auth = true
             params: ModelListParams::default(),
         })
         .await?;
-    let mut bundled = codex_models_manager::bundled_models_response()?.models;
+    let mut bundled = core_test_support::test_model_catalog()?.models;
     bundled.sort_by_key(|model| model.priority);
     let mut bundled = ModelPreset::filter_by_auth(
         bundled.into_iter().map(Into::into).collect(),

@@ -20,13 +20,17 @@ async fn cancelled_turn_skips_launch_but_preserves_existing_work(trigger: Compac
             .clone();
     provider.base_url = Some(format!("{}/v1", server.uri()));
     provider.supports_websockets = false;
+    provider.capabilities = Some(codex_model_provider_info::ModelProviderCapabilities {
+        remote_compaction: Some(codex_model_provider_info::RemoteCompactionSupport::V2),
+        ..Default::default()
+    });
     let server_uri = server.uri();
     let (sess, turn, _events) =
         crate::session::tests::make_session_and_context_with_auth_and_config_and_rx(
             CodexAuth::create_dummy_chatgpt_auth_for_testing(),
             Vec::new(),
             move |config| {
-                config.model = Some("gpt-5.2".to_string());
+                config.model = Some("gpt-5.5".to_string());
                 config.model_context_window = Some(100_000);
                 config.model_auto_compact_token_limit = Some(90_000);
                 config.model_provider = provider;

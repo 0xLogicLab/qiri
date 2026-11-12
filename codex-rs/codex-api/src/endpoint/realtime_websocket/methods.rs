@@ -2182,7 +2182,7 @@ mod tests {
     #[test]
     fn websocket_url_from_v1_base_appends_realtime_path() {
         let url = websocket_url_from_api_url(
-            "https://api.openai.com/v1",
+            "https://www.example.net/v1",
             /*query_params*/ None,
             Some("snapshot"),
             RealtimeEventParser::V1,
@@ -2191,7 +2191,7 @@ mod tests {
         .expect("build ws url");
         assert_eq!(
             url.as_str(),
-            "wss://api.openai.com/v1/realtime?intent=quicksilver&model=snapshot"
+            "wss://www.example.net/v1/realtime?intent=quicksilver&model=snapshot"
         );
     }
 
@@ -2297,7 +2297,7 @@ mod tests {
     #[test]
     fn websocket_url_for_call_id_joins_existing_realtime_session() {
         let url = websocket_url_from_api_url_for_call(
-            "https://api.openai.com/v1",
+            "https://www.example.net/v1",
             /*query_params*/ None,
             RealtimeEventParser::RealtimeV2,
             RealtimeSessionMode::Conversational,
@@ -2306,7 +2306,7 @@ mod tests {
         .expect("build ws url");
         assert_eq!(
             url.as_str(),
-            "wss://api.openai.com/v1/realtime?call_id=rtc_test"
+            "wss://www.example.net/v1/realtime?call_id=rtc_test"
         );
     }
 

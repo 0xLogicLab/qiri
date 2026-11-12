@@ -9,7 +9,7 @@ use codex_app_server_protocol::PluginInstallPolicy;
 use serde_json::json;
 
 fn image_url(renewal: &str) -> String {
-    format!("https://files.openai.com/plugins/icon.png?sig={renewal}")
+    format!("https://files.example.net/plugins/icon.png?sig={renewal}")
 }
 
 fn plugin(renewal: &str) -> RemoteInstalledPlugin {

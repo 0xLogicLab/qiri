@@ -12,6 +12,7 @@ use std::sync::atomic::AtomicUsize;
 use std::sync::atomic::Ordering;
 use std::time::Duration;
 
+use crate::test_model_catalog as bundled_models_response;
 use anyhow::Context;
 use anyhow::Result;
 use anyhow::anyhow;
@@ -43,7 +44,6 @@ use codex_login::AuthManager;
 use codex_login::CodexAuth;
 use codex_model_provider_info::ModelProviderInfo;
 use codex_model_provider_info::built_in_model_providers;
-use codex_models_manager::bundled_models_response;
 use codex_models_manager::manager::SharedModelsManager;
 use codex_protocol::config_types::CollaborationMode;
 use codex_protocol::config_types::ModeKind;

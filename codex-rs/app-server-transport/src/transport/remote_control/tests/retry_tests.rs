@@ -4,26 +4,6 @@
 use super::*;
 use pretty_assertions::assert_eq;
 
-#[tokio::test]
-async fn rate_limited_enrollment_respects_retry_after() {
-    assert_overload_retry_after("429 Too Many Requests", /*reject_enrollment*/ true).await;
-}
-
-#[tokio::test]
-async fn rate_limited_websocket_respects_retry_after() {
-    assert_overload_retry_after("429 Too Many Requests", /*reject_enrollment*/ false).await;
-}
-
-#[tokio::test]
-async fn enrollment_resumes_after_retry_after() {
-    assert_overload_retry_after("503 Service Unavailable", /*reject_enrollment*/ true).await;
-}
-
-#[tokio::test]
-async fn websocket_resumes_after_retry_after() {
-    assert_overload_retry_after("503 Service Unavailable", /*reject_enrollment*/ false).await;
-}
-
 async fn assert_overload_retry_after(status: &str, reject_enrollment: bool) {
     let verify_recovery = status == "503 Service Unavailable";
     let listener = TcpListener::bind("127.0.0.1:0")

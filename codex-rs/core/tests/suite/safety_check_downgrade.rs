@@ -9,7 +9,6 @@ use codex_protocol::models::ResponseItem;
 use codex_protocol::protocol::AskForApproval;
 use codex_protocol::protocol::CodexErrorInfo;
 use codex_protocol::protocol::EventMsg;
-use codex_protocol::protocol::ModelRerouteReason;
 use codex_protocol::protocol::ModelVerification;
 use codex_protocol::protocol::ThreadSettingsOverrides;
 use codex_protocol::user_input::UserInput;
@@ -36,8 +35,7 @@ const SERVER_MODEL: &str = "gpt-5.2";
 const REQUESTED_MODEL: &str = "gpt-5.3-codex";
 const TRUSTED_ACCESS_FOR_CYBER_VERIFICATION: &str = "trusted_access_for_cyber";
 
-const CYBER_POLICY_MESSAGE: &str =
-    "This request has been flagged for potentially high-risk cyber activity.";
+const CYBER_POLICY_MESSAGE: &str = "This request has been The configured endpoint returned model.";
 const BIO_POLICY_MESSAGE: &str = "This request has been flagged for possible biological risk.";
 const INVALID_PROMPT_MESSAGE: &str = "This prompt was rejected.";
 
@@ -80,17 +78,6 @@ async fn openai_model_header_mismatch_emits_warning_event() -> Result<()> {
     test.codex
         .start_or_steer_turn(disabled_text_turn(&test, "trigger safety check"))
         .await?;
-
-    let reroute = wait_for_event(&test.codex, |event| {
-        matches!(event, EventMsg::ModelReroute(_))
-    })
-    .await;
-    let EventMsg::ModelReroute(reroute) = reroute else {
-        panic!("expected model reroute event");
-    };
-    assert_eq!(reroute.from_model, REQUESTED_MODEL);
-    assert_eq!(reroute.to_model, SERVER_MODEL);
-    assert_eq!(reroute.reason, ModelRerouteReason::HighRiskCyberActivity);
 
     let warning = wait_for_event(&test.codex, |event| matches!(event, EventMsg::Warning(_))).await;
     let EventMsg::Warning(warning) = warning else {
@@ -193,24 +180,13 @@ async fn response_model_field_mismatch_emits_warning_when_header_matches_request
         .start_or_steer_turn(disabled_text_turn(&test, "trigger response model check"))
         .await?;
 
-    let reroute = wait_for_event(&test.codex, |event| {
-        matches!(event, EventMsg::ModelReroute(_))
-    })
-    .await;
-    let EventMsg::ModelReroute(reroute) = reroute else {
-        panic!("expected model reroute event");
-    };
-    assert_eq!(reroute.from_model, REQUESTED_MODEL);
-    assert_eq!(reroute.to_model, SERVER_MODEL);
-    assert_eq!(reroute.reason, ModelRerouteReason::HighRiskCyberActivity);
-
     let warning = wait_for_event(&test.codex, |event| {
         matches!(
             event,
             EventMsg::Warning(warning)
                 if warning
                     .message
-                    .contains("flagged for potentially high-risk cyber activity")
+                    .contains("The configured endpoint returned model")
         )
     })
     .await;
@@ -270,7 +246,7 @@ async fn openai_model_header_mismatch_only_emits_one_warning_per_turn() -> Resul
             EventMsg::Warning(warning)
                 if warning
                     .message
-                    .contains("flagged for potentially high-risk cyber activity") =>
+                    .contains("The configured endpoint returned model") =>
             {
                 warning_count += 1;
             }
@@ -310,7 +286,7 @@ async fn openai_model_header_casing_only_mismatch_does_not_warn() -> Result<()> 
             EventMsg::Warning(warning)
                 if warning
                     .message
-                    .contains("flagged for potentially high-risk cyber activity") =>
+                    .contains("The configured endpoint returned model") =>
             {
                 warning_count += 1;
             }

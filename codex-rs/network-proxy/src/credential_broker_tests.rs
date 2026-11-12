@@ -7,6 +7,16 @@ use rama_http::HeaderValue;
 use rama_http::header::AUTHORIZATION;
 
 fn env_map<const N: usize>(entries: [(&str, &str); N]) -> HashMap<String, String> {
+    let mut env: HashMap<String, String> = entries
+        .into_iter()
+        .map(|(key, value)| (key.to_string(), value.to_string()))
+        .collect();
+    env.entry("OPENAI_BASE_URL".to_string())
+        .or_insert_with(|| "https://www.example.net/v1".to_string());
+    env
+}
+
+fn raw_env_map<const N: usize>(entries: [(&str, &str); N]) -> HashMap<String, String> {
     entries
         .into_iter()
         .map(|(key, value)| (key.to_string(), value.to_string()))
@@ -661,7 +671,7 @@ fn virtualize_child_env_preserves_paths_unless_the_credential_is_known() {
     let dummy = copied_env["COPIED"].strip_prefix("ta").unwrap();
     assert_credential_shape(&real, dummy, "sk-proj-");
     let mut headers = headers_with_bearer(dummy);
-    broker.inject_request_headers("api.openai.com", &mut headers);
+    broker.inject_request_headers("www.example.net", &mut headers);
     assert_eq!(
         authorization(&headers),
         Some(format!("Bearer {real}").as_str())
@@ -682,7 +692,7 @@ fn virtualize_child_env_discovers_credentials_without_canonical_variables() {
         (
             "sk-proj-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
             "OPENAI_API_KEY",
-            "api.openai.com",
+            "www.example.net",
         ),
     ] {
         let broker = CredentialBroker::new(/*enabled*/ true);
@@ -766,7 +776,7 @@ fn virtualize_child_env_keeps_adjacent_provider_credentials_separate() {
     );
 
     let mut openai_headers = headers_with_bearer(&openai_dummy);
-    broker.inject_request_headers("api.openai.com", &mut openai_headers);
+    broker.inject_request_headers("www.example.net", &mut openai_headers);
     assert_eq!(
         authorization(&openai_headers),
         Some(format!("Bearer {openai_token}").as_str())
@@ -841,7 +851,7 @@ fn brokered_credential_env_keys_only_include_registered_credentials() {
 
     assert_eq!(
         brokered_credential_env_keys(&env).collect::<Vec<_>>(),
-        vec!["OPENAI_API_KEY"]
+        vec!["OPENAI_API_KEY", "OPENAI_BASE_URL"]
     );
 }
 
@@ -947,7 +957,7 @@ fn child_without_dummy_cannot_use_previous_child_credential() {
     broker.virtualize_child_env(&mut second_env);
     let mut headers = HeaderMap::new();
 
-    broker.inject_request_headers("api.openai.com", &mut headers);
+    broker.inject_request_headers("www.example.net", &mut headers);
 
     assert_eq!(authorization(&headers), None);
 }
@@ -1099,11 +1109,11 @@ fn inject_request_headers_requires_dummy_and_preserves_explicit_authorization() 
     let openai_api_key = env.get("OPENAI_API_KEY").expect("dummy OpenAI API key");
     let mut headers = HeaderMap::new();
 
-    broker.inject_request_headers("api.openai.com", &mut headers);
+    broker.inject_request_headers("www.example.net", &mut headers);
     assert_eq!(authorization(&headers), None);
 
     headers = headers_with_bearer(openai_api_key);
-    broker.inject_request_headers("api.openai.com", &mut headers);
+    broker.inject_request_headers("www.example.net", &mut headers);
     assert_eq!(authorization(&headers), Some("Bearer sk-real"));
 
     for explicit_value in [
@@ -1111,7 +1121,7 @@ fn inject_request_headers_requires_dummy_and_preserves_explicit_authorization() 
         "sk-masked000000000000000000000000000000000000000000",
     ] {
         let mut explicit_headers = headers_with_bearer(explicit_value);
-        broker.inject_request_headers("api.openai.com", &mut explicit_headers);
+        broker.inject_request_headers("www.example.net", &mut explicit_headers);
         assert_eq!(explicit_headers, headers_with_bearer(explicit_value));
     }
 }
@@ -1234,7 +1244,7 @@ fn builtin_credentials_use_private_destination_context() {
     let broker = CredentialBroker::new(/*enabled*/ true);
     let mut config = NetworkProxyConfig::default();
     config.set_credential_broker_enabled(/*enabled*/ true);
-    config.configure_credential_broker_environment(&env_map([
+    config.configure_credential_broker_environment(&raw_env_map([
         ("GH_HOST", "github.enterprise.example"),
         ("OPENAI_BASE_URL", "https://gateway.example/v1"),
     ]));
@@ -1253,7 +1263,7 @@ fn builtin_credentials_use_private_destination_context() {
             "gateway.example",
         ),
     ] {
-        let mut env = env_map([(key, token)]);
+        let mut env = HashMap::from([(key.to_string(), token.to_string())]);
         broker.virtualize_child_env(&mut env);
         assert_ne!(env[key], token);
         assert!(!env.contains_key("GH_HOST"));
@@ -1341,17 +1351,17 @@ fn private_destination_updates_reconcile_registered_fallbacks() {
             )]),
             ..NetworkProxyConfig::default()
         };
-        config.configure_credential_broker_environment(&env_map([(
+        config.configure_credential_broker_environment(&raw_env_map([(
             context_key,
             &destination("first.example"),
         )]));
         broker.configure(&config);
-        let mut env = env_map([(key, token)]);
+        let mut env = HashMap::from([(key.to_string(), token.to_string())]);
         broker.virtualize_child_env(&mut env);
         let dummy = env[key].clone();
         assert_ne!(dummy, token);
 
-        let mut explicit_env = env_map([(key, token)]);
+        let mut explicit_env = raw_env_map([(key, token)]);
         if previously_used_fallback {
             broker.virtualize_child_env_for_environment(&mut explicit_env, Some("explicit"));
         }
@@ -1395,14 +1405,14 @@ fn private_destination_updates_reconcile_registered_fallbacks() {
         } else {
             "GH_HOST"
         };
-        config.configure_credential_broker_environment(&env_map([
+        config.configure_credential_broker_environment(&raw_env_map([
             (context_key, &destination("first.example")),
             (unrelated_key, "https://unrelated.example"),
         ]));
         broker.configure(&config);
         assert_inherited_destination("unchanged-fallback-child");
 
-        config.configure_credential_broker_environment(&env_map([(
+        config.configure_credential_broker_environment(&raw_env_map([(
             context_key,
             &destination("second.example"),
         )]));
@@ -1437,7 +1447,7 @@ fn private_destination_updates_reconcile_registered_fallbacks() {
             );
         }
 
-        config.configure_credential_broker_environment(&env_map([(context_key, "")]));
+        config.configure_credential_broker_environment(&raw_env_map([(context_key, "")]));
         broker.configure(&config);
         for destination in ["first.example", "second.example"] {
             for (environment, value) in [(None, &dummy), (Some("explicit"), &explicit_dummy)] {
@@ -1466,14 +1476,14 @@ fn private_destination_updates_reconcile_registered_fallbacks() {
         assert_eq!(headers, headers_with_bearer(token));
 
         // A fallback can become primary again without erasing captured destinations.
-        config.configure_credential_broker_environment(&env_map([(
+        config.configure_credential_broker_environment(&raw_env_map([(
             context_key,
             &destination("third.example"),
         )]));
         broker.configure(&config);
         explicit_env.insert(context_key.to_string(), destination("third.example"));
         broker.virtualize_child_env_for_environment(&mut explicit_env, Some("explicit"));
-        config.configure_credential_broker_environment(&env_map([(context_key, "")]));
+        config.configure_credential_broker_environment(&raw_env_map([(context_key, "")]));
         broker.configure(&config);
         for host in [
             "explicit.example",
@@ -1499,7 +1509,7 @@ fn private_destination_updates_reconcile_registered_fallbacks() {
 }
 
 #[test]
-fn openai_credentials_bind_only_to_default_and_configured_trusted_hosts() {
+fn compatible_credentials_bind_only_to_explicit_configured_hosts() {
     let broker = CredentialBroker::new(/*enabled*/ true);
     let mut config = NetworkProxyConfig::default();
     config.set_credential_broker_enabled(/*enabled*/ true);
@@ -1519,7 +1529,7 @@ fn openai_credentials_bind_only_to_default_and_configured_trusted_hosts() {
     let dummy = &env["OPENAI_API_KEY"];
 
     for (host, expected_credential) in [
-        ("api.openai.com", "sk-real"),
+        ("www.example.net", dummy.as_str()),
         ("gateway.example.com", "sk-real"),
         ("sdk.example.com", "sk-real"),
         ("attacker.example", dummy.as_str()),
@@ -1529,10 +1539,10 @@ fn openai_credentials_bind_only_to_default_and_configured_trusted_hosts() {
             broker.request_matches_hooked_host_alias(
                 host,
                 &headers,
-                &["api.openai.com".to_string()],
+                &["sdk.example.com".to_string()],
                 /*environment_id*/ None,
             ),
-            host != "api.openai.com" && expected_credential == "sk-real",
+            host != "sdk.example.com" && expected_credential == "sk-real",
         );
         broker.inject_request_headers(host, &mut headers);
         let expected = format!("Bearer {expected_credential}");
@@ -1559,6 +1569,10 @@ fn openai_credentials_bind_only_to_default_and_configured_trusted_hosts() {
 #[test]
 fn selected_openai_credential_matches_ipv6_alias_with_plaintext_fallback() {
     let broker = CredentialBroker::new(/*enabled*/ true);
+    let mut config = NetworkProxyConfig::default();
+    config.set_credential_broker_enabled(true);
+    config.set_credential_broker_openai_base_url(Some("https://www.example.net/v1"));
+    broker.configure(&config);
     let mut env = env_map([
         ("OPENAI_API_KEY", "sk-real"),
         ("OPENAI_BASE_URL", "https://[fd00::1]/v1"),
@@ -1568,7 +1582,7 @@ fn selected_openai_credential_matches_ipv6_alias_with_plaintext_fallback() {
         assert!(broker.request_matches_hooked_host_alias(
             destination,
             &headers_with_bearer(&env["OPENAI_API_KEY"]),
-            &["api.openai.com".to_string()],
+            &["www.example.net".to_string()],
             /*environment_id*/ None,
         ));
     }
@@ -1759,5 +1773,18 @@ fn github_enterprise_credentials_bind_to_gh_host() {
     assert_eq!(
         brokered_credential_dummy_env_keys(&alternate_enterprise_key).first(),
         Some(&"GITHUB_ENTERPRISE_TOKEN".to_string())
+    );
+}
+
+#[test]
+fn compatible_api_key_has_no_implicit_destination() {
+    let broker = CredentialBroker::new(true);
+    let mut env = HashMap::from([("OPENAI_API_KEY".to_string(), "sk-real".to_string())]);
+    broker.virtualize_child_env(&mut env);
+    let mut headers = headers_with_bearer(&env["OPENAI_API_KEY"]);
+    broker.inject_request_headers("www.example.net", &mut headers);
+    assert_eq!(
+        authorization(&headers),
+        Some(format!("Bearer {}", env["OPENAI_API_KEY"]).as_str())
     );
 }

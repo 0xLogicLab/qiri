@@ -11,7 +11,6 @@ use codex_config::types::AuthCredentialsStoreMode;
 use codex_login::AuthKeyringBackendKind;
 use codex_login::CLIENT_ID;
 use codex_login::CODEX_ACCESS_TOKEN_ENV_VAR;
-use codex_login::REVOKE_TOKEN_URL_OVERRIDE_ENV_VAR;
 use codex_login::login_with_bedrock_access_keys;
 use codex_protocol::shell_environment::OPENAI_FEDERATION_RULE_ID_ENV_VAR;
 use codex_protocol::shell_environment::OPENAI_IDENTITY_TOKEN_FILE_ENV_VAR;
@@ -150,24 +149,6 @@ fn login_status_reports_auth_storage_errors() -> Result<()> {
 }
 
 #[test]
-fn login_status_validates_configured_workload_identity() -> Result<()> {
-    let codex_home = TempDir::new()?;
-    write_file_auth_config(codex_home.path())?;
-    let missing_assertion = codex_home.path().join("missing-identity-token");
-
-    codex_command(codex_home.path())?
-        .env_remove(CODEX_ACCESS_TOKEN_ENV_VAR)
-        .env(OPENAI_FEDERATION_RULE_ID_ENV_VAR, "rule-test")
-        .env(OPENAI_IDENTITY_TOKEN_FILE_ENV_VAR, &missing_assertion)
-        .args(["login", "status"])
-        .assert()
-        .failure()
-        .stderr(contains("could not read workload identity assertion file"));
-
-    Ok(())
-}
-
-#[test]
 fn logout_clears_only_the_selected_bedrock_provider() -> Result<()> {
     for (model_provider_id, managed_bedrock_auth, model) in [
         ("amazon-bedrock", true, "openai.gpt-5.6-sol"),
@@ -246,79 +227,6 @@ fn logout_clears_only_the_selected_bedrock_provider() -> Result<()> {
     Ok(())
 }
 
-#[tokio::test]
-async fn logout_survives_enterprise_cleanup_failure_with_xaa_disabled() -> Result<()> {
-    let server = MockServer::start().await;
-    Mock::given(path("/backend-api/wham/config/bundle"))
-        .respond_with(ResponseTemplate::new(200).set_body_json(json!({
-            "config_toml": {"enterprise_managed": []},
-            "requirements_toml": {"enterprise_managed": []},
-        })))
-        .mount(&server)
-        .await;
-    Mock::given(method("POST"))
-        .and(path("/oauth/revoke"))
-        .respond_with(ResponseTemplate::new(200))
-        .expect(1)
-        .mount(&server)
-        .await;
-    let home = TempDir::new()?;
-    std::fs::write(
-        home.path().join("config.toml"),
-        format!(
-            "cli_auth_credentials_store = \"file\"\nchatgpt_base_url = \"{}/backend-api\"\n[features]\nuse_xaa = false\n[mcp_enterprise_managed_auth.idp]\nissuer = \"https://idp.example\"\nclient_id = \"enterprise-client\"\n[mcp_servers.enterprise]\nurl = \"https://resource.example/mcp\"\nauth = \"ema_auth\"\nbearer_token_env_var = \"UNUSED_TOKEN\"\n",
-            server.uri()
-        ),
-    )?;
-    write_chatgpt_auth(
-        home.path(),
-        ChatGptAuthFixture::new("account-access")
-            .account_id("workspace")
-            .chatgpt_user_id("user"),
-        AuthCredentialsStoreMode::File,
-    )?;
-    // Fail before touching the real keyring; the subprocess owns this isolated home.
-    std::fs::write(home.path().join("mcp-oauth-locks"), "not a directory")?;
-    for enabled in [false, true] {
-        codex_command(home.path())?
-            .current_dir(home.path())
-            .env("NO_PROXY", "127.0.0.1,localhost")
-            .env("no_proxy", "127.0.0.1,localhost")
-            .env_remove("CODEX_API_KEY")
-            .env_remove("OPENAI_API_KEY")
-            .env_remove(CODEX_ACCESS_TOKEN_ENV_VAR)
-            .args([
-                "-c",
-                &format!("features.use_xaa={enabled}"),
-                "mcp",
-                "logout",
-                "enterprise",
-            ])
-            .assert()
-            .failure()
-            .stderr(contains("failed to delete enterprise authorization"));
-        assert!(home.path().join("auth.json").exists());
-    }
-    codex_command(home.path())?
-        .current_dir(home.path())
-        .env("NO_PROXY", "127.0.0.1,localhost")
-        .env("no_proxy", "127.0.0.1,localhost")
-        .env(
-            REVOKE_TOKEN_URL_OVERRIDE_ENV_VAR,
-            format!("{}/oauth/revoke", server.uri()),
-        )
-        .env_remove("CODEX_API_KEY")
-        .env_remove("OPENAI_API_KEY")
-        .env_remove(CODEX_ACCESS_TOKEN_ENV_VAR)
-        .args(["logout"])
-        .assert()
-        .success()
-        .stderr(contains("continuing account logout"))
-        .stderr(contains("Successfully logged out"));
-    assert!(!home.path().join("auth.json").exists());
-    Ok(())
-}
-
 #[test]
 fn login_with_access_token_rejects_invalid_jwt() -> Result<()> {
     let codex_home = TempDir::new()?;
@@ -381,106 +289,5 @@ async fn debug_prompt_input_follows_authenticated_attribution_setting() -> Resul
         assert!(!prompt.contains("attribution is disabled for the current workspace"));
     }
     server.verify().await;
-    Ok(())
-}
-
-#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-async fn device_login_revokes_existing_auth_before_requesting_new_tokens() -> Result<()> {
-    let server = MockServer::start().await;
-    Mock::given(method("POST"))
-        .and(path("/oauth/revoke"))
-        .respond_with(ResponseTemplate::new(200))
-        .expect(1)
-        .mount(&server)
-        .await;
-    Mock::given(method("POST"))
-        .and(path("/api/accounts/deviceauth/usercode"))
-        .respond_with(ResponseTemplate::new(200).set_body_json(json!({
-            "device_auth_id": "device-auth-123",
-            "user_code": "CODE-12345",
-            "interval": "0",
-        })))
-        .expect(1)
-        .mount(&server)
-        .await;
-    Mock::given(method("POST"))
-        .and(path("/api/accounts/deviceauth/token"))
-        .respond_with(ResponseTemplate::new(200).set_body_json(json!({
-            "authorization_code": "authorization-code-123",
-            "code_challenge": "code-challenge-123",
-            "code_verifier": "code-verifier-123",
-        })))
-        .expect(1)
-        .mount(&server)
-        .await;
-    Mock::given(method("POST"))
-        .and(path("/oauth/token"))
-        .respond_with(ResponseTemplate::new(200).set_body_json(json!({
-            "id_token": "eyJhbGciOiJub25lIn0.e30.c2ln",
-            "access_token": "new-access",
-            "refresh_token": "new-refresh",
-        })))
-        .expect(1)
-        .mount(&server)
-        .await;
-
-    let codex_home = TempDir::new()?;
-    write_file_auth_config(codex_home.path())?;
-    std::fs::write(
-        codex_home.path().join("auth.json"),
-        serde_json::to_vec(&json!({
-            "auth_mode": "chatgpt",
-            "OPENAI_API_KEY": null,
-            "tokens": {
-                "id_token": "eyJhbGciOiJub25lIn0.e30.c2ln",
-                "access_token": "old-access",
-                "refresh_token": "old-refresh",
-                "account_id": "old-account",
-            },
-        }))?,
-    )?;
-
-    let issuer = server.uri();
-    let mut cmd = codex_command(codex_home.path())?;
-    cmd.env(
-        REVOKE_TOKEN_URL_OVERRIDE_ENV_VAR,
-        format!("{issuer}/oauth/revoke"),
-    )
-    .env("NO_PROXY", "127.0.0.1,localhost")
-    .env("no_proxy", "127.0.0.1,localhost")
-    .env_remove("CODEX_ACCESS_TOKEN")
-    .env_remove("OPENAI_API_KEY")
-    .args(["login", "--device-auth", "--experimental_issuer", &issuer])
-    .assert()
-    .success()
-    .stderr(contains("Successfully logged in"));
-
-    let requests = server
-        .received_requests()
-        .await
-        .context("failed to read mock OAuth requests")?;
-    let paths: Vec<&str> = requests.iter().map(|request| request.url.path()).collect();
-    assert_eq!(
-        paths,
-        vec![
-            "/oauth/revoke",
-            "/api/accounts/deviceauth/usercode",
-            "/api/accounts/deviceauth/token",
-            "/oauth/token",
-        ]
-    );
-    assert_eq!(
-        requests[0]
-            .body_json::<Value>()
-            .context("revoke request should be JSON")?,
-        json!({
-            "token": "old-refresh",
-            "token_type_hint": "refresh_token",
-            "client_id": CLIENT_ID,
-        })
-    );
-
-    let auth = read_auth_json(codex_home.path())?;
-    assert_eq!(auth["tokens"]["refresh_token"], "new-refresh");
     Ok(())
 }

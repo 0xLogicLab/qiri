@@ -171,8 +171,6 @@ impl ChatWidget {
             SlashCommand::Logout
                 | SlashCommand::Feedback
                 | SlashCommand::Apps
-                | SlashCommand::Plugins
-                | SlashCommand::Usage
                 | SlashCommand::App
                 | SlashCommand::Daybreak
         ) {
@@ -532,11 +530,7 @@ impl ChatWidget {
                     /*hint*/ None,
                 );
             }
-            SlashCommand::Usage => {
-                if self.ensure_usage_command_available() {
-                    self.open_usage_menu();
-                }
-            }
+
             SlashCommand::Ide => {
                 self.handle_ide_command();
             }
@@ -637,10 +631,6 @@ impl ChatWidget {
         args: String,
         text_elements: Vec<TextElement>,
     ) {
-        if matches!(cmd, SlashCommand::Usage) {
-            self.add_error_message(format!("/{} is not available in QIRI", cmd.command()));
-            return;
-        }
         if cmd != SlashCommand::Copy {
             self.transcript.last_status_copy_targets = None;
         }
@@ -811,18 +801,7 @@ impl ChatWidget {
             SlashCommand::Pwd => {
                 self.add_error_message("Usage: /pwd".to_string());
             }
-            SlashCommand::Usage => {
-                if self.ensure_usage_command_available() {
-                    match crate::analytics::TokenActivityView::parse(trimmed) {
-                        Some(view) => self
-                            .app_event_tx
-                            .send(AppEvent::OpenAnalytics { view: Some(view) }),
-                        None => self.add_error_message(
-                            "Usage: /usage [daily|weekly|cumulative]".to_string(),
-                        ),
-                    }
-                }
-            }
+
             SlashCommand::Voice => match trimmed.to_ascii_lowercase().as_str() {
                 "settings" => self.app_event_tx.send(AppEvent::OpenRealtimeSettings),
                 "mute" => self.app_event_tx.send(AppEvent::VoiceControl {
@@ -1264,7 +1243,6 @@ impl ChatWidget {
             | SlashCommand::Status
             | SlashCommand::Daemon
             | SlashCommand::Pwd
-            | SlashCommand::Usage
             | SlashCommand::DebugConfig
             | SlashCommand::Ps
             | SlashCommand::Stop

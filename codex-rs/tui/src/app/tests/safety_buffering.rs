@@ -773,7 +773,7 @@ async fn run_safety_retry(
     let (mut app, mut app_event_rx, _op_rx) = make_test_app_with_channels().await;
     let codex_home = tempdir()?;
     // Keep text-only retry fixtures independent of the optional Code Mode host.
-    let mut model_catalog = codex_models_manager::bundled_models_response()?;
+    let mut model_catalog = core_test_support::test_model_catalog()?;
     for model in model_catalog
         .models
         .iter_mut()
@@ -1034,7 +1034,7 @@ goals = true
             })
             .await?;
         let mut settings = next_thread_settings_updated(&mut app_server, source_thread_id).await;
-        settings.thread_settings.model_provider = "openai".to_string();
+        settings.thread_settings.model_provider = "local".to_string();
         app.chat_widget.on_thread_settings_updated(settings);
         app.chat_widget.update_account_state(
             /*status_account_display*/ None, /*plan_type*/ None,
@@ -1071,7 +1071,7 @@ goals = true
             .expect("unsupported Daybreak model should be added to history");
         insta::assert_snapshot!(
             lines_to_single_string(&error_cell.display_lines(/*width*/ 200)),
-            @"■ Daybreak support for model gpt-5.6-luna could not be confirmed by the connected server. Use /daybreak to turn it off, or choose a compatible model and server."
+            @"■ Daybreak is unavailable. Turn it off to continue."
         );
         app.chat_widget.set_daybreak_enabled(/*enabled*/ false);
 

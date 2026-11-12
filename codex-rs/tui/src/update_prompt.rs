@@ -288,7 +288,7 @@ mod tests {
             .expect("render update prompt");
         let rendered = terminal.backend().to_string();
         assert!(rendered.contains("qiri update"));
-        assert!(!rendered.contains("openai.com"));
+        assert!(!rendered.contains("example.net"));
     }
 
     #[test]

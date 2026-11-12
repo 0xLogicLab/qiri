@@ -138,6 +138,9 @@ pub(crate) fn build_pet_picker_params(
 fn available_pet_entries(codex_home: &Path) -> Vec<PetPickerEntry> {
     let mut entries = catalog::BUILTIN_PETS
         .iter()
+        .filter(|pet| {
+            super::asset_pack::builtin_spritesheet_path(codex_home, pet.spritesheet_file).is_file()
+        })
         .map(|pet| PetPickerEntry {
             selector: pet.id.to_string(),
             legacy_selector: None,
@@ -235,6 +238,7 @@ mod tests {
     #[test]
     fn picker_lists_app_bundled_and_custom_pets() {
         let codex_home = tempfile::tempdir().unwrap();
+        super::super::asset_pack::write_test_pack(codex_home.path());
         write_pet(codex_home.path(), "chefito", "Chefito");
 
         let params = build_pet_picker_params(
@@ -272,6 +276,7 @@ mod tests {
     #[test]
     fn picker_preselects_qiri_without_marking_it_current_when_no_pet_is_configured() {
         let codex_home = tempfile::tempdir().unwrap();
+        super::super::asset_pack::write_test_pack(codex_home.path());
         let params = build_pet_picker_params(
             /*current_pet*/ None,
             codex_home.path(),
@@ -286,6 +291,7 @@ mod tests {
     #[test]
     fn picker_marks_disabled_pet_as_current() {
         let codex_home = tempfile::tempdir().unwrap();
+        super::super::asset_pack::write_test_pack(codex_home.path());
         let params = build_pet_picker_params(
             Some(DISABLED_PET_ID),
             codex_home.path(),
@@ -305,6 +311,7 @@ mod tests {
     #[test]
     fn picker_imports_legacy_avatar_manifests() {
         let codex_home = tempfile::tempdir().unwrap();
+        super::super::asset_pack::write_test_pack(codex_home.path());
         write_legacy_avatar(codex_home.path(), "legacy", "Legacy");
 
         let params = build_pet_picker_params(

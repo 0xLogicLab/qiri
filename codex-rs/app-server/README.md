@@ -23,16 +23,6 @@ resolved memory version, including thread-specific configuration overrides.
 It is `null` when memory use is disabled or the selected summary is missing,
 unreadable, or blank. It never falls back to the other memory version.
 
-# Local history by account
-
-Pass `currentAccountOnly: true` on `thread/list` or `thread/search` to scope local
-discovery to the current ChatGPT login. Newly created threads record that discovery
-is account-scoped, and each recorded creator user or account ID must match.
-Threads created before this change and threads without creator IDs stay visible
-across account switches. Resume and revert preserve that distinction; forks are new threads.
-Scoped requests skip candidates whose rollout header cannot be read. API-key
-logins see all local history. Direct access by thread ID remains available.
-
 # Thread list exclusions
 
 `thread/list` accepts `excludedThreadIds`, an optional array of up to 100
@@ -141,17 +131,6 @@ The field is null for older history and tools that declare widgets only in
 result metadata; clients retain catalog discovery for those calls. Existing
 resource URI fields remain available for older clients.
 
-# Initial Daybreak choice (experimental)
-
-Persistent threads accept `daybreakEnabled` on `thread/start` with the
-`experimentalApi` opt-in. The response and `thread/started` notification both
-include the initial choice in `thread.daybreakEnabled`. The choice is staged
-with the thread's other initial metadata and saved when the thread is persisted.
-An unused thread is not guaranteed to survive restart. Omitted or null leaves
-the choice unset. Ephemeral threads cannot save it.
-Use `thread/metadata/update` for later changes. This preference does not select
-`turn/start.cyberAccessProgram` or grant access to an access program.
-
 # Application network policy
 
 App-server loads application network policy at startup and existing explicit
@@ -187,24 +166,6 @@ Canceling or resolving an elicitation does not itself stop a separate
 late proofs after the approval is canceled or resolved. Only one native worker
 runs per app-server; if an OS call remains active after cancellation or timeout,
 subsequent local operations return `failed/providerError` until that worker exits.
-
-# Hosted Codex Apps MCP protocol
-
-The host-owned HTTP `codex_apps` server uses Legacy by default in app-server and
-standalone Codex. To discover the 2026-07-28 protocol, set
-`codex_apps_mcp_2026_07_28 = true` under `[features]`, or send a true runtime
-override via `experimentalFeature/enablement/set`. Discovery falls back to Legacy
-when the server does not support it. Explicit config takes precedence.
-The dedicated setting does not apply to third-party HTTP or local `codex_app`
-stdio servers. The existing `mcp_2026_07_28` flag still governs eligible other
-servers, regardless of whether their names or URLs resemble hosted Apps.
-App-server does not persist this selection.
-
-## Hosted resource reads
-
-`mcpServer/resource/read` accepts `target: {connectorId, linkId}` for direct hosted app reads without tool discovery. A string `linkId` selects that account; `null` explicitly requests no-auth access subject to backend policy. Do not infer no-auth access from unknown or synthetic links.
-
-`originCallId` with `threadId` takes precedence and retains the originating app/account scope. Requests without `target` retain discovery; `connectorId` continues to restrict reads to that connector. Direct targets require backend support for app/account resource reads.
 
 # Project trust
 
@@ -261,8 +222,7 @@ returned in the acceptance response.
 
 Local UI clients use five methods. They require the existing
 `experimentalApi` opt-in. The local provider reports
-`unavailable/providerUnavailable` on unsupported platforms or without the required
-ChatGPT account identity.
+`unavailable/providerUnavailable` on unsupported platforms or without an explicitly supplied local identity.
 
 | Method                    | Params                            | Result                                                  |
 | ------------------------- | --------------------------------- | ------------------------------------------------------- |
@@ -561,28 +521,7 @@ applied. Correct the policy before retrying the reload.
 Call `mcpServer/oauth/login` with a directly configured server's `name` and its
 connected `threadId`. Open the returned `authorizationUrl` and match
 `mcpServer/oauthLogin/completed` by `loginId`. Starting another enterprise sign-in
-cancels the previous attempt and waits for its callback listener to close. Use
-`account/login/cancel` to cancel explicitly. Start a fresh session after success to
-use the saved grant.
-
-# Selected workspace routing
-
-The experimental `account/read.workspaceRouting` response field returns the selected ChatGPT workspace's `chatgptAccountId`, resolved HTTPS `backendOrigin`, and backend-provided `accountRoutingOverride`. The routing value is `us`, `us_cr`, or the explicit `NO_CONSTRAINT` value. API-only and signed-out accounts return `null` and do not need `accounts/check`.
-
-App-server discovers routing for saved ChatGPT logins at startup and for new logins or workspace switches. After requirements and routing are ready, it sends the existing `account/updated` notification. Newly initialized connections also receive this notification once saved-workspace routing is ready, including when discovery finished before the connection initialized. Clients then reread `configRequirements/read` and `account/read`. Saved ChatGPT credentials without a selected workspace ID retain their account information and return `workspaceRouting: null`; app-server does not guess a workspace from the backend's default account. Discovery failures for a selected workspace, including missing or null fields from older backends, return an `account/read` error. They never produce a successful unrestricted result. A later read retries failed discovery. Logout clears the cached routing, and results from earlier authentication owners are discarded. Token refreshes for the same known user and workspace invalidate cached routing without cancelling discovery or failing sign-in. Configuration is reloaded after discovery; a changed backend, model provider, or required backend rejects the result so the next read discovers against current configuration. Account notifications recheck the auth owner generation after waiting for outbound queue capacity. Superseded sign-in attempts emit a failed `account/login/completed` event instead of silently dropping completion. Notifications remain snapshots: clients reread current account and requirements state rather than treating a queued notification as authorization.
-
-Routing compares origins by scheme, host, and effective port, ignoring API paths. A required
-`chatgpt_base_url` must match discovery; if neither provides an origin, `NO_CONSTRAINT` uses the
-configured base URL.
-
-Responses HTTP (including compaction) and WebSockets wait for discovery and preserve API paths.
-Guardian v2 classifier HTTP and pooled WebSockets use the same routing.
-HTTP redirects are rejected. `us` and `us_cr` set `X-OpenAI-Account-Routing-Override`;
-`NO_CONSTRAINT` omits it.
-
-API-key and explicitly external-auth providers bypass discovery. Custom ChatGPT-auth destinations
-require discovery before being treated as independent. Changing a workspace-bound thread's
-bootstrap origin requires a new thread.
+cancels the previous attempt and waits for its callback listener to close. Start a fresh session after success to use the saved grant.
 
 ## Windows sandbox implementation selection
 
@@ -681,10 +620,7 @@ unchanged requirements preserve them. Failed policy loads block traffic until
 requirements load successfully. Invalid request or project configuration does not
 revoke unrelated traffic. Account changes revoke
 outstanding requests and clients retaining the previous account's authorization.
-Policy updates also stop active requests to newly denied destinations. Narrow
-authentication and requirements-discovery clients use local requirements and
-exact endpoint URLs while workspace policy is loading. API-key-only deployments
-do not discover ChatGPT workspace requirements.
+Policy updates also stop active requests to newly denied destinations. Authentication and optional self-hosted configuration clients use explicit endpoint URLs and local requirements. Workspace discovery is not performed.
 
 SDK transports without destination enforcement, including OTLP exporters and AWS
 credential discovery/signing, are disabled while restrictions apply. Supported
@@ -712,29 +648,6 @@ and out-of-scope item IDs return invalid params (`-32602`) with
 Omitted or null cursors preserve normal first-page behavior. Continue anchored
 pages with the returned opaque string `nextCursor`; response fields and
 `backwardsCursor` semantics are unchanged.
-
-## Workspace switching (experimental)
-
-For a managed ChatGPT login, `accountSession/list` returns an opaque
-`sessionId` for that login and its selected workspace. Set
-`refreshWorkspaceMetadata` to fetch the user's memberships.
-
-Call `accountSession/switch` with that `sessionId` and the target workspace's
-`accountId`. Core checks the membership, stops loaded threads, exchanges the
-session token and validates the new workspace's routing. Clients receive
-`thread/closed` for unloaded threads and `account/updated` after a successful
-switch. Selecting the current workspace leaves its threads running.
-
-The server remembers the selected workspace on refresh. If routing validation
-fails, Core attempts to restore the previous workspace while the same credentials
-are still current.
-
-Clients that can open a browser may pass `allowBrowserLogin: true`. If the
-workspace requires SSO, the response contains `loginId` and `authUrl`. Open
-that URL and wait for `account/login/completed`. The browser can reuse an
-existing SSO session. Core accepts the callback only for the requesting login
-and target workspace. Cancel through `account/login/cancel` to keep the current
-workspace. Government workspaces require a separate sign-in.
 
 # Model provider configuration
 

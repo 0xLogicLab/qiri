@@ -22,7 +22,7 @@ fn repeated_service_configs_and_early_clones_share_one_lazy_pool() {
         "openai".to_string(),
         /*plugins_enabled*/ true,
         /*remote_plugin_enabled*/ true,
-        "https://chatgpt.com/backend-api".to_string(),
+        "https://service.example.test/backend-api".to_string(),
         test_http_client_factory(),
         /*product_sku*/ None,
     );

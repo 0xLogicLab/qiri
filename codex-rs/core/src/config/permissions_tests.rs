@@ -67,7 +67,7 @@ fn windows_verbatim_path_prefix_does_not_count_as_glob_syntax() {
 fn network_toml_ignores_legacy_network_list_keys() {
     let parsed = toml::from_str::<NetworkToml>(
         r#"
-allowed_domains = ["openai.com"]
+allowed_domains = ["example.net"]
 "#,
     )
     .expect("legacy network list keys should be ignored");
@@ -80,7 +80,7 @@ fn network_permission_containers_project_allowed_and_denied_entries() {
     let domains = NetworkDomainPermissionsToml {
         entries: BTreeMap::from([
             (
-                "*.openai.com".to_string(),
+                "*.example.net".to_string(),
                 NetworkDomainPermissionToml::Allow,
             ),
             (
@@ -109,7 +109,7 @@ fn network_permission_containers_project_allowed_and_denied_entries() {
     assert_eq!(
         domains.allowed_domains(),
         Some(vec![
-            "*.openai.com".to_string(),
+            "*.example.net".to_string(),
             "api.example.com".to_string()
         ])
     );
@@ -362,7 +362,7 @@ fn profile_network_proxy_config_keeps_proxy_disabled_for_proxy_policy() {
         enable_socks5: Some(false),
         domains: Some(NetworkDomainPermissionsToml {
             entries: BTreeMap::from([(
-                "openai.com".to_string(),
+                "example.net".to_string(),
                 NetworkDomainPermissionToml::Allow,
             )]),
         }),
@@ -376,7 +376,7 @@ fn profile_network_proxy_config_keeps_proxy_disabled_for_proxy_policy() {
         config.domains,
         Some(codex_network_proxy::NetworkDomainPermissions {
             entries: vec![codex_network_proxy::NetworkDomainPermissionEntry {
-                pattern: "openai.com".to_string(),
+                pattern: "example.net".to_string(),
                 permission: codex_network_proxy::NetworkDomainPermission::Allow,
             }],
         })

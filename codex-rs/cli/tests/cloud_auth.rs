@@ -78,7 +78,7 @@ async fn cloud_list_only_allows_trusted_credential_destinations() -> Result<()> 
     command()?
         .env(
             "CODEX_CLOUD_TASKS_BASE_URL",
-            "https://chatgpt-staging.com/backend-api",
+            "https://staging.example.test/backend-api",
         )
         .env("CODEX_ACCESS_TOKEN", "at-synthetic-cloud")
         .env("CODEX_AUTHAPI_BASE_URL", auth_server.uri())

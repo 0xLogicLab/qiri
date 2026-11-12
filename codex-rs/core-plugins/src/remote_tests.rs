@@ -463,7 +463,7 @@ async fn remote_catalog_cache_modes_control_refresh_and_persist_fetched_results(
 fn catalog_cache_invalidation_clears_global_collections_and_preserves_other_scopes() {
     let codex_home = tempfile::tempdir().expect("create codex home");
     let config = RemotePluginServiceConfig::new(
-        "https://chatgpt.com/backend-api".to_string(),
+        "https://service.example.test/backend-api".to_string(),
         crate::test_support::test_http_client_factory(),
         /*product_sku*/ None,
     );

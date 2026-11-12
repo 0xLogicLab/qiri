@@ -255,11 +255,7 @@ async fn misalignment_continuation_requires_current_review_and_submits_once() ->
                 approvals_reviewer: (!server_owned).then(|| config.approvals_reviewer.into()),
                 sandbox_policy: (!server_owned && !preserve)
                     .then(|| config.legacy_sandbox_policy().into()),
-                cyber_access_program: rollout_enabled.then_some(if daybreak {
-                    CyberAccessProgram::DaybreakBlue.into()
-                } else {
-                    CyberAccessProgram::Standard.into()
-                }),
+                cyber_access_program: None,
                 input: vec![codex_app_server_protocol::UserInput::Text {
                     text: "Continue **only** within the requested scope.\nDo not edit files."
                         .to_string(),

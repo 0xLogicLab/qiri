@@ -472,7 +472,6 @@ async fn cold_root_resume_restores_agent_identity_and_role_on_followup() -> Resu
         codex_core::test_support::auth_manager_from_auth(
             CodexAuth::create_dummy_chatgpt_auth_for_testing(),
         ),
-        server.uri(),
         /* analytics_enabled */ Some(true),
     );
     let resumed_model_provider_base_url = format!("{}/v1", server.uri());

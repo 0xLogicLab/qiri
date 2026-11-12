@@ -178,7 +178,9 @@ async fn auth_manager(home: &std::path::Path) -> Arc<AuthManager> {
         home.to_path_buf(),
     );
     write_auth(home, "token-1", "account-1");
-    reload_auth(&auth).await;
+    core_test_support::install_local_fixture_oauth(&auth, home)
+        .await
+        .unwrap();
     auth
 }
 
@@ -191,6 +193,11 @@ async fn reload_auth(auth: &AuthManager) {
 }
 
 fn write_auth(home: &std::path::Path, token: &str, account: &str) {
+    use base64::Engine as _;
+    let claims = serde_json::json!({"jti": token, "https://api.openai.com/auth": {"chatgpt_account_id": account, "chatgpt_user_id": "user-1", "chatgpt_account_user_id": "membership-1"}});
+    let encoded = base64::engine::general_purpose::URL_SAFE_NO_PAD
+        .encode(serde_json::to_vec(&claims).unwrap());
+    let token = format!("header.{encoded}.signature");
     write_chatgpt_auth(
         home,
         ChatGptAuthFixture::new(token)

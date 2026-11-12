@@ -22,8 +22,8 @@ use serde_json::Value;
 use tempfile::TempDir;
 use tls_proxy::TlsInterceptingProxy;
 
-const CHATGPT_MCP_URL: &str = "https://chatgpt.com/backend-api/ps/mcp";
-const NON_CHATGPT_MCP_URL: &str = "https://api.openai.com/backend-api/ps/mcp";
+const CHATGPT_MCP_URL: &str = "https://service.example.test/backend-api/ps/mcp";
+const NON_CHATGPT_MCP_URL: &str = "https://www.example.net/backend-api/ps/mcp";
 
 /// Exercises the same `http/request` route used by remotely executed Streamable HTTP MCP calls.
 /// Each RPC uses the shared route-aware client. The first response sets `__cflb`, and the second response
@@ -63,7 +63,11 @@ async fn exec_server_replays_only_chatgpt_cloudflare_cookies() -> anyhow::Result
             first.request_line.as_str(),
             first.headers.get("cookie"),
         ),
-        ("chatgpt.com:443", "POST /backend-api/ps/mcp HTTP/1.1", None,)
+        (
+            "service.example.test:443",
+            "POST /backend-api/ps/mcp HTTP/1.1",
+            None,
+        )
     );
 
     let west_response = execute_http_request(&mut server, CHATGPT_MCP_URL, "west").await?;
@@ -106,7 +110,7 @@ async fn exec_server_replays_only_chatgpt_cloudflare_cookies() -> anyhow::Result
             other_host.headers.get("cookie"),
         ),
         (
-            "api.openai.com:443",
+            "www.example.net:443",
             "POST /backend-api/ps/mcp HTTP/1.1",
             None,
         )

@@ -553,7 +553,7 @@ async fn mcp_tool_call_span_records_error_type_and_error_code(
             server_name: CODEX_APPS_MCP_SERVER_NAME,
             tool_name: "calendar_search",
             call_id: "call-123",
-            server_origin: Some("https://chatgpt.com/api/codex/ps/mcp"),
+            server_origin: Some("https://service.example.test/api/codex/ps/mcp"),
             connector_id: Some("calendar"),
             connector_name: Some("Calendar"),
         },
@@ -1791,82 +1791,6 @@ async fn codex_apps_auth_elicitation_granular_mcp_disabled_returns_original_resu
     assert!(rx_event.try_recv().is_err());
 }
 
-#[test_case::test_case(SessionSource::Exec; "root")]
-#[test_case::test_case(SessionSource::SubAgent(SubAgentSource::Review); "subagent")]
-#[test_case::test_case(SessionSource::Internal(InternalSessionSource::Guardian); "guardian")]
-#[tokio::test]
-async fn codex_apps_auth_elicitation_enabled_by_default_requests_elicitation(
-    source: SessionSource,
-) {
-    let (session, mut turn_context, rx_event) = make_session_and_context_with_rx().await;
-    Arc::get_mut(&mut turn_context)
-        .expect("single turn context ref")
-        .session_source = source;
-    *session.active_turn.lock().await = Some(ActiveTurn::default());
-    let result = codex_apps_auth_failure_result();
-    let metadata = codex_apps_auth_failure_metadata();
-
-    let request_task = tokio::spawn({
-        let session = Arc::clone(&session);
-        let turn_context = Arc::clone(&turn_context);
-        async move {
-            maybe_request_codex_apps_auth_elicitation(
-                &session,
-                &turn_context,
-                turn_context.approval_policy(),
-                "call_123",
-                CODEX_APPS_MCP_SERVER_NAME,
-                Some(&metadata),
-                result,
-            )
-            .await
-        }
-    });
-
-    let request = loop {
-        let event = tokio::time::timeout(std::time::Duration::from_secs(1), rx_event.recv())
-            .await
-            .expect("elicitation event timed out")
-            .expect("expected elicitation event");
-        if let EventMsg::ElicitationRequest(request) = event.msg {
-            break request;
-        }
-    };
-    assert_eq!(request.server_name, CODEX_APPS_MCP_SERVER_NAME);
-    assert_eq!(
-        request.id,
-        codex_protocol::mcp::RequestId::String("codex_apps_auth_call_123".to_string())
-    );
-    assert!(matches!(
-        request.request,
-        codex_protocol::approvals::ElicitationRequest::Url { .. }
-    ));
-
-    session
-        .resolve_elicitation(
-            CODEX_APPS_MCP_SERVER_NAME.to_string(),
-            rmcp::model::RequestId::String("codex_apps_auth_call_123".into()),
-            ElicitationResponse {
-                action: ElicitationAction::Accept,
-                content: None,
-                meta: None,
-            },
-        )
-        .await
-        .expect("elicitation should resolve");
-    let returned = tokio::time::timeout(std::time::Duration::from_secs(1), request_task)
-        .await
-        .expect("auth elicitation task timed out")
-        .expect("auth elicitation task failed");
-    assert_eq!(
-        returned.content,
-        vec![serde_json::json!({
-            "type": "text",
-            "text": "Authentication for Google Calendar was requested and accepted. Retry this tool call now.",
-        })]
-    );
-}
-
 #[test]
 fn mcp_tool_call_ids_are_added_to_request_meta() {
     let origin = crate::tools::context::ToolCallOrigin {
@@ -2309,7 +2233,6 @@ async fn dispatched_mcp_approval_keeps_decision_without_analytics_upload() {
         crate::test_support::auth_manager_from_auth(
             codex_login::CodexAuth::create_dummy_chatgpt_auth_for_testing(),
         ),
-        server.uri(),
         /*analytics_enabled*/ Some(true),
     );
     Arc::get_mut(&mut session)

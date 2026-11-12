@@ -1936,16 +1936,16 @@ mod tests {
     async fn http_connect_accept_denies_denylisted_host() {
         let policy = {
             let mut policy = NetworkProxyConfig::default();
-            policy.set_allowed_domains(vec!["**.openai.com".to_string()]);
-            policy.set_denied_domains(vec!["api.openai.com".to_string()]);
+            policy.set_allowed_domains(vec!["**.example.net".to_string()]);
+            policy.set_denied_domains(vec!["www.example.net".to_string()]);
             policy
         };
         let state = Arc::new(network_proxy_state_for_policy(policy));
 
         let mut req = Request::builder()
             .method(Method::CONNECT)
-            .uri("https://api.openai.com:443")
-            .header("host", "api.openai.com:443")
+            .uri("https://www.example.net:443")
+            .header("host", "www.example.net:443")
             .body(Body::empty())
             .unwrap();
         req.extensions_mut().insert(state);

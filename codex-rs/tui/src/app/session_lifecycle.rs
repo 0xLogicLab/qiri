@@ -537,8 +537,7 @@ impl App {
             chat_widget.windows_sandbox_elevated_setup_complete =
                 self.chat_widget.windows_sandbox_elevated_setup_complete;
         }
-        chat_widget.inherit_backend_banner_state(&mut self.chat_widget);
-        chat_widget.inherit_security_setup(&mut self.chat_widget);
+
         chat_widget
             .mention_usage_mut()
             .inherit(self.chat_widget.mention_usage_mut());
@@ -1041,7 +1040,7 @@ impl App {
                 }
                 self.enqueue_primary_thread_session(started.session, started.turns)
                     .await?;
-                self.apply_backend_banner_fallback(app_server).await;
+
                 if let Some(notice) = self.pending_server_version_notice.take() {
                     self.chat_widget.add_server_version_warning(notice);
                 }

@@ -165,8 +165,7 @@ pub(super) fn warning_threshold(plan_type: Option<PlanType>, window_minutes: Opt
 
 impl ChatWidget {
     pub(crate) fn usage_notice(&self, width: u16) -> Option<Line<'static>> {
-        if self.has_applicable_backend_banner()
-            || self.codex_rate_limit_reached_type.is_some()
+        if self.codex_rate_limit_reached_type.is_some()
             || self.codex_spend_control_reached == Some(true)
         {
             return None;

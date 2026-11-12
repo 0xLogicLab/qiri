@@ -303,7 +303,7 @@ fn rejected_plugin_ema_registration_does_not_veto_hosted_apps() {
     let materialized = catalog.with_materialized_servers(catalog.configured_servers());
     for catalog in [catalog, materialized] {
         let mut builder = catalog.to_builder();
-        let expected = server("https://chatgpt.com/mcp");
+        let expected = server("https://service.example.test/mcp");
         builder.register(McpServerRegistration::from_hosted_apps(
             "apps",
             /*contribution_order*/ 0,

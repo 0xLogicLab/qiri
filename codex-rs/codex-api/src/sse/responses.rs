@@ -99,7 +99,6 @@ pub fn spawn_response_stream(
     });
 
     ResponseStream {
-        routing_affinity: None,
         rx_event,
         upstream_request_id,
         interrupt: None,
@@ -1085,7 +1084,7 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn rate_limit_error_preserves_retry_delay() {
-        let raw_error = r#"{"type":"response.failed","sequence_number":3,"response":{"id":"resp_689bcf18d7f08194bf3440ba62fe05d803fee0cdac429894","object":"response","created_at":1755041560,"status":"failed","background":false,"error":{"code":"rate_limit_exceeded","message":"Rate limit reached for gpt-5.1 in organization org-AAA on tokens per min (TPM): Limit 30000, Used 22999, Requested 12528. Please try again in 11.054s. Visit https://platform.openai.com/account/rate-limits to learn more."}, "usage":null,"user":null,"metadata":{}}}"#;
+        let raw_error = r#"{"type":"response.failed","sequence_number":3,"response":{"id":"resp_689bcf18d7f08194bf3440ba62fe05d803fee0cdac429894","object":"response","created_at":1755041560,"status":"failed","background":false,"error":{"code":"rate_limit_exceeded","message":"Rate limit reached for gpt-5.1 in organization org-AAA on tokens per min (TPM): Limit 30000, Used 22999, Requested 12528. Please try again in 11.054s. Visit https://platform.example.net/account/rate-limits to learn more."}, "usage":null,"user":null,"metadata":{}}}"#;
 
         let sse1 = format!("event: response.failed\ndata: {raw_error}\n\n");
 
@@ -1100,7 +1099,7 @@ mod tests {
             }) => {
                 assert_eq!(
                     message,
-                    "Rate limit reached for gpt-5.1 in organization org-AAA on tokens per min (TPM): Limit 30000, Used 22999, Requested 12528. Please try again in 11.054s. Visit https://platform.openai.com/account/rate-limits to learn more."
+                    "Rate limit reached for gpt-5.1 in organization org-AAA on tokens per min (TPM): Limit 30000, Used 22999, Requested 12528. Please try again in 11.054s. Visit https://platform.example.net/account/rate-limits to learn more."
                 );
                 assert_eq!(
                     retry_after.map(RetryAfter::remaining_delay),
@@ -1203,7 +1202,7 @@ mod tests {
 
     #[tokio::test]
     async fn quota_exceeded_error_is_fatal() {
-        let raw_error = r#"{"type":"response.failed","sequence_number":3,"response":{"id":"resp_fatal_quota","object":"response","created_at":1759771626,"status":"failed","background":false,"error":{"code":"insufficient_quota","message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."},"incomplete_details":null}}"#;
+        let raw_error = r#"{"type":"response.failed","sequence_number":3,"response":{"id":"resp_fatal_quota","object":"response","created_at":1759771626,"status":"failed","background":false,"error":{"code":"insufficient_quota","message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.example.net/docs/guides/error-codes/api-errors."},"incomplete_details":null}}"#;
 
         let sse1 = format!("event: response.failed\ndata: {raw_error}\n\n");
 

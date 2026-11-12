@@ -366,7 +366,6 @@ struct WebsocketSession {
     // providers without managed auth. Keep it across resets so retries compare to the last socket.
     last_connected_auth_revision: Option<Option<u64>>,
     responses_headers: ApiHeaderMap,
-    parent_routing_affinity: Option<codex_http_client::ChatGptRoutingAffinity>,
     runtime_id: Option<String>,
     /// Owner of the cached state, including before a connection is opened.
     auth_owner_generation: Option<u64>,
@@ -561,9 +560,7 @@ pub(crate) struct RealtimeWebrtcCallStart {
 
 /// Reuses the API-auth material that created the WebRTC call for the sideband WebSocket join.
 ///
-/// API-key sessions send that API bearer. ChatGPT-auth sessions send their bearer plus account id;
-/// transceiver is responsible for accepting that same call-create identity on the direct
-/// `api.openai.com` sideband path.
+/// Reuse the caller-selected bearer and optional account metadata on the configured sideband.
 fn sideband_websocket_auth_headers(
     api_auth: &dyn AuthProvider,
 ) -> std::result::Result<ApiHeaderMap, ApiError> {
@@ -662,9 +659,7 @@ impl ModelClient {
     }
 
     pub(crate) fn reasoning_effort_override_enabled(&self, model_info: &ModelInfo) -> bool {
-        self.state.reasoning_effort_override_enabled
-            && self.state.provider.info().is_openai()
-            && model_info.supports_reasoning_effort_updates
+        self.state.reasoning_effort_override_enabled && model_info.supports_reasoning_effort_updates
     }
 
     pub(crate) fn with_restored_history(mut self, restored_history: bool) -> Self {
@@ -1052,7 +1047,6 @@ impl ModelClient {
                 }
             });
         }
-        let is_openai = self.state.provider.info().is_openai();
         // These prompt-only items are rebuilt on every request. Hash their visible payloads
         // within the thread so retries and resumed sessions preserve their identity.
         let prefix_namespace = Uuid::new_v5(
@@ -1093,7 +1087,7 @@ impl ModelClient {
                 item.clear_content_item_metadata();
             }
         }
-        if !is_openai {
+        if !include_internal {
             for item in &mut input {
                 item.clear_internal_chat_message_metadata_passthrough();
                 if !matches!(
@@ -1115,13 +1109,12 @@ impl ModelClient {
         }
         let reasoning = self.build_reasoning(model_info, effort, summary);
         let stream_options = (self.state.concurrent_reasoning_summaries_enabled
-            && is_openai
             && reasoning.summary.is_some())
         .then_some(StreamOptions {
             reasoning_summary_delivery: codex_api::ReasoningSummaryDelivery::SequentialCutoff,
         });
         let mut include = vec!["reasoning.encrypted_content".to_string()];
-        if self.state.output_token_replay_enabled && is_openai {
+        if self.state.output_token_replay_enabled && include_internal {
             include.push("output.encrypted_content".to_string());
         }
         let verbosity = if model_info.support_verbosity {
@@ -1418,27 +1411,11 @@ impl ModelClient {
         auth_context: AuthRequestTelemetryContext,
         request_route_telemetry: RequestRouteTelemetry,
         responses_headers: &ApiHeaderMap,
-        parent_routing_affinity: Option<&codex_http_client::ChatGptRoutingAffinity>,
         reauth: bool,
     ) -> std::result::Result<ApiWebSocketConnection, ApiError> {
         let mut headers = self.build_websocket_headers(responses_metadata).await;
         headers.extend(responses_headers.clone());
-        if let Some(affinity) = parent_routing_affinity {
-            let uri = api_provider
-                .websocket_url_for_path(RESPONSES_PATH)
-                .map_err(|err| ApiError::Stream(format!("failed to build websocket URL: {err}")))?
-                .as_str()
-                .parse::<http::Uri>()
-                .map_err(|err| ApiError::Stream(format!("invalid websocket URI: {err}")))?;
-            let cookies = headers
-                .get(http::header::COOKIE)
-                .cloned()
-                .or_else(|| api_provider.headers.get(http::header::COOKIE).cloned())
-                .or_else(|| http_client_factory.chatgpt_cookie_header(&uri));
-            if let Some(cookies) = affinity.merge_cookie_header(&uri, cookies.as_ref()) {
-                headers.insert(http::header::COOKIE, cookies);
-            }
-        }
+
         let websocket_telemetry = ModelClientSession::build_websocket_telemetry(
             session_telemetry,
             auth_context.clone(),
@@ -1809,19 +1786,12 @@ impl ModelClientSession {
             responses_headers,
             runtime_id,
         } = params;
-        let parent_routing_affinity = if is_guardian_reviewer(responses_headers) {
-            responses_metadata.parent_routing_affinity.clone()
-        } else {
-            None
-        };
         let connection_key = ResponsesConnectionKey::new(&api_provider, auth_revision);
         let reset_reason = match self.websocket_session.connection.as_ref() {
             Some(_)
                 if self.websocket_session.responses_headers != *responses_headers
                     || self.websocket_session.connection_key.as_ref() != Some(&connection_key)
-                    || self.websocket_session.runtime_id != runtime_id
-                    || self.websocket_session.parent_routing_affinity
-                        != parent_routing_affinity =>
+                    || self.websocket_session.runtime_id != runtime_id =>
             {
                 Some("other")
             }
@@ -1857,13 +1827,11 @@ impl ModelClientSession {
                     auth_context,
                     request_route_telemetry,
                     responses_headers,
-                    parent_routing_affinity.as_ref(),
                     reauth,
                 )
                 .await?;
             self.websocket_session.connection = Some(new_conn);
             self.websocket_session.last_connected_auth_revision = Some(auth_revision);
-            self.websocket_session.parent_routing_affinity = parent_routing_affinity;
             self.websocket_session.responses_headers = responses_headers.clone();
             self.websocket_session.runtime_id = runtime_id;
             self.websocket_session.auth_owner_generation = auth_owner_generation;
@@ -2650,7 +2618,6 @@ fn map_response_stream(
     interceptors: Vec<Box<dyn codex_extension_api::ModelResponseInterceptor>>,
     last_response_tx: Option<oneshot::Sender<LastResponse>>,
 ) -> ResponseStream {
-    let routing_affinity = api_stream.routing_affinity.take();
     let upstream_request_id = api_stream.upstream_request_id.take();
     let interrupt = api_stream.interrupt.take();
     let mut stream = map_response_events(
@@ -2662,7 +2629,6 @@ fn map_response_stream(
         last_response_tx,
     );
     stream.interrupt = interrupt;
-    stream.routing_affinity = routing_affinity;
     stream
 }
 
@@ -2848,7 +2814,6 @@ where
     });
 
     ResponseStream {
-        routing_affinity: None,
         rx_event,
         interrupt: None,
         consumer_dropped: consumer_dropped_for_stream,

@@ -71,7 +71,7 @@ async fn selected_runtime_transport_stays_revoked(mode: RuntimeAuthMode) {
     let mut client = test_model_client(SessionSource::Exec);
     client.http_client_factory = factory;
     Arc::get_mut(&mut client.state).unwrap().provider = create_model_provider(
-        ModelProviderInfo::create_local_provider(Some(format!("{}/v1", server.uri()))),
+        metadata_enabled_test_provider(Some(format!("{}/v1", server.uri()))),
         Some(manager),
     );
     let client = client.with_runtime_auth(runtime, mode).unwrap();
@@ -117,7 +117,6 @@ async fn selected_runtime_transport_stays_revoked(mode: RuntimeAuthMode) {
             auth_context,
             RequestRouteTelemetry::for_endpoint("/responses"),
             &http::HeaderMap::new(),
-            /*parent_routing_affinity*/ None,
             /*reauth*/ false,
         )
         .await;

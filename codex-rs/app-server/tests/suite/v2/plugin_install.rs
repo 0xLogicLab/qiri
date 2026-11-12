@@ -378,7 +378,7 @@ async fn plugin_install_uses_remote_apps_needing_auth_response() -> Result<()> {
                 id: "alpha".to_string(),
                 name: "Alpha".to_string(),
                 description: Some("Alpha connector".to_string()),
-                install_url: Some("https://chatgpt.com/apps/alpha/alpha".to_string()),
+                install_url: Some("https://service.example.test/apps/alpha/alpha".to_string()),
                 category: Some("Developer Tools".to_string()),
             }],
         }
@@ -1351,7 +1351,7 @@ async fn plugin_install_returns_apps_needing_auth() -> Result<()> {
                 id: "alpha".to_string(),
                 name: "Alpha".to_string(),
                 description: Some("Alpha connector".to_string()),
-                install_url: Some("https://chatgpt.com/apps/alpha/alpha".to_string()),
+                install_url: Some("https://service.example.test/apps/alpha/alpha".to_string()),
                 category: Some("Communication".to_string()),
             }],
         }
@@ -1713,7 +1713,7 @@ async fn plugin_install_starts_mcp_oauth_with_formerly_disallowed_plugin_app() -
                 name: "asdk_app_6938a94a61d881918ef32cb999ff937c".to_string(),
                 description: None,
                 install_url: Some(
-                    "https://chatgpt.com/apps/asdk-app-6938a94a61d881918ef32cb999ff937c/asdk_app_6938a94a61d881918ef32cb999ff937c"
+                    "https://service.example.test/apps/asdk-app-6938a94a61d881918ef32cb999ff937c/asdk_app_6938a94a61d881918ef32cb999ff937c"
                         .to_string(),
                 ),
                 category: None,
@@ -2184,7 +2184,7 @@ async fn plugin_install_remote_auth_setup_respects_activation_policy(
                     id: "alpha".to_string(),
                     name: "alpha".to_string(),
                     description: None,
-                    install_url: Some("https://chatgpt.com/apps/alpha/alpha".to_string()),
+                    install_url: Some("https://service.example.test/apps/alpha/alpha".to_string()),
                     category: None,
                 }]
             } else {
@@ -2370,7 +2370,7 @@ async fn plugin_install_skips_remote_mcp_oauth_for_service_generated_app(
                 id: "alpha".to_string(),
                 name: "alpha".to_string(),
                 description: None,
-                install_url: Some("https://chatgpt.com/apps/alpha/alpha".to_string()),
+                install_url: Some("https://service.example.test/apps/alpha/alpha".to_string()),
                 category: None,
             }],
         }
@@ -2471,7 +2471,7 @@ async fn plugin_install_includes_formerly_disallowed_apps_needing_auth() -> Resu
                 id: "alpha".to_string(),
                 name: "Alpha".to_string(),
                 description: Some("Alpha connector".to_string()),
-                install_url: Some("https://chatgpt.com/apps/alpha/alpha".to_string()),
+                install_url: Some("https://service.example.test/apps/alpha/alpha".to_string()),
                 category: None,
             },
             AppSummary {
@@ -2479,7 +2479,7 @@ async fn plugin_install_includes_formerly_disallowed_apps_needing_auth() -> Resu
                 name: "asdk_app_6938a94a61d881918ef32cb999ff937c".to_string(),
                 description: None,
                 install_url: Some(
-                    "https://chatgpt.com/apps/asdk-app-6938a94a61d881918ef32cb999ff937c/asdk_app_6938a94a61d881918ef32cb999ff937c"
+                    "https://service.example.test/apps/asdk-app-6938a94a61d881918ef32cb999ff937c/asdk_app_6938a94a61d881918ef32cb999ff937c"
                         .to_string(),
                 ),
                 category: None,

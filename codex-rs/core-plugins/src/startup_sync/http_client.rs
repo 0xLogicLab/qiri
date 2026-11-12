@@ -17,12 +17,11 @@ pub(super) struct StartupSyncHttpClient(Arc<dyn HttpClientSelector>);
 
 impl StartupSyncHttpClient {
     pub(super) fn new(http_client_factory: &HttpClientFactory) -> Self {
-        let http_clients =
-            RouteAwareClientPool::with_chatgpt_cloudflare_cookies_without_request_logging(
-                http_client_factory.clone(),
-                ClientRouteClass::Api,
-            )
-            .with_legacy_custom_ca_fallback();
+        let http_clients = RouteAwareClientPool::new_without_request_logging(
+            http_client_factory.clone(),
+            ClientRouteClass::Api,
+        )
+        .with_legacy_custom_ca_fallback();
         Self(Arc::new(http_clients))
     }
 

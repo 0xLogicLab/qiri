@@ -2,9 +2,9 @@
 
 use super::normalize;
 use crate::session::tests::make_session_configuration_for_tests;
-use codex_models_manager::bundled_models_response;
 use codex_protocol::openai_models::ReasoningEffort;
 use codex_protocol::openai_models::ReasoningEffortPreset;
+use core_test_support::test_model_catalog as bundled_models_response;
 use pretty_assertions::assert_eq;
 use std::sync::Arc;
 

@@ -1,7 +1,7 @@
 //! Ambient terminal pets configured from the /pets slash command.
 //!
 //! The TUI treats built-in and custom pets differently on purpose:
-//! built-in pets are versioned application assets fetched on demand into a
+//! built-in pets are explicitly installed local assets in a
 //! managed CODEX_HOME cache, while custom pets remain entirely user-owned data
 //! under `$CODEX_HOME/pets/<pet-id>/pet.json` or legacy avatar directories.
 //!
@@ -61,7 +61,7 @@ pub(crate) const DISABLED_PET_ID: &str = "disabled";
 ///
 /// Custom pets are intentionally a no-op here because their source of truth is
 /// already local. Preparing this before loading keeps first-use preview and
-/// persistence failures at the asset-fetch boundary rather than surfacing as
+/// persistence failures at the local asset boundary rather than surfacing as
 /// deeper image-loading errors.
 async fn ensure_builtin_pack_for_pet(
     pet_id: &str,

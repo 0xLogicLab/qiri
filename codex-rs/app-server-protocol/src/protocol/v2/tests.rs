@@ -3057,7 +3057,7 @@ fn guardian_stdin_review_action_round_trips_native_and_foreign_paths() {
 #[test]
 fn network_requirements_deserializes_legacy_fields() {
     let requirements: NetworkRequirements = serde_json::from_value(json!({
-        "allowedDomains": ["api.openai.com"],
+        "allowedDomains": ["www.example.net"],
         "deniedDomains": ["blocked.example.com"],
         "allowUnixSockets": ["/tmp/proxy.sock"]
     }))
@@ -3075,7 +3075,7 @@ fn network_requirements_deserializes_legacy_fields() {
             domains: None,
             review_domains: None,
             managed_allowed_domains_only: None,
-            allowed_domains: Some(vec!["api.openai.com".to_string()]),
+            allowed_domains: Some(vec!["www.example.net".to_string()]),
             denied_domains: Some(vec!["blocked.example.com".to_string()]),
             unix_sockets: None,
             allow_unix_sockets: Some(vec!["/tmp/proxy.sock".to_string()]),
@@ -3094,15 +3094,18 @@ fn network_requirements_serializes_canonical_and_legacy_fields() {
         dangerously_allow_non_loopback_proxy: Some(false),
         dangerously_allow_all_unix_sockets: Some(true),
         domains: Some(BTreeMap::from([
-            ("api.openai.com".to_string(), NetworkDomainPermission::Allow),
+            (
+                "www.example.net".to_string(),
+                NetworkDomainPermission::Allow,
+            ),
             (
                 "blocked.example.com".to_string(),
                 NetworkDomainPermission::Deny,
             ),
         ])),
-        review_domains: Some(vec!["api.openai.com".to_string()]),
+        review_domains: Some(vec!["www.example.net".to_string()]),
         managed_allowed_domains_only: Some(true),
-        allowed_domains: Some(vec!["api.openai.com".to_string()]),
+        allowed_domains: Some(vec!["www.example.net".to_string()]),
         denied_domains: Some(vec!["blocked.example.com".to_string()]),
         unix_sockets: Some(BTreeMap::from([
             (
@@ -3128,12 +3131,12 @@ fn network_requirements_serializes_canonical_and_legacy_fields() {
             "dangerouslyAllowNonLoopbackProxy": false,
             "dangerouslyAllowAllUnixSockets": true,
             "domains": {
-                "api.openai.com": "allow",
+                "www.example.net": "allow",
                 "blocked.example.com": "deny"
             },
-            "reviewDomains": ["api.openai.com"],
+            "reviewDomains": ["www.example.net"],
             "managedAllowedDomainsOnly": true,
-            "allowedDomains": ["api.openai.com"],
+            "allowedDomains": ["www.example.net"],
             "deniedDomains": ["blocked.example.com"],
             "unixSockets": {
                 "/tmp/ignored.sock": "deny",

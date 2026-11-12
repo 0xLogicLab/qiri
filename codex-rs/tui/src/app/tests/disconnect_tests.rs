@@ -406,9 +406,9 @@ where
         let request_id = request.id.clone();
         let response = match request.method.as_str() {
             "initialize" => Some(json!({"result": {"userAgent": "reconnect-test/2.0.0"}})),
-            "account/read" => {
-                Some(json!({"result": {"account": null, "requiresOpenaiAuth": false}}))
-            }
+            "getAuthStatus" => Some(
+                json!({"result": {"authMethod": null, "authToken": null, "requiresOpenaiAuth": false}}),
+            ),
             "model/list" => Some(json!({"result": {"data": [], "nextCursor": null}})),
             "collaborationMode/list" => Some(json!({"result": {"data": []}})),
             "configRequirements/read" => Some(json!({"result": {"requirements": null}})),

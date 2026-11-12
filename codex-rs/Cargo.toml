@@ -6,7 +6,6 @@ members = [
     "agent-message-board-client",
     "agent-identity",
     "agent-roles",
-    "backend-client",
     "cloud-client",
     "bwrap",
     "build-info",
@@ -65,7 +64,6 @@ members = [
     "ext/extension-api",
     "ext/multi-env-copy-file",
     "ext/goal",
-    "ext/git-attribution",
     "ext/guardian-reviewer",
     "ext/guardian-v2",
     "ext/guardian-v3",
@@ -197,9 +195,7 @@ codex-app-server-test-client = { path = "app-server-test-client" }
 codex-apply-patch = { path = "apply-patch" }
 codex-arg0 = { path = "arg0" }
 codex-async-utils = { path = "async-utils" }
-codex-backend-client = { path = "backend-client" }
 codex-build-info = { path = "build-info" }
-codex-chatgpt = { path = "chatgpt" }
 codex-client = { path = "codex-client" }
 codex-collaboration-mode-templates = { path = "collaboration-mode-templates" }
 codex-cloud-config = { path = "cloud-config" }
@@ -236,7 +232,6 @@ codex-extension-api = { path = "ext/extension-api" }
 codex-extension-items = { path = "ext/items" }
 codex-multi-env-copy-file = { path = "ext/multi-env-copy-file" }
 codex-goal-extension = { path = "ext/goal" }
-codex-git-attribution = { path = "ext/git-attribution" }
 codex-guardian-reviewer = { path = "ext/guardian-reviewer" }
 codex-guardian-v2 = { path = "ext/guardian-v2" }
 codex-guardian-v3 = { path = "ext/guardian-v3" }

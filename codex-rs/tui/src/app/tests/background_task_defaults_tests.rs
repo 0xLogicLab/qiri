@@ -274,11 +274,11 @@ async fn command_center_new_reads_server_defaults_for_actual_destination() -> Re
         let mut app = make_test_app_with_channels().await.0;
         trust_launch_folder(&mut app);
         if mode == "local" && explicit_cwd {
-            app.harness_overrides.model_provider = Some("openai".into());
+            app.harness_overrides.model_provider = Some("local".into());
         }
         if mode == "local-cli-provider" {
             app.cli_kv_overrides
-                .push(("model_provider".into(), TomlValue::String("openai".into())));
+                .push(("model_provider".into(), TomlValue::String("local".into())));
         }
         if mode == "local-cli-model" {
             app.harness_overrides.model = Some("cli-model".into());
@@ -393,7 +393,7 @@ async fn command_center_new_reads_server_defaults_for_actual_destination() -> Re
                 },
                 &serde_json::json!(expected_model),
                 &if mode == "local-cli-provider" || (mode == "local" && explicit_cwd) {
-                    serde_json::json!("openai")
+                    serde_json::json!("local")
                 } else {
                     serde_json::Value::Null
                 },

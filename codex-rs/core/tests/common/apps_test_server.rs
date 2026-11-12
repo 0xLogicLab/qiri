@@ -1,5 +1,6 @@
 use crate::test_codex::TestCodexBuilder;
 use crate::test_codex::test_codex;
+use crate::test_model_catalog as bundled_models_response;
 use anyhow::Result;
 use codex_core::config::Config;
 use codex_extension_api::ExtensionFuture;
@@ -8,7 +9,6 @@ use codex_extension_api::McpServerContributionContext;
 use codex_extension_api::McpServerContributor;
 use codex_features::Feature;
 use codex_login::CodexAuth;
-use codex_models_manager::bundled_models_response;
 use serde_json::Value;
 use serde_json::json;
 use std::collections::VecDeque;

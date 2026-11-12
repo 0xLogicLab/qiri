@@ -912,7 +912,7 @@ fn test_model_client_session() -> crate::client::ModelClientSession {
         /*attestation_provider*/ None,
         HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault),
         codex_model_provider::WorkspaceRoutingContext::new(
-            "https://chatgpt.com/backend-api".into(),
+            "https://service.example.test/backend-api".into(),
         ),
         Vec::new(),
     )
@@ -5440,11 +5440,8 @@ async fn subagent_start_does_not_upload_analytics() {
 
     let auth_manager =
         AuthManager::from_auth_for_testing(CodexAuth::create_dummy_chatgpt_auth_for_testing());
-    let analytics_events_client = AnalyticsEventsClient::new(
-        auth_manager,
-        server.uri(),
-        /*analytics_enabled*/ Some(true),
-    );
+    let analytics_events_client =
+        AnalyticsEventsClient::new(auth_manager, /*analytics_enabled*/ Some(true));
 
     let parent_thread_id = ThreadId::new();
     let forked_from_thread_id = ThreadId::new();
@@ -6827,11 +6824,8 @@ async fn response_metadata_builders_capture_fresh_mcp_attribution() {
 async fn responses_metadata_does_not_advertise_remote_analytics() {
     for enabled in [true, false] {
         let (mut session, mut turn_context) = make_session_and_context().await;
-        session.services.analytics_events_client = AnalyticsEventsClient::new(
-            Arc::clone(&session.services.auth_manager),
-            turn_context.config.chatgpt_base_url.clone(),
-            Some(enabled),
-        );
+        session.services.analytics_events_client =
+            AnalyticsEventsClient::new(Arc::clone(&session.services.auth_manager), Some(enabled));
         Arc::make_mut(&mut turn_context.config).analytics_enabled = Some(!enabled);
         let step_context = StepContext::for_test(Arc::new(turn_context));
         let metadata = session
@@ -6985,7 +6979,6 @@ pub(crate) async fn make_session_and_context() -> (Session, TurnContext) {
         elicitations: crate::elicitation::ElicitationService::new(),
         analytics_events_client: AnalyticsEventsClient::new(
             Arc::clone(&auth_manager),
-            config.chatgpt_base_url.trim_end_matches('/').to_string(),
             config.analytics_enabled,
         ),
         hooks: arc_swap::ArcSwap::from_pointee(hooks),
@@ -9315,7 +9308,6 @@ where
         elicitations: crate::elicitation::ElicitationService::new(),
         analytics_events_client: AnalyticsEventsClient::new(
             Arc::clone(&auth_manager),
-            config.chatgpt_base_url.trim_end_matches('/').to_string(),
             config.analytics_enabled,
         ),
         hooks: arc_swap::ArcSwap::from_pointee(hooks),
@@ -12169,6 +12161,10 @@ async fn make_remote_compaction_session(
     let mut provider = built_in_model_providers(/*openai_base_url*/ None)["local"].clone();
     provider.base_url = Some(format!("{server_uri}/v1"));
     provider.supports_websockets = false;
+    provider.capabilities = Some(codex_model_provider_info::ModelProviderCapabilities {
+        remote_compaction: Some(codex_model_provider_info::RemoteCompactionSupport::V2),
+        ..Default::default()
+    });
     make_session_and_context_with_auth_and_config_and_rx(
         CodexAuth::create_dummy_chatgpt_auth_for_testing(),
         Vec::new(),

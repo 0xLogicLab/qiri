@@ -52,7 +52,7 @@ mod tests {
         ));
 
         let negative_cases = [
-            "https://api.openai.com/v1",
+            "https://www.example.net/v1",
             "https://example.com/openai",
             "https://myproxy.azurewebsites.net/openai",
         ];

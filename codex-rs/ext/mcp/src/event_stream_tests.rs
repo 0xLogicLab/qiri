@@ -252,7 +252,7 @@ impl Fixture {
             .await?;
         let plugins = plugins_manager_for_config(&config, Arc::clone(&auth));
         let mut config = config.to_mcp_config(&plugins).await;
-        let mut server_config = codex_mcp::hosted_plugin_runtime_mcp_server_config(
+        let mut server_config = codex_mcp::local_mcp_server_config(
             &url, /*apps_mcp_product_sku*/ None, /*originator*/ None,
         );
         let McpServerTransportConfig::StreamableHttp {
@@ -619,7 +619,8 @@ impl ExternalAuth for StaticAuth {
 }
 
 #[tokio::test]
-async fn event_connections_open_after_runtime_shutdown_with_current_auth() -> Result<()> {
+async fn event_connections_after_runtime_shutdown_do_not_inject_retired_account_tokens()
+-> Result<()> {
     let mut fixture = Fixture::new().await?;
     let opener = McpResourceClient::new(Arc::clone(&fixture.runtime)).event_stream_opener()?;
     fixture.runtime.shutdown().await;
@@ -639,10 +640,7 @@ async fn event_connections_open_after_runtime_shutdown_with_current_auth() -> Re
         .open("test.event", &json!({}), /*request_meta*/ None)
         .await?;
     let remote = timeout(WAIT, fixture.opened.recv()).await?.unwrap();
-    assert_eq!(
-        remote.headers["authorization"],
-        "Bearer header.e30.refreshed"
-    );
+    assert!(!remote.headers.contains_key("authorization"));
     let expected = remote.notify("notifications/events/active");
     assert_eq!(timeout(WAIT, stream.recv()).await??, Some(expected));
     drop(stream);

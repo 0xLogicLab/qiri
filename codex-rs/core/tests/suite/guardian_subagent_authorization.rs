@@ -374,7 +374,7 @@ async fn code_mode_messaging_fixture(
             config.permissions.approval_policy = Constrained::allow_any(AskForApproval::OnRequest);
             config.approvals_reviewer = ApprovalsReviewer::AutoReview;
             config.model_catalog =
-                Some(codex_models_manager::bundled_models_response().expect("valid catalog"));
+                Some(core_test_support::test_model_catalog().expect("valid catalog"));
             config
                 .permissions
                 .set_permission_profile(PermissionProfile::workspace_write())

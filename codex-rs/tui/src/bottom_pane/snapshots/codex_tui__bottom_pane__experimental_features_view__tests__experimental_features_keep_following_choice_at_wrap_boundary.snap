@@ -6,7 +6,7 @@ width=68
 
   Experimental features
   Checked features are configured on. Some experimental features
-  take effect only in new tasks or after restarting the Codex
+  take effect only in new tasks or after restarting the QIRI
   server.
 
 
@@ -21,7 +21,7 @@ width=69
 
   Experimental features
   Checked features are configured on. Some experimental features
-  take effect only in new tasks or after restarting the Codex
+  take effect only in new tasks or after restarting the QIRI
   server.
 
 
@@ -36,8 +36,7 @@ width=70
 
   Experimental features
   Checked features are configured on. Some experimental features
-  take effect only in new tasks or after restarting the Codex
-  server.
+  take effect only in new tasks or after restarting the QIRI server.
 
 
 › [x] First feature  A description that fits exactly at this boundary.
@@ -50,7 +49,7 @@ width=71
 
   Experimental features
   Checked features are configured on. Some experimental features take
-  effect only in new tasks or after restarting the Codex server.
+  effect only in new tasks or after restarting the QIRI server.
 
 
 › [x] First feature  A description that fits exactly at this boundary.
@@ -63,7 +62,7 @@ width=72
 
   Experimental features
   Checked features are configured on. Some experimental features take
-  effect only in new tasks or after restarting the Codex server.
+  effect only in new tasks or after restarting the QIRI server.
 
 
 › [x] First feature  A description that fits exactly at this boundary.

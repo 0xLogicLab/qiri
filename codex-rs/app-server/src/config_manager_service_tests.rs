@@ -739,7 +739,6 @@ async fn psp_feature_configures_first_party_routing() -> Result<()> {
         HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault)
             .with_system_proxy_fallback()
             .with_network_policy(config.application_network_policy.clone())
-            .with_chatgpt_cookies([HeaderValue::from_static("oai-chat-psp=true")])
     );
     assert_eq!(
         config
@@ -1336,7 +1335,7 @@ async fn model_provider_settings_use_the_active_profile_layer() -> Result<()> {
     assert_eq!(initial.default_provider_id, "gcp");
     assert!(initial.can_change_default);
 
-    std::fs::write(&profile, "model_provider = 'openai'")?;
+    std::fs::write(&profile, "model_provider = 'local'")?;
     let write = ModelProviderConfigWriteParams {
         settings: ProviderSettingsPatch::CustomGateway(CustomGatewaySettingsParams {
             name: Some("Gateway".to_owned()),
@@ -1346,7 +1345,7 @@ async fn model_provider_settings_use_the_active_profile_layer() -> Result<()> {
     };
     let created = manager.model_provider_config_write(write).await?;
     let selected = manager.model_provider_list(list.clone()).await?;
-    assert_eq!(selected.default_provider_id, "openai");
+    assert_eq!(selected.default_provider_id, "local");
     assert!(selected.can_change_default);
     assert!(selected.data[0].can_edit);
 
@@ -1668,7 +1667,7 @@ async fn thread_refresh_resolves_preserved_layers_before_materialization() -> Re
         .load_for_cwd(
             Some(HashMap::from([(
                 "model_provider".to_string(),
-                serde_json::json!("openai"),
+                serde_json::json!("local"),
             )])),
             ConfigOverrides::default(),
             Some(tmp.path().to_path_buf()),
@@ -1694,7 +1693,7 @@ async fn thread_refresh_resolves_preserved_layers_before_materialization() -> Re
     let refreshed = service
         .load_latest_config_with_session_layers(&thread.config_layer_stack, &thread.cwd)
         .await?;
-    assert_eq!(refreshed.model_provider_id, "openai");
+    assert_eq!(refreshed.model_provider_id, "local");
     assert_eq!(refreshed.cwd, thread.cwd);
     assert_eq!(refreshed.log_dir, tmp.path().join("new-logs"));
     assert!(refreshed.features.enabled(Feature::SecretAuthStorage));
@@ -3513,12 +3512,12 @@ async fn model_provider_list_allows_user_overrides_of_system_defaults() -> Resul
             "environmentVariable",
         ),
         (
-            vec![("model_providers.team.name", "OpenAI")],
-            false,
+            vec![("model_providers.team.name", "Local")],
             false,
             true,
-            "OpenAI",
-            "externallyConfigured",
+            true,
+            "Local",
+            "environmentVariable",
         ),
         (
             vec![("model_providers.team.name", " ")],
@@ -3548,7 +3547,7 @@ async fn model_provider_list_allows_user_overrides_of_system_defaults() -> Resul
         assert_eq!(
             serde_json::to_value(response.data)?,
             serde_json::json!([
-                {"id": "openai", "name": "OpenAI", "canEdit": false, "baseUrl":null, "settings":{"type":"openai"}},
+                {"id": "local", "name": "Local", "canEdit": false, "baseUrl":null, "settings":{"type":"customGateway","auth":{"mode":"none"}}},
                 {
                     "id": "team", "name": name,
                     "canEdit": can_edit, "baseUrl": "https://system.example.test/v1",

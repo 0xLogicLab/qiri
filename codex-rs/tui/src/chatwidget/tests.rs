@@ -228,8 +228,6 @@ fn next_goal_draft(
 
 mod app_server;
 mod approval_requests;
-#[path = "tests/backend_banners_tests.rs"]
-mod backend_banners_tests;
 #[path = "tests/bedrock_catalog_tests.rs"]
 mod bedrock_catalog_tests;
 #[path = "tests/collaboration_catalog_tests.rs"]
@@ -257,8 +255,6 @@ mod history_projection;
 mod history_replay;
 #[path = "tests/home_cleanup_tests.rs"]
 mod home_cleanup_tests;
-#[path = "tests/luna_reserve_usage_tests.rs"]
-mod luna_reserve_usage_tests;
 mod mcp_startup;
 #[path = "tests/misalignment_policy_tests.rs"]
 mod misalignment_policy;
@@ -308,7 +304,6 @@ mod terminal_program_status;
 mod terminal_title;
 #[path = "tests/tool_activity_tests.rs"]
 mod tool_activity_tests;
-mod usage;
 #[path = "tests/worktree_picker_tests.rs"]
 mod worktree_picker;
 
@@ -329,9 +324,6 @@ mod list_spacing_tests;
 
 #[path = "tests/question_notifications_tests.rs"]
 mod question_notifications_tests;
-
-#[path = "tests/security_setup_tests.rs"]
-mod security_setup_tests;
 
 #[path = "tests/quick_dials_tests.rs"]
 mod quick_dials_tests;

@@ -370,11 +370,7 @@ async fn replacement_uses_server_defaults_and_preserves_explicit_launch_settings
         if explicit == "saved" {
             let rendered = render_bottom_popup(&app.chat_widget, /*width*/ 140)
                 .replace(&server_config.cwd.display().to_string(), "<PROJECT>");
-            insta::assert_snapshot!(rendered, @r"
-            › Ask Codex to do anything
-
-              server-model high · <PROJECT> · ← for agents
-            ");
+            insta::assert_snapshot!(rendered, @"› Ask QIRI to do anything\n\n  server-model high · <PROJECT> · ← for agents");
         }
         if explicit.starts_with("profile_summary") {
             // Opening the overview starts background RPCs. Let them finish before
@@ -801,7 +797,7 @@ async fn provider_continuation_starts_current_provider_and_drafts_saved_referenc
                     .as_ref()
                     .unwrap()
                     .model_provider_id,
-                "openai"
+                "local"
             );
             let mut submissions = Vec::new();
             while let Ok(event) = events.try_recv() {

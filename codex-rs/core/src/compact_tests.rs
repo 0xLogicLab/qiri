@@ -32,7 +32,9 @@ async fn local_compaction_retries_preserve_instructions_and_tool_metadata(
 ) -> anyhow::Result<()> {
     skip_if_no_network!(Ok(()));
     let server = responses::start_mock_server().await;
-    let provider = ModelProviderInfo::create_local_provider(Some(format!("{}/v1", server.uri())));
+    let mut provider =
+        ModelProviderInfo::create_local_provider(Some(format!("{}/v1", server.uri())));
+    provider.include_internal_metadata = true;
     let (session, turn, _events) = make_session_and_context_with_auth_and_config_and_rx(
         CodexAuth::create_dummy_chatgpt_auth_for_testing(),
         Vec::new(),
@@ -529,7 +531,7 @@ fn collect_user_messages_filters_legacy_warnings() {
             "Warning: apply_patch was requested via exec_command. Use the apply_patch tool instead of exec_command.",
         ),
         user_message(
-            "Warning: Your account was flagged for potentially high-risk cyber activity and this request was routed to gpt-5.2 as a fallback. To regain access to gpt-5.3-codex, apply for trusted access: https://chatgpt.com/cyber or learn more: https://developers.openai.com/codex/concepts/cyber-safety",
+            "Warning: Your account was flagged for potentially high-risk cyber activity and this request was routed to gpt-5.2 as a fallback. To regain access to gpt-5.3-codex, apply for trusted access: https://service.example.test/cyber or learn more: https://docs.example.net/codex/concepts/cyber-safety",
         ),
         user_message("real user message"),
     ];

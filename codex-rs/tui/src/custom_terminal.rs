@@ -1165,14 +1165,7 @@ mod tests {
             .map(str::trim_end)
             .collect::<Vec<_>>()
             .join("\n");
-        assert_snapshot!(visible.trim_end(), @r"
-        Previous conversation
-
-
-
-
-        › Ask Codex to do anything
-        ");
+        assert_snapshot!(visible.trim_end(), @"Previous conversation\n\n\n\n\n› Ask QIRI to do anything");
     }
 
     #[test]
@@ -1325,7 +1318,7 @@ mod tests {
     #[test]
     fn terminal_draw_coalesces_wrapped_hyperlink_output() {
         let auth_url = format!(
-            "https://auth.openai.com/oauth/authorize?response_type=code&state={}",
+            "https://auth.example.net/oauth/authorize?response_type=code&state={}",
             "x".repeat(/*n*/ 400)
         );
         let width = 44;

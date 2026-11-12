@@ -155,61 +155,6 @@ fn with_now_override<T>(now: DateTime<Utc>, f: impl FnOnce() -> T) -> T {
 }
 
 #[test]
-fn usage_limit_reached_error_formats_plus_plan() {
-    let err = UsageLimitReachedError {
-        limit_window_minutes: None,
-        plan_type: Some(PlanType::Known(KnownPlan::Plus)),
-        resets_at: None,
-        rate_limits: Some(Box::new(rate_limit_snapshot())),
-        promo_message: None,
-        rate_limit_reached_type: None,
-    };
-    assert_eq!(
-        err.to_string(),
-        "You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again later."
-    );
-}
-
-#[test]
-fn usage_limit_reached_error_formats_rate_limit_reached_types() {
-    let cases = [
-        (
-            RateLimitReachedType::RateLimitReached,
-            "You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again later.",
-        ),
-        (
-            RateLimitReachedType::WorkspaceOwnerCreditsDepleted,
-            "Your workspace is out of credits. Add credits to continue.",
-        ),
-        (
-            RateLimitReachedType::WorkspaceMemberCreditsDepleted,
-            "Your workspace is out of credits. Ask your workspace owner to refill in order to continue.",
-        ),
-        (
-            RateLimitReachedType::WorkspaceOwnerUsageLimitReached,
-            "You hit your spend cap set in your workspace. Increase your spend cap to continue.",
-        ),
-        (
-            RateLimitReachedType::WorkspaceMemberUsageLimitReached,
-            "You hit your spend cap set by the owner of your workspace. Ask an owner to increase your spend cap to continue.",
-        ),
-    ];
-
-    for (rate_limit_reached_type, expected) in cases {
-        let err = UsageLimitReachedError {
-            limit_window_minutes: None,
-            plan_type: Some(PlanType::Known(KnownPlan::Plus)),
-            resets_at: None,
-            rate_limits: Some(Box::new(rate_limit_snapshot())),
-            promo_message: None,
-            rate_limit_reached_type: Some(rate_limit_reached_type),
-        };
-
-        assert_eq!(err.to_string(), expected);
-    }
-}
-
-#[test]
 fn server_overloaded_maps_to_protocol() {
     let err = CodexErr::ServerOverloaded;
     assert_eq!(
@@ -319,189 +264,6 @@ fn sandbox_denied_reports_exit_code_when_no_output_available() {
 }
 
 #[test]
-fn usage_limit_reached_error_formats_free_plan() {
-    let err = UsageLimitReachedError {
-        limit_window_minutes: None,
-        plan_type: Some(PlanType::Known(KnownPlan::Free)),
-        resets_at: None,
-        rate_limits: Some(Box::new(rate_limit_snapshot())),
-        promo_message: None,
-        rate_limit_reached_type: None,
-    };
-    assert_eq!(
-        err.to_string(),
-        "You’ve hit your usage limit. Upgrade to Plus to continue using Codex (https://chatgpt.com/explore/plus), or try again later."
-    );
-}
-
-#[test]
-fn usage_limit_reached_error_formats_go_plan() {
-    let err = UsageLimitReachedError {
-        limit_window_minutes: None,
-        plan_type: Some(PlanType::Known(KnownPlan::Go)),
-        resets_at: None,
-        rate_limits: Some(Box::new(rate_limit_snapshot())),
-        promo_message: None,
-        rate_limit_reached_type: None,
-    };
-    assert_eq!(
-        err.to_string(),
-        "You’ve hit your usage limit. Upgrade to Plus to continue using Codex (https://chatgpt.com/explore/plus), or try again later."
-    );
-}
-
-#[test]
-fn usage_limit_reached_error_formats_default_when_none() {
-    let err = UsageLimitReachedError {
-        limit_window_minutes: None,
-        plan_type: None,
-        resets_at: None,
-        rate_limits: Some(Box::new(rate_limit_snapshot())),
-        promo_message: None,
-        rate_limit_reached_type: None,
-    };
-    assert_eq!(
-        err.to_string(),
-        "You’ve hit your usage limit. Try again later."
-    );
-}
-
-#[test]
-fn usage_limit_reached_error_formats_team_plan() {
-    let base = Utc.with_ymd_and_hms(2024, 1, 1, 0, 0, 0).unwrap();
-    let resets_at = base + ChronoDuration::hours(1);
-    with_now_override(base, move || {
-        let expected_time = format_retry_timestamp(&resets_at);
-        let err = UsageLimitReachedError {
-            limit_window_minutes: None,
-            plan_type: Some(PlanType::Known(KnownPlan::Team)),
-            resets_at: Some(resets_at),
-            rate_limits: Some(Box::new(rate_limit_snapshot())),
-            promo_message: None,
-            rate_limit_reached_type: None,
-        };
-        let expected = format!(
-            "You’ve hit your usage limit. To get more access now, send a request to your admin or try again at {expected_time}."
-        );
-        assert_eq!(err.to_string(), expected);
-    });
-}
-
-#[test]
-fn usage_limit_reached_error_formats_business_plan_without_reset() {
-    for plan in [
-        KnownPlan::Business,
-        KnownPlan::Ent26,
-        KnownPlan::EnterpriseCbpAutomation,
-    ] {
-        let err = UsageLimitReachedError {
-            limit_window_minutes: None,
-            plan_type: Some(PlanType::Known(plan)),
-            resets_at: None,
-            rate_limits: Some(Box::new(rate_limit_snapshot())),
-            promo_message: None,
-            rate_limit_reached_type: None,
-        };
-        assert_eq!(
-            err.to_string(),
-            "You’ve hit your usage limit. To get more access now, send a request to your admin or try again later."
-        );
-    }
-}
-
-#[test]
-fn usage_limit_reached_error_formats_self_serve_business_prolite_plan() {
-    let err = UsageLimitReachedError {
-        limit_window_minutes: None,
-        plan_type: Some(PlanType::Known(KnownPlan::SelfServeBusinessProLite)),
-        resets_at: None,
-        rate_limits: Some(Box::new(rate_limit_snapshot())),
-        promo_message: None,
-        rate_limit_reached_type: None,
-    };
-    assert_eq!(
-        err.to_string(),
-        "You’ve hit your usage limit. To get more access now, send a request to your admin or try again later."
-    );
-}
-
-#[test]
-fn usage_limit_reached_error_formats_self_serve_business_usage_based_plan() {
-    let err = UsageLimitReachedError {
-        limit_window_minutes: None,
-        plan_type: Some(PlanType::Known(KnownPlan::SelfServeBusinessUsageBased)),
-        resets_at: None,
-        rate_limits: Some(Box::new(rate_limit_snapshot())),
-        promo_message: None,
-        rate_limit_reached_type: None,
-    };
-    assert_eq!(
-        err.to_string(),
-        "You’ve hit your usage limit. To get more access now, send a request to your admin or try again later."
-    );
-}
-
-#[test]
-fn usage_limit_reached_error_formats_enterprise_cbp_usage_based_plan() {
-    let err = UsageLimitReachedError {
-        limit_window_minutes: None,
-        plan_type: Some(PlanType::Known(KnownPlan::EnterpriseCbpUsageBased)),
-        resets_at: None,
-        rate_limits: Some(Box::new(rate_limit_snapshot())),
-        promo_message: None,
-        rate_limit_reached_type: None,
-    };
-    assert_eq!(
-        err.to_string(),
-        "You’ve hit your usage limit. To get more access now, send a request to your admin or try again later."
-    );
-}
-
-#[test]
-fn usage_limit_reached_error_formats_default_for_other_plans() {
-    for plan in [
-        KnownPlan::Enterprise,
-        KnownPlan::Edu,
-        KnownPlan::EduPlus,
-        KnownPlan::EduPro,
-    ] {
-        let err = UsageLimitReachedError {
-            limit_window_minutes: None,
-            plan_type: Some(PlanType::Known(plan)),
-            resets_at: None,
-            rate_limits: Some(Box::new(rate_limit_snapshot())),
-            promo_message: None,
-            rate_limit_reached_type: None,
-        };
-        assert_eq!(
-            err.to_string(),
-            "You’ve hit your usage limit. Try again later."
-        );
-    }
-}
-
-#[test]
-fn usage_limit_reached_error_formats_pro_plan_with_reset() {
-    let base = Utc.with_ymd_and_hms(2024, 1, 1, 0, 0, 0).unwrap();
-    let resets_at = base + ChronoDuration::hours(1);
-    with_now_override(base, move || {
-        let expected_time = format_retry_timestamp(&resets_at);
-        let err = UsageLimitReachedError {
-            limit_window_minutes: None,
-            plan_type: Some(PlanType::Known(KnownPlan::Pro)),
-            resets_at: Some(resets_at),
-            rate_limits: Some(Box::new(rate_limit_snapshot())),
-            promo_message: None,
-            rate_limit_reached_type: None,
-        };
-        let expected = format!(
-            "You’ve hit your usage limit. Visit https://chatgpt.com/settings/usage to purchase more credits or try again at {expected_time}."
-        );
-        assert_eq!(err.to_string(), expected);
-    });
-}
-
-#[test]
 fn usage_limit_reached_error_hides_upsell_for_non_codex_limit_name() {
     let base = Utc.with_ymd_and_hms(2024, 1, 1, 0, 0, 0).unwrap();
     let resets_at = base + ChronoDuration::hours(1);
@@ -517,7 +279,8 @@ fn usage_limit_reached_error_hides_upsell_for_non_codex_limit_name() {
                 ..rate_limit_snapshot()
             })),
             promo_message: Some(
-                "Visit https://chatgpt.com/settings/usage to purchase more credits".to_string(),
+                "Visit https://service.example.test/settings/usage to purchase more credits"
+                    .to_string(),
             ),
             rate_limit_reached_type: None,
         };
@@ -593,7 +356,7 @@ fn unexpected_status_prefers_error_message_when_present() {
         body: r#"{"error":{"message":"Workspace is not authorized in this region."},"status":401}"#
             .to_string(),
         user_message: None,
-        url: Some("https://chatgpt.com/backend-api/codex/responses".to_string()),
+        url: Some("https://service.example.test/backend-api/codex/responses".to_string()),
         cf_ray: None,
         request_id: Some("req-123".to_string()),
         identity_authorization_error: None,
@@ -603,7 +366,7 @@ fn unexpected_status_prefers_error_message_when_present() {
     assert_eq!(
         err.to_string(),
         format!(
-            "unexpected status {status}: Workspace is not authorized in this region., url: https://chatgpt.com/backend-api/codex/responses, request id: req-123"
+            "unexpected status {status}: Workspace is not authorized in this region., url: https://service.example.test/backend-api/codex/responses, request id: req-123"
         )
     );
 }
@@ -637,7 +400,7 @@ fn unexpected_status_includes_cf_ray_and_request_id() {
         status: StatusCode::UNAUTHORIZED,
         body: "plain text error".to_string(),
         user_message: None,
-        url: Some("https://chatgpt.com/backend-api/codex/responses".to_string()),
+        url: Some("https://service.example.test/backend-api/codex/responses".to_string()),
         cf_ray: Some("9c81f9f18f2fa49d-LHR".to_string()),
         request_id: Some("req-xyz".to_string()),
         identity_authorization_error: None,
@@ -647,7 +410,7 @@ fn unexpected_status_includes_cf_ray_and_request_id() {
     assert_eq!(
         err.to_string(),
         format!(
-            "unexpected status {status}: plain text error, url: https://chatgpt.com/backend-api/codex/responses, cf-ray: 9c81f9f18f2fa49d-LHR, request id: req-xyz"
+            "unexpected status {status}: plain text error, url: https://service.example.test/backend-api/codex/responses, cf-ray: 9c81f9f18f2fa49d-LHR, request id: req-xyz"
         )
     );
 }
@@ -658,7 +421,7 @@ fn unexpected_status_includes_identity_auth_details() {
         status: StatusCode::UNAUTHORIZED,
         body: "plain text error".to_string(),
         user_message: None,
-        url: Some("https://chatgpt.com/backend-api/codex/models".to_string()),
+        url: Some("https://service.example.test/backend-api/codex/models".to_string()),
         cf_ray: Some("cf-ray-auth-401-test".to_string()),
         request_id: Some("req-auth".to_string()),
         identity_authorization_error: Some("missing_authorization_header".to_string()),
@@ -668,7 +431,7 @@ fn unexpected_status_includes_identity_auth_details() {
     assert_eq!(
         err.to_string(),
         format!(
-            "unexpected status {status}: plain text error, url: https://chatgpt.com/backend-api/codex/models, cf-ray: cf-ray-auth-401-test, request id: req-auth, auth error: missing_authorization_header, auth error code: token_expired"
+            "unexpected status {status}: plain text error, url: https://service.example.test/backend-api/codex/models, cf-ray: cf-ray-auth-401-test, request id: req-auth, auth error: missing_authorization_header, auth error code: token_expired"
         )
     );
 }
@@ -687,9 +450,7 @@ fn usage_limit_reached_includes_hours_and_minutes() {
             promo_message: None,
             rate_limit_reached_type: None,
         };
-        let expected = format!(
-            "You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at {expected_time}."
-        );
+        let expected = format!("You’ve hit your usage limit. Try again at {expected_time}.");
         assert_eq!(err.to_string(), expected);
     });
 }
@@ -749,9 +510,38 @@ fn usage_limit_reached_with_promo_message() {
             ),
             rate_limit_reached_type: None,
         };
-        let expected = format!(
-            "You’ve hit your usage limit. To continue using Codex, start a free trial of <PLAN> today, or try again at {expected_time}."
-        );
+        let expected = format!("You’ve hit your usage limit. Try again at {expected_time}.");
         assert_eq!(err.to_string(), expected);
     });
+}
+
+#[test]
+fn legacy_subscription_metadata_does_not_add_service_guidance() {
+    for plan_type in [
+        None,
+        Some(PlanType::Known(KnownPlan::Plus)),
+        Some(PlanType::Known(KnownPlan::Pro)),
+        Some(PlanType::Known(KnownPlan::Team)),
+    ] {
+        for rate_limit_reached_type in [
+            None,
+            Some(RateLimitReachedType::WorkspaceOwnerCreditsDepleted),
+            Some(RateLimitReachedType::WorkspaceMemberCreditsDepleted),
+            Some(RateLimitReachedType::WorkspaceOwnerUsageLimitReached),
+            Some(RateLimitReachedType::WorkspaceMemberUsageLimitReached),
+        ] {
+            let err = UsageLimitReachedError {
+                limit_window_minutes: None,
+                plan_type: plan_type.clone(),
+                resets_at: None,
+                rate_limits: None,
+                promo_message: Some("Legacy promotional copy".into()),
+                rate_limit_reached_type,
+            };
+            assert_eq!(
+                err.to_string(),
+                "You’ve hit your usage limit. Try again later."
+            );
+        }
+    }
 }

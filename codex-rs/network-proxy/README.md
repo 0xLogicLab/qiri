@@ -55,11 +55,11 @@ mode = "full" # default when unset; use "limited" for read-only mode
 dangerously_allow_all_unix_sockets = false
 
 # Hosts must match the allowlist (unless denied).
-# Use exact hosts or scoped wildcards like `*.openai.com` or `**.openai.com`.
+# Use exact hosts or scoped wildcards like `*.inference.example.test` or `**.inference.example.test`.
 # The global `*` wildcard is rejected.
 # If no domain entries are marked `allow`, the proxy blocks requests until an allowlist is configured.
 [permissions.workspace.network.domains]
-"*.openai.com" = "allow"
+"*.inference.example.test" = "allow"
 "localhost" = "allow"
 "127.0.0.1" = "allow"
 "::1" = "allow"

@@ -49,7 +49,7 @@ async fn remote_credential_masking_request_history(
     // Use our own native executor so only its environment contains the credential.
     let mut executor_env = vec![
         (credential_env, credential),
-        ("OPENAI_BASE_URL", "https://api.openai.com/v1"),
+        ("OPENAI_BASE_URL", "https://www.example.net/v1"),
     ];
     executor_env.extend(executor_startup_env.map(|key| (key, "/dev/null")));
     let executor = ExecServerProcess::start_with_env(&executor_env).await?;

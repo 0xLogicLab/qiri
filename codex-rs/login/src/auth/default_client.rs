@@ -219,30 +219,6 @@ pub fn create_client() -> HttpClient {
 }
 
 /// Creates an API client retaining managed policy, ChatGPT cookies, and no request diagnostics.
-pub fn create_client_with_chatgpt_cookies(http_client_factory: &HttpClientFactory) -> HttpClient {
-    let builder = default_http_client_builder()
-        .with_chatgpt_cookies(http_client_factory)
-        .without_request_logging();
-    if !http_client_factory.network_policy().is_managed()
-        && !http_client_factory.protects_sensitive_headers()
-    {
-        return build_default_client(builder);
-    }
-    let mut pool = RouteAwareClientPool::with_builder(
-        http_client_factory.clone(),
-        ClientRouteClass::Api,
-        builder,
-    );
-    if is_sandboxed() {
-        pool = pool.with_legacy_direct_proxy_and_custom_ca_fallback();
-    } else if matches!(
-        http_client_factory.outbound_proxy_policy(),
-        OutboundProxyPolicy::ReqwestDefault
-    ) {
-        pool = pool.with_legacy_custom_ca_fallback();
-    }
-    pool.into_client()
-}
 
 /// Create the default HTTP client without request URL or response-header diagnostics.
 ///
@@ -419,9 +395,7 @@ pub async fn create_transport_for_routes_async(
 }
 
 fn default_http_client_builder() -> HttpClientBuilder {
-    HttpClientBuilder::new()
-        .default_headers(default_headers())
-        .with_chatgpt_cloudflare_cookie_store()
+    HttpClientBuilder::new().default_headers(default_headers())
 }
 
 // These legacy constructors intentionally preserve the infallible behavior of `create_client`.

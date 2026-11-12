@@ -170,7 +170,7 @@ fn curated_repo_sync_stays_deferred_for_remote_chatgpt_catalog() {
         "openai".to_string(),
         /*plugins_enabled*/ true,
         /*remote_plugin_enabled*/ true,
-        "https://chatgpt.com".to_string(),
+        "https://service.example.test".to_string(),
         test_http_client_factory(),
         /*product_sku*/ None,
     );
@@ -3131,7 +3131,7 @@ async fn plugin_cache_reuses_effective_configurations() {
             String::new(),
             /*plugins_enabled*/ true,
             /*remote_plugin_enabled*/ false,
-            "https://chatgpt.com".to_string(),
+            "https://service.example.test".to_string(),
             test_http_client_factory(),
             /*product_sku*/ None,
         )

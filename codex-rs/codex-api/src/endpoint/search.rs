@@ -181,10 +181,10 @@ mod tests {
                         search_query: Some(vec![SearchQuery {
                             q: "OpenAI news".to_string(),
                             recency: Some(7),
-                            domains: Some(vec!["openai.com".to_string()]),
+                            domains: Some(vec!["example.net".to_string()]),
                         }]),
                         open: Some(vec![OpenOperation {
-                            ref_id: "https://openai.com".to_string(),
+                            ref_id: "https://example.net".to_string(),
                             lineno: Some(12),
                         }]),
                         ..Default::default()
@@ -199,7 +199,7 @@ mod tests {
                         }),
                         search_context_size: Some(SearchContextSize::Low),
                         filters: Some(SearchFilters {
-                            allowed_domains: Some(vec!["openai.com".to_string()]),
+                            allowed_domains: Some(vec!["example.net".to_string()]),
                             blocked_domains: Some(vec!["example.com".to_string()]),
                         }),
                         image_settings: Some(SearchImageSettings {
@@ -262,9 +262,9 @@ mod tests {
                     "search_query": [{
                         "q": "OpenAI news",
                         "recency": 7,
-                        "domains": ["openai.com"]
+                        "domains": ["example.net"]
                     }],
-                    "open": [{"ref_id": "https://openai.com", "lineno": 12}]
+                    "open": [{"ref_id": "https://example.net", "lineno": 12}]
                 },
                 "settings": {
                     "user_location": {
@@ -274,7 +274,7 @@ mod tests {
                     },
                     "search_context_size": "low",
                     "filters": {
-                        "allowed_domains": ["openai.com"],
+                        "allowed_domains": ["example.net"],
                         "blocked_domains": ["example.com"]
                     },
                     "image_settings": {"max_results": 4, "caption": true},

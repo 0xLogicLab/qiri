@@ -1784,7 +1784,6 @@ impl Config {
 
     /// Returns backend routing that can resolve defaults against the request's auth snapshot.
 
-
     /// Returns auth routing resolved from the effective feature configuration.
     pub fn auth_route_config(&self) -> AuthRouteConfig {
         self.application_auth_route_config
@@ -1809,11 +1808,7 @@ impl Config {
         if !self.respect_system_proxy && self.features.enabled(Feature::SystemProxyFallback) {
             factory = factory.with_system_proxy_fallback();
         }
-        if self.features.enabled(Feature::Psp) {
-            factory.with_chatgpt_cookies([HeaderValue::from_static("oai-chat-psp=true")])
-        } else {
-            factory
-        }
+        factory
     }
 
     /// Build the plugin-manager input from the effective config.

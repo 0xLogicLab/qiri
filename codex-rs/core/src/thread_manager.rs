@@ -841,7 +841,13 @@ impl ThreadManager {
                 agent_control_factory: None,
                 models_manager_provider: provider.clone(),
                 models_manager: create_model_provider(provider, Some(auth_manager.clone()))
-                    .models_manager(codex_home, /*config_model_catalog*/ None),
+                    .models_manager(
+                        codex_home,
+                        Some(
+                            codex_models_manager::test_support::synthetic_models_response()
+                                .expect("synthetic local test catalog"),
+                        ),
+                    ),
                 git_root_discovery: Arc::default(),
                 environment_manager,
                 starting_mcp_runtimes: std::sync::Mutex::new(Vec::new()),

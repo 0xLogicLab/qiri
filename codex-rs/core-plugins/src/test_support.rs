@@ -329,10 +329,7 @@ pub(crate) struct RecordingHttpClientSelector {
 impl RecordingHttpClientSelector {
     pub(crate) fn new() -> (Arc<Self>, Arc<Mutex<Vec<String>>>) {
         let selected_urls = Arc::new(Mutex::new(Vec::new()));
-        let delegate = RouteAwareClientPool::with_chatgpt_cloudflare_cookies(
-            test_http_client_factory(),
-            ClientRouteClass::Api,
-        );
+        let delegate = RouteAwareClientPool::new(test_http_client_factory(), ClientRouteClass::Api);
         (
             Arc::new(Self {
                 selected_urls: Arc::clone(&selected_urls),
@@ -525,7 +522,7 @@ pub(crate) async fn load_plugins_config(codex_home: &Path, cwd: &Path) -> Plugin
             "remote_plugin",
             /*default_enabled*/ true,
         ),
-        "https://chatgpt.com/backend-api/".to_string(),
+        "https://service.example.test/backend-api/".to_string(),
         test_http_client_factory(),
         /*product_sku*/ None,
     )
