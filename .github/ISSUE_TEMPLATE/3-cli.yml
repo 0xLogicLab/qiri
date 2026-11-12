@@ -9,21 +9,21 @@ body:
         Before submitting a new issue, please search for existing issues to see if your issue has already been reported.
         If it has, please add a 👍 reaction (no need to leave a comment) to the existing issue instead of creating a new one.
 
-        Make sure you are running the [latest](https://npmjs.com/package/@openai/codex) version of QIRI CLI. The bug you are experiencing may already have been fixed.
+        Make sure you are running the [latest](https://github.com/0xLogicLab/qiri) version of QIRI CLI. The bug you are experiencing may already have been fixed.
 
-        If your version supports it, please run `codex doctor --json` and paste the output in the "QIRI doctor report" field below. This helps us diagnose install, config, auth, terminal, MCP, network, and local state issues.
+        If your version supports it, please run `qiri doctor --json` and paste the output in the "QIRI doctor report" field below. This helps us diagnose install, config, auth, terminal, MCP, network, and local state issues.
 
   - type: input
     id: version
     attributes:
       label: What version of QIRI CLI is running?
-      description: use `codex --version`
+      description: use `qiri --version`
     validations:
       required: true
   - type: input
     id: plan
     attributes:
-      label: What subscription do you have?
+      label: Which API provider and model endpoint type do you use (no secrets)?
     validations:
       required: true
   - type: input
@@ -50,7 +50,7 @@ body:
     attributes:
       label: QIRI doctor report
       description: |
-        If available, run `codex doctor --json` and paste the full output here.
+        If available, run `qiri doctor --json` and paste the full output here.
 
         The report is designed to redact secrets, but please review it before submitting.
         If your QIRI version does not support `doctor`, write `not available`.

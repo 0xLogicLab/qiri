@@ -2062,10 +2062,10 @@ jobs:
           retention-days: 7
 
   deploy-dev-website:
-    name: Trigger developers.openai.com deploy
+    name: Trigger documentation deploy
     needs: release
     # Only trigger the deploy for a stable release.
-    # The deploy updates developers.openai.com with the new config schema json file.
+    # The deploy updates the configured documentation site with the new config schema JSON file.
     if: >-
       ${{
         !cancelled() &&
@@ -2080,13 +2080,13 @@ jobs:
       deployment: false
 
     steps:
-      - name: Trigger developers.openai.com deploy
+      - name: Trigger documentation deploy
         continue-on-error: true
         env:
           DEV_WEBSITE_VERCEL_DEPLOY_HOOK_URL: ${{ secrets.DEV_WEBSITE_VERCEL_DEPLOY_HOOK_URL }}
         run: |
           if ! curl -sS -f -o /dev/null -X POST "$DEV_WEBSITE_VERCEL_DEPLOY_HOOK_URL"; then
-            echo "::warning title=developers.openai.com deploy hook failed::Vercel deploy hook POST failed for ${GITHUB_REF_NAME}"
+            echo "::warning title=Documentation deploy hook failed::Vercel deploy hook POST failed for ${GITHUB_REF_NAME}"
             exit 1
           fi
 
