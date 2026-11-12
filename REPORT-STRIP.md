@@ -45,3 +45,9 @@
 验证：features 47、sandboxing 83、skills 54 个测试通过。MCP 初跑缺少 CLI 可执行文件；构建 CLI 后直接重跑同一测试二进制，279 个测试全部通过。config 402 个测试中 399 通过、3 失败；已在当前工作区内以 `git archive 7c3786d` 提取专项基线复跑，402 个逐项结果完全相同（config-baseline-comparison.json）。三项均为此前 QIRI/Codex 文案不一致，不为本项更改测试掩盖基线失败。
 
 其他账号引导中的官方文档链接尚随账号界面保留，列入最终审计的未完成项；本节不宣称全部文案清理完成。
+
+### 4a. Realtime sideband 的官方默认绑定
+
+删除 WebRTC sideband 隐式指向官方 API 的地址；默认随已选择 provider 的 base_url，保留显式 sideband override，以支持本地/自建端点。对应测试改为 loopback 地址并验证路径。没有删除 Realtime 请求/流式事件结构，也没有删除自定义 provider 可提供的 web search、image generation、remote compaction 协议与执行能力。其官方默认 provider 和其他仅官方服务能力尚未全部清理，不计为已完成整项 4。
+
+验证：`cargo test --offline --no-fail-fast -p codex-login -p codex-rmcp-client -p codex-api --lib` 中 codex-api 全部 200 个测试通过（同次运行 login 222、rmcp-client 260 通过，另 1 忽略）。

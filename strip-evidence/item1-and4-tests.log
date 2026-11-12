@@ -1,0 +1,991 @@
+    Blocking waiting for file lock on artifact directory
+   Compiling gix-utils v0.5.0
+   Compiling ts-rs v11.1.0
+   Compiling moka v0.12.13
+   Compiling rama-http v0.3.0-alpha.4
+   Compiling tonic v0.14.3
+   Compiling secret-service v4.0.0
+   Compiling mxc-sdk v1.0.0 (https://github.com/microsoft/mxc?rev=b21120168d70befe12356411423266bfef168446#b2112016)
+   Compiling sqlx-core v0.9.0
+   Compiling petgraph v0.8.3
+   Compiling gix-url v0.40.0
+   Compiling gix-hash v0.28.0
+   Compiling gix-fs v0.24.0
+   Compiling gix-quote v0.10.0
+   Compiling gix-config-value v0.21.0
+   Compiling aws-runtime v1.5.17
+   Compiling rmcp v3.5.1 (https://github.com/modelcontextprotocol/rust-sdk?rev=98a54789b80110ad210495c4ad845c89e1980471#98a54789)
+   Compiling sentry-types v0.46.1
+   Compiling symphonia-core v0.6.0
+   Compiling pulldown-cmark v0.10.3
+   Compiling codex-utils-absolute-path v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/absolute-path)
+   Compiling gix-command v0.12.0
+   Compiling gix-hashtable v0.18.0
+   Compiling gix-tempfile v26.0.0
+   Compiling hickory-resolver v0.25.2
+   Compiling codex-utils-home-dir v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/home-dir)
+   Compiling codex-utils-path-uri v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/path-uri)
+   Compiling codex-execpolicy v0.0.0 (/home/sig/files/qiri-release/codex-rs/execpolicy)
+   Compiling codex-extension-items v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/items)
+   Compiling gix-object v0.66.0
+   Compiling gix-lock v26.0.0
+   Compiling gix-commitgraph v0.41.0
+   Compiling gix-transport v0.61.0
+   Compiling gix-glob v0.29.0
+   Compiling gix-shallow v0.15.0
+   Compiling gix-refspec v0.47.0
+   Compiling codex-utils-path v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/path-utils)
+   Compiling gix-ref v0.69.0
+   Compiling gix-revwalk v0.37.0
+   Compiling gix-pack v0.76.0
+   Compiling gix-diff v0.69.0
+   Compiling rama-dns v0.3.0-alpha.4
+   Compiling tonic-prost v0.14.3
+   Compiling gix-traverse v0.63.0
+   Compiling gix-revision v0.51.0
+   Compiling codex-install-context v0.0.0 (/home/sig/files/qiri-release/codex-rs/install-context)
+   Compiling opentelemetry-proto v0.31.0
+   Compiling keyring v3.6.3
+   Compiling codex-core-plugin-common v0.0.0 (/home/sig/files/qiri-release/codex-rs/core-plugin-common)
+   Compiling gix-odb v0.86.0
+   Compiling gix-protocol v0.67.0
+   Compiling gix-config v0.62.0
+   Compiling gix-discover v0.57.0
+   Compiling codex-keyring-store v0.0.0 (/home/sig/files/qiri-release/codex-rs/keyring-store)
+   Compiling codex-build-info v0.0.0 (/home/sig/files/qiri-release/codex-rs/build-info)
+   Compiling codex-websocket-auth v0.0.0 (/home/sig/files/qiri-release/codex-rs/websocket-auth)
+   Compiling sqlx-sqlite v0.9.0
+   Compiling prost-build v0.14.3
+   Compiling sentry-core v0.46.1
+   Compiling aws-sdk-signin v1.2.0
+   Compiling aws-sdk-ssooidc v1.93.0
+   Compiling aws-sdk-sts v1.95.0
+   Compiling aws-sdk-sso v1.91.0
+   Compiling gix v0.89.0
+   Compiling symphonia-metadata v0.6.0
+   Compiling tonic-prost-build v0.14.3
+   Compiling sentry v0.46.1
+   Compiling symphonia-common v0.6.0
+   Compiling opentelemetry-otlp v0.31.0
+   Compiling symphonia-format-riff v0.6.0
+   Compiling codex-code-mode-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/code-mode-protocol)
+   Compiling symphonia-format-ogg v0.6.0
+   Compiling symphonia-format-mkv v0.6.0
+   Compiling sqlx v0.9.0
+   Compiling symphonia-format-isomp4 v0.6.0
+   Compiling symphonia-bundle-mp3 v0.6.0
+   Compiling sdd v3.0.10
+   Compiling serial_test_derive v3.3.1
+   Compiling tracing-test v0.2.5
+   Compiling scc v2.4.0
+   Compiling aws-config v1.8.12
+   Compiling rama-tcp v0.3.0-alpha.4
+   Compiling symphonia v0.6.0
+   Compiling rama-http-core v0.3.0-alpha.4
+   Compiling serial_test v3.3.1
+   Compiling rama-socks5 v0.3.0-alpha.4
+   Compiling codex-aws-auth v0.0.0 (/home/sig/files/qiri-release/codex-rs/aws-auth)
+   Compiling rama-http-backend v0.3.0-alpha.4
+   Compiling codex-network-proxy v0.0.0 (/home/sig/files/qiri-release/codex-rs/network-proxy)
+   Compiling codex-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/protocol)
+   Compiling codex-file-system v0.0.0 (/home/sig/files/qiri-release/codex-rs/file-system)
+   Compiling codex-api v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-api)
+   Compiling codex-features v0.0.0 (/home/sig/files/qiri-release/codex-rs/features)
+   Compiling codex-model-provider-info v0.0.0 (/home/sig/files/qiri-release/codex-rs/model-provider-info)
+   Compiling codex-shell-command v0.0.0 (/home/sig/files/qiri-release/codex-rs/shell-command)
+   Compiling codex-utils-output-truncation v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/output-truncation)
+   Compiling codex-history v0.0.0 (/home/sig/files/qiri-release/codex-rs/history)
+   Compiling codex-agent-identity v0.0.0 (/home/sig/files/qiri-release/codex-rs/agent-identity)
+   Compiling codex-context-fragments v0.0.0 (/home/sig/files/qiri-release/codex-rs/context-fragments)
+   Compiling codex-utils-audio v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/audio)
+   Compiling codex-git-utils v0.0.0 (/home/sig/files/qiri-release/codex-rs/git-utils)
+   Compiling codex-skills v0.0.0 (/home/sig/files/qiri-release/codex-rs/skills)
+   Compiling codex-memories-read v0.0.0 (/home/sig/files/qiri-release/codex-rs/memories/read)
+   Compiling codex-state v0.0.0 (/home/sig/files/qiri-release/codex-rs/state)
+   Compiling codex-guardian-context v0.0.0 (/home/sig/files/qiri-release/codex-rs/guardian-context)
+   Compiling codex-exec-server-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server-protocol)
+   Compiling codex-config v0.0.0 (/home/sig/files/qiri-release/codex-rs/config)
+   Compiling codex-secrets v0.0.0 (/home/sig/files/qiri-release/codex-rs/secrets)
+   Compiling codex-utils-git-discovery v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/git-discovery)
+   Compiling codex-prompts v0.0.0 (/home/sig/files/qiri-release/codex-rs/prompts)
+   Compiling codex-otel v0.0.0 (/home/sig/files/qiri-release/codex-rs/otel)
+   Compiling codex-response-debug-context v0.0.0 (/home/sig/files/qiri-release/codex-rs/response-debug-context)
+   Compiling codex-agent-graph-store v0.0.0 (/home/sig/files/qiri-release/codex-rs/agent-graph-store)
+   Compiling codex-windows-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/windows-sandbox-rs)
+   Compiling codex-rollout v0.0.0 (/home/sig/files/qiri-release/codex-rs/rollout)
+   Compiling codex-code-mode v0.0.0 (/home/sig/files/qiri-release/codex-rs/code-mode)
+   Compiling codex-mxc-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/mxc-sandbox)
+   Compiling codex-sandboxing v0.0.0 (/home/sig/files/qiri-release/codex-rs/sandboxing)
+   Compiling codex-linux-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/linux-sandbox)
+   Compiling codex-rollout-trace v0.0.0 (/home/sig/files/qiri-release/codex-rs/rollout-trace)
+   Compiling codex-app-server-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-protocol)
+   Compiling codex-exec-server v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server)
+   Compiling codex-login v0.0.0 (/home/sig/files/qiri-release/codex-rs/login)
+   Compiling codex-agent-roles v0.0.0 (/home/sig/files/qiri-release/codex-rs/agent-roles)
+warning: function `create_raw_auth_client` is never used
+   --> login/src/auth/default_client.rs:439:15
+    |
+439 | pub(crate) fn create_raw_auth_client(
+    |               ^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: fields `storage`, `original`, `workspace_id`, `email`, and `connection` are never read
+  --> login/src/auth/manager/workspace_switching.rs:32:5
+   |
+31 | pub struct WorkspaceLogin {
+   |            -------------- fields in this struct
+32 |     storage: Arc<dyn AuthStorageBackend>,
+   |     ^^^^^^^
+33 |     original: AuthDotJson,
+   |     ^^^^^^^^
+34 |     pub(crate) workspace_id: String,
+   |                ^^^^^^^^^^^^
+35 |     pub(crate) email: Option<String>,
+   |                ^^^^^
+36 |     pub(crate) connection: Option<String>,
+   |                ^^^^^^^^^^
+   |
+   = note: `WorkspaceLogin` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: method `save` is never used
+  --> login/src/auth/manager/workspace_switching.rs:46:19
+   |
+45 | impl WorkspaceLogin {
+   | ------------------- method in this implementation
+46 |     pub(crate) fn save(&self, mut updated: AuthDotJson) -> io::Result<()> {
+   |                   ^^^^
+
+warning: fields `code` and `description` are never read
+  --> login/src/oauth/authorization.rs:62:9
+   |
+61 |     Provider {
+   |     -------- fields in this variant
+62 |         code: &'a str,
+   |         ^^^^
+63 |         description: Option<&'a str>,
+   |         ^^^^^^^^^^^
+
+   Compiling codex-runtime-agent-instance v0.0.0 (/home/sig/files/qiri-release/codex-rs/runtime-agent-instance)
+   Compiling codex-feedback v0.0.0 (/home/sig/files/qiri-release/codex-rs/feedback)
+   Compiling codex-models-manager v0.0.0 (/home/sig/files/qiri-release/codex-rs/models-manager)
+warning: `codex-login` (lib) generated 4 warnings
+warning: constant `MAX_DECODED_UPLOAD_BYTES` is never used
+  --> feedback/src/lib.rs:59:7
+   |
+59 | const MAX_DECODED_UPLOAD_BYTES: usize = 200 * 1024 * 1024;
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: method `feedback_attachments` is never used
+   --> feedback/src/lib.rs:717:8
+    |
+535 | impl FeedbackSnapshot {
+    | --------------------- method in this implementation
+...
+717 |     fn feedback_attachments<'a>(
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `archive_rollouts` is never used
+  --> feedback/src/rollout_archive.rs:20:15
+   |
+20 | pub(super) fn archive_rollouts<'a>(
+   |               ^^^^^^^^^^^^^^^^
+
+warning: function `with_individual_fallback` is never used
+  --> feedback/src/rollout_archive.rs:65:15
+   |
+65 | pub(super) fn with_individual_fallback<'a>(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `append_rollout` is never used
+  --> feedback/src/rollout_archive.rs:95:4
+   |
+95 | fn append_rollout<W: Write>(
+   |    ^^^^^^^^^^^^^^
+
+warning: struct `BoundedWriter` is never constructed
+   --> feedback/src/rollout_archive.rs:129:8
+    |
+129 | struct BoundedWriter<W> {
+    |        ^^^^^^^^^^^^^
+
+warning: function `encode_envelope` is never used
+  --> feedback/src/upload.rs:13:15
+   |
+13 | pub(super) fn encode_envelope(envelope: &Envelope) -> io::Result<(Vec<u8>, usize)> {
+   |               ^^^^^^^^^^^^^^^
+
+warning: function `encode_attachment_envelope` is never used
+  --> feedback/src/upload.rs:30:15
+   |
+30 | pub(super) fn encode_attachment_envelope(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `CountingWriter` is never constructed
+  --> feedback/src/upload.rs:48:8
+   |
+48 | struct CountingWriter<W> {
+   |        ^^^^^^^^^^^^^^
+
+   Compiling codex-model-provider v0.0.0 (/home/sig/files/qiri-release/codex-rs/model-provider)
+warning: `codex-feedback` (lib) generated 9 warnings
+   Compiling codex-utils-plugins v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/plugins)
+   Compiling codex-rmcp-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/rmcp-client)
+   Compiling codex-apply-patch v0.0.0 (/home/sig/files/qiri-release/codex-rs/apply-patch)
+warning: unused import: `anyhow::bail`
+ --> rmcp-client/src/oauth_client_registration.rs:4:5
+  |
+4 | use anyhow::bail;
+  |     ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+   Compiling codex-plugin v0.0.0 (/home/sig/files/qiri-release/codex-rs/plugin)
+   Compiling codex-arg0 v0.0.0 (/home/sig/files/qiri-release/codex-rs/arg0)
+   Compiling codex-connectors v0.0.0 (/home/sig/files/qiri-release/codex-rs/connectors)
+   Compiling codex-hooks v0.0.0 (/home/sig/files/qiri-release/codex-rs/hooks)
+   Compiling codex-tools v0.0.0 (/home/sig/files/qiri-release/codex-rs/tools)
+   Compiling codex-message-board v0.0.0 (/home/sig/files/qiri-release/codex-rs/message-board)
+   Compiling codex-mcp v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-mcp)
+warning: `codex-rmcp-client` (lib) generated 1 warning (run `cargo fix --lib -p codex-rmcp-client` to apply 1 suggestion)
+   Compiling codex-message-board-mcp v0.0.0 (/home/sig/files/qiri-release/codex-rs/message-board-mcp)
+   Compiling codex-analytics v0.0.0 (/home/sig/files/qiri-release/codex-rs/analytics)
+   Compiling codex-thread-store v0.0.0 (/home/sig/files/qiri-release/codex-rs/thread-store)
+   Compiling codex-extension-api v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/extension-api)
+   Compiling codex-core-plugins v0.0.0 (/home/sig/files/qiri-release/codex-rs/core-plugins)
+   Compiling codex-agent-message-board-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/agent-message-board-client)
+   Compiling codex-skills-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/skills)
+   Compiling codex-guardian-reviewer v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/guardian-reviewer)
+   Compiling codex-home v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-home)
+   Compiling codex-agent-message-board-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/agent-message-board)
+   Compiling codex-core v0.0.0 (/home/sig/files/qiri-release/codex-rs/core)
+warning: `codex-rmcp-client` (lib test) generated 1 warning (1 duplicate)
+   Compiling codex-guardian-v2 v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/guardian-v2)
+   Compiling core_test_support v0.0.0 (/home/sig/files/qiri-release/codex-rs/core/tests/common)
+warning: fields `email` and `connection` are never read
+  --> login/src/auth/manager/workspace_switching.rs:35:16
+   |
+31 | pub struct WorkspaceLogin {
+   |            -------------- fields in this struct
+...
+35 |     pub(crate) email: Option<String>,
+   |                ^^^^^
+36 |     pub(crate) connection: Option<String>,
+   |                ^^^^^^^^^^
+   |
+   = note: `WorkspaceLogin` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-login` (lib test) generated 2 warnings (1 duplicate)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 7m 36s
+     Running unittests src/lib.rs (target/debug/deps/codex_api-35a354fa3a25f742)
+
+running 200 tests
+test api_bridge::tests::map_api_error_maps_server_overloaded ... ok
+test api_bridge::tests::map_api_error_preserves_content_filter_retry_and_public_error ... ok
+test api_bridge::tests::map_api_error_maps_misalignment_policy_violation_from_400_body ... ok
+test api_bridge::tests::map_api_error_maps_wrapped_websocket_cyber_policy_from_400_body ... ok
+test api_bridge::tests::map_api_error_maps_misalignment_policy_violation_from_403_body ... ok
+test api_bridge::tests::map_api_error_maps_cyber_policy_from_400_body ... ok
+test api_bridge::tests::map_api_error_maps_http_and_wrapped_websocket_typed_errors ... ok
+test api_bridge::tests::map_api_error_keeps_other_400_errors_generic ... ok
+test api_bridge::tests::map_api_error_extracts_identity_auth_details_from_headers ... ok
+test api_bridge::tests::map_api_error_maps_cloudflare_blocked_response_to_user_message ... ok
+test api_bridge::tests::map_api_error_uses_cyber_policy_fallback_for_missing_message ... ok
+test api_bridge::tests::map_api_error_preserves_typed_errors ... ok
+test api_bridge::tests::http_policy_capacity_preserves_retry_advice_and_terminal_behavior ... ok
+test api_bridge::tests::map_http_error_classifies_provider_codes ... ok
+test api_bridge::tests::map_api_error_preserves_retry_delay ... ok
+test api_bridge::tests::map_api_error_distinguishes_http_quota_errors_from_rate_limits ... ok
+test api_bridge::tests::map_api_error_preserves_misalignment_details_from_403_body ... ok
+test api_bridge::tests::map_api_error_preserves_misalignment_details_from_wrapped_websocket_error ... ok
+test api_bridge::tests::http_retry_deadline_survives_mapping_and_respects_terminal_errors ... ok
+test api_bridge::tests::map_api_error_maps_usage_limit_limit_name_header ... ok
+test api_bridge::tests::map_api_error_copies_rate_limit_reached_type_to_usage_limit_snapshot ... ok
+test api_bridge::tests::map_api_error_does_not_fallback_limit_name_to_limit_id ... ok
+test endpoint::memories::tests::path_is_memories_trace_summarize_for_wire_compatibility ... ok
+test api_bridge::tests::map_api_error_ignores_unparseable_rate_limit_reached_type_headers ... ok
+test api_bridge::tests::map_api_error_preserves_optional_usage_limit_window ... ok
+test endpoint::models::tests::catalog_request_url_rejects_relative_urls ... ok
+test endpoint::realtime_call::tests::accepts_uuid_call_id_from_location ... ok
+test endpoint::realtime_call::tests::rejects_location_without_call_id ... ok
+test endpoint::realtime_call::tests::errors_when_location_is_missing ... ok
+test endpoint::realtime_call::tests::rejects_v2_session_call_before_sending_request ... ok
+test endpoint::realtime_call::tests::extracts_call_id_from_forwarded_backend_location ... ok
+test endpoint::images::tests::image_response_requires_image_data ... ok
+test endpoint::realtime_call::tests::sends_frameless_session_call_to_live_without_legacy_query_params ... ok
+test endpoint::memories::tests::summarize_input_posts_expected_payload_and_parses_output ... ok
+test endpoint::images::tests::preserves_distinct_generation_ids_on_image_data ... ok
+test endpoint::images::tests::edit_posts_typed_request_and_parses_image_response ... ok
+test endpoint::images::tests::generate_posts_typed_request_and_parses_image_response ... ok
+test endpoint::realtime_call::tests::sends_api_session_call_as_multipart_body ... ok
+test endpoint::models::tests::appends_client_version_query ... ok
+test endpoint::models::tests::list_models_includes_etag ... ok
+test endpoint::models::tests::catalog_request_url_preserves_routing_and_encodes_queries ... ok
+test endpoint::realtime_websocket::methods::tests::frameless_websocket_url_rejects_dot_only_call_ids ... ok
+test endpoint::realtime_websocket::methods::tests::frameless_websocket_url_rewrites_existing_realtime_path ... ok
+test endpoint::realtime_websocket::methods::tests::frameless_websocket_url_encodes_call_id_as_one_path_segment ... ok
+test endpoint::realtime_websocket::methods::tests::merge_request_headers_matches_http_precedence ... ok
+test endpoint::realtime_websocket::methods::tests::parse_conversation_item_added_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_audio_delta_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_conversation_item_done_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_handoff_requested_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_realtime_v2_conversation_item_created_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_realtime_v2_input_audio_transcription_delta_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_output_transcript_delta_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_realtime_v2_handoff_tool_call_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_input_transcript_delta_event ... ok
+test endpoint::models::tests::response_body_limit_survives_auth_retry_without_limiting_other_models_requests ... ok
+test endpoint::realtime_websocket::methods::tests::parse_realtime_v2_item_done_output_text_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_realtime_v2_noop_tool_call_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_realtime_v2_output_audio_transcript_done_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_realtime_v2_output_audio_delta_defaults_audio_shape ... ok
+test endpoint::realtime_websocket::methods::tests::parse_realtime_v2_response_audio_delta_with_item_id ... ok
+test endpoint::realtime_websocket::methods::tests::parse_realtime_v2_response_cancelled_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_realtime_v2_response_created_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_realtime_v2_response_done_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_realtime_v2_output_text_done_event ... ok
+test endpoint::realtime_websocket::methods::sideband::tests::response_half_close_ends_idle_attachment ... ok
+test endpoint::realtime_websocket::methods::tests::parse_session_updated_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_realtime_v2_speech_started_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_v1_input_audio_transcription_completed_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_v1_output_audio_transcript_delta_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_v1_input_audio_transcription_delta_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_v1_input_transcript_turn_marked_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_v1_item_done_output_text_event ... ok
+test endpoint::realtime_websocket::methods::tests::parse_v1_output_audio_transcript_done_event ... ok
+test endpoint::realtime_websocket::methods::sideband::tests::stalled_output_does_not_block_input ... ok
+test endpoint::realtime_websocket::methods::tests::terminal_sideband_handshake_statuses_are_not_retryable ... ok
+test endpoint::realtime_websocket::methods::tests::takes_only_transcript_after_last_handoff_once ... ok
+test endpoint::realtime_websocket::methods::sideband::tests::input_stop_drains_backpressure_without_waiting_for_reserved_permit ... ok
+test endpoint::realtime_websocket::methods::sideband::tests::oversized_payloads_close_both_directions ... ok
+test endpoint::models::tests::parses_models_response ... ok
+test endpoint::realtime_websocket::methods::tests::websocket_handshake_error_preserves_http_status ... ok
+test endpoint::realtime_websocket::methods::tests::webrtc_frameless_sideband_uses_provider_base_url ... ok
+test endpoint::realtime_websocket::methods::tests::transcript_state_survives_reconnect_and_reconciles_done ... ok
+test endpoint::realtime_websocket::methods::tests::websocket_url_from_http_base_defaults_to_ws_path ... ok
+test endpoint::realtime_websocket::methods::tests::websocket_url_for_call_id_joins_existing_realtime_session ... ok
+test endpoint::realtime_websocket::methods::tests::websocket_url_from_nested_v1_base_appends_realtime_path ... ok
+test endpoint::realtime_websocket::methods::tests::websocket_url_from_ws_base_defaults_to_ws_path ... ok
+test endpoint::realtime_websocket::methods::tests::websocket_url_from_v1_base_appends_realtime_path ... ok
+test endpoint::realtime_websocket::methods::sideband::tests::queued_transcript_survives_peer_hangup ... ok
+test endpoint::realtime_websocket::methods::tests::websocket_url_preserves_existing_realtime_path_and_extra_query_params ... ok
+test endpoint::realtime_websocket::methods::tests::websocket_url_omits_intent_for_realtime_v2_conversational_mode ... ok
+test endpoint::realtime_websocket::methods::tests::websocket_url_v1_ignores_transcription_mode ... ok
+test endpoint::realtime_websocket::methods::tests::websocket_url_omits_intent_for_realtime_v2_transcription_mode ... ok
+test endpoint::realtime_websocket::methods::transcript_tests::completed_utterances_keep_repeated_speech_and_final_only_turns_distinct ... ok
+test endpoint::realtime_websocket::methods::tests::websocket_termination_classification_preserves_protocol_behavior ... ok
+test endpoint::realtime_websocket::methods::transcript_tests::interleaved_transcripts_reconcile_across_reconnect_in_either_completion_order ... ok
+test endpoint::realtime_websocket::methods_common::tests::completed_handoff_only_prefixes_v1_payload_text ... ok
+test endpoint::realtime_websocket::methods_common::tests::standalone_handoff_uses_session_context_for_frameless ... ok
+test endpoint::realtime_websocket::methods_common::tests::context_append_channel_only_encodes_for_frameless_handoff_output ... ok
+test endpoint::realtime_websocket::methods_common::tests::frameless_session_update_encodes_explicit_delegation_ack_filler ... ok
+test endpoint::realtime_websocket::methods_frameless_bidi::tests::session_json_omits_initial_items_when_empty ... ok
+test endpoint::realtime_websocket::protocol_frameless_bidi::tests::frameless_transcript_and_audio_events_reuse_existing_internal_events ... ok
+test endpoint::realtime_websocket::methods_frameless_bidi::tests::session_json_encodes_role_bearing_initial_items ... ok
+test endpoint::realtime_websocket::methods_frameless_bidi::tests::context_append_chunks_preserve_text_within_wire_limit ... ok
+test endpoint::realtime_websocket::protocol_frameless_bidi::tests::legacy_and_frameless_delegations_decode_to_the_same_handoff ... ok
+test endpoint::responses_websocket::tests::merge_request_headers_matches_http_precedence ... ok
+test endpoint::responses_websocket::tests::parse_wrapped_websocket_error_event_ignores_non_error_payloads ... ok
+test endpoint::responses_websocket::tests::parse_wrapped_websocket_error_event_with_connection_limit_maps_retryable ... ok
+test endpoint::responses_websocket::tests::parse_wrapped_websocket_error_event_with_status_maps_invalid_request ... ok
+test endpoint::responses_websocket::tests::parse_wrapped_websocket_error_event_maps_to_transport_http ... ok
+test endpoint::responses_websocket::tests::parse_wrapped_websocket_error_event_without_status_is_not_mapped ... ok
+test endpoint::responses_websocket::tests::websocket_config_enables_permessage_deflate ... ok
+test endpoint::responses_websocket::tests::wrapped_websocket_usage_limit_preserves_optional_window ... ok
+test endpoint::responses_websocket::tests::direct_serialization_preserves_websocket_request_payload ... ok
+test endpoint::search::tests::search_response_defaults_missing_results_for_older_endpoints ... ok
+test endpoint::responses_websocket::tests::websocket_safety_buffering_event_controls_visibility_when_header_disables_it ... ok
+test endpoint::responses_websocket::tests::websocket_safety_buffering_uses_event_before_header_fallback ... ok
+test endpoint::search::tests::search_response_preserves_supported_empty_results ... ok
+test endpoint::responses_websocket::tests::wrapped_websocket_retry_after_uses_http_header_validation ... ok
+test endpoint::search::tests::search_posts_typed_request_and_parses_output ... ok
+test files::retry_tests::server_retry_delays_accept_milliseconds_seconds_and_http_dates ... ok
+test endpoint::realtime_call::tests::sends_session_call_with_avas_query_params ... ok
+test endpoint::realtime_websocket::methods::sideband::tests::input_half_close_ends_attachment ... ok
+test provider::tests::detects_azure_responses_base_urls ... ok
+test rate_limits::tests::parse_all_rate_limits_includes_default_codex_snapshot ... ok
+test rate_limits::tests::parse_all_rate_limits_reads_all_limit_families ... ok
+test rate_limits::tests::parse_rate_limit_for_limit_defaults_to_codex_headers ... ok
+test rate_limits::tests::parse_rate_limit_for_limit_prefers_limit_name_header ... ok
+test rate_limits::tests::parse_rate_limit_for_limit_reads_secondary_headers ... ok
+test safety_buffering::tests::buffering_enabled_header_does_not_gate_the_faster_model_fallback ... ok
+test safety_buffering::tests::reads_treatment_from_http_headers ... ok
+test sse::responses::error_tests::audio_validation_codes_map_to_non_retryable_audio_input_errors_on_all_transports ... ok
+test endpoint::realtime_call::tests::sends_sdp_offer_as_raw_body ... ok
+test sse::responses::error_tests::policy_capacity_classification_preserves_overload_retry_behavior ... ok
+test sse::responses::error_tests::retry_header_does_not_override_terminal_errors ... ok
+test sse::responses::error_tests::retry_header_survives_other_failed_responses ... ok
+test sse::responses::error_tests::statusless_model_errors_have_no_http_status ... ok
+test endpoint::realtime_call::tests::sends_backend_session_call_as_json_body ... ok
+test endpoint::realtime_call::tests::sends_backend_frameless_session_call_to_realtime_calls ... ok
+test sse::responses::error_tests::rate_limit_plaintext_loses_to_valid_error_header ... ok
+test sse::responses::error_tests::streamed_retry_after_uses_http_header_validation ... ok
+test sse::responses::error_tests::flex_failure_with_retry_header_ends_stream_immediately ... ok
+test sse::responses::tests::context_window_error_is_fatal ... ok
+test sse::responses::tests::cyber_policy_error_is_fatal ... ok
+test sse::responses::tests::context_window_error_with_newline_is_fatal ... ok
+test sse::responses::tests::cyber_policy_error_uses_fallback_for_empty_message ... ok
+test sse::responses::tests::content_policy_errors_without_type_preserve_their_classification ... ok
+test sse::responses::tests::incomplete_response_retains_partial_output_on_the_error ... ok
+test sse::responses::tests::emits_completed_without_stream_end ... ok
+test sse::responses::tests::failed_response_classification_uses_error_code ... ok
+test sse::responses::tests::malformed_failed_responses_use_stream_error ... ok
+test sse::responses::tests::malformed_misalignment_details_preserve_the_fatal_policy_error ... ok
+test sse::responses::tests::error_when_missing_completed ... ok
+test sse::responses::tests::misalignment_policy_violation_error_is_fatal ... ok
+test sse::responses::tests::misalignment_policy_violation_preserves_public_continuation_details ... ok
+test sse::responses::tests::parses_cache_write_token_usage ... ok
+test sse::responses::tests::parses_reasoning_summary_done ... ok
+test sse::responses::tests::misalignment_policy_violation_uses_fallback_for_blank_message ... ok
+test sse::responses::tests::parses_items_and_completed ... ok
+test sse::responses::tests::parses_tool_call_input_deltas ... ok
+test sse::responses::tests::partial_answer_phase_survives_item_start_and_completion ... ok
+test sse::responses::tests::parses_tool_search_call_items ... ok
+test sse::responses::tests::process_sse_emits_turn_moderation_metadata_field ... ok
+test sse::responses::tests::process_sse_emits_server_model_from_response_headers_payload ... ok
+test sse::responses::tests::process_sse_emits_model_verification_field ... ok
+test sse::responses::tests::process_sse_ignores_response_model_field_in_payload ... ok
+test sse::responses::tests::process_sse_emits_all_safety_buffering_notifications_without_dropping_response_events ... ok
+test sse::responses::tests::quota_exceeded_error_is_fatal ... ok
+test sse::responses::tests::rate_limit_error_preserves_retry_delay ... ok
+test sse::responses::tests::responses_stream_event_model_verification_reads_metadata_field ... ok
+test sse::responses::tests::responses_stream_event_model_verification_ignores_unknown_field ... ok
+test sse::responses::tests::responses_stream_event_response_model_prefers_response_headers ... ok
+test sse::responses::tests::responses_stream_event_model_verification_ignores_non_array_field ... ok
+test sse::responses::tests::safety_buffering_falls_back_to_response_metadata ... ok
+test sse::responses::tests::responses_stream_event_response_model_reads_top_level_headers ... ok
+test sse::responses::tests::safety_buffering_ignores_metadata_field_for_other_event_kinds ... ok
+test sse::responses::tests::safety_buffering_ignores_response_metadata_without_safety_buffering_type ... ok
+test sse::responses::tests::safety_buffering_prefers_wire_retry_model_and_only_falls_back_when_omitted ... ok
+test sse::responses::tests::safety_buffering_top_level_presence_wins_over_response_metadata ... ok
+test sse::responses::tests::spawn_response_stream_ignores_model_verification_header ... ok
+test sse::responses_error::tests::test_try_parse_retry_delay_azure ... ok
+test sse::responses_error::tests::test_try_parse_retry_delay_no_delay ... ok
+test sse::responses_error::tests::test_try_parse_retry_delay ... ok
+test sse::responses::tests::table_driven_event_kinds ... ok
+test sse::responses::tests::typed_errors_handle_missing_or_blank_message ... ok
+test sse::responses::tests::spawn_response_stream_emits_header_events ... ok
+test endpoint::realtime_websocket::methods::tests::v1_transcription_mode_is_treated_as_conversational ... ok
+test endpoint::realtime_websocket::methods::tests::transcription_mode_session_update_omits_output_audio_and_instructions ... ok
+test endpoint::realtime_websocket::methods::tests::realtime_v2_session_update_includes_background_agent_tool_and_handoff_output_item ... ok
+test endpoint::realtime_websocket::methods::tests::writer_policy_failure_reaches_realtime_events ... ok
+test endpoint::realtime_websocket::methods::tests::e2e_connect_and_exchange_events_against_mock_ws_server ... ok
+test endpoint::realtime_websocket::methods::tests::send_does_not_block_while_next_event_waits_for_inbound_data ... ok
+test files::tests::upload_openai_file_reports_blob_response_diagnostics_without_sas ... ok
+test files::tests::upload_hosted_app_context_and_finalizes_reservation ... ok
+test files::retry_tests::reopening_cannot_extend_the_shared_upload_deadline ... ok
+test files::tests::upload_openai_file_reuses_client_pool_across_uploads ... ok
+test files::tests::upload_hosted_app_preserves_empty_finalization_for_older_servers ... ok
+test files::retry_tests::reopens_after_a_stream_closure_and_sends_the_complete_body ... ok
+test files::tests::upload_openai_file_returns_canonical_uri ... ok
+test files::retry_tests::retries_transient_upload_statuses_within_budget ... ok
+test files::tests::upload_openai_file_reports_blob_transport_diagnostics_without_sas ... ok
+
+test result: ok. 200 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.01s
+
+     Running unittests src/lib.rs (target/debug/deps/codex_login-4f77f3db29f5d9a5)
+
+running 222 tests
+test auth::access_token::tests::classifies_personal_access_tokens_by_prefix ... ok
+test auth::bedrock_api_key::tests::bedrock_api_key_debug_redacts_secret ... ok
+test auth::default_client::tests::is_first_party_chat_originator_matches_known_values ... ok
+test auth::default_client::tests::is_first_party_originator_matches_known_values ... ok
+test auth::default_client::tests::test_invalid_suffix_is_sanitized ... ok
+test auth::default_client::tests::add_originator_header_omits_invalid_originator ... ok
+test auth::default_client::tests::test_invalid_suffix_is_sanitized2 ... ok
+test auth::manager::account_user_id_tests::api_key_and_header_auth_do_not_expose_an_account_user_id ... ok
+test auth::agent_identity::tests::run_task_is_shared_across_clones ... ok
+test auth::default_client::tests::add_originator_header_inserts_non_default_originator ... ok
+test auth::default_client::tests::add_originator_header_preserves_provider_default ... ok
+test auth::bedrock_api_key::tests::bedrock_only_auth_storage_creates_primary_auth ... ok
+test auth::bedrock_api_key::tests::login_with_api_key_clears_bedrock_api_key ... ok
+test auth::default_client::tests::test_get_codex_user_agent ... ok
+test auth::manager::source_tests::api_key_replacement_and_logout_retire_the_previous_source ... ok
+test auth::default_client::tests::os_discovery_is_cached_without_freezing_user_agent_overrides ... ok
+test auth::default_client::tests::test_create_client_sets_default_headers ... ok
+test auth::manager::account_user_id_tests::malformed_account_user_id_does_not_break_ordinary_external_auth ... ok
+test auth::agent_identity::tests::from_record_registers_task ... ok
+test auth::agent_identity::tests::from_record_retries_transient_registration ... ok
+test auth::manager::account_user_id_tests::account_user_id_comes_from_the_access_token_without_synthesis ... ok
+test auth::manager::source_tests::a_sessionless_token_cannot_claim_refresh_continuity ... ok
+test auth::manager::account_user_id_tests::external_account_user_id_must_match_the_selected_workspace ... ok
+test auth::manager::change_state_tests::captured_credentials_are_revoked_if_account_changes_before_client_construction ... ok
+test auth::manager::change_state_tests::auth_owner_generation_preserves_logout_and_switches_when_coalesced ... ok
+test auth::agent_identity::tests::from_jwt_registers_task ... ok
+test auth::bedrock_api_key::tests::login_with_bedrock_api_key_replaces_openai_auth ... ok
+test auth::manager::tests::auth_config_from_preserves_all_fields ... ok
+test auth::bedrock_api_key::tests::logout_removes_bedrock_auth ... ok
+test auth::manager::source_tests::refreshed_credentials_reuse_the_source_but_a_new_login_does_not ... ok
+test auth::bedrock_api_key::tests::access_keys_auth_round_trips_and_logs_out ... ok
+test auth::manager::account_user_id_tests::account_user_id_requires_a_selected_account ... ok
+test auth::manager::change_state_tests::auth_refresh_read_failure_is_transient_and_preserves_network_permit ... ok
+test auth::manager::change_state_tests::auth_owner_generation_distinguishes_refreshes_from_identity_changes ... ok
+test auth::manager::tests::cancelled_refresh_marks_only_started_exchanges_as_unsettled ... ok
+test auth::manager::source_tests::legacy_identity_persistence_does_not_reload_credentials ... ok
+test auth::manager::tests::agent_identity_authapi_override_preserves_chatgpt_environment_validation ... ok
+test auth::manager::tests::agent_identity_custom_jwks_base_requires_explicit_authapi_override ... ok
+test auth::manager::tests::agent_identity_jwks_override_preserves_chatgpt_environment_validation ... ok
+test auth::manager::source_tests::token_rotation_does_not_hide_a_resource_or_workload_change ... ok
+test auth::manager::tests::agent_identity_jwt_supports_existing_staging_launcher ... ok
+test auth::manager::account_user_id_tests::account_user_id_rejects_missing_malformed_or_unscoped_claims ... ok
+test auth::default_client::tests::raw_auth_client_does_not_log_sensitive_request_or_response_data ... ok
+test auth::manager::tests::agent_identity_jwt_uses_explicit_staging_endpoint_overrides ... ok
+test auth::manager::tests::agent_identity_plan_type_maps_raw_education_alias ... ok
+test auth::manager::tests::external_auth_keeps_cached_credentials_after_permanent_reload_failure ... ok
+test auth::manager::tests::external_auth_provider_can_install_headers ... ok
+test auth::manager::tests::external_bearer_only_auth_manager_disables_auto_refresh_when_interval_is_zero ... ok
+test auth::manager::tests::external_bearer_only_auth_manager_returns_none_when_command_fails ... ok
+test auth::manager::tests::external_bearer_only_auth_manager_uses_cached_provider_token ... ok
+test auth::manager::tests::external_header_auth_obeys_workspace_policy ... ok
+test auth::manager::tests::external_header_auth_rejects_a_disallowed_workspace_on_refresh ... ok
+test auth::manager::tests::header_auth_exposes_a_valid_chatgpt_account_id ... ok
+test auth::manager::tests::auth_manager_rejects_stored_personal_access_token_workspace_mismatch ... ok
+test auth::manager::tests::chatgpt_auth_registration_retry_exhaustion_is_fallback_eligible ... ok
+test auth::manager::tests::chatgpt_auth_retries_transient_agent_identity_registration ... ok
+test auth::manager::tests::chatgpt_auth_task_registration_retry_exhaustion_is_fallback_eligible ... ok
+test auth::manager::tests::login_with_access_token_rejects_agent_identity_workspace_mismatch ... ok
+test auth::manager::tests::login_with_access_token_rejects_invalid_jwt ... ok
+test auth::manager::tests::enforce_login_restrictions_allows_matching_workspace ... ok
+test auth::manager::tests::agent_identity_jwt_task_registration_retry_exhaustion_is_strict ... ok
+test auth::manager::tests::enforce_login_restrictions_logs_out_for_method_mismatch ... ok
+test auth::manager::tests::enforce_login_restrictions_logs_out_for_personal_access_token_workspace_mismatch ... ok
+test auth::manager::tests::agent_identity_plan_type_maps_raw_enterprise_alias ... ok
+test auth::manager::tests::login_with_api_key_overwrites_existing_auth_json ... ok
+test auth::manager::tests::logout_does_not_create_a_missing_file_store ... ok
+test auth::manager::tests::logout_removes_auth_file ... ok
+test auth::manager::tests::chatgpt_auth_non_retryable_registration_error_is_hard_failure ... ok
+test auth::manager::tests::load_auth_reads_access_token_from_env ... ok
+test auth::manager::tests::load_auth_reads_personal_access_token_from_env ... ok
+test auth::manager::tests::loads_api_key_from_auth_json ... ok
+test auth::manager::tests::enforce_login_restrictions_allows_api_key_if_login_method_not_set_but_forced_chatgpt_workspace_id_is_set ... ok
+test auth::manager::tests::enforce_login_restrictions_allows_any_matching_workspace_in_list ... ok
+test auth::manager::tests::login_with_access_token_rejects_invalid_personal_access_token ... ok
+test auth::manager::tests::enforce_login_restrictions_blocks_env_api_key_when_chatgpt_required ... ok
+test auth::manager::tests::login_with_access_token_rejects_personal_access_token_workspace_mismatch ... ok
+test auth::manager::tests::refresh_without_id_token ... ok
+test auth::manager::tests::replacing_external_auth_clears_permanent_failure ... ok
+test auth::manager::tests::runtime_external_auth_uses_provider_error_classification ... ok
+test auth::manager::tests::enforce_login_restrictions_logs_out_for_agent_identity_workspace_mismatch ... ok
+test auth::manager::tests::login_with_access_token_rejects_unsigned_jwt ... ok
+test auth::manager::tests::enforce_login_restrictions_logs_out_for_workspace_mismatch ... ok
+test auth::manager::tests::unauthorized_recovery_retries_provider_command_after_initial_failure ... ok
+test auth::manager::tests::unauthorized_recovery_uses_external_refresh_for_bearer_manager ... ok
+test auth::manager::tests::unauthorized_recovery_without_an_external_provider_still_requires_refreshable_auth ... ok
+test auth::manager::tests::login_with_access_token_writes_only_personal_access_token ... ok
+test auth::manager::tests::api_only_policy_rejects_access_tokens_before_hydration ... ok
+test auth::manager::tests::auth_manager_rejects_disallowed_stored_and_external_auth ... ok
+test auth::manager::tests::workload_identity_auth_is_immutable_and_process_local ... ok
+test auth::manager::tests::auth_manager_rejects_env_personal_access_token_workspace_mismatch ... ok
+test auth::manager::tests::missing_auth_json_returns_none ... ok
+test auth::manager::tests::chatgpt_auth_registers_agent_identity_when_enabled ... ok
+test auth::manager::tests::personal_access_token_does_not_offer_unauthorized_recovery ... ok
+test auth::manager::tests::plan_type_maps_enterprise_cbp_usage_based_plan ... ok
+test auth::manager::tests::plan_type_maps_known_plan ... ok
+test auth::personal_access_token::tests::hydrate_preserves_missing_email ... ok
+test auth::manager::tests::plan_type_maps_unknown_to_unknown ... ok
+test auth::revoke::tests::derives_revoke_url_from_refresh_token_override ... ok
+test auth::personal_access_token::tests::hydrate_sends_bearer_token_and_preserves_metadata ... ok
+test auth::manager::tests::pro_account_with_no_api_key_uses_chatgpt_auth ... ok
+test auth::storage::storage_commit::tests::deleting_absent_file_store_does_not_create_home ... ok
+test auth::manager::tests::shared_from_config_prefers_workload_identity_to_explicit_access_token ... ok
+test auth::revoke::tests::revoke_request_times_out ... ok
+test auth::storage::storage_commit::tests::commits_respect_another_process_lock ... ok
+test auth::storage::tests::direct_keyring_auth_storage_delete_removes_keyring_and_file ... ok
+test auth::storage::tests::ephemeral_storage_save_load_delete_is_in_memory_only ... ok
+test auth::storage::tests::errors::json_data_errors_redact_credential_values ... ok
+test auth::storage::tests::errors::json_syntax_and_eof_errors_preserve_diagnostics ... ok
+test auth::storage::tests::errors::secure_storage_errors_display_the_underlying_cause ... ok
+test auth::manager::tests::stored_agent_identity_jwt_keeps_auth_json_unchanged ... ok
+test auth::storage::tests::file_storage_creates_dangling_symlink_target_and_rejects_cycles ... ok
+test auth::storage::tests::file_storage_delete_removes_auth_file ... ok
+test auth::storage::tests::file_storage_does_not_replace_read_only_or_hard_linked_credentials ... ok
+test auth::storage::tests::file_storage_failed_replacement_cleans_up_temporary_file ... ok
+test auth::storage::tests::file_storage_load_returns_auth_dot_json ... ok
+test auth::storage::tests::file_storage_loads_agent_identity_as_jwt ... ok
+test auth::storage::tests::file_storage_loads_empty_agent_identity_email_as_none ... ok
+test auth::storage::tests::file_storage_round_trips_agent_identity_auth ... ok
+test auth::storage::tests::file_storage_round_trips_personal_access_token_auth ... ok
+test auth::storage::tests::file_storage_round_trips_registered_agent_identity_auth ... ok
+test auth::storage::tests::file_storage_save_persists_auth_dot_json ... ok
+test auth::storage::tests::file_storage_writes_missing_agent_identity_email_as_empty_string ... ok
+test auth::storage::tests::keyring_auth_storage_compute_store_key_for_home_directory ... ok
+test auth::storage::tests::factory_uses_secrets_backend_only_when_requested ... ok
+test auth::storage::storage_commit::tests::write_lock_coordinates_with_existing_auth_lock ... ok
+test auth::storage::tests::policy::auto_auth_storage_delete_removes_keyring_and_file ... ok
+test auth::storage::tests::policy::auto_auth_storage_load_uses_file_when_keyring_empty ... ok
+test auth::storage::tests::policy::auto_auth_storage_load_prefers_keyring_value ... ok
+test auth::storage::tests::policy::auto_auth_storage_save_falls_back_when_keyring_errors ... ok
+test auth::storage::tests::policy::auto_auth_storage_save_prefers_keyring ... ok
+test auth::storage::tests::policy::direct_keyring_auth_storage_saves_legacy_keyring_entry ... ok
+test auth::storage::storage_commit::tests::keyring_commits_ignore_unusable_fallback_symlink_targets ... ok
+test auth::storage::tests::policy::secrets_keyring_auth_storage_save_persists_and_removes_fallback_file ... ok
+test auth::storage::tests::refresh_commit_does_not_overwrite_another_writer ... ok
+test auth::storage::storage_commit::tests::keyring_logout_coordinates_with_refresh_through_chained_symlinks ... ok
+test auth::storage::tests::policy::storage_metrics_distinguish_explicit_file_from_secure_failure_fallback ... ok
+test auth::storage::tests::secrets_keyring_auth_storage_delete_removes_keyring_and_file ... ok
+test auth::util::tests::try_parse_error_message_extracts_openai_error_message ... ok
+test auth::util::tests::try_parse_error_message_falls_back_to_raw_text ... ok
+test auth::workload_identity::tests::auth_policy_and_app_environment_are_enforced ... ok
+test auth::storage::tests::policy::auto_auth_storage_refresh_preserves_fallback_when_keyring_stays_unreadable ... ok
+test auth::workload_identity::tests::compatible_adapters_share_exchange ... ok
+test auth::workload_identity::tests::exchange_errors_map_to_retry_policy ... ok
+test auth::workload_identity::tests::incompatible_process_session_settings_are_rejected ... ok
+test auth::workload_identity::tests::markers_select_wif_and_partial_configuration_fails_closed ... ok
+test auth::workload_identity::tests::concurrent_refreshes_share_one_exchange ... ok
+test auth::workload_identity::tests::workload_context_is_preserved_without_logging_its_value ... ok
+test auth_env_telemetry::tests::collect_auth_env_telemetry_buckets_provider_env_key_name ... ok
+test oauth::authorization::tests::callback_validation_checks_state_before_code_or_provider_errors ... ok
+test auth::manager::workspace_switching::tests::workspace_switch_rejects_stale_agent_identity_and_rolls_back_conditionally ... ok
+test oauth::client::tests::authorization_code_preserves_pkce_and_http_policy ... ok
+test oauth::client::tests::rejection_keeps_status_when_reading_the_body_fails ... ok
+test auth::manager::tests::login_with_access_token_writes_agent_identity_jwt ... ok
+test oauth::diagnostics::tests::sanitize_url_for_logging_preserves_only_safe_url_parts ... ok
+test oauth::error::tests::parses_standard_legacy_and_plain_text_rejections ... ok
+test oauth::error::tests::redacts_plain_and_json_escaped_credentials ... ok
+test oauth_session::tests::accepts_ipv4_and_ipv6_loopback_endpoints ... ok
+test oauth::client::tests::rejection_preserves_status_and_omits_oversized_diagnostics ... ok
+test oauth::client::tests::success_body_revocation_preserves_the_policy_error ... ok
+test auth::manager::tests::workspace_policy_checks_the_selected_request_account ... ok
+test auth::manager::tests::load_auth_keeps_codex_api_key_env_precedence ... ok
+test auth::workload_identity::tests::refresh_preserves_identity_and_invalid_tokens_are_reexchanged ... ok
+test oauth_session::tests::debug_output_does_not_expose_configured_url_credentials ... ok
+test auth::manager::workspace_switching::tests::workspace_switch_obeys_workspace_policy ... ok
+test oauth_session::tests::ignores_mismatched_callback_state_even_for_provider_errors ... ok
+test auth::manager::workspace_switching::tests::workspace_switch_rejection_preserves_current_login ... ok
+test auth::manager::tests::workspace_policy_rejects_agent_identity_before_hydration ... ok
+test oauth_session::tests::login_tests::cancel_releases_callback_while_reads_and_requests_stay_responsive ... ok
+test oauth_session::tests::login_tests::credential_read_failure_finishes_login_status ... ok
+test auth::manager::workspace_switching::tests::workspace_sso_only_commits_for_the_requesting_login_and_workspace ... ok
+test oauth_session::tests::login_tests::dropping_login_clears_in_progress_status ... ok
+test auth::manager::workspace_switching::tests::workspace_switch_preserves_login_and_survives_reload ... ok
+test oauth_session::tests::login_tests::login_waits_for_background_credentials_and_can_cancel_while_queued ... ok
+test auth::manager::tests::refresh_failure_is_scoped_to_the_matching_auth_snapshot ... ok
+test auth::manager::tests::unauthorized_recovery_reports_mode_and_step_names ... ok
+test oauth_session::tests::login_tests::status_subscriptions_survive_gateway_changes_and_are_isolated_by_home ... ok
+test auth::manager::workspace_switching::tests::workspace_switch_does_not_restore_a_logged_out_session ... ok
+test auth::manager::tests::missing_plan_type_maps_to_unknown ... ok
+test auth::manager::tests::plan_type_maps_self_serve_business_usage_based_plan ... ok
+test auth::manager::workspace_switching::tests::workspace_switch_rejects_a_session_from_a_previous_login ... ok
+test oauth_session::tests::gateway_credentials_use_a_dedicated_encrypted_file_and_reload_large_tokens ... ok
+test oauth_session::tests::rejects_insecure_or_credentialed_endpoints ... ok
+test oauth_session::tests::browser_authorization_exchanges_and_persists_under_the_store_lock ... ok
+test oauth_session::tests::rejects_reserved_authorization_parameters_before_starting_login ... ok
+test auth::storage::tests::secrets_keyring_auth_storage_load_returns_deserialized_auth ... ok
+test auth::storage::tests::secrets_keyring_auth_storage_delete_removes_legacy_direct_keyring_entry ... ok
+test oauth_session::tests::malformed_token_response_keeps_credentials_and_omits_decoder_secrets ... ok
+test oauth_session::tests::expired_tokens_refresh_once_when_the_response_omits_rotation_and_expiry ... ok
+test oauth_session::tests::login_tests::logout_removes_saved_and_cached_credentials ... ok
+test token_data::tests::id_token_info_handles_missing_fields ... ok
+test token_data::tests::id_token_info_parses_email_and_plan ... ok
+test token_data::tests::id_token_info_parses_ent26_plan ... ok
+test token_data::tests::id_token_info_parses_enterprise_cbp_automation_plan ... ok
+test token_data::tests::id_token_info_parses_fedramp_account_claim ... ok
+test token_data::tests::id_token_info_parses_go_plan ... ok
+test token_data::tests::id_token_info_parses_hc_plan_as_enterprise ... ok
+test token_data::tests::id_token_info_parses_self_serve_business_prolite_plan ... ok
+test token_data::tests::id_token_info_parses_usage_based_business_plans ... ok
+test token_data::tests::jwt_expiration_handles_missing_exp ... ok
+test token_data::tests::jwt_expiration_parses_exp_claim ... ok
+test token_data::tests::jwt_expiration_rejects_malformed_jwt ... ok
+test token_data::tests::legacy_account_token_record_has_no_inferred_oauth_provenance ... ok
+test token_data::tests::workspace_account_detection_matches_workspace_plans ... ok
+test oauth_session::tests::storage_tests::cancel_during_keyring_read_releases_login_and_cached_credentials ... ok
+test oauth_session::tests::login_tests::legacy_policy_authorizes_missing_and_rejected_credentials ... ok
+test oauth_session::tests::reloads_replaced_credentials_without_a_cached_refresh_token ... ok
+test oauth_session::tests::cancelled_refresh_still_records_rotated_or_rejected_credentials ... ok
+test oauth_session::tests::token_endpoint_failures_do_not_expose_refresh_tokens ... ok
+test oauth_session::tests::token_grants_reject_redirects_without_sending_credentials_to_the_target ... ok
+test oauth_session::tests::query_credentials_are_not_exposed_by_echoed_errors_or_truncated_request_ids ... ok
+test oauth_session::tests::storage_tests::readiness_does_not_block_cached_requests_or_overwrite_newer_credentials ... ok
+test oauth_session::tests::request_tests::request_refresh_retry_keeps_the_same_sign_in ... ok
+test auth::storage::tests::policy::auto_auth_storage_load_falls_back_when_keyring_errors ... ok
+test oauth_session::tests::rejected_token_refresh_is_shared_and_late_rejections_reuse_the_latest_token ... ok
+test oauth_session::tests::login_tests::rejected_credentials_stay_not_ready_until_replaced ... ok
+test oauth_session::tests::login_tests::expired_readiness_stays_not_ready_while_refresh_is_blocked ... ok
+test oauth_session::tests::invalid_grant_recovers_external_credentials_with_a_bounded_retry ... ok
+test oauth_session::tests::different_configurations_refresh_under_the_same_store_lock ... ok
+test oauth_session::tests::login_tests::external_credentials_recover_missing_and_failed_readiness ... ok
+test oauth_session::tests::failed_save_retains_rotation_without_overwriting_a_new_external_login ... ok
+test oauth_session::tests::refresh_does_not_reuse_expired_or_rejected_persisted_replacements ... ok
+test oauth_session::tests::only_explicit_refresh_grant_rejections_request_reauthorization ... ok
+
+test result: ok. 222 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 65.12s
+
+     Running unittests src/lib.rs (target/debug/deps/codex_rmcp_client-e392bcfc0c8470e3)
+
+running 261 tests
+test elicitation_client_service::tests::typed_elicitation_result_rejects_non_object_meta ... ok
+test elicitation_client_service::tests::typed_elicitation_result_preserves_response_meta ... ok
+test elicitation_client_service::tests::elicitation_response_result_serializes_response_meta ... ok
+test elicitation_client_service::tests::parses_openai_form_custom_requests ... ok
+test auth_status::tests::determine_auth_status_uses_bearer_token_when_authorization_header_present ... ok
+test auth_status::tests::determine_auth_status_uses_bearer_token_when_env_authorization_header_present ... ok
+test elicitation_client_service::tests::restore_context_meta_adds_elicitation_meta_and_removes_progress_token ... ok
+test ema_auth::tests::discovery_rejects_private_or_ambiguous_issuer_destinations ... ok
+test elicitation_client_service::tests::parses_legacy_custom_elicitation_without_mode ... ok
+test elicitation_client_service::tests::legacy_sep1034_elicitation_without_mode_preserves_schema_defaults ... ok
+test ema_auth_policy::tests::public_clients_require_an_explicitly_advertised_auth_method ... ok
+test ema_auth_policy::tests::resource_origin_query_and_path_are_bound ... ok
+test auth_status::tests::routed_oauth_discovery_caps_local_discovery_timeout ... ok
+test auth_status::tests::routed_agent_plugin_oauth_discovery_stops_with_configured_headers ... ok
+test auth_status::tests::routed_oauth_discovery_preserves_requested_timeout ... ok
+test ema_exchange::tests::identity_and_credential_destinations_are_bound ... ok
+test elicitation_client_service::user_verification_dispatch_tests::user_verification_dispatch_preserves_context_metadata ... ok
+test elicitation_client_service::user_verification_dispatch_tests::user_verification_dispatch_rejects_malformed_modes_as_invalid_params ... ok
+test elicitation_client_service::user_verification_dispatch_tests::user_verification_remembers_cancellation_before_request_handler_runs ... ok
+test ema_http_client::tests::regressions::credential_failures_are_classified_before_dispatch ... ok
+test ema_http_client::tests::regressions::delayed_unauthorized_response_preserves_the_renewed_bearer ... ok
+test ema_http_client::tests::regressions::exact_endpoint_and_renewal_credentials_are_checked_before_network_use ... ok
+test ema_http_client::tests::regressions::outgoing_requests_replace_all_authorization_headers_and_stop_redirects ... ok
+test ema_http_client::tests::regressions::policy_suspension_requires_fresh_authority_without_cancelling_admitted_request ... ok
+test elicitation_client_service::user_verification_dispatch_tests::user_verification_early_cancellation_storage_fails_closed_at_capacity ... ok
+test ema_http_client::tests::renewal_aged_during_validation_is_not_dispatched_or_cached ... ok
+test ema_http_client::tests::revocation_during_renewal_prevents_dispatch ... ok
+test ema_http_client::tests::regressions::authentication_time_is_removed_from_the_inner_timeout ... ok
+test ema_http_client::tests::regressions::authentication_waits_share_the_request_deadline ... ok
+test ema_http_client::tests::regressions::resource_bearers_never_follow_redirects ... ok
+test auth_status::tests::oauth_metadata_preserves_login_without_probing_anonymous_tools ... ok
+test ema_auth::tests::modern_challenge_confines_metadata_redirects ... ok
+test auth_status::tests::oauth_discovery_does_not_follow_cross_origin_redirects ... ok
+test auth_status::tests::issuer_support_without_a_metadata_issuer_falls_back_to_distinct_callbacks ... ok
+test ema_identity::tests::stored_identity_usability_requires_a_bound_refresh_token_not_a_current_id_token ... ok
+test ema_http_client::tests::cached_bearer_does_not_read_credentials_until_renewal ... ok
+test enterprise_oauth_login::tests::enterprise_callback_requires_loopback ... ok
+test ema_http_client::tests::revocation_ends_an_existing_response_stream ... ok
+test ema_exchange::tests::client_round_trip_preserves_signed_narrowing ... ok
+test enterprise_oauth_login::tests::logout::failed_persistence_fences_old_snapshots_but_allows_fresh_pins ... ok
+test executor_process_transport::tests::accepts_input_larger_than_limit_when_each_line_is_bounded ... ok
+test executor_process_transport::tests::closes_on_an_unsequenced_process_failure_without_inventing_missing_output ... ok
+test executor_process_transport::tests::recovers_contiguous_output_after_a_duplicate_replayed_event ... ok
+test executor_process_transport::tests::recovers_contiguous_output_and_accounts_for_terminal_events ... ok
+test executor_process_transport::tests::rejects_lagged_recovery_when_all_missing_output_was_evicted ... ok
+test executor_process_transport::tests::rejects_lagged_recovery_when_retained_output_skips_a_sequence ... ok
+test executor_process_transport::tests::rejects_oversized_line_without_retaining_its_prefix ... ok
+test executor_process_transport::tests::retains_complete_lines_before_an_oversized_line ... ok
+test executor_process_transport::tests::searches_only_new_bytes_after_partial_line ... ok
+test executor_process_transport::tests::serializes_concurrent_stdin_writes ... ok
+test executor_process_transport::tests::splits_multiple_lines_and_retains_partial_tail ... ok
+test executor_process_transport::tests::takes_unterminated_remaining_bytes_at_eof ... ok
+test http_client_adapter::tests::agent_plugin_configured_headers_stop_redirects ... ok
+test http_client_adapter::tests::an_unterminated_comment_remains_size_limited ... ok
+test http_client_adapter::tests::authorization_redirects_depend_on_mode ... ok
+test http_client_adapter::tests::carriage_return_terminators_reset_the_event_limit ... ok
+test http_client_adapter::tests::comments_do_not_reset_accumulated_event_data ... ok
+test http_client_adapter::tests::completed_keepalive_comments_do_not_accumulate ... ok
+test http_client_adapter::tests::crlf_terminators_split_across_chunks_reset_the_event_limit ... ok
+test ema_http_client::tests::revocation_interrupts_an_active_multichunk_response ... ok
+test http_client_adapter::tests::event_at_the_exact_size_limit_is_accepted ... ok
+test http_client_adapter::tests::legacy_configured_headers_follow_redirects ... ok
+test http_client_adapter::tests::legacy_sse_streams_remain_unlimited ... ok
+test http_client_adapter::tests::lf_terminators_reset_the_event_limit ... ok
+test http_client_adapter::tests::multiline_data_counts_parser_inserted_newlines ... ok
+test http_client_adapter::tests::protocol_headers_preserve_utf8_values ... ok
+test http_client_adapter::tests::rejected_events_remain_rejected ... ok
+test http_client_adapter::tests::requests_without_sensitive_headers_follow_redirects ... ok
+test http_client_adapter::tests::size_accounting_saturates_without_overflow ... ok
+test http_client_adapter::tests::split_keepalive_comments_are_discarded_only_when_complete ... ok
+test http_client_redirect::tests::https_redirects_preserve_configured_and_helper_proxy_authorization ... ok
+test auth_status::tests::discover_streamable_http_oauth_does_not_use_authorization_server_scopes ... ok
+test auth_status::tests::supports_oauth_login_does_not_require_scopes_supported ... ok
+test http_client_redirect::tests::plaintext_hostname_redirects_are_rejected_before_dns_can_rebind ... ok
+test auth_status::tests::determine_auth_status_preserves_transient_http_errors ... ok
+test ema_http_client::tests::initial_bearer_aged_during_validation_is_renewed_before_dispatch ... ok
+test http_client_redirect::tests::same_origin_redirects_enforce_shared_timeout_and_hop_limit ... ok
+test ema_http_client::tests::unauthorized_requests_are_not_replayed_and_later_requests_renew ... ok
+test enterprise_oauth_login::tests::enterprise_callback_errors_and_sdk_logs_exclude_credentials ... ok
+test http_headers::tests::helper_output_errors_do_not_echo_secrets ... ok
+test http_headers::tests::failed_refresh_is_shared_without_replacing_credentials ... ok
+test http_headers::tests::nonzero_helper_exit_is_cached ... ok
+test http_headers::tests::refresh_retry_rechecks_deadline_and_redirects ... ok
+test http_client_redirect::tests::plaintext_helper_redirects_block_mcp_but_preserve_oauth_stop ... ok
+test auth_status::tests::discover_streamable_http_oauth_follows_protected_resource_metadata ... ok
+test http_headers::tests::connection_headers_are_cached_and_origin_bound ... ok
+test ema_auth::tests::rejected_grants_preserve_their_source_and_release_the_credential_lease ... ok
+test ema_exchange::tests::sdk_validation_rejects_unsupported_authorization_before_returning_a_bearer ... ok
+test enterprise_oauth_login::tests::logout::logout_invalidates_pending_login_across_processes ... ok
+test http_headers::tests::concurrent_rejected_posts_share_one_headers_refresh ... ok
+test oauth::refresh_lock::tests::acquisition_times_out_without_stealing ... ok
+test http_headers::tests::helper_attempt_is_shared_after_cancellation ... ok
+test ema_identity::tests::enterprise_discovery_shares_idp_checks_but_keeps_login_endpoint_policy ... ok
+test http_client_redirect::tests::cross_origin_redirects_never_reach_their_destination ... ok
+test http_client_redirect::tests::same_origin_redirects_preserve_method_body_and_headers ... ok
+test ema_identity::tests::refresh_subject_rejects_removed_replaced_or_missing_credentials ... ok
+test http_headers::tests::helper_refresh_preserves_oauth_challenges_and_retries_at_most_once ... ok
+test ema_identity::tests::refresh_subject_reread_is_cancellable_and_releases_guard_on_failure ... ok
+test ema_identity::tests::refresh_subject_rereads_pinned_credentials_after_id_token_expiry ... ok
+test oauth::ema_identity::tests::admitted_credentials_do_not_block_a_new_pin ... ok
+test ema_auth::tests::discovery_pins_resource_issuer_and_public_jwt_bearer_before_identity ... ok
+test ema_exchange::tests::provider_errors_preserve_credential_policy_without_reflecting_credentials ... ok
+test oauth::ema_identity::tests::cached_credentials_require_the_current_version_after_waiting_for_a_writer ... ok
+test oauth::store_lock::tests::store_lock_is_released_when_holder_process_exits_child ... ignored, child process for store_lock_is_released_when_holder_process_exits
+test oauth::ema_identity::tests::enterprise_credential_errors_and_keyring_traces_hide_account_key ... ok
+test oauth::ema_identity::tests::invalidation_rereads_under_exclusive_lock_and_preserves_newer_grants ... ok
+test oauth::ema_identity::tests::keyring_failure_does_not_reuse_the_pinned_refresh_token ... ok
+test oauth::ema_identity::tests::ordinary_oauth_names_cannot_alias_enterprise_credential_keys ... ok
+test oauth::ema_identity::tests::pinning_does_not_bind_a_stale_record_to_a_new_credential_version ... ok
+test enterprise_oauth_login::tests::enterprise_public_api_storage_and_privacy ... ok
+test ema_auth::tests::legacy_challenges_require_a_recognized_discovery_rejection ... ok
+test oauth::store_lock::tests::aggregate_store_credential_loads_can_share_an_existing_reader ... ok
+test oauth::store_lock::tests::aggregate_store_readers_share_access_while_writers_remain_exclusive ... ok
+test oauth::store_lock::tests::auto_load_secrets_lock_failure_does_not_fall_back_to_file ... ok
+test oauth::store_lock::tests::auto_save_secrets_lock_failure_does_not_fall_back_to_file ... ok
+test oauth::store_lock::tests::file_credentials_keep_repeated_local_prefixes_isolated ... ok
+
+running 1 test
+test oauth::tests::fallback_file_is_private_at_creation ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 260 filtered out; finished in 0.00s
+
+test oauth::tests::fallback_file_is_private_at_creation ... ok
+test oauth::store_lock::tests::file_store_load_and_delete_observe_aggregate_lock ... ok
+test oauth::store_lock::tests::file_store_lock_preserves_updates_for_different_servers ... ok
+test oauth::store_lock::tests::legacy_rmcp_oauth_keyring_credentials_remain_readable ... ok
+test oauth::store_lock::tests::oauth_credential_probes_skip_contended_file_and_secrets_stores ... ok
+test oauth::store_lock::tests::secrets_store_load_and_delete_observe_aggregate_lock ... ok
+test oauth::store_lock::tests::secrets_store_lock_preserves_updates_for_different_servers ... ok
+test oauth::tests::oauth_tokens_are_not_usable_when_access_token_is_blank ... ok
+test oauth::tests::oauth_tokens_are_not_usable_when_client_id_is_blank ... ok
+test oauth::tests::oauth_tokens_are_not_usable_when_expired_and_unrefreshable ... ok
+test oauth::tests::oauth_tokens_are_not_usable_when_near_expiry_and_unrefreshable ... ok
+test oauth::tests::oauth_tokens_are_not_usable_when_required_refresh_token_is_blank ... ok
+test oauth::tests::oauth_tokens_are_usable_when_expired_but_refreshable ... ok
+test oauth::tests::oauth_tokens_are_usable_when_expiry_is_unknown ... ok
+test oauth::tests::oauth_tokens_are_usable_when_unexpired_without_refresh_token ... ok
+
+running 1 test
+test oauth::store_lock::tests::store_lock_is_released_when_holder_process_exits ... ok
+test oauth::tests::credential_store_tests::cancelled_rejection_retains_guard_and_preserves_replacement ... ok
+test oauth::tests::credential_store_tests::pinned_read_failure_does_not_adopt_fallback_credentials ... ok
+test oauth::tests::credential_store_tests::replacement_or_removal_does_not_acknowledge_a_new_runtime_snapshot ... ok
+test oauth::tests::credential_store_tests::save_publishes_only_persisted_credentials ... ok
+test oauth::tests::delete_oauth_tokens_file_mode_removes_keyring_only_entry ... ok
+test oauth::tests::delete_oauth_tokens_propagates_keyring_errors ... ok
+test oauth::tests::delete_oauth_tokens_removes_all_storage ... ok
+test oauth::tests::delete_oauth_tokens_with_secrets_backend_removes_secrets_and_file ... ok
+test oauth::tests::exact_store_operations_do_not_adopt_or_mutate_the_other_store ... ok
+test oauth::tests::fallback_file_updates_the_existing_file ... ok
+test oauth::tests::fallback_file_write_does_not_follow_symlinks ... ok
+test oauth::tests::persistor_tests::missing_authoritative_credentials_require_reauthorization ... ok
+test oauth::tests::load_oauth_tokens_falls_back_when_missing_in_keyring ... ok
+test oauth::tests::load_oauth_tokens_with_secrets_backend_ignores_direct_entry ... ok
+test oauth::tests::load_oauth_tokens_with_secrets_backend_reads_encrypted_storage ... ok
+test oauth::tests::persistor_tests::changed_issuer_requires_reauthorization_before_refresh ... ok
+test oauth::tests::credential_store_tests::keyring_rejection_respects_credential_scope ... ok
+test oauth::tests::refresh_expires_in_from_timestamp_marks_expired_tokens ... ok
+test oauth::tests::refresh_expires_in_from_timestamp_restores_future_durations ... ok
+test oauth::tests::credential_store_tests::mutations_require_and_retain_the_transaction_guard ... ok
+test oauth::tests::persistor_tests::coordinated_401_refresh_rereads_and_persists_before_retry ... ok
+test oauth::tests::persistor_tests::coordinated_provider_timeout_excludes_lock_wait ... ok
+test oauth::tests::credential_store_tests::storage_roundtrip_preserves_absolute_and_unknown_expiry ... ok
+test oauth::tests::persistor_tests::expired_refresh_failure_preserves_credentials_for_a_later_retry ... ok
+test oauth::tests::persistor_tests::fresh_preparation_skips_storage_and_refresh_lock ... ok
+test oauth::tests::telemetry_tests::cleanup_failure_retains_policy_and_remains_best_effort ... ok
+test oauth::tests::persistor_tests::issuerless_newer_credentials_are_not_adopted_before_refresh ... ok
+test oauth::tests::telemetry_tests::coordinated_refresh_persistence_records_success_and_failure ... ok
+test oauth::tests::telemetry_tests::lock_errors_retain_typed_categories_through_wrappers ... ok
+test oauth::tests::telemetry_tests::policy_and_pinned_operations_keep_distinct_outcomes_and_originator ... ok
+test oauth_callback::tests::callback_redirect_requires_a_server_specific_id_or_issuer_support ... ok
+test oauth_callback::tests::resolved_callbacks_follow_the_selected_mix_up_defense ... ok
+test oauth::tests::persistor_tests::login_and_logout_follow_the_completed_refresh ... ok
+test oauth_client_registration::tests::legacy_provider_exceptions_require_exact_issuer_and_endpoint_origins ... ok
+test oauth::tests::load_oauth_tokens_falls_back_when_keyring_errors ... ok
+test oauth::tests::telemetry_tests::legacy_refresh_persistence_records_each_write_once ... ok
+test oauth_client_registration::tests::resource_headers_follow_same_origin_registration_redirect_and_sdk_auth_wins ... ok
+test oauth::tests::persistor_tests::missing_issuer_requires_reauthorization_before_refresh ... ok
+test oauth_client_registration::tests::verified_issuer_can_delegate_authorization_and_token_to_one_origin ... ok
+test oauth::tests::persistor_tests::proactive_refresh_failure_with_unexpired_token_does_not_require_reauthorization ... ok
+test oauth_client_registration::tests::automatic_registration_uses_server_without_hosted_identity ... ok
+test oauth_http_client::security_tests::oauth_metadata_fallback_shares_the_original_timeout ... ok
+test oauth_http_client::security_tests::oauth_metadata_fallback_preserves_terminal_failures ... ok
+test oauth_http_client::tests::agent_plugin_oauth_stops_only_for_sensitive_headers ... ok
+test ordered_byte_transport::tests::cancellation_cannot_overtake_request ... ok
+test perform_oauth_login::callback_input::tests::pasted_callback_preserves_configured_query_and_decodes_response ... ok
+test perform_oauth_login::callback_input::tests::pasted_callback_rejects_ambiguous_or_unbound_urls_without_echoing_values ... ok
+test perform_oauth_login::callback_input::tests::pasted_provider_error_requires_matching_state_and_redacts_description ... ok
+test perform_oauth_login::tests::append_query_param_adds_resource_to_absolute_url ... ok
+test perform_oauth_login::tests::append_query_param_handles_unparseable_url ... ok
+test perform_oauth_login::tests::append_query_param_ignores_empty_values ... ok
+test perform_oauth_login::tests::callback_id_is_appended_before_redirect_uri_query ... ok
+test perform_oauth_login::tests::callback_id_is_appended_to_redirect_uri_path ... ok
+test perform_oauth_login::tests::callback_id_is_bound_to_server_url ... ok
+test perform_oauth_login::tests::callback_path_comes_from_redirect_uri ... ok
+test oauth::tests::persistor_tests::provider_timeout_releases_lock_and_preserves_durable_credentials ... ok
+test perform_oauth_login::tests::interactive_oauth_login_uses_supplied_http_client ... ok
+test oauth::tests::persistor_tests::rejected_refresh_token_requires_reauthorization ... ok
+test oauth_http_client::security_tests::oauth_metadata_fallback_does_not_retry_other_requests_or_statuses ... ok
+test perform_oauth_login::tests::parse_oauth_callback_accepts_callback_id_path ... ok
+test perform_oauth_login::tests::parse_oauth_callback_accepts_custom_path ... ok
+test perform_oauth_login::tests::parse_oauth_callback_accepts_default_path ... ok
+test perform_oauth_login::tests::parse_oauth_callback_preserves_rfc_9207_issuer ... ok
+test perform_oauth_login::tests::parse_oauth_callback_rejects_missing_callback_id_path ... ok
+test perform_oauth_login::tests::parse_oauth_callback_rejects_wrong_path ... ok
+test perform_oauth_login::tests::parse_oauth_callback_returns_provider_error ... ok
+test perform_oauth_login::tests::portless_loopback_callbacks_use_the_active_listener_port ... ok
+test perform_oauth_login::tests::silent_oauth_login_uses_supplied_http_client ... ok
+test program_resolver::tests::test_resolved_program_executes_successfully ... ok
+test program_resolver::tests::test_unix_executes_script_without_extension ... ok
+test protocol_mode::tests::legacy_stdio_does_not_interpret_existing_protocol_markers ... ok
+test protocol_mode::tests::protocol_modes_select_compatible_sdk_lifecycles ... ok
+test protocol_mode::tests::stdio_rejects_unknown_protocol_markers ... ok
+test protocol_mode::tests::stdio_requires_both_the_modern_feature_and_a_server_opt_in ... ok
+test rmcp_client::streamable_http_retry::tests::retryable_initialize_error_includes_discovery_and_initialized_notification_context ... ok
+test rmcp_client::streamable_http_retry::tests::startup_http_authentication_challenges_require_reauthorization ... ok
+test rmcp_client::streamable_http_retry::tests::streamable_http_retry_classifies_transport_and_auth_errors ... ok
+test perform_oauth_login::tests::configured_client_preserves_exact_scopes_and_redirect_without_registration ... ok
+test rmcp_client::tests::client_operation_timeout_rounds_duration ... ok
+test rmcp_client::tests::active_time_timeout_pauses_while_elicitation_is_pending ... ok
+test rmcp_client::user_verification_cancellation_tests::cancelling_one_verification_leaves_the_mcp_connection_and_other_requests_alive ... ok
+test rmcp_client::user_verification_cancellation_tests::dropping_shared_resource_and_custom_requests_cancels_the_pending_request ... ok
+test rmcp_client::user_verification_cancellation_tests::dropping_tool_call_cancels_remote_request ... ok
+test rmcp_client::user_verification_cancellation_tests::ordinary_elicitations_release_pending_responses_on_cancellation ... ok
+test oauth_http_client::security_tests::oauth_registration_redirects_never_forward_resource_only_headers ... ok
+test oauth::tests::persistor_tests::rejection_callback_failure_keeps_reauthentication_and_redacts_diagnostics ... ok
+test rmcp_client::user_verification_cancellation_tests::transport_eof_releases_pending_elicitations_without_dropping_client ... ok
+test service_error::tests::request_error_codes_preserve_typed_causes_through_context ... ok
+test rmcp_client::user_verification_cancellation_tests::user_verification_service_cancellation_drops_pending_response ... ok
+test stdio_server_launcher::tests::remote_env_policy_effectively_filters_unrequested_vars ... ok
+test stdio_server_launcher::tests::remote_env_policy_includes_remote_source_vars_without_full_env ... ok
+test stdio_server_launcher::tests::remote_env_policy_uses_core_env_without_remote_source_vars ... ok
+test user_verification::tests::user_verification_acceptance_returns_proof_only_in_content ... ok
+test trace_context::tests::merged_metadata_preserves_params_and_prefers_extensions ... ok
+test user_verification::tests::user_verification_cancels_acceptance_without_a_valid_bounded_proof ... ok
+test user_verification::tests::user_verification_decline_and_cancel_discard_proof_material ... ok
+test user_verification::tests::user_verification_rejects_invalid_or_unbounded_requests_without_echoing_values ... ok
+test user_verification::tests::user_verification_request_metadata_matches_mcp_elicitation ... ok
+test user_verification::tests::user_verification_request_preserves_signed_bytes_and_display_text ... ok
+test oauth_http_client::security_tests::oauth_metadata_503_falls_back_to_oidc ... ok
+test utils::tests::create_env_includes_additional_whitelisted_variables ... ok
+test utils::tests::create_env_honors_overrides ... ok
+test utils::tests::create_env_preserves_path_when_it_is_not_utf8 ... ok
+test utils::tests::create_local_env_rejects_remote_source_variables ... ok
+test utils::tests::remote_mcp_env_var_names_returns_remote_source_names ... ok
+test utils::tests::create_remote_env_overlay_does_not_copy_remote_source_variables ... ok
+test utils::tests::create_remote_env_overlay_only_forwards_explicit_variables ... ok
+test www_authenticate::tests::does_not_treat_other_bearer_errors_as_insufficient_scope ... ok
+test www_authenticate::tests::ignores_scope_text_outside_a_scope_parameter ... ok
+test www_authenticate::tests::extracts_scope_from_bearer_insufficient_scope_challenges ... ok
+test www_authenticate::tests::rejects_invalid_or_ambiguous_scope_parameters ... ok
+test www_authenticate::tests::selects_bearer_challenge_from_a_later_www_authenticate_field_value ... ok
+test rmcp_client::user_verification_cancellation_tests::recovered_connections_accept_elicitations_with_previously_cancelled_ids ... ok
+test rmcp_client::tool_input_tests::connection_closure_releases_pending_inputs_and_timeout_pause ... ok
+test oauth::tests::persistor_tests::caller_cancellation_does_not_cancel_refresh_persistence ... ok
+test perform_oauth_login::tests::oauth_callback_validates_rfc_9207_issuer_before_token_exchange ... ok
+test oauth::tests::persistor_tests::resolved_keyring_read_error_preserves_in_memory_credentials ... ok
+test oauth_client_registration::tests::registration_selection_preserves_dcr_capabilities_and_exact_redirects ... ok
+test oauth_http_client::security_tests::same_origin_redirects_preserve_timeout_and_response_body_limits ... ok
+test oauth::tests::resolve_oauth_tokens_from_store_policy_uses_keyring_when_available ... ok
+test oauth::tests::persistor_tests::concurrent_refreshes_call_provider_once_and_carry_omitted_fields ... ok
+test oauth::tests::save_oauth_tokens_prefers_keyring_when_available ... ok
+test oauth::tests::save_oauth_tokens_with_secrets_backend_falls_back_to_file_when_keyring_fails ... ok
+test oauth::tests::save_oauth_tokens_with_secrets_backend_writes_encrypted_storage ... ok
+test oauth::tests::save_oauth_tokens_writes_fallback_when_keyring_fails ... ok
+test oauth::tests::stored_oauth_credentials_ignore_derived_expiration_and_track_token_changes ... ok
+test oauth::tests::persistor_tests::failed_refresh_adopts_login_completed_during_request ... ok
+test oauth::tests::persistor_tests::failed_refresh_does_not_adopt_unbound_replacement_credentials ... ok
+test perform_oauth_login::tests::ordinary_oauth_login_persists_issuer_without_a_refresh_token ... ok
+
+test result: ok. 260 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 41.57s
+

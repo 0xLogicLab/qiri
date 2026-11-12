@@ -64,7 +64,6 @@ use url::Url;
 
 const REALTIME_WIRE_LOG_TARGET: &str = "codex_api::realtime_websocket::wire";
 mod sideband;
-const OPENAI_REALTIME_API_BASE_URL: &str = "https://api.openai.com/v1";
 
 struct WsStream {
     tx_command: mpsc::Sender<WsCommand>,
@@ -893,13 +892,13 @@ enum RealtimeSessionInitialization {
 impl RealtimeWebsocketClient {
     pub fn new(provider: Provider, http_client_factory: HttpClientFactory) -> Self {
         Self {
+            webrtc_sideband_base_url: provider.base_url.clone(),
             provider,
             http_client_factory,
-            webrtc_sideband_base_url: OPENAI_REALTIME_API_BASE_URL.to_string(),
         }
     }
 
-    /// Overrides the direct WebRTC sideband URL for local development and tests.
+    /// Overrides the WebRTC sideband URL for a separately hosted custom endpoint.
     pub fn with_webrtc_sideband_base_url(mut self, base_url: String) -> Self {
         self.webrtc_sideband_base_url = base_url;
         self
@@ -2349,10 +2348,10 @@ mod tests {
     }
 
     #[test]
-    fn webrtc_frameless_sideband_ignores_provider_base_url() {
+    fn webrtc_frameless_sideband_uses_provider_base_url() {
         let client = test_client(Provider {
-            name: "chatgpt".to_string(),
-            base_url: "https://chatgpt.com/backend-api/codex".to_string(),
+            name: "custom".to_string(),
+            base_url: "http://127.0.0.1:8000/v1".to_string(),
             query_params: None,
             headers: HeaderMap::new(),
             retry: RetryConfig {
@@ -2373,7 +2372,7 @@ mod tests {
             )
             .expect("build ws url");
 
-        assert_eq!(url.as_str(), "wss://api.openai.com/v1/live/rtc_test");
+        assert_eq!(url.as_str(), "ws://127.0.0.1:8000/v1/live/rtc_test");
     }
 
     #[tokio::test]
