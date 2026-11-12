@@ -1,6 +1,6 @@
 # QIRI 前端流式 API
 
-QIRI 通过双向 WebSocket JSON-RPC API 将 `yzw` 等定制 Agent 提供给前端。
+QIRI 通过双向 WebSocket JSON-RPC API 将 科研 Agent 提供给前端。
 这里使用 WebSocket 而不是 MCP，是因为前端既要持续接收服务端事件，也要响应审批和
 用户输入请求。MCP 仍作为 Agent 内部调用工具的协议。
 
@@ -16,11 +16,8 @@ MCP 配置都会自动生效。
 # 通用 QIRI 配置
 qiri serve
 
-# 崖州湾配置和农业 MCP 工具
-yzw serve
-
 # 自定义本机端口和前端 Origin
-yzw serve --port 9000 --allow-origin http://localhost:3000
+qiri serve --port 9000 --allow-origin http://localhost:3000
 ```
 
 默认地址：
@@ -35,12 +32,12 @@ yzw serve --port 9000 --allow-origin http://localhost:3000
 到文件，再按以下方式启动：
 
 ```bash
-yzw serve \
+qiri serve \
   --host 0.0.0.0 \
   --port 8765 \
   --allow-origin https://frontend.example.com \
   --ws-auth capability-token \
-  --ws-token-file /run/secrets/yzw-websocket-token
+  --ws-token-file /run/secrets/qiri-websocket-token
 ```
 
 非浏览器客户端通过 `Authorization: Bearer <token>` 发送 token。浏览器 WebSocket API
@@ -68,8 +65,8 @@ yzw serve \
   "method": "initialize",
   "params": {
     "clientInfo": {
-      "name": "yzw-web",
-      "title": "YZW Web",
+      "name": "qiri-web",
+      "title": "QIRI Web",
       "version": "1.0.0"
     },
     "capabilities": {
@@ -93,7 +90,7 @@ yzw serve \
   "id": 2,
   "method": "thread/start",
   "params": {
-    "cwd": "/home/sig/workspace",
+    "cwd": "/path/to/research-project",
     "approvalPolicy": "on-request",
     "sandbox": "workspace-write"
   }
@@ -212,13 +209,13 @@ socket.onmessage = (event) => {
 
 socket.onopen = async () => {
   await request("initialize", {
-    clientInfo: { name: "yzw-web", title: "YZW Web", version: "1.0.0" },
+    clientInfo: { name: "qiri-web", title: "QIRI Web", version: "1.0.0" },
     capabilities: { experimentalApi: true },
   });
   socket.send(JSON.stringify({ jsonrpc: "2.0", method: "initialized" }));
 
   const started = await request("thread/start", {
-    cwd: "/home/sig/workspace",
+    cwd: "/path/to/research-project",
     approvalPolicy: "on-request",
     sandbox: "workspace-write",
   });
@@ -242,18 +239,3 @@ qiri app-server generate-ts --experimental --out ./qiri-app-server-types
 
 生产客户端应使用生成的类型绑定，不要手工维护请求和事件类型副本。
 
-## 分支工作流
-
-通用 API 功能先在 `main` 实现并提交，再把 `main` 合并到各定制分支：
-
-```bash
-git switch main
-git add codex-rs docs
-git commit -m "add frontend streaming server"
-
-git switch yzw
-git merge main
-```
-
-这样既保留 YZW 的领域定制提交，也能把通用服务能力带入 YZW 二进制。后续通用修改仍按
-同一方向同步：从 `main` 合并到 `yzw`、`cs` 和其他定制分支。

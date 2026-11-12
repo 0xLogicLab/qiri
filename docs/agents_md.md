@@ -1,3 +1,14 @@
-# AGENTS.md
+# QIRI 项目指令：AGENTS.md
 
-For information about AGENTS.md, see [this documentation](https://developers.openai.com/codex/guides/agents-md).
+在项目根目录编写 `AGENTS.md`，说明研究目标、目录结构、数据来源、复现实验命令和引用规范。QIRI 会将适用的项目指令加入会话。
+
+指令按全局、项目根目录到当前工作目录的顺序发现；更靠近工作目录的说明应明确其适用范围。`AGENTS.override.md` 可覆盖同目录的普通指令文件。全局指令位于配置目录（`CODEX_HOME`）中。
+
+```markdown
+# 研究约定
+- 原始数据放在 data/raw，禁止覆盖。
+- 分析代码放在 analysis，记录随机种子和依赖版本。
+- 结论引用 DOI 或原始数据路径，不把摘要当作全文证据。
+```
+
+这类指令用于指导模型，不代替文件权限、[沙箱](sandbox.md)或人工核验。

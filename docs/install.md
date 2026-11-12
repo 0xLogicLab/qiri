@@ -1,65 +1,42 @@
-## Installing & building
+# 安装与构建 QIRI
 
-### System requirements
-
-| Requirement                 | Details                                                         |
-| --------------------------- | --------------------------------------------------------------- |
-| Operating systems           | macOS 12+, Ubuntu 20.04+/Debian 10+, or Windows 11 **via WSL2** |
-| Git (optional, recommended) | 2.23+ for built-in PR helpers                                   |
-| RAM                         | 4-GB minimum (8-GB recommended)                                 |
-
-### DotSlash
-
-The GitHub Release also contains a [DotSlash](https://dotslash-cli.com/) file for the Codex CLI named `codex`. Using a DotSlash file makes it possible to make a lightweight commit to source control to ensure all contributors use the same version of an executable, regardless of what platform they use for development.
-
-### Build from source
+建议在 Linux、macOS 或 Windows 的 WSL2 环境构建。使用 [`rust-toolchain.toml`](../codex-rs/rust-toolchain.toml)固定的 Rust 版本；具体系统库需求取决于平台及所选 workspace 成员。
 
 ```bash
-# Clone the repository and navigate to the root of the Cargo workspace.
-git clone https://github.com/openai/codex.git
-cd codex/codex-rs
+git clone https://github.com/0xLogicLab/qiri.git
+cd qiri/codex-rs
+cargo build --release --locked -p codex-cli --bin codex
+mkdir -p "$HOME/.local/bin"
+install -m 755 target/release/codex "$HOME/.local/bin/qiri"
+```
 
-# Install the Rust toolchain, if necessary.
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-source "$HOME/.cargo/env"
-rustup component add rustfmt
-rustup component add clippy
-# Install helper tools used by the workspace justfile:
-cargo install --locked just
-# DotSlash fetches pinned development tools such as buildifier on first use.
-cargo install --locked dotslash
-# Install nextest for the `just test` helper.
-cargo install --locked cargo-nextest
+`codex-rs`、`codex-cli` crate 和 `codex` 构建目标是保留的内部兼容名称；用户安装后的二进制为 `qiri`。若设置了 `CARGO_TARGET_DIR`，请从该目录安装产物。
 
-# Build Codex.
-cargo build
+按照[配置示例](example-config.md)设置模型，再启动：
 
-# Launch the TUI with a sample prompt.
-cargo run --bin codex -- "explain this codebase to me"
+```bash
+CODEX_HOME="$HOME/.qiri-codex" "$HOME/.local/bin/qiri"
+```
 
-# After making changes, use the root justfile helpers (they default to codex-rs):
+启动器用法见[快速开始](getting-started.md)。当前文档不承诺上游安装脚本或发布包适用于 QIRI。
+
+## 开发验证
+
+```bash
+# 在 codex-rs 中运行；不使用 --all-features 作为例行验证。
+cargo check --locked
+cargo test --locked -p codex-cli --lib doctor::
+# 从仓库根运行维护工具（需要 just、cargo-nextest 等依赖）。
 just fmt
 just fix -p <crate-you-touched>
-
-# Run the relevant tests (project-specific is fastest), for example:
 just test -p codex-tui
-# `just test` runs the test suite via nextest:
-just test
-# Avoid `--all-features` for routine local runs because it increases build
-# time and `target/` disk usage by compiling additional feature combinations.
 ```
 
-## Tracing / verbose logging
-
-Codex is written in Rust, so it honors the `RUST_LOG` environment variable to configure its logging behavior.
-
-The TUI records diagnostics in bounded local stores by default. Set `log_dir` explicitly to enable a plaintext TUI log for a run:
+QIRI 使用 Rust 的 `RUST_LOG` 设置日志级别。TUI 默认保存有限本地诊断，设置 `log_dir` 可启用文本日志：
 
 ```bash
-codex -c log_dir=./.codex-log
-tail -F ./.codex-log/codex-tui.log
+qiri -c log_dir=./.qiri-log
+tail -F ./.qiri-log/codex-tui.log
 ```
 
-The non-interactive mode (`codex exec`) defaults to `RUST_LOG=error`, but messages are printed inline, so there is no need to monitor a separate file.
-
-See the Rust documentation on [`RUST_LOG`](https://docs.rs/env_logger/latest/env_logger/#enabling-logging) for more information on the configuration options.
+日志文件名保留内部命名。详见 [`RUST_LOG` 文档](https://docs.rs/env_logger/latest/env_logger/#enabling-logging)。

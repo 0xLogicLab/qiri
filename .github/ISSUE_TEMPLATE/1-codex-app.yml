@@ -1,5 +1,5 @@
-name: 🖥️ Codex App Bug
-description: Report an issue with the Codex App
+name: 🖥️ QIRI App Bug
+description: Report an issue with the QIRI App
 labels:
   - app
 body:
@@ -12,7 +12,7 @@ body:
   - type: input
     id: version
     attributes:
-      label: What version of the Codex App are you using (From “About Codex” dialog)?
+      label: What version of the QIRI App are you using (From “About QIRI” dialog)?
     validations:
       required: true
   - type: input
