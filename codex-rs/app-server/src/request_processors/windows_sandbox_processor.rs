@@ -40,7 +40,6 @@ impl WindowsSandboxRequestProcessor {
                 WindowsSandboxLevel::from_config(&self.config),
                 WindowsSandboxLevel::Elevated
             )
-            && !codex_login::is_workload_identity_selected()
         {
             let processor = self.clone();
             let request_id = request_id.clone();
@@ -156,8 +155,7 @@ impl WindowsSandboxRequestProcessor {
                 if setup_mode == CoreWindowsSandboxSetupMode::Elevated
                     && (codex_windows_sandbox::registered_core_requested()
                         || config.features.enabled(Feature::WindowsSandboxService))
-                    && !codex_login::is_workload_identity_selected()
-                {
+                        {
                     let provisioning = match config
                         .permissions
                         .network

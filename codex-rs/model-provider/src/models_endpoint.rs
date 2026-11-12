@@ -24,7 +24,6 @@ use codex_login::GatewayAuthManager;
 use codex_login::collect_auth_env_telemetry;
 use codex_login::default_client::ClientRedirectPolicy;
 use codex_login::default_client::create_client_for_route_async;
-use codex_model_provider_info::CHATGPT_CODEX_BASE_URL;
 use codex_model_provider_info::ModelProviderInfo;
 use codex_models_manager::ModelCatalogOriginator;
 use codex_models_manager::manager::ModelsEndpointClient;
@@ -42,13 +41,11 @@ use tokio::time::timeout;
 use crate::auth::ResolvedProviderAuth;
 use crate::auth::agent_identity_telemetry;
 use crate::auth::resolve_provider_auth;
-use crate::auth::uses_fedramp_api_key;
 use crate::combined_auth::compose_auth;
 use crate::provider::resolve_api_provider;
 
 const MODELS_REFRESH_TIMEOUT: Duration = Duration::from_secs(5);
 const MODELS_ENDPOINT: &str = "/models";
-const FEDRAMP_CODEX_BASE_URL: &str = "https://gov.chatgpt.com/backend-api/codex";
 
 /// Provider-owned OpenAI-compatible `/models` endpoint.
 #[derive(Debug)]
@@ -178,20 +175,8 @@ impl OpenAiModelsEndpoint {
         );
         let identity = crate::models_identity::identity(&self.provider_info, auth.as_ref())?;
         let auth_mode = auth.as_ref().map(CodexAuth::auth_mode);
-        let mut api_provider = resolve_api_provider(&self.provider_info, auth.as_ref())?;
-        if (auth.as_ref().is_some_and(CodexAuth::is_api_key_auth) || self.has_provider_api_key())
-            && self.supports_api_key_models()
-            && self.provider_info.base_url.is_none()
-            && self.provider_info.model_catalog_url.is_none()
-        {
-            // Codex metadata is served by the Codex backend, not the public /v1/models API.
-            api_provider.base_url = if uses_fedramp_api_key(auth.as_ref(), &self.provider_info)? {
-                FEDRAMP_CODEX_BASE_URL
-            } else {
-                CHATGPT_CODEX_BASE_URL
-            }
-            .to_string();
-        }
+        let api_provider = resolve_api_provider(&self.provider_info, auth.as_ref())?;
+
         let http_client_factory = match &selected_runtime_auth {
             Some((selected_runtime_auth, _)) => selected_runtime_auth
                 .bind_http_client_factory(http_client_factory)
@@ -318,8 +303,7 @@ impl ModelsEndpointClient for OpenAiModelsEndpoint {
     }
 
     fn supports_api_key_models(&self) -> bool {
-        self.provider_info.model_catalog_url.is_some()
-            || (self.provider_info.is_openai() && self.provider_info.base_url.is_none())
+        self.provider_info.model_catalog_url.is_some() || self.provider_info.base_url.is_some()
     }
 
     fn has_provider_api_key(&self) -> bool {
@@ -513,7 +497,3 @@ mod tests;
 #[cfg(test)]
 #[path = "models_endpoint_runtime_auth_tests.rs"]
 mod runtime_auth_tests;
-
-#[cfg(test)]
-#[path = "models_endpoint_refresh_tests.rs"]
-mod refresh_tests;

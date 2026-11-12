@@ -51,7 +51,7 @@ fn provider_info_with_command_auth() -> ModelProviderInfo {
                 .expect("current dir should be absolute"),
         }),
         requires_openai_auth: false,
-        ..ModelProviderInfo::create_openai_provider(/*base_url*/ None)
+        ..ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into()))
     }
 }
 
@@ -142,14 +142,14 @@ async fn scoped_auth_ignores_scope_for_non_openai_provider() {
 #[test]
 fn openai_provider_enables_remote_compaction() {
     let provider = create_model_provider(
-        ModelProviderInfo::create_openai_provider(/*base_url*/ None),
+        ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into())),
         /*auth_manager*/ None,
     );
 
     assert_eq!(
         provider.capabilities(),
         ProviderCapabilities {
-            remote_compaction: RemoteCompactionSupport::V2,
+            remote_compaction: RemoteCompactionSupport::Unsupported,
             ..ProviderCapabilities::default()
         }
     );
@@ -159,8 +159,8 @@ fn openai_provider_enables_remote_compaction() {
 fn configured_provider_remote_compaction_matches_provider_support() {
     let cases = [
         (
-            ModelProviderInfo::create_openai_provider(/*base_url*/ None),
-            RemoteCompactionSupport::V2,
+            ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into())),
+            RemoteCompactionSupport::Unsupported,
         ),
         (
             ModelProviderInfo {
@@ -193,7 +193,7 @@ fn configured_provider_remote_compaction_matches_provider_support() {
 #[test]
 fn configured_provider_uses_default_approval_review_preferred_model() {
     let provider = create_model_provider(
-        ModelProviderInfo::create_openai_provider(/*base_url*/ None),
+        ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into())),
         /*auth_manager*/ None,
     );
 
@@ -206,7 +206,7 @@ fn configured_provider_uses_default_approval_review_preferred_model() {
 #[test]
 fn configured_provider_uses_luna_for_approval_review_with_api_key_auth() {
     let provider = create_model_provider(
-        ModelProviderInfo::create_openai_provider(/*base_url*/ None),
+        ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into())),
         Some(AuthManager::from_auth_for_testing(CodexAuth::from_api_key(
             "openai-api-key",
         ))),
@@ -218,7 +218,7 @@ fn configured_provider_uses_luna_for_approval_review_with_api_key_auth() {
 #[test]
 fn configured_provider_uses_default_approval_review_model_with_chatgpt_auth() {
     let provider = create_model_provider(
-        ModelProviderInfo::create_openai_provider(/*base_url*/ None),
+        ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into())),
         Some(AuthManager::from_auth_for_testing(
             CodexAuth::create_dummy_chatgpt_auth_for_testing(),
         )),
@@ -254,89 +254,15 @@ impl codex_login::ExternalAuth for RotatingAuth {
 
 #[tokio::test]
 async fn configured_provider_resolves_default_and_explicit_endpoints() {
-    let provider = create_model_provider(
-        provider_for("https://example.test/v1".to_string()),
-        /*auth_manager*/ None,
-    );
-
-    assert_eq!(
-        provider
-            .runtime_base_url()
-            .await
-            .expect("runtime base URL should resolve"),
-        Some("https://example.test/v1".to_string())
-    );
-    assert_eq!(
-        provider.api_provider_and_auth().await.unwrap().0.base_url,
-        "https://example.test/v1"
-    );
-
-    let home = tempfile::tempdir().unwrap();
-    let auth = AuthManager::from_auth_for_testing_with_home(
-        CodexAuth::from_api_key("initial-key"),
-        home.path().to_path_buf(),
-    );
-    let provider = create_model_provider(
-        ModelProviderInfo::create_openai_provider(/*base_url*/ None),
-        Some(auth.clone()),
-    );
-    for (api_key, expected_base_url) in [
-        ("legacy-key", "https://api.openai.com/v1"),
-        (
-            "sk-proj-fedramp-synthetic-test-key",
-            "https://gov.api.openai.com/v1",
-        ),
-        ("commercial-key", "https://api.openai.com/v1"),
-    ] {
-        codex_login::login_with_api_key(
-            home.path(),
-            api_key,
-            codex_login::AuthCredentialsStoreMode::File,
-            codex_login::AuthKeyringBackendKind::default(),
-        )
-        .unwrap();
-        auth.reload().await;
-        let (api_provider, api_auth) = provider.api_provider_and_auth().await.unwrap();
-        assert_eq!(api_provider.base_url, expected_base_url);
-        let headers = api_auth.to_auth_headers().unwrap();
+    let info = ModelProviderInfo::create_local_provider(None);
+    assert!(resolve_api_provider(&info, None).is_err());
+    for key in ["local-key", "another-key"] {
+        let auth = CodexAuth::from_api_key(key);
+        let info =
+            ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into()));
         assert_eq!(
-            headers[http::header::AUTHORIZATION].to_str().unwrap(),
-            format!("Bearer {api_key}")
-        );
-    }
-    assert_eq!(provider.info().base_url, None);
-
-    let rotating_auth = Arc::new(RotatingAuth(AtomicUsize::new(0)));
-    auth.set_external_auth(rotating_auth.clone()).await.unwrap();
-    for (api_key, expected_base_url, expected_fedramp_header) in [
-        ("commercial-key", "https://api.openai.com/v1", None),
-        (
-            "sk-proj-fedramp-synthetic-test-key",
-            "https://gov.api.openai.com/v1",
-            Some("true"),
-        ),
-        ("commercial-key", "https://api.openai.com/v1", None),
-    ] {
-        let reads_before = rotating_auth.0.load(Ordering::SeqCst);
-        let (api_provider, api_auth) = provider.api_provider_and_auth().await.unwrap();
-        assert_eq!(rotating_auth.0.load(Ordering::SeqCst), reads_before + 1);
-        let headers = api_auth.to_auth_headers().unwrap();
-        let expected_authorization = format!("Bearer {api_key}");
-        assert_eq!(
-            (
-                api_provider.base_url.as_str(),
-                headers
-                    .get(http::header::AUTHORIZATION)
-                    .and_then(|value| value.to_str().ok()),
-                headers
-                    .get("X-OpenAI-Fedramp")
-                    .and_then(|value| value.to_str().ok()),
-            ),
-            (
-                expected_base_url,
-                Some(expected_authorization.as_str()),
-                expected_fedramp_header,
-            )
+            resolve_api_provider(&info, Some(&auth)).unwrap().base_url,
+            "http://localhost:8000/v1"
         );
     }
 }
@@ -618,74 +544,6 @@ async fn create_model_provider_uses_managed_auth_for_amazon_bedrock_provider() {
 }
 
 #[test]
-fn openai_provider_returns_unauthenticated_openai_account_state() {
-    let provider = create_model_provider(
-        ModelProviderInfo::create_openai_provider(/*base_url*/ None),
-        /*auth_manager*/ None,
-    );
-
-    assert_eq!(
-        provider.account_state(),
-        Ok(ProviderAccountState {
-            account: None,
-            requires_openai_auth: true,
-        })
-    );
-}
-
-#[test]
-fn openai_provider_returns_api_key_account_state() {
-    let provider = create_model_provider(
-        ModelProviderInfo::create_openai_provider(/*base_url*/ None),
-        Some(AuthManager::from_auth_for_testing(CodexAuth::from_api_key(
-            "openai-api-key",
-        ))),
-    );
-
-    assert_eq!(
-        provider.account_state(),
-        Ok(ProviderAccountState {
-            account: Some(ProviderAccount::ApiKey),
-            requires_openai_auth: true,
-        })
-    );
-}
-
-#[test]
-fn openai_provider_returns_chatgpt_account_state_without_email() {
-    let provider = create_model_provider(
-        ModelProviderInfo::create_openai_provider(/*base_url*/ None),
-        Some(AuthManager::from_auth_for_testing(
-            CodexAuth::create_dummy_chatgpt_auth_for_testing(),
-        )),
-    );
-
-    assert_eq!(
-        provider.account_state(),
-        Ok(ProviderAccountState {
-            account: Some(ProviderAccount::Chatgpt {
-                email: None,
-                plan_type: PlanType::Unknown,
-            }),
-            requires_openai_auth: true,
-        })
-    );
-}
-
-#[test]
-fn openai_provider_rejects_bedrock_api_key_account_state() {
-    let provider = create_model_provider(
-        ModelProviderInfo::create_openai_provider(/*base_url*/ None),
-        Some(AuthManager::from_auth_for_testing(bedrock_api_key_auth())),
-    );
-
-    assert_eq!(
-        provider.account_state(),
-        Err(ProviderAccountError::UnsupportedBedrockApiKeyAuth)
-    );
-}
-
-#[test]
 fn custom_non_openai_provider_returns_no_account_state() {
     let provider = create_model_provider(
         ModelProviderInfo {
@@ -726,113 +584,8 @@ fn amazon_bedrock_provider_returns_bedrock_account_state() {
 }
 
 #[tokio::test]
-async fn amazon_bedrock_provider_creates_static_models_manager() {
-    let provider = create_model_provider(
-        ModelProviderInfo::create_amazon_bedrock_provider(/*aws*/ None),
-        /*auth_manager*/ None,
-    );
-    let manager = provider.models_manager(test_codex_home(), /*config_model_catalog*/ None);
-    let uncached_manager =
-        provider.models_manager_without_cache(/*config_model_catalog*/ None);
-
-    let catalog = manager
-        .raw_model_catalog(
-            RefreshStrategy::Online,
-            HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault),
-        )
-        .await;
-    let uncached_catalog = uncached_manager
-        .raw_model_catalog(
-            RefreshStrategy::Online,
-            HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault),
-        )
-        .await;
-    assert_eq!(uncached_catalog, catalog);
-    for slug in [
-        "openai.gpt-6.1-sol",
-        "openai.gpt-6.1-terra",
-        "openai.gpt-6-sol",
-        "openai.gpt-6-luna",
-        "openai.gpt-5.6-sol",
-        "openai.gpt-6-astra",
-    ] {
-        let model_info = manager
-            .get_model_info(
-                slug,
-                &ModelsManagerConfig {
-                    model_context_window: Some(1_000_000),
-                    ..Default::default()
-                },
-            )
-            .await;
-        let mut expected_model_info = manager
-            .get_model_info(slug, &ModelsManagerConfig::default())
-            .await;
-        expected_model_info.context_window = Some(872_000);
-        assert_eq!(model_info, expected_model_info);
-    }
-
-    let models = catalog
-        .models
-        .iter()
-        .map(|model| (model.slug.as_str(), model.display_name.as_str()))
-        .collect::<Vec<_>>();
-
-    assert_eq!(
-        models,
-        vec![
-            ("openai.gpt-6.1-sol", "GPT-6.1 Sol"),
-            ("openai.gpt-6-astra", "GPT-6-Astra"),
-            ("openai.gpt-6.1-terra", "GPT-6.1 Terra"),
-            ("openai.gpt-6-sol", "GPT-6 Sol"),
-            ("openai.gpt-6-luna", "GPT-6 Luna"),
-            ("openai.gpt-5.6-sol", "GPT-5.6 Sol"),
-            ("openai.gpt-5.6-terra", "GPT-5.6 Terra"),
-            ("openai.gpt-5.6-luna", "GPT-5.6 Luna"),
-            ("openai.gpt-5.5", "GPT-5.5"),
-        ]
-    );
-
-    let available_models = manager
-        .list_models(
-            RefreshStrategy::Online,
-            HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault),
-        )
-        .await;
-    assert_eq!(
-        available_models
-            .iter()
-            .map(|preset| preset.model.as_str())
-            .collect::<Vec<_>>(),
-        vec![
-            "openai.gpt-6.1-sol",
-            "openai.gpt-6-astra",
-            "openai.gpt-6.1-terra",
-            "openai.gpt-6-sol",
-            "openai.gpt-6-luna",
-            "openai.gpt-5.6-sol",
-            "openai.gpt-5.6-terra",
-            "openai.gpt-5.6-luna",
-            "openai.gpt-5.5",
-        ]
-    );
-
-    let default_model = available_models
-        .iter()
-        .find(|preset| preset.is_default)
-        .expect("Bedrock catalog should have a default model");
-
-    assert_eq!(default_model.model, "openai.gpt-6.1-sol");
-}
-
-#[tokio::test]
 async fn configured_bedrock_catalog_preserves_service_tiers() {
-    let mut configured_model = codex_models_manager::bundled_models_response()
-        .expect("bundled models should parse")
-        .models
-        .into_iter()
-        .find(|model| model.slug == "gpt-5.5")
-        .expect("bundled models should include GPT-5.5");
+    let mut configured_model = remote_model("custom-model");
     configured_model.service_tiers = vec![codex_protocol::openai_models::ModelServiceTier {
         id: "custom-tier".to_string(),
         name: "Custom tier".to_string(),

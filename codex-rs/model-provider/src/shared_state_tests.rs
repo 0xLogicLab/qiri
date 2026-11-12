@@ -79,7 +79,8 @@ async fn gateway_credentials_accompany_primary_auth_in_models_and_responses() {
         };
         let info = ModelProviderInfo {
             gateway_oauth: Some(config.clone()),
-            ..ModelProviderInfo::create_openai_provider(Some(server.uri()))
+            requires_openai_auth: true,
+            ..ModelProviderInfo::create_local_provider(Some(server.uri()))
         };
         let mut primary_headers = HeaderMap::new();
         primary_headers.insert(
@@ -217,7 +218,7 @@ async fn gateway_preserves_runtime_auth_and_rejects_header_collisions() {
                     scheme: "Bearer".into(),
                 },
             }),
-            ..ModelProviderInfo::create_openai_provider(Some(server.uri()))
+            ..ModelProviderInfo::create_local_provider(Some(server.uri()))
         };
         let _gateway = seed_gateway_auth(
             &info,
@@ -319,7 +320,7 @@ async fn gateway_refresh_preserves_primary_auth_and_hides_issuer_errors() {
                     scheme: "Bearer".into(),
                 },
             }),
-            ..ModelProviderInfo::create_openai_provider(Some(server.uri()))
+            ..ModelProviderInfo::create_local_provider(Some(server.uri()))
         };
         let body = if succeeds {
             json!({"access_token": "rotated-token", "expires_in": 3600})
@@ -414,13 +415,16 @@ async fn models_cache_is_reused_only_for_matching_gateway_configuration() {
                 scheme: "Bearer".into(),
             },
         }),
-        ..ModelProviderInfo::create_openai_provider(Some(server.uri()))
+        ..ModelProviderInfo::create_local_provider(Some(server.uri()))
     };
     let factory = HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault);
-    let mut model = codex_models_manager::bundled_models_response()
-        .unwrap()
-        .models
-        .remove(0);
+    let mut model = codex_models_manager::test_support::construct_model_info_offline_for_tests(
+        "custom-model",
+        &codex_models_manager::ModelsManagerConfig::default(),
+    )
+    .model
+    .as_ref()
+    .clone();
     for resource in ["first", "second"] {
         info.gateway_oauth.as_mut().unwrap().resource =
             Some(format!("{}/{resource}", server.uri()));
@@ -495,7 +499,7 @@ async fn models_observe_gateway_rotation(instance: ProviderInstance) {
                 scheme: "Bearer".into(),
             },
         }),
-        ..ModelProviderInfo::create_openai_provider(Some(server.uri()))
+        ..ModelProviderInfo::create_local_provider(Some(server.uri()))
     };
     let gateway = seed_gateway_auth(
         &info,
@@ -509,10 +513,13 @@ async fn models_observe_gateway_rotation(instance: ProviderInstance) {
         ProviderInstance::Same => provider,
         ProviderInstance::Separate => create_model_provider(info, Some(primary)),
     };
-    let mut first = codex_models_manager::bundled_models_response()
-        .unwrap()
-        .models
-        .remove(0);
+    let mut first = codex_models_manager::test_support::construct_model_info_offline_for_tests(
+        "custom-model",
+        &codex_models_manager::ModelsManagerConfig::default(),
+    )
+    .model
+    .as_ref()
+    .clone();
     first.slug = "catalog-first".into();
     let mut second = first.clone();
     second.slug = "catalog-second".into();
@@ -610,7 +617,7 @@ async fn gateway_setup_errors_are_reported_when_authentication_is_requested() {
                 scheme: "Bearer".into(),
             },
         }),
-        ..ModelProviderInfo::create_openai_provider(Some(server.uri()))
+        ..ModelProviderInfo::create_local_provider(Some(server.uri()))
     };
     let provider = create_model_provider(info.clone(), /*auth_manager*/ None);
     assert_eq!(
@@ -678,7 +685,7 @@ async fn gateway_login_required_invalidates_the_last_successful_catalog() {
                 scheme: "Bearer".into(),
             },
         }),
-        ..ModelProviderInfo::create_openai_provider(Some(server.uri()))
+        ..ModelProviderInfo::create_local_provider(Some(server.uri()))
     };
     let login_control = codex_login::GatewayLoginControl::for_runtime(&primary.runtime_config());
     login_control.require_explicit_login();
@@ -763,7 +770,7 @@ async fn gateway_login_states_stop_request_retries() {
                 scheme: "Bearer".into(),
             },
         }),
-        ..ModelProviderInfo::create_openai_provider(Some(server.uri()))
+        ..ModelProviderInfo::create_local_provider(Some(server.uri()))
     };
     let login_control = codex_login::GatewayLoginControl::for_runtime(&primary.runtime_config());
     login_control.require_explicit_login();

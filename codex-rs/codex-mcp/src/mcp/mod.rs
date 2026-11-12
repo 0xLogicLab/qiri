@@ -34,7 +34,6 @@ use codex_connectors::ConnectorSnapshot;
 use codex_connectors::connector_runtime_context_key;
 use codex_exec_server::FileSystemSandboxContext;
 use codex_login::CodexAuth;
-use codex_model_provider::CHATGPT_CODEX_BASE_URL;
 use codex_protocol::mcp::ClientMcpExtensions;
 use codex_protocol::mcp::McpServerInfo;
 use codex_protocol::mcp::Resource;
@@ -384,39 +383,6 @@ pub fn effective_mcp_servers(
     effective_mcp_servers_from_configured(configured_mcp_servers(config), config, auth)
 }
 
-pub(crate) fn is_trusted_chatgpt_mcp_server(
-    transport: &McpServerTransportConfig,
-    chatgpt_base_url: &str,
-) -> bool {
-    let McpServerTransportConfig::StreamableHttp { url, .. } = transport else {
-        return false;
-    };
-    let Ok(server_url) = url::Url::parse(url) else {
-        return false;
-    };
-    if !matches!(server_url.scheme(), "http" | "https") {
-        return false;
-    }
-
-    if [CHATGPT_CODEX_BASE_URL, "https://gov.chatgpt.com"]
-        .into_iter()
-        .filter_map(|base_url| url::Url::parse(base_url).ok())
-        .any(|trusted_url| server_url.origin() == trusted_url.origin())
-    {
-        return true;
-    }
-
-    url::Url::parse(chatgpt_base_url)
-        .ok()
-        .is_some_and(|staging_url| {
-            staging_url.scheme() == "https"
-                && staging_url.domain().is_some_and(|host| {
-                    host == "chatgpt-staging.com" || host.ends_with(".chatgpt-staging.com")
-                })
-                && server_url.origin() == staging_url.origin()
-        })
-}
-
 /// Converts a materialized server map to its auth-gated runtime view.
 ///
 /// Compatibility built-ins and extension overlays must already be reflected in
@@ -443,9 +409,7 @@ pub fn effective_mcp_servers_from_configured(
                 .expect("materialized MCP server must have a catalog registration");
             match server.auth.clone() {
                 McpServerAuth::ChatGpt => {
-                    if !is_trusted_chatgpt_mcp_server(&server.transport, &config.chatgpt_base_url) {
-                        server.auth = McpServerAuth::OAuth;
-                    }
+                    server.auth = McpServerAuth::OAuth;
                 }
                 McpServerAuth::OAuth | McpServerAuth::EmaAuth => {}
             }

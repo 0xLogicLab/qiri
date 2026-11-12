@@ -270,7 +270,7 @@ pub(super) async fn start_app_server_for_session_command(
         .with_remote_cwd_override(cli.cwd.clone()));
     }
 
-    let workload_identity_selected = codex_login::is_workload_identity_selected();
+    let workload_identity_selected = false;
     let reuse_implicit_local_daemon = !cli.no_daemon
         && !workload_identity_selected
         && super::daemon_startup::config_exclusion(

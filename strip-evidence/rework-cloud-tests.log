@@ -1,0 +1,134 @@
+warning: function `create_raw_auth_client` is never used
+   --> login/src/auth/default_client.rs:439:15
+    |
+439 | pub(crate) fn create_raw_auth_client(
+    |               ^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: fields `storage`, `original`, `workspace_id`, `email`, and `connection` are never read
+  --> login/src/auth/manager/workspace_switching.rs:32:5
+   |
+31 | pub struct WorkspaceLogin {
+   |            -------------- fields in this struct
+32 |     storage: Arc<dyn AuthStorageBackend>,
+   |     ^^^^^^^
+33 |     original: AuthDotJson,
+   |     ^^^^^^^^
+34 |     pub(crate) workspace_id: String,
+   |                ^^^^^^^^^^^^
+35 |     pub(crate) email: Option<String>,
+   |                ^^^^^
+36 |     pub(crate) connection: Option<String>,
+   |                ^^^^^^^^^^
+   |
+   = note: `WorkspaceLogin` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: method `save` is never used
+  --> login/src/auth/manager/workspace_switching.rs:46:19
+   |
+45 | impl WorkspaceLogin {
+   | ------------------- method in this implementation
+46 |     pub(crate) fn save(&self, mut updated: AuthDotJson) -> io::Result<()> {
+   |                   ^^^^
+
+warning: fields `code` and `description` are never read
+  --> login/src/oauth/authorization.rs:62:9
+   |
+61 |     Provider {
+   |     -------- fields in this variant
+62 |         code: &'a str,
+   |         ^^^^
+63 |         description: Option<&'a str>,
+   |         ^^^^^^^^^^^
+
+warning: `codex-login` (lib) generated 4 warnings
+warning: unused import: `anyhow::bail`
+ --> rmcp-client/src/oauth_client_registration.rs:4:5
+  |
+4 | use anyhow::bail;
+  |     ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-rmcp-client` (lib) generated 1 warning (run `cargo fix --lib -p codex-rmcp-client` to apply 1 suggestion)
+warning: constant `MAX_DECODED_UPLOAD_BYTES` is never used
+  --> feedback/src/lib.rs:59:7
+   |
+59 | const MAX_DECODED_UPLOAD_BYTES: usize = 200 * 1024 * 1024;
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: method `feedback_attachments` is never used
+   --> feedback/src/lib.rs:717:8
+    |
+535 | impl FeedbackSnapshot {
+    | --------------------- method in this implementation
+...
+717 |     fn feedback_attachments<'a>(
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `archive_rollouts` is never used
+  --> feedback/src/rollout_archive.rs:20:15
+   |
+20 | pub(super) fn archive_rollouts<'a>(
+   |               ^^^^^^^^^^^^^^^^
+
+warning: function `with_individual_fallback` is never used
+  --> feedback/src/rollout_archive.rs:65:15
+   |
+65 | pub(super) fn with_individual_fallback<'a>(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `append_rollout` is never used
+  --> feedback/src/rollout_archive.rs:95:4
+   |
+95 | fn append_rollout<W: Write>(
+   |    ^^^^^^^^^^^^^^
+
+warning: struct `BoundedWriter` is never constructed
+   --> feedback/src/rollout_archive.rs:129:8
+    |
+129 | struct BoundedWriter<W> {
+    |        ^^^^^^^^^^^^^
+
+warning: function `encode_envelope` is never used
+  --> feedback/src/upload.rs:13:15
+   |
+13 | pub(super) fn encode_envelope(envelope: &Envelope) -> io::Result<(Vec<u8>, usize)> {
+   |               ^^^^^^^^^^^^^^^
+
+warning: function `encode_attachment_envelope` is never used
+  --> feedback/src/upload.rs:30:15
+   |
+30 | pub(super) fn encode_attachment_envelope(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `CountingWriter` is never constructed
+  --> feedback/src/upload.rs:48:8
+   |
+48 | struct CountingWriter<W> {
+   |        ^^^^^^^^^^^^^^
+
+warning: `codex-feedback` (lib) generated 9 warnings
+   Compiling codex-cloud-config v0.0.0 (/home/sig/files/qiri-release/codex-rs/cloud-config)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 17.14s
+     Running unittests src/lib.rs (target/debug/deps/codex_cloud_config-fe1f19debb069cef)
+
+running 13 tests
+test cache::tests::load_rejects_missing_request_identity_before_reading_cache_file ... ok
+test cache::tests::load_reports_missing_and_malformed_cache_files ... ok
+test cache::tests::load_rejects_tampered_payload ... ok
+test cache::tests::load_rejects_expired_cache ... ok
+test cache::tests::load_rejects_unsupported_cache_version ... ok
+test cache::tests::load_rejects_cache_for_incomplete_or_different_identity ... ok
+test cache::tests::save_writes_signed_payload_and_loads_for_matching_identity ... ok
+test validation::tests::cloud_fragments_combine_before_provider_validation ... ok
+test validation::tests::cloud_validation_rejects_mixed_network_requirements ... ok
+test validation::tests::cloud_bedrock_overrides_accept_supported_fields ... ok
+test config_server::tests::policy_fetch_requires_config_server_sign_in ... ok
+test config_server::tests::cached_policy_is_reused_only_for_the_same_endpoint ... ok
+test config_server::tests::policy_fetch_uses_replacement_config_server_credentials ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 7.80s

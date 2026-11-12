@@ -75,7 +75,7 @@ async fn prepared_realtime_routing_follows_selected_api_key_and_explicit_overrid
                 |config| {
                     config.model_provider = ModelProviderInfo {
                         experimental_bearer_token: Some(api_key.into()),
-                        ..ModelProviderInfo::create_openai_provider(base_url.map(str::to_string))
+                        ..ModelProviderInfo::create_local_provider(base_url.map(str::to_string))
                     };
                     config.experimental_realtime_ws_base_url =
                         realtime_base_url.map(str::to_string);

@@ -18,7 +18,6 @@ use codex_login::default_client::set_default_client_residency_requirement;
 use codex_model_provider_info::AMAZON_BEDROCK_PROVIDER_ID;
 use codex_model_provider_info::AMAZON_BEDROCK_RUNTIME_PROVIDER_ID;
 use codex_model_provider_info::GCP_PROVIDER_ID;
-use codex_model_provider_info::OPENAI_PROVIDER_ID;
 use codex_model_provider_info::built_in_model_providers;
 use codex_model_provider_info::merge_configured_model_providers;
 use codex_utils_absolute_path::AbsolutePathBuf;
@@ -378,11 +377,9 @@ impl ConfigManager {
                     AMAZON_BEDROCK_PROVIDER_ID
                         | AMAZON_BEDROCK_RUNTIME_PROVIDER_ID
                         | GCP_PROVIDER_ID
-                        | OPENAI_PROVIDER_ID
                 ) =>
             {
                 // Managed overrides must receive the same built-in defaults as startup config.
-                // OpenAI's inference URL belongs to the retained session, not the catalog override.
                 let mut provider = merge_configured_model_providers(
                     built_in_model_providers(current.model_provider.base_url.clone()),
                     HashMap::from([(current.model_provider_id.clone(), provider)]),

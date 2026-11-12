@@ -219,7 +219,7 @@ async fn installed_extension_warms_connections_without_blocking_thread_start() -
     let server = responses::start_websocket_server_with_headers(connections).await;
     let auth_manager = AuthManager::from_auth_for_testing(CodexAuth::from_api_key("test-api-key"));
     let mut config = test.config.clone();
-    config.model_provider = ModelProviderInfo::create_openai_provider(Some(format!(
+    config.model_provider = ModelProviderInfo::create_local_provider(Some(format!(
         "http://{}/v1",
         server.uri().trim_start_matches("ws://")
     )));
@@ -286,7 +286,7 @@ async fn installed_extension_uses_http_after_warm_socket_auth_expires() -> Resul
         .set_external_auth(Arc::new(RefreshableAuth(std::sync::Mutex::new("original"))))
         .await?;
     let mut config = test.config.clone();
-    config.model_provider = ModelProviderInfo::create_openai_provider(Some(
+    config.model_provider = ModelProviderInfo::create_local_provider(Some(
         proxy_websocket_servers_with_http(
             &[&server; INITIAL_WEBSOCKET_CONNECTIONS],
             ProxyPrewarmLimit::AllConnections,
@@ -1024,7 +1024,7 @@ async fn sample_configured_conversation_history_with_delivery(
     let mut connections = vec![Vec::new(); INITIAL_WEBSOCKET_CONNECTIONS - 1];
     connections.push(vec![events]);
     let server = responses::start_websocket_server(connections).await;
-    let provider_info = ModelProviderInfo::create_openai_provider(Some(format!(
+    let provider_info = ModelProviderInfo::create_local_provider(Some(format!(
         "http://{}/v1",
         server.uri().trim_start_matches("ws://")
     )));
@@ -1335,7 +1335,7 @@ async fn contributor_fails_closed_when_luna_classification_fails() -> Result<()>
     connections.push(vec![invalid_score]);
     let server = responses::start_websocket_server(connections).await;
     let mut config = fixture.test.config.clone();
-    config.model_provider = ModelProviderInfo::create_openai_provider(Some(format!(
+    config.model_provider = ModelProviderInfo::create_local_provider(Some(format!(
         "http://{}/v1",
         server.uri().trim_start_matches("ws://")
     )));
@@ -2426,7 +2426,7 @@ async fn contributor_skips_required_models_in_standard_scope() -> Result<()> {
 
     let server =
         responses::start_websocket_server(vec![Vec::new(); INITIAL_WEBSOCKET_CONNECTIONS]).await;
-    let provider_info = ModelProviderInfo::create_openai_provider(Some(format!(
+    let provider_info = ModelProviderInfo::create_local_provider(Some(format!(
         "http://{}/v1",
         server.uri().trim_start_matches("ws://")
     )));
@@ -3266,7 +3266,7 @@ async fn assert_parent_compaction_reuse(parent_context_for_review: bool) -> Resu
     let mut connections = vec![Vec::new(); INITIAL_WEBSOCKET_CONNECTIONS - 1];
     connections.push(vec![events]);
     let server = responses::start_websocket_server(connections).await;
-    let provider_info = ModelProviderInfo::create_openai_provider(Some(format!(
+    let provider_info = ModelProviderInfo::create_local_provider(Some(format!(
         "http://{}/v1",
         server.uri().trim_start_matches("ws://")
     )));

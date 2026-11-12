@@ -191,7 +191,7 @@ async fn http_requests_keep_matching_runtime_and_credentials_across_retries_and_
         .mount(&server)
         .await;
     let mut provider =
-        ModelProviderInfo::create_openai_provider(Some(format!("{}/v1", server.uri())));
+        ModelProviderInfo::create_local_provider(Some(format!("{}/v1", server.uri())));
     provider.supports_websockets = false;
     provider.http_headers = Some(std::collections::HashMap::from([
         ("openai-organization".into(), "org-a".into()),
@@ -417,7 +417,7 @@ async fn mismatched_organization_never_sends_model_request(mode: RuntimeAuthMode
         .mount(&server)
         .await;
     let mut provider =
-        ModelProviderInfo::create_openai_provider(Some(format!("{}/v1", server.uri())));
+        ModelProviderInfo::create_local_provider(Some(format!("{}/v1", server.uri())));
     provider.supports_websockets = false;
     provider.http_headers =
         Some([(String::from("OpenAI-Organization"), "another-org".into())].into());
@@ -452,7 +452,7 @@ async fn gateway_refresh_failure_blocks_runtime_inference(mode: RuntimeAuthMode)
         .mount(&server)
         .await;
     let mut provider =
-        ModelProviderInfo::create_openai_provider(Some(format!("{}/v1", server.uri())));
+        ModelProviderInfo::create_local_provider(Some(format!("{}/v1", server.uri())));
     provider.supports_websockets = false;
     provider.gateway_oauth = Some(gateway_config(
         &server,

@@ -28,7 +28,7 @@ fn test_api_provider_applies_current_managed_residency() {
             "X-OpenAI-Internal-Codex-Residency".to_string() => "eu".into(),
             "x-provider-header".to_string() => "preserved".into(),
         }),
-        ..ModelProviderInfo::create_openai_provider(/*base_url*/ None)
+        ..ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into()))
     };
     let original_info = info.clone();
     let previous_requirement = read_managed_residency_requirement();
@@ -219,39 +219,6 @@ supports_websockets = true
 
     let provider: ModelProviderInfo = toml::from_str(provider_toml).unwrap();
     assert_eq!(provider.websocket_connect_timeout_ms, Some(15_000));
-}
-
-#[test]
-fn test_personal_access_token_uses_chatgpt_codex_base_url() {
-    let api_provider = ModelProviderInfo::create_openai_provider(/*base_url*/ None)
-        .to_api_provider(Some(AuthMode::PersonalAccessToken))
-        .expect("OpenAI provider should build API provider");
-
-    assert_eq!(api_provider.base_url, CHATGPT_CODEX_BASE_URL);
-}
-
-#[test]
-fn test_header_auth_uses_chatgpt_codex_base_url() {
-    let api_provider = ModelProviderInfo::create_openai_provider(/*base_url*/ None)
-        .to_api_provider(Some(AuthMode::Headers))
-        .expect("OpenAI provider should build API provider");
-
-    assert_eq!(api_provider.base_url, CHATGPT_CODEX_BASE_URL);
-}
-
-#[test]
-fn codex_backend_routes_require_codex_base_url() {
-    for (base_url, expected) in [
-        (None, true),
-        (Some(CHATGPT_CODEX_BASE_URL), true),
-        (Some("https://chatgpt-staging.com/backend-api/codex/"), true),
-        (Some("https://backend.example.com/api/codex"), false),
-        (Some("https://backend.example.com/api/codex/"), false),
-        (Some("https://proxy.example.com/v1"), false),
-    ] {
-        let provider = ModelProviderInfo::create_openai_provider(base_url.map(str::to_owned));
-        assert_eq!(provider.supports_codex_backend_routes(), expected);
-    }
 }
 
 #[test]
@@ -448,10 +415,11 @@ fn provider_auth_for_test() -> ModelProviderAuthInfo {
 
 #[test]
 fn test_amazon_bedrock_providers_add_mantle_client_agent_header() {
-    for provider in [
+    for mut provider in [
         ModelProviderInfo::create_amazon_bedrock_provider(/*aws*/ None),
         ModelProviderInfo::create_amazon_bedrock_runtime_provider(/*aws*/ None),
     ] {
+        provider.base_url = Some("http://localhost:8000/v1".into());
         let api_provider = provider
             .to_api_provider(/*auth_mode*/ None)
             .expect("Amazon Bedrock provider should build API provider");
@@ -812,12 +780,12 @@ fn test_validate_provider_aws_rejects_conflicting_auth() {
         }),
         env_key: Some("AWS_BEARER_TOKEN_BEDROCK".to_string()),
         supports_websockets: false,
-        ..ModelProviderInfo::create_openai_provider(/*base_url*/ None)
+        ..ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into()))
     };
 
     assert_eq!(
         provider.validate(),
-        Err("provider aws cannot be combined with env_key, requires_openai_auth".to_string())
+        Err("provider aws cannot be combined with env_key".to_string())
     );
 }
 
@@ -832,7 +800,7 @@ fn test_validate_provider_aws_rejects_websockets() {
         }),
         requires_openai_auth: false,
         supports_websockets: true,
-        ..ModelProviderInfo::create_openai_provider(/*base_url*/ None)
+        ..ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into()))
     };
 
     assert_eq!(
@@ -995,94 +963,6 @@ model_catalog_url = "https://gateway.example/codex/catalog?token=catalog-secret"
 }
 
 #[test]
-fn builtin_openai_catalog_override_preserves_inference_and_identity() {
-    for inference_url in [None, Some("https://us.api.openai.com/v1")] {
-        for catalog_url in [None, Some("https://chatgpt.com/backend-api/codex/models")] {
-            let configured: ModelProviderInfo = toml::from_str(&format!(
-                "name = \"Ignored name\"\nbase_url = \"https://ignored.example/v1\"\nrequires_openai_auth = false\n{}",
-                catalog_url.map(|url| format!("model_catalog_url = {url:?}")).unwrap_or_default()
-            )).unwrap();
-            let builtins = built_in_model_providers(inference_url.map(str::to_owned));
-            let mut expected = builtins.clone();
-            expected.get_mut("openai").unwrap().model_catalog_url = catalog_url.map(Into::into);
-            assert_eq!(
-                merge_configured_model_providers(
-                    builtins,
-                    HashMap::from([("openai".to_string(), configured)]),
-                )
-                .unwrap(),
-                expected,
-            );
-        }
-    }
-}
-
-#[test]
-fn builtin_openai_catalog_rejects_untrusted_destinations() {
-    for url in [
-        "http://chatgpt.com/backend-api/codex/models",
-        "https://chatgpt.com.evil.example/models",
-        "https://evilchatgpt.com/models",
-        "https://api.openai.com/v1/models",
-        "https://example.com/models?secret=do-not-log",
-        "https://user:secret@chatgpt.com/models",
-        "/models",
-        "not a URL",
-    ] {
-        let provider = ModelProviderInfo {
-            model_catalog_url: Some(url.into()),
-            ..Default::default()
-        };
-        assert_eq!(
-            merge_configured_model_providers(
-                built_in_model_providers(/*openai_base_url*/ None),
-                HashMap::from([("openai".to_string(), provider.clone())]),
-            )
-            .unwrap_err(),
-            "model_providers.openai.model_catalog_url must use an allowed ChatGPT host. If you need to use a 3rd party host, configure a custom model_provider",
-        );
-        let mut expected = built_in_model_providers(/*openai_base_url*/ None);
-        expected.insert("custom".into(), provider.clone());
-        assert_eq!(
-            merge_configured_model_providers(
-                built_in_model_providers(/*openai_base_url*/ None),
-                HashMap::from([("custom".into(), provider)]),
-            )
-            .unwrap(),
-            expected,
-        );
-    }
-}
-
-#[test]
-fn builtin_openai_catalog_accepts_existing_chatgpt_hosts() {
-    for host in [
-        "chatgpt.com",
-        "gov.chatgpt.com",
-        "chat.openai.com",
-        "chatgpt-staging.com",
-        "api.chatgpt-staging.com",
-        "CHATGPT.COM",
-    ] {
-        let url = format!("https://{host}/backend-api/codex/models");
-        let provider = ModelProviderInfo {
-            model_catalog_url: Some(url.clone().into()),
-            ..Default::default()
-        };
-        let mut expected = built_in_model_providers(/*openai_base_url*/ None);
-        expected.get_mut("openai").unwrap().model_catalog_url = Some(url.into());
-        assert_eq!(
-            merge_configured_model_providers(
-                built_in_model_providers(/*openai_base_url*/ None),
-                HashMap::from([("openai".into(), provider)]),
-            )
-            .unwrap(),
-            expected
-        );
-    }
-}
-
-#[test]
 fn cyber_access_program_capability_uses_provider_identity_and_explicit_overrides() {
     for provider_id in [
         OPENAI_PROVIDER_ID,
@@ -1101,11 +981,43 @@ fn cyber_access_program_capability_uses_provider_identity_and_explicit_overrides
             let provider: ModelProviderInfo = toml::from_str(&config).unwrap();
             assert_eq!(
                 provider.supports_cyber_access_programs(provider_id),
-                configured.unwrap_or(provider_id == OPENAI_PROVIDER_ID),
+                configured.unwrap_or(false),
             );
             let round_trip: ModelProviderInfo =
                 toml::from_str(&toml::to_string(&provider).unwrap()).unwrap();
             assert_eq!(round_trip, provider);
         }
     }
+}
+
+#[test]
+fn local_provider_requires_explicit_endpoint_for_every_auth_mode() {
+    let default = built_in_model_providers(None);
+    assert!(!default.contains_key("openai"));
+    let provider = &default[LOCAL_PROVIDER_ID];
+    assert!(!provider.requires_openai_auth);
+    for mode in [
+        None,
+        Some(AuthMode::ApiKey),
+        Some(AuthMode::Chatgpt),
+        Some(AuthMode::Headers),
+    ] {
+        assert!(provider.to_api_provider(mode).is_err());
+        let configured =
+            ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into()));
+        assert_eq!(
+            configured.to_api_provider(mode).unwrap().base_url,
+            "http://localhost:8000/v1"
+        );
+    }
+}
+#[test]
+fn local_entry_accepts_explicit_custom_endpoint_and_catalog() {
+    let provider: ModelProviderInfo = toml::from_str("name = 'Local'\nbase_url = 'http://localhost:8000/v1'\nmodel_catalog_url = 'http://localhost:8000/catalog'").unwrap();
+    let merged = merge_configured_model_providers(
+        built_in_model_providers(None),
+        HashMap::from([("local".into(), provider.clone())]),
+    )
+    .unwrap();
+    assert_eq!(merged["local"], provider);
 }

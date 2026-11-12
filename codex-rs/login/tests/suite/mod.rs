@@ -1,3 +1,1 @@
-// Aggregates all former standalone integration tests as modules.
-mod auth_refresh;
-mod logout;
+// Service account exchange suites were removed with the service clients.

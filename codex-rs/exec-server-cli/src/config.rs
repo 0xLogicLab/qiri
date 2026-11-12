@@ -63,12 +63,7 @@ pub(super) async fn load_exec_server_remote_auth_provider(
         validate_api_key_remote_host(base_url)?;
     }
 
-    if auth_manager.is_workload_identity_selected() {
-        Ok(codex_model_provider::auth_provider_from_auth_manager(
-            auth_manager,
-            &auth,
-        ))
-    } else if auth.is_chatgpt_auth() {
+    if auth.is_chatgpt_auth() {
         Ok(exec_server_auth::chatgpt_auth_provider(
             auth_manager,
             &auth,

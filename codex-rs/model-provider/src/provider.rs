@@ -12,7 +12,6 @@ use codex_features::RuntimeAuthMode;
 use codex_login::AuthManager;
 use codex_login::CodexAuth;
 use codex_login::GatewayAuthManager;
-use codex_login::WorkspaceRoutingRequest;
 use codex_login::default_client::ClientRedirectPolicy;
 use codex_model_provider_info::ModelProviderInfo;
 use codex_models_manager::cache::ModelsCache;
@@ -33,7 +32,6 @@ use crate::auth::ResolvedProviderAuth;
 use crate::auth::auth_manager_for_provider;
 use crate::auth::resolve_provider_auth;
 use crate::auth::resolve_provider_auth_for_scope;
-use crate::auth::uses_fedramp_api_key;
 use crate::combined_auth::compose_auth;
 use crate::gcp::GcpModelProvider;
 use crate::models_endpoint::OpenAiModelsEndpoint;
@@ -95,8 +93,6 @@ pub const DEFAULT_APPROVAL_REVIEW_PREFERRED_MODEL: &str = "codex-auto-review";
 
 const API_KEY_APPROVAL_REVIEW_PREFERRED_MODEL: &str = "gpt-5.6-luna";
 
-const FEDRAMP_API_BASE_URL: &str = "https://gov.api.openai.com/v1";
-
 /// Default model used for memory extraction when a provider does not require a
 /// backend-specific model ID.
 pub const DEFAULT_MEMORY_EXTRACTION_PREFERRED_MODEL: &str = "gpt-6-luna";
@@ -123,14 +119,8 @@ pub trait ModelProvider: fmt::Debug + Send + Sync {
     fn info(&self) -> &ModelProviderInfo;
 
     /// Returns whether the resolved Responses provider may receive internal tool metadata.
-    fn include_internal_metadata(&self, provider: &Provider) -> bool {
+    fn include_internal_metadata(&self, _provider: &Provider) -> bool {
         self.info().include_internal_metadata
-            || url::Url::parse(&provider.base_url).ok().is_some_and(|url| {
-                url.scheme() == "https"
-                    && url.host_str().is_some_and(|host| {
-                        host == "api.openai.com" || codex_http_client::is_allowed_chatgpt_host(host)
-                    })
-            })
     }
 
     /// Returns the provider-owned capability upper bounds.
@@ -254,42 +244,14 @@ pub trait ModelProvider: fmt::Debug + Send + Sync {
     )]
     fn route_responses_api_provider<'a>(
         &'a self,
-        mut provider: Provider,
-        auth: Option<&'a CodexAuth>,
-        routing_context: &'a WorkspaceRoutingContext,
+        provider: Provider,
+        _auth: Option<&'a CodexAuth>,
+        _routing_context: &'a WorkspaceRoutingContext,
     ) -> ModelProviderFuture<'a, codex_protocol::error::Result<ResolvedResponsesProvider>> {
         Box::pin(async move {
-            let mut redirect_policy = ClientRedirectPolicy::Default;
-            if provider_uses_first_party_auth_path(self.info())
-                && self.info().supports_codex_backend_routes()
-                && let Some(auth) = auth.filter(|auth| auth.is_chatgpt_auth())
-                && let Some(auth_manager) = self.auth_manager()
-            {
-                let mut previously_routed = routing_context.previously_routed.lock().await;
-                if let Some(routing) = auth_manager
-                    .workspace_routing(
-                        auth,
-                        WorkspaceRoutingRequest {
-                            provider_base_url: provider.base_url.clone(),
-                            chatgpt_base_url: routing_context.chatgpt_base_url.clone(),
-                            previously_routed: *previously_routed,
-                            session: routing_context.session.clone(),
-                        },
-                    )
-                    .await
-                    .map_err(|error| match error.downcast::<RefreshTokenFailedError>() {
-                        Ok(rejection) => CodexErr::RefreshTokenFailed(rejection),
-                        Err(error) => error.into(),
-                    })?
-                {
-                    crate::workspace_routing::apply_workspace_routing(&mut provider, routing)?;
-                    redirect_policy = ClientRedirectPolicy::Reject;
-                    *previously_routed = true;
-                }
-            }
             Ok(ResolvedResponsesProvider {
                 provider,
-                redirect_policy,
+                redirect_policy: ClientRedirectPolicy::Default,
             })
         })
     }
@@ -409,11 +371,7 @@ pub fn resolve_api_provider(
     info: &ModelProviderInfo,
     auth: Option<&CodexAuth>,
 ) -> codex_protocol::error::Result<Provider> {
-    let mut provider = info.to_api_provider(auth.map(CodexAuth::auth_mode))?;
-    if info.base_url.is_none() && uses_fedramp_api_key(auth, info)? {
-        provider.base_url = FEDRAMP_API_BASE_URL.to_string();
-    }
-    Ok(provider)
+    info.to_api_provider(auth.map(CodexAuth::auth_mode))
 }
 
 pub fn provider_uses_first_party_auth_path(provider: &ModelProviderInfo) -> bool {
@@ -484,14 +442,8 @@ impl ConfiguredModelProvider {
                 .map_err(|_| "failed to create provider OAuth HTTP client".to_string())
         });
         let auth_manager = auth_manager_for_provider(auth_manager, &info);
-        let runtime_for_destination = |destination: Option<&str>| {
-            runtime_auth.clone().filter(|_| {
-                destination.is_none_or(|url| {
-                    codex_http_client::classify_openai_api_url(url)
-                        != codex_http_client::OpenAiDestination::Other
-                })
-            })
-        };
+        let runtime_for_destination =
+            |destination: Option<&str>| runtime_auth.clone().filter(|_| destination.is_some());
         let inference_runtime_auth = runtime_for_destination(info.base_url.as_deref());
         // Catalog overrides are absolute URLs and can have a different origin from inference.
         let catalog_runtime_auth = runtime_for_destination(

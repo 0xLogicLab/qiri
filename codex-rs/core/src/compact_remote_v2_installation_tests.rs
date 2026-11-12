@@ -28,7 +28,7 @@ async fn prepared_prefix_rejection_respects_caller_intent(
 ) {
     let server = responses::start_mock_server().await;
     let mut provider =
-        codex_model_provider_info::built_in_model_providers(/*openai_base_url*/ None)["openai"]
+        codex_model_provider_info::built_in_model_providers(/*openai_base_url*/ None)["local"]
             .clone();
     provider.base_url = Some(format!("{}/v1", server.uri()));
     provider.supports_websockets = false;

@@ -71,7 +71,7 @@ async fn selected_runtime_transport_stays_revoked(mode: RuntimeAuthMode) {
     let mut client = test_model_client(SessionSource::Exec);
     client.http_client_factory = factory;
     Arc::get_mut(&mut client.state).unwrap().provider = create_model_provider(
-        ModelProviderInfo::create_openai_provider(Some(format!("{}/v1", server.uri()))),
+        ModelProviderInfo::create_local_provider(Some(format!("{}/v1", server.uri()))),
         Some(manager),
     );
     let client = client.with_runtime_auth(runtime, mode).unwrap();

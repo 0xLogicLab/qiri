@@ -6663,7 +6663,6 @@ async fn config_resolves_explicit_keyring_auth_store_mode() -> std::io::Result<(
 }
 
 #[test_case::test_case("https://managed.example/backend-api/"; "custom")]
-#[test_case::test_case(DEFAULT_CHATGPT_BASE_URL; "explicit_default")]
 #[tokio::test]
 async fn config_applies_managed_auth_store_and_chatgpt_base_url(
     managed_url: &str,
@@ -6702,13 +6701,6 @@ async fn config_applies_managed_auth_store_and_chatgpt_base_url(
 
     assert_eq!(config.cli_auth_credentials_store_mode, managed_store);
     assert_eq!(config.chatgpt_base_url, managed_url);
-    assert!(config.chatgpt_base_url_is_explicit);
-    assert_eq!(
-        config
-            .chatgpt_backend_url()
-            .resolve(&CodexAuth::from_api_key("sk-proj-fedramp-test-key")),
-        managed_url
-    );
     assert!(config.startup_warnings.iter().any(|warning| {
         warning.contains("Configured value for `cli_auth_credentials_store` is overridden")
     }));
@@ -6719,49 +6711,7 @@ async fn config_applies_managed_auth_store_and_chatgpt_base_url(
     Ok(())
 }
 
-#[tokio::test]
-async fn chatgpt_backend_url_defaults_follow_captured_auth() -> std::io::Result<()> {
-    let codex_home = TempDir::new()?;
-    let legacy = CodexAuth::from_api_key("legacy-key");
-    let marked = CodexAuth::from_api_key("sk-proj-fedramp-test-key");
-    let custom_url = "https://custom.example/backend-api/";
-    for configured_url in [None, Some(custom_url), Some(DEFAULT_CHATGPT_BASE_URL)] {
-        std::fs::write(
-            codex_home.path().join(CONFIG_TOML_FILE),
-            configured_url
-                .map(|url| format!("chatgpt_base_url = '{url}'\n"))
-                .unwrap_or_default(),
-        )?;
-        let mut config = ConfigBuilder::without_managed_config_for_tests()
-            .codex_home(codex_home.path().to_path_buf())
-            .fallback_cwd(Some(codex_home.path().to_path_buf()))
-            .build()
-            .await?;
-        let raw_url = configured_url.unwrap_or(DEFAULT_CHATGPT_BASE_URL);
-        let raw_auth_config = config.auth_config();
-        assert_eq!(
-            config.chatgpt_base_url_is_explicit,
-            configured_url.is_some()
-        );
-        for (auth, default_url) in [
-            (&legacy, DEFAULT_CHATGPT_BASE_URL),
-            (&marked, "https://gov.chatgpt.com/backend-api/"),
-            (&legacy, DEFAULT_CHATGPT_BASE_URL),
-        ] {
-            assert_eq!(
-                config.chatgpt_backend_url().resolve(auth),
-                configured_url.unwrap_or(default_url)
-            );
-            assert_eq!(config.chatgpt_base_url, raw_url);
-            assert_eq!(config.auth_config(), raw_auth_config);
-        }
-        if configured_url.is_none() {
-            config.chatgpt_base_url = custom_url.to_owned();
-            assert_eq!(config.chatgpt_backend_url().resolve(&marked), custom_url);
-        }
-    }
-    Ok(())
-}
+
 
 #[tokio::test]
 async fn project_cannot_be_the_only_xaa_opt_in_source() -> std::io::Result<()> {
@@ -8693,7 +8643,7 @@ async fn for_config_writes_selected_user_config_file() -> anyhow::Result<()> {
     let codex_home = TempDir::new()?;
     let base_config = codex_home.path().join(CONFIG_TOML_FILE);
     let selected_config = codex_home.path().join("work.config.toml");
-    tokio::fs::write(&base_config, r#"model_provider = "openai""#).await?;
+    tokio::fs::write(&base_config, r#"model_provider = "local""#).await?;
     tokio::fs::write(&selected_config, r#"model = "gpt-old""#).await?;
 
     let config = ConfigBuilder::without_managed_config_for_tests()
@@ -8717,7 +8667,7 @@ async fn for_config_writes_selected_user_config_file() -> anyhow::Result<()> {
     assert_eq!(selected.model_reasoning_effort, Some(ReasoningEffort::High));
     assert_eq!(
         tokio::fs::read_to_string(&base_config).await?,
-        r#"model_provider = "openai""#
+        r#"model_provider = "local""#
     );
 
     Ok(())
@@ -10376,7 +10326,7 @@ approval_policy = "on-request"
 [analytics]
 enabled = true
 
-[model_providers.openai-custom]
+[model_providers.local-custom]
 name = "OpenAI custom"
 base_url = "https://api.openai.com/v1"
 env_key = "OPENAI_API_KEY"
@@ -10388,7 +10338,7 @@ websocket_connect_timeout_ms = 15000
 
 [profiles.o3]
 model = "o3"
-model_provider = "openai"
+model_provider = "local"
 approval_policy = "never"
 model_reasoning_effort = "high"
 model_reasoning_summary = "detailed"
@@ -10399,7 +10349,7 @@ model_provider = "openai-custom"
 
 [profiles.zdr]
 model = "o3"
-model_provider = "openai"
+model_provider = "local"
 approval_policy = "on-request"
 
 [profiles.zdr.analytics]
@@ -10407,7 +10357,7 @@ enabled = false
 
 [profiles.gpt5]
 model = "gpt-5.4"
-model_provider = "openai"
+model_provider = "local"
 approval_policy = "on-request"
 model_reasoning_effort = "high"
 model_reasoning_summary = "detailed"

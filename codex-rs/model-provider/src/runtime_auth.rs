@@ -4,8 +4,6 @@ use codex_api::AuthError;
 use codex_http_client::CHATGPT_ACCOUNT_ID_HEADER;
 use codex_http_client::OPENAI_ORGANIZATION_HEADER;
 use codex_http_client::OPENAI_PROJECT_HEADER;
-use codex_http_client::OpenAiDestination;
-use codex_http_client::classify_openai_api_url;
 use codex_login::AuthManager;
 use codex_model_provider_info::ModelProviderInfo;
 use codex_protocol::error::CodexErr;
@@ -49,8 +47,7 @@ pub fn validate_runtime_provider(
     credentials: Option<&Arc<AuthManager>>,
     runtime: &RuntimeAuthManager,
 ) -> CodexResult<()> {
-    if !info.requires_openai_auth
-        || info.env_key.is_some()
+    if info.env_key.is_some()
         || info.experimental_bearer_token.is_some()
         || info.auth.is_some()
         || info.aws.is_some()
@@ -65,10 +62,25 @@ pub fn validate_runtime_provider(
 
 /// An unrecognized OpenAI origin must not silently fall back to legacy auth.
 pub fn validate_runtime_destination(destination: Option<&str>) -> CodexResult<()> {
-    if destination.is_some_and(|url| classify_openai_api_url(url) == OpenAiDestination::Unsupported)
-    {
+    let valid = destination
+        .and_then(|value| url::Url::parse(value).ok())
+        .is_some_and(|url| {
+            let loopback = url.host_str().is_some_and(|host| {
+                host == "localhost"
+                    || host
+                        .trim_matches(['[', ']'])
+                        .parse::<std::net::IpAddr>()
+                        .is_ok_and(|ip| ip.is_loopback())
+            });
+            (url.scheme() == "https" || (url.scheme() == "http" && loopback))
+                && url.has_host()
+                && url.username().is_empty()
+                && url.password().is_none()
+        });
+    if !valid {
         return Err(CodexErr::UnsupportedOperation(
-            "runtime auth does not support this OpenAI endpoint".to_string(),
+            "Runtime auth requires an explicit secure endpoint (HTTP is allowed for loopback)"
+                .into(),
         ));
     }
     Ok(())

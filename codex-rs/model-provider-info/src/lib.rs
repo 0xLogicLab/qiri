@@ -83,7 +83,7 @@ const MAX_REQUEST_MAX_RETRIES: u64 = 100;
 pub const OPENAI_PROVIDER_NAME: &str = "OpenAI";
 const OPENAI_ACTOR_AUTHORIZATION_HEADER: &str = "x-openai-actor-authorization";
 pub const OPENAI_PROVIDER_ID: &str = "openai";
-pub const CHATGPT_CODEX_BASE_URL: &str = "https://chatgpt.com/backend-api/codex";
+pub const LOCAL_PROVIDER_ID: &str = "local";
 pub const AMAZON_BEDROCK_PROVIDER_NAME: &str = "Amazon Bedrock";
 pub const AMAZON_BEDROCK_PROVIDER_ID: &str = "amazon-bedrock";
 pub const AMAZON_BEDROCK_RUNTIME_PROVIDER_NAME: &str = "Amazon Bedrock Runtime";
@@ -151,18 +151,8 @@ pub struct ModelProviderInfo {
     pub name: String,
     /// Base URL for the provider's OpenAI-compatible API.
     pub base_url: Option<String>,
-    /// Optional full URL for a Codex-native model catalog. When unset, OpenAI discovery
-    /// uses the Codex backend unless `base_url` overrides the inference endpoint.
-    /// The endpoint must serve the Codex catalog format, not the public `/v1/models` API.
-    ///
-    /// For built-in OpenAI, set this under `[model_providers.openai]`; other non-default
-    /// provider overrides are rejected. The URL must use HTTPS and an allowed ChatGPT
-    /// host. Other hosts require a custom provider. Inference still uses `openai_base_url`.
-    ///
-    /// Catalog requests use the provider's credentials, including an API key or ChatGPT
-    /// access token. Only configure an endpoint you trust with those credentials.
-    /// Setting this URL does not grant catalog access or guarantee that the endpoint
-    /// accepts a regional API key. Existing discovery gates and entitlement checks apply.
+    /// Optional full URL for a compatible model catalog.
+    /// Uses the explicitly selected inference endpoint unless overridden here.
     pub model_catalog_url: Option<RedactedString>,
     /// Environment variable that stores the user's API key for this provider.
     pub env_key: Option<String>,
@@ -466,25 +456,10 @@ other non-default provider fields are not supported"
     }
 
     /// Builds an API provider with managed residency taking precedence over configured headers.
-    pub fn to_api_provider(&self, auth_mode: Option<AuthMode>) -> CodexResult<ApiProvider> {
-        let default_base_url = if matches!(
-            auth_mode,
-            Some(
-                AuthMode::Chatgpt
-                    | AuthMode::ChatgptAuthTokens
-                    | AuthMode::Headers
-                    | AuthMode::AgentIdentity
-                    | AuthMode::PersonalAccessToken
-            )
-        ) {
-            CHATGPT_CODEX_BASE_URL
-        } else {
-            "https://api.openai.com/v1"
-        };
-        let base_url = self
-            .base_url
-            .clone()
-            .unwrap_or_else(|| default_base_url.to_string());
+    pub fn to_api_provider(&self, _auth_mode: Option<AuthMode>) -> CodexResult<ApiProvider> {
+        let base_url = self.base_url.clone().filter(|url| !url.trim().is_empty())
+            .ok_or_else(|| codex_protocol::error::CodexErr::InvalidRequest(
+                "Configure an explicit model provider base_url for your local or custom endpoint".into()))?;
 
         let mut headers = self.build_header_map()?;
         if let Some(requirement) = read_managed_residency_requirement() {
@@ -565,9 +540,9 @@ other non-default provider fields are not supported"
             .unwrap_or(Duration::from_millis(DEFAULT_WEBSOCKET_CONNECT_TIMEOUT_MS))
     }
 
-    pub fn create_openai_provider(base_url: Option<String>) -> ModelProviderInfo {
+    pub fn create_local_provider(base_url: Option<String>) -> ModelProviderInfo {
         ModelProviderInfo {
-            name: OPENAI_PROVIDER_NAME.into(),
+            name: "Local".into(),
             base_url,
             model_catalog_url: None,
             env_key: None,
@@ -583,33 +558,20 @@ other non-default provider fields are not supported"
                     .into_iter()
                     .collect(),
             ),
-            env_http_headers: Some(
-                [
-                    (
-                        OPENAI_ORGANIZATION_HEADER.to_string(),
-                        "OPENAI_ORGANIZATION".to_string(),
-                    ),
-                    (
-                        OPENAI_PROJECT_HEADER.to_string(),
-                        "OPENAI_PROJECT".to_string(),
-                    ),
-                ]
-                .into_iter()
-                .collect(),
-            ),
+            env_http_headers: None,
             // Use global defaults for retry/timeout unless overridden in config.toml.
             request_max_retries: None,
             stream_max_retries: None,
             stream_idle_timeout_ms: None,
             websocket_connect_timeout_ms: None,
-            requires_openai_auth: true,
+            requires_openai_auth: false,
             supports_websockets: true,
-            supports_standalone_web_search: true,
+            supports_standalone_web_search: false,
             capabilities: None,
             project_id: None,
             location: None,
             credential_file: None,
-            include_internal_metadata: true,
+            include_internal_metadata: false,
         }
     }
 
@@ -697,10 +659,10 @@ other non-default provider fields are not supported"
 
     /// Whether explicit Cyber programs may be selected and forwarded to this provider.
     /// Use the configured provider ID, never its user-controlled display name, for defaults.
-    pub fn supports_cyber_access_programs(&self, provider_id: &str) -> bool {
+    pub fn supports_cyber_access_programs(&self, _provider_id: &str) -> bool {
         self.capabilities
             .and_then(|capabilities| capabilities.cyber_access_programs)
-            .unwrap_or(provider_id == OPENAI_PROVIDER_ID)
+            .unwrap_or(false)
     }
 
     pub fn is_openai(&self) -> bool {
@@ -708,12 +670,7 @@ other non-default provider fields are not supported"
     }
 
     pub fn supports_codex_backend_routes(&self) -> bool {
-        self.is_openai()
-            && self.base_url.as_deref().is_none_or(|base_url| {
-                base_url
-                    .trim_end_matches('/')
-                    .ends_with("/backend-api/codex")
-            })
+        false
     }
 
     pub fn uses_openai_actor_authorization(&self) -> bool {
@@ -755,16 +712,16 @@ pub fn built_in_model_providers(
     openai_base_url: Option<String>,
 ) -> HashMap<String, ModelProviderInfo> {
     use ModelProviderInfo as P;
-    let openai_provider = P::create_openai_provider(openai_base_url);
+    let openai_provider = P::create_local_provider(openai_base_url);
     let amazon_bedrock_provider = P::create_amazon_bedrock_provider(/*aws*/ None);
     let amazon_bedrock_runtime_provider =
         P::create_amazon_bedrock_runtime_provider(/*aws*/ None);
     let gcp_provider = P::create_gcp_provider();
 
-    // Bundle OpenAI, supported cloud-hosted OpenAI backends, and local OSS providers.
+    // Compatible endpoints require explicit configuration; local OSS adapters are also available.
     // Other compatible providers can be added through `model_providers` in config.toml.
     [
-        (OPENAI_PROVIDER_ID, openai_provider),
+        (LOCAL_PROVIDER_ID, openai_provider),
         (AMAZON_BEDROCK_PROVIDER_ID, amazon_bedrock_provider),
         (GCP_PROVIDER_ID, gcp_provider),
         (
@@ -787,35 +744,15 @@ pub fn built_in_model_providers(
 
 /// Merge configured providers into the built-in provider catalog.
 ///
-/// Configured providers extend the built-in set. Built-in providers are not
-/// generally overridable. OpenAI allows a catalog URL override, while the
-/// cloud-hosted OpenAI providers allow a limited
-/// set of endpoint, authentication, header, and cloud-specific overrides.
+/// Configured providers extend the catalog and may replace the local entry.
+/// Cloud adapters retain their existing validated override fields.
 pub fn merge_configured_model_providers(
     mut model_providers: HashMap<String, ModelProviderInfo>,
     configured_model_providers: HashMap<String, ModelProviderInfo>,
 ) -> Result<HashMap<String, ModelProviderInfo>, String> {
     for (key, mut provider) in configured_model_providers {
-        if key == "openai" {
-            // Keep the built-in identity, inference routing, and authentication.
-            // Only catalog routing is configurable through this provider entry.
-            if let Some(catalog_url) = provider.model_catalog_url.take()
-                && let Some(built_in_provider) = model_providers.get_mut(&key)
-            {
-                let allowed = catalog_url.parse::<http::Uri>().ok().is_some_and(|uri| {
-                    uri.scheme_str() == Some("https")
-                        && uri.host().is_some_and(|host| {
-                            codex_http_client::is_allowed_chatgpt_host(&host.to_ascii_lowercase())
-                        })
-                        && uri
-                            .authority()
-                            .is_some_and(|authority| !authority.as_str().contains('@'))
-                });
-                if !allowed {
-                    return Err("model_providers.openai.model_catalog_url must use an allowed ChatGPT host. If you need to use a 3rd party host, configure a custom model_provider".to_string());
-                }
-                built_in_provider.model_catalog_url = Some(catalog_url);
-            }
+        if key == LOCAL_PROVIDER_ID {
+            model_providers.insert(key, provider);
         } else if matches!(
             key.as_str(),
             AMAZON_BEDROCK_PROVIDER_ID | AMAZON_BEDROCK_RUNTIME_PROVIDER_ID

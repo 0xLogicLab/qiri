@@ -458,7 +458,7 @@ async fn non_openai_responses_requests_include_item_ids_without_passthrough_meta
     )
     .await;
     let mut provider =
-        built_in_model_providers(/* openai_base_url */ /*openai_base_url*/ None)["openai"].clone();
+        built_in_model_providers(/* openai_base_url */ /*openai_base_url*/ None)["local"].clone();
     provider.name = "Test Responses".to_string();
     provider.base_url = Some(format!("{}/v1", server.uri()));
     provider.supports_websockets = false;
@@ -1676,7 +1676,7 @@ async fn provider_auth_command_refreshes_during_websocket_preconnect() {
     .await;
 
     let mut provider =
-        ModelProviderInfo::create_openai_provider(Some(format!("{}/v1", server.uri())));
+        ModelProviderInfo::create_local_provider(Some(format!("{}/v1", server.uri())));
     provider.requires_openai_auth = false;
     provider.auth = Some(auth_fixture.auth());
     provider.supports_websockets = true;
@@ -1944,7 +1944,7 @@ async fn chatgpt_auth_sends_correct_request() {
     .await;
 
     let mut model_provider =
-        built_in_model_providers(/* openai_base_url */ /*openai_base_url*/ None)["openai"].clone();
+        built_in_model_providers(/* openai_base_url */ /*openai_base_url*/ None)["local"].clone();
     model_provider.base_url = Some(format!("{}/api/codex", server.uri()));
     model_provider.supports_websockets = false;
     let mut builder = test_codex()
@@ -2040,7 +2040,7 @@ async fn prefers_apikey_when_config_prefers_apikey_even_with_chatgpt_tokens() {
     let model_provider = ModelProviderInfo {
         base_url: Some(format!("{}/v1", server.uri())),
         supports_websockets: false,
-        ..built_in_model_providers(/* openai_base_url */ /*openai_base_url*/ None)["openai"].clone()
+        ..built_in_model_providers(/* openai_base_url */ /*openai_base_url*/ None)["local"].clone()
     };
 
     // Init session
@@ -3525,7 +3525,7 @@ async fn token_count_includes_rate_limits_snapshot() {
         .await;
 
     let mut provider =
-        built_in_model_providers(/* openai_base_url */ /*openai_base_url*/ None)["openai"].clone();
+        built_in_model_providers(/* openai_base_url */ /*openai_base_url*/ None)["local"].clone();
     provider.base_url = Some(format!("{}/v1", server.uri()));
     provider.supports_websockets = false;
 
@@ -4210,7 +4210,8 @@ async fn env_var_overrides_loaded_auth() {
         .await;
 
     let provider = ModelProviderInfo {
-        name: ModelProviderInfo::create_openai_provider(/*base_url*/ None).name,
+        name: ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into()))
+            .name,
         base_url: Some(format!("{}/openai", server.uri())),
         model_catalog_url: None,
         // Reuse the existing environment variable to avoid using unsafe code

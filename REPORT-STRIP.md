@@ -165,3 +165,11 @@ core 的 5 处旧 HTTP 遥测测试已同步为验证“即使启用旧设置也
 自建配置服务器的通用 OAuth、按端点/凭据隔离的缓存和网络策略校验保留；其 HTTP/DTO 已独立实现，cloud-config 不再依赖 backend-client。不是用假域名替换官方服务。旧 GetAccount 纯协议请求明确拒绝，相关 TUI 入口仍待后续阶段清除。
 
 验证：`cargo test --locked -p codex-cloud-config --lib` 13 通过；app-server `in_process::bootstrap` 1 通过。日志：rework-cloud-tests.log、rework-cloud-bootstrap-tests.log。交付 crate 检查见 rework-cloud-check.log。当前仍不宣称全项 DONE。
+
+## Supervisor rework — 阶段 2：显式端点与账号认证传输
+
+删除官方 provider 默认地址、依凭据选择 ChatGPT/FedRAMP inference/catalog 的路由、官方模型目录以及依赖该目录的 Bedrock 官方模型预置。默认 provider 为 `local`，构建请求必须有显式 `base_url`；自定义 provider、Responses、流式事件、工具调用、显式模型目录与自定义 OAuth 保留。模型不存在时仍使用通用 metadata fallback，不再随仓库分发官方模型列表。
+
+删除官方 refresh/revoke transport、PAT whoami、workload identity 交换、agent identity/JWKS/任务注册及账号工作区切换实现；磁盘旧服务凭据不再激活。运行时身份注册没有默认官方地址或官方 cookie 特例，只接受调用者显式传入的端点；本地密码学与纯数据类型不建立网络连接。model-provider 和 login 的账号 routing discovery 已删除，Responses 始终使用选定端点。MCP 的官方域名信任/网络能力特例已移除。
+
+单元验证：login 147、agent-identity 2、runtime-agent-instance 19、model-provider-info 38、model-provider 97、models-manager 56 通过，无失败。其余五组以 rework-auth-final-tests.log 中各目标结果为依据；model-provider 在删除旧官方域名策略测试后完整重跑通过，见 rework-phase2-provider-tests.log。交付检查以 rework-phase2-check.log 为准。本节不将剩余 hosted apps、更新器、账号界面等列为已完成。

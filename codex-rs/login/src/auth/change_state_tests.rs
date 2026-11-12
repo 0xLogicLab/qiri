@@ -70,15 +70,15 @@ fn auth_owner_generation_distinguishes_refreshes_from_identity_changes() {
 
 #[tokio::test]
 #[serial_test::serial(codex_auth_env)]
-async fn auth_refresh_read_failure_is_transient_and_preserves_network_permit() {
+async fn api_key_reload_read_failure_is_local_and_preserves_network_permit() {
     let home = tempfile::tempdir().unwrap();
     let storage = FileAuthStorage::new(home.path().to_path_buf());
-    let initial = chatgpt_auth("user-a", "workspace-a", "token-1");
+    let initial = CodexAuth::from_api_key("local-key");
     let stored = crate::AuthDotJson {
-        auth_mode: Some(codex_protocol::auth::AuthMode::Chatgpt),
-        openai_api_key: None,
-        tokens: Some(initial.get_token_data().unwrap()),
-        last_refresh: Some(chrono::Utc::now()),
+        auth_mode: Some(codex_protocol::auth::AuthMode::ApiKey),
+        openai_api_key: Some("local-key".into()),
+        tokens: None,
+        last_refresh: None,
         agent_identity: None,
         personal_access_token: None,
         bedrock_api_key: None,
@@ -102,7 +102,7 @@ async fn auth_refresh_read_failure_is_transient_and_preserves_network_permit() {
         ),
     )
     .await;
-    let initial_tokens = manager.auth_cached().unwrap().get_token_data().unwrap();
+    let initial_auth = manager.auth_cached();
     let changes = manager.auth_change_state_receiver();
     let initial_changes = *changes.borrow();
     assert!(controller.publish(policy.revision(), DestinationPolicy::Unrestricted));
@@ -120,18 +120,14 @@ async fn auth_refresh_read_failure_is_transient_and_preserves_network_permit() {
         jwt_auth.as_str(),
     ] {
         std::fs::write(home.path().join("auth.json"), contents).unwrap();
-        let error = manager.refresh_token().await.unwrap_err();
-        assert!(matches!(error, RefreshTokenError::Transient(_)));
+        let error = manager.reload_with_cached_auth().await.unwrap_err();
         for formatted in [error.to_string(), format!("{error:?}")] {
             assert!(
                 !formatted.contains("private-credential-value"),
                 "{formatted}"
             );
         }
-        assert_eq!(
-            manager.auth_cached().unwrap().get_token_data().unwrap(),
-            initial_tokens
-        );
+        assert_eq!(manager.auth_cached(), initial_auth);
         assert_eq!(*changes.borrow(), initial_changes);
         assert_eq!(permit.check(), Ok(()));
     }

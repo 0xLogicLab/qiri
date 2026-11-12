@@ -61,173 +61,6 @@ impl ModelsTransportBuilder for CaptureModelsUrl {
     }
 }
 
-#[tokio::test]
-async fn api_key_discovery_respects_provider_routing() {
-    let client_version = codex_models_manager::client_version_to_whole();
-    for (api_key, name, base_url, models_url, inference_url) in [
-        (
-            "test-api-key",
-            "OpenAI",
-            None,
-            Some("https://chatgpt.com/backend-api/codex/models"),
-            "https://api.openai.com/v1",
-        ),
-        (
-            "test-api-key",
-            "OpenAI",
-            Some("https://example.com/codex"),
-            None,
-            "https://example.com/codex",
-        ),
-        (
-            "test-api-key",
-            "Azure",
-            Some("https://example.openai.azure.com/openai/v1"),
-            None,
-            "https://example.openai.azure.com/openai/v1",
-        ),
-        (
-            "sk-proj-fedramp-synthetic-test-key",
-            "OpenAI",
-            None,
-            Some("https://gov.chatgpt.com/backend-api/codex/models"),
-            "https://gov.api.openai.com/v1",
-        ),
-        (
-            "sk-svcacct-fedramp-synthetic-test-key",
-            "OpenAI",
-            None,
-            Some("https://gov.chatgpt.com/backend-api/codex/models"),
-            "https://gov.api.openai.com/v1",
-        ),
-        (
-            "sk-proj-fedramp-synthetic-test-key",
-            "OpenAI",
-            Some("https://example.com/codex"),
-            None,
-            "https://example.com/codex",
-        ),
-        (
-            "sk-svcacct-fedramp-synthetic-test-key",
-            "Azure",
-            None,
-            None,
-            "https://api.openai.com/v1",
-        ),
-    ] {
-        let capture = Arc::new(CaptureModelsUrl(Mutex::new(/*t*/ None)));
-        let auth = AuthManager::from_auth_for_testing(CodexAuth::from_api_key(api_key));
-        let endpoint = Arc::new(OpenAiModelsEndpoint {
-            provider_info: ModelProviderInfo {
-                name: name.to_string(),
-                ..ModelProviderInfo::create_openai_provider(base_url.map(str::to_string))
-            },
-            auth_manager: Some(auth.clone()),
-            gateway_auth_manager: None,
-            runtime_auth: None,
-            transport_builder: capture.clone(),
-        });
-        let provider = crate::provider::create_model_provider(
-            endpoint.provider_info.clone(),
-            Some(auth.clone()),
-        );
-        let manager = OpenAiModelsManager::new_without_cache(endpoint, Some(auth));
-        manager.set_api_key_model_discovery_enabled(/*enabled*/ true);
-        manager
-            .raw_model_catalog(
-                RefreshStrategy::Online,
-                HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault),
-            )
-            .await;
-        assert_eq!(
-            *capture.0.lock().unwrap(),
-            models_url.map(|url| format!("{url}?client_version={client_version}"))
-        );
-        assert_eq!(
-            provider.api_provider().await.unwrap().base_url,
-            inference_url
-        );
-    }
-}
-
-#[tokio::test]
-async fn provider_api_key_without_endpoint_overrides_uses_codex_backend() {
-    for (api_key, auth, models_base_url, inference_url) in [
-        (
-            "provider-key",
-            None,
-            CHATGPT_CODEX_BASE_URL,
-            "https://api.openai.com/v1",
-        ),
-        (
-            "provider-key",
-            Some(CodexAuth::create_dummy_chatgpt_auth_for_testing()),
-            CHATGPT_CODEX_BASE_URL,
-            CHATGPT_CODEX_BASE_URL,
-        ),
-        (
-            "provider-key",
-            Some(CodexAuth::from_api_key("sk-proj-fedramp-ambient-key")),
-            CHATGPT_CODEX_BASE_URL,
-            "https://api.openai.com/v1",
-        ),
-        (
-            "sk-proj-fedramp-provider-key",
-            None,
-            "https://gov.chatgpt.com/backend-api/codex",
-            "https://gov.api.openai.com/v1",
-        ),
-        (
-            "sk-svcacct-fedramp-provider-key",
-            Some(CodexAuth::from_api_key("legacy-ambient-key")),
-            "https://gov.chatgpt.com/backend-api/codex",
-            "https://gov.api.openai.com/v1",
-        ),
-        (
-            "sk-proj-fedramp-provider-key",
-            Some(CodexAuth::create_dummy_chatgpt_auth_for_testing()),
-            "https://gov.chatgpt.com/backend-api/codex",
-            "https://gov.api.openai.com/v1",
-        ),
-    ] {
-        let capture = Arc::new(CaptureModelsUrl(Mutex::new(/*t*/ None)));
-        let auth_manager = auth.map(AuthManager::from_auth_for_testing);
-        let endpoint = Arc::new(OpenAiModelsEndpoint {
-            provider_info: ModelProviderInfo {
-                experimental_bearer_token: Some(api_key.into()),
-                ..ModelProviderInfo::create_openai_provider(/*base_url*/ None)
-            },
-            auth_manager: auth_manager.clone(),
-            gateway_auth_manager: None,
-            runtime_auth: None,
-            transport_builder: capture.clone(),
-        });
-        let provider = crate::provider::create_model_provider(
-            endpoint.provider_info.clone(),
-            auth_manager.clone(),
-        );
-        let manager = OpenAiModelsManager::new_without_cache(endpoint, auth_manager);
-        manager.set_api_key_model_discovery_enabled(/*enabled*/ true);
-        manager
-            .raw_model_catalog(
-                RefreshStrategy::Online,
-                HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault),
-            )
-            .await;
-        assert_eq!(
-            *capture.0.lock().unwrap(),
-            Some(format!(
-                "{models_base_url}/models?client_version={}",
-                codex_models_manager::client_version_to_whole(),
-            ))
-        );
-        assert_eq!(
-            provider.api_provider().await.unwrap().base_url,
-            inference_url
-        );
-    }
-}
-
 fn provider_info_with_command_auth() -> ModelProviderInfo {
     ModelProviderInfo {
         auth: Some(ModelProviderAuthInfo {
@@ -241,7 +74,7 @@ fn provider_info_with_command_auth() -> ModelProviderInfo {
                 .expect("current dir should be absolute"),
         }),
         requires_openai_auth: false,
-        ..ModelProviderInfo::create_openai_provider(/*base_url*/ None)
+        ..ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into()))
     }
 }
 
@@ -259,14 +92,14 @@ fn command_auth_provider_reports_command_auth_without_cached_auth() {
         resolve_api_provider(&endpoint.provider_info, Some(&auth))
             .unwrap()
             .base_url,
-        "https://api.openai.com/v1"
+        "http://localhost:8000/v1"
     );
 }
 
 #[test]
 fn provider_without_command_auth_reports_no_command_auth() {
     let endpoint = OpenAiModelsEndpoint::new(
-        ModelProviderInfo::create_openai_provider(/*base_url*/ None),
+        ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into())),
         /*auth_manager*/ None,
         /*gateway_auth_manager*/ None,
     );
@@ -289,7 +122,7 @@ async fn model_request_uses_request_time_proxy_policy_and_exact_url() {
 
     let observed_request = Arc::new(Mutex::new(None));
     let endpoint = OpenAiModelsEndpoint {
-        provider_info: ModelProviderInfo::create_openai_provider(Some(server.uri())),
+        provider_info: ModelProviderInfo::create_local_provider(Some(server.uri())),
         auth_manager: None,
         gateway_auth_manager: None,
         runtime_auth: None,
@@ -330,7 +163,7 @@ async fn model_discovery_enforces_managed_residency_over_provider_headers() {
         .mount(&server)
         .await;
 
-    let mut provider_info = ModelProviderInfo::create_openai_provider(Some(server.uri()));
+    let mut provider_info = ModelProviderInfo::create_local_provider(Some(server.uri()));
     provider_info.http_headers = Some(std::collections::HashMap::from([(
         RESIDENCY_HEADER_NAME.to_string(),
         "eu".into(),
@@ -514,6 +347,7 @@ async fn explicit_catalog_reuses_auth_headers_and_query_parameters() {
         // The parallel residency test must not change this catalog's cache identity.
         let provider = ModelProviderInfo {
             model_catalog_url: Some(format!("{}/codex/models?deployment=one", server.uri()).into()),
+            requires_openai_auth: true,
             query_params: Some(std::collections::HashMap::from([(
                 "api-version".to_string(),
                 "2026-09".into(),
@@ -525,7 +359,7 @@ async fn explicit_catalog_reuses_auth_headers_and_query_parameters() {
                     "us".into(),
                 ),
             ])),
-            ..ModelProviderInfo::create_openai_provider(Some(format!("{}/v1", server.uri())))
+            ..ModelProviderInfo::create_local_provider(Some(format!("{}/v1", server.uri())))
         };
         let home = tempfile::tempdir().unwrap();
         let endpoint = Arc::new(OpenAiModelsEndpoint::new(
@@ -573,6 +407,7 @@ async fn explicit_catalog_requires_unique_nonempty_slugs() {
         let endpoint = OpenAiModelsEndpoint::new(
             ModelProviderInfo {
                 model_catalog_url: Some(format!("{}/codex/models", server.uri()).into()),
+                base_url: Some(server.uri()),
                 ..ModelProviderInfo::default()
             },
             /*auth_manager*/ None,

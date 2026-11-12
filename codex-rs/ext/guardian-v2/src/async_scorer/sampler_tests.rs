@@ -245,7 +245,7 @@ pub(in crate::async_scorer) fn sampler_config(base_url: String) -> LunaSamplerCo
             "https://chatgpt.com/backend-api".into(),
         ),
         provider: create_model_provider(
-            ModelProviderInfo::create_openai_provider(Some(base_url)),
+            ModelProviderInfo::create_local_provider(Some(base_url)),
             Some(AuthManager::from_auth_for_testing(CodexAuth::from_api_key(
                 "test-api-key",
             ))),
@@ -579,7 +579,7 @@ async fn classifier_sends_guardian_header_only_with_codex_backend_auth() -> Resu
         );
         let mut config = sampler_config(base_url.clone());
         config.provider = create_model_provider(
-            ModelProviderInfo::create_openai_provider(Some(base_url)),
+            ModelProviderInfo::create_local_provider(Some(base_url)),
             Some(AuthManager::from_auth_for_testing(auth)),
         );
         config.service_tier = Some("priority".to_owned());
@@ -650,7 +650,7 @@ async fn preconnected_sampler_reuses_authenticated_websocket_for_classifications
         ))))
         .await?;
     let provider = create_model_provider(
-        ModelProviderInfo::create_openai_provider(Some(base_url)),
+        ModelProviderInfo::create_local_provider(Some(base_url)),
         Some(manager.clone()),
     );
 
@@ -829,7 +829,7 @@ async fn sampler_returns_classification_token_before_terminal_response_events() 
     let server = responses::start_websocket_server_with_headers(vec![config]).await;
     let base_url = proxy_websocket_servers(&[&idle_server, &server]).await?;
     let provider = create_model_provider(
-        ModelProviderInfo::create_openai_provider(Some(base_url)),
+        ModelProviderInfo::create_local_provider(Some(base_url)),
         Some(AuthManager::from_auth_for_testing(CodexAuth::from_api_key(
             "test-api-key",
         ))),
@@ -1219,7 +1219,7 @@ async fn parent_response_id_survives_classifier_transport_retry() -> Result<()> 
         let mut config = sampler_config(base_url.clone());
         if uses_codex_backend {
             config.provider = create_model_provider(
-                ModelProviderInfo::create_openai_provider(Some(format!(
+                ModelProviderInfo::create_local_provider(Some(format!(
                     "{}/backend-api/codex",
                     base_url.trim_end_matches("/v1")
                 ))),

@@ -33,7 +33,7 @@ async fn decisions_disagreement_failures_and_disabled_flag_preserve_baseline() -
                 .enable(Feature::GuardianV2DecisionsComparison)?;
         }
         config.model_provider =
-            ModelProviderInfo::create_openai_provider(Some(format!("{}/v1", server.uri())));
+            ModelProviderInfo::create_local_provider(Some(format!("{}/v1", server.uri())));
         config.model_provider.supports_websockets = false;
         let metrics = Arc::new(RecordingMetrics::default());
         let registry = &fixture.registry;

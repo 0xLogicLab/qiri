@@ -15,18 +15,14 @@ pub(crate) fn server_mcp_extensions(
     extensions: &ClientMcpExtensions,
     server_name: &str,
     server: Option<&crate::catalog::ResolvedMcpServer>,
-    advertise_network_policy: bool,
-    chatgpt_base_url: &str,
+    _advertise_network_policy: bool,
+    _chatgpt_base_url: &str,
 ) -> ClientMcpExtensions {
     let plugin_service = server.is_some_and(|server| {
         server
             .source()
             .is_host_owned_apps(server_name, server.config())
     });
-    let network_policy = advertise_network_policy
-        && server.is_some_and(|server| {
-            crate::mcp::is_trusted_chatgpt_mcp_server(&server.config().transport, chatgpt_base_url)
-        });
     ClientMcpExtensions::new(
         extensions
             .iter()
@@ -40,13 +36,7 @@ pub(crate) fn server_mcp_extensions(
                     settings.remove("userVerification");
                 }
                 (id.to_string(), settings)
-            })
-            .chain(network_policy.then(|| {
-                (
-                    crate::MCP_NETWORK_POLICY_META_CAPABILITY.to_string(),
-                    Value::Object(Map::new()),
-                )
-            })),
+            }),
     )
 }
 

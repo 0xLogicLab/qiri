@@ -424,7 +424,7 @@ impl WorkerRuntime {
                     .to_api_provider(Some(AuthMode::ApiKey))
                     .map_err(|error| RequestError::Other(error.into()))?;
                 let client = BackendClient::from_auth(
-                    self.config.chatgpt_backend_url().resolve(&auth),
+                    self.config.chatgpt_base_url.clone(),
                     &auth,
                     http_client_factory,
                 );

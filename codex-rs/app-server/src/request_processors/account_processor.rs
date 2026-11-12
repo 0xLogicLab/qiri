@@ -211,9 +211,6 @@ impl AccountRequestProcessor {
         request_id: ConnectionRequestId,
         params: LoginAccountParams,
     ) -> Result<(), JSONRPCErrorError> {
-        if self.auth_manager.is_workload_identity_selected() {
-            return Err(self.configured_auth_owned_by_host_error());
-        }
         self.enterprise_login.cancel(/*login_id*/ None).await;
         match params {
             LoginAccountParams::ApiKey { api_key } => {
@@ -270,9 +267,6 @@ impl AccountRequestProcessor {
         &self,
         provider: CloudLoginProvider,
     ) -> Result<(), JSONRPCErrorError> {
-        if self.auth_manager.is_workload_identity_selected() {
-            return Err(self.configured_auth_owned_by_host_error());
-        }
         if self.auth_manager.is_external_chatgpt_auth_active() {
             return Err(self.external_auth_active_error());
         }
@@ -481,9 +475,6 @@ impl AccountRequestProcessor {
     }
 
     async fn logout_common(&self) -> std::result::Result<Option<AuthMode>, JSONRPCErrorError> {
-        if self.auth_manager.is_workload_identity_selected() {
-            return Err(self.configured_auth_owned_by_host_error());
-        }
         self.cancel_active_login().await;
         let config =
             logout_configured_account(&self.config_manager, &self.auth_manager, &self.config)
@@ -600,7 +591,7 @@ pub(crate) async fn logout_configured_account(
         tracing::warn!("Failed to remove enterprise authorization; continuing account logout");
     }
 
-    match auth_manager.logout_with_revoke().await {
+    match auth_manager.logout().await {
         Ok(_) => {}
         Err(err) => {
             return Err(internal_error(format!("logout failed: {err}")));

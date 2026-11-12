@@ -289,7 +289,10 @@ pub(crate) fn resolve_provider_auth(
         return Ok(Arc::new(auth));
     }
 
-    if !provider.requires_openai_auth && provider.auth.is_none() {
+    if !provider.requires_openai_auth
+        && provider.auth.is_none()
+        && !(provider.name == "Local" && auth.is_some_and(CodexAuth::is_api_key_auth))
+    {
         return Ok(unauthenticated_auth_provider());
     }
 
@@ -309,71 +312,12 @@ pub(crate) fn resolve_provider_auth(
 }
 
 pub(crate) async fn resolve_provider_auth_for_scope(
-    auth_manager: Option<Arc<AuthManager>>,
+    _auth_manager: Option<Arc<AuthManager>>,
     auth: Option<&CodexAuth>,
     provider: &ModelProviderInfo,
-    scope: ProviderAuthScope,
+    _scope: ProviderAuthScope,
 ) -> codex_protocol::error::Result<ResolvedProviderAuth> {
-    let ProviderAuthScope {
-        agent_identity_policy,
-        session_source,
-        agent_identity_session_fallback,
-    } = scope;
-    if let Some(CodexAuth::AgentIdentity(agent_identity_auth)) = auth {
-        return Ok(ResolvedProviderAuth::for_agent_identity(
-            agent_identity_auth.clone(),
-        ));
-    }
-
-    if !should_bootstrap_chatgpt_agent_identity(agent_identity_policy, auth)
-        || agent_identity_session_fallback.is_engaged()
-    {
-        return resolve_provider_auth(auth, provider).map(ResolvedProviderAuth::new);
-    }
-
-    let Some(auth_manager) = auth_manager else {
-        return resolve_provider_auth(auth, provider).map(ResolvedProviderAuth::new);
-    };
-
-    match auth_manager
-        .agent_identity_auth(agent_identity_policy, session_source)
-        .await
-    {
-        Ok(Some(agent_identity_auth)) => Ok(ResolvedProviderAuth::for_agent_identity(
-            agent_identity_auth,
-        )),
-        Ok(None) => resolve_provider_auth(auth, provider).map(ResolvedProviderAuth::new),
-        Err(err) => {
-            if let Some(AgentIdentityAuthError::BootstrapUnavailable {
-                operation,
-                attempts,
-                message,
-            }) = err
-                .get_ref()
-                .and_then(|source| source.downcast_ref::<AgentIdentityAuthError>())
-            {
-                let newly_engaged = agent_identity_session_fallback.engage();
-                tracing::warn!(
-                    operation,
-                    attempts = *attempts,
-                    error = %message,
-                    newly_engaged,
-                    "agent identity bootstrap unavailable; using ChatGPT bearer auth for this session"
-                );
-                resolve_provider_auth(auth, provider).map(ResolvedProviderAuth::new)
-            } else {
-                Err(err.into())
-            }
-        }
-    }
-}
-
-fn should_bootstrap_chatgpt_agent_identity(
-    agent_identity_policy: AgentIdentityAuthPolicy,
-    auth: Option<&CodexAuth>,
-) -> bool {
-    agent_identity_policy == AgentIdentityAuthPolicy::ChatGptAuth
-        && matches!(auth, Some(CodexAuth::Chatgpt(_)))
+    resolve_provider_auth(auth, provider).map(ResolvedProviderAuth::new)
 }
 
 fn bearer_auth_for_provider(

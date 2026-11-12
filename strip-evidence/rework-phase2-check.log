@@ -1,0 +1,901 @@
+warning: unused import: `codex_client::OPENAI_ORGANIZATION_HEADER`
+  --> model-provider-info/src/lib.rs:11:5
+   |
+11 | use codex_client::OPENAI_ORGANIZATION_HEADER;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `codex_client::OPENAI_PROJECT_HEADER`
+  --> model-provider-info/src/lib.rs:12:5
+   |
+12 | use codex_client::OPENAI_PROJECT_HEADER;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `codex-model-provider-info` (lib) generated 2 warnings (run `cargo fix --lib -p codex-model-provider-info` to apply 2 suggestions)
+warning: unused import: `http::StatusCode`
+  --> agent-identity/src/lib.rs:18:5
+   |
+18 | use http::StatusCode;
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: struct `RegisterTaskRequest` is never constructed
+  --> agent-identity/src/lib.rs:77:8
+   |
+77 | struct RegisterTaskRequest {
+   |        ^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: struct `RegisterTaskResponse` is never constructed
+  --> agent-identity/src/lib.rs:83:8
+   |
+83 | struct RegisterTaskResponse {
+   |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `RegisterAgentRequest` is never constructed
+  --> agent-identity/src/lib.rs:95:8
+   |
+95 | struct RegisterAgentRequest {
+   |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `RegisterAgentResponse` is never constructed
+   --> agent-identity/src/lib.rs:103:8
+    |
+103 | struct RegisterAgentResponse {
+    |        ^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `task_id_from_register_task_response` is never used
+   --> agent-identity/src/lib.rs:132:4
+    |
+132 | fn task_id_from_register_task_response(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `codex-agent-identity` (lib) generated 6 warnings (run `cargo fix --lib -p codex-agent-identity` to apply 1 suggestion)
+warning: unused import: `std::time::Duration`
+  --> login/src/auth/manager.rs:27:5
+   |
+27 | use std::time::Duration;
+   |     ^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::time::Instant`
+  --> login/src/auth/manager.rs:28:5
+   |
+28 | use std::time::Instant;
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::access_token::CodexAccessToken`
+  --> login/src/auth/manager.rs:37:5
+   |
+37 | use super::access_token::CodexAccessToken;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::access_token::classify_codex_access_token`
+  --> login/src/auth/manager.rs:38:5
+   |
+38 | use super::access_token::classify_codex_access_token;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::default_client::create_default_auth_client`
+  --> login/src/auth/manager.rs:58:5
+   |
+58 | use crate::default_client::create_default_auth_client;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::oauth::ErrorBodyLimit`
+  --> login/src/auth/manager.rs:59:5
+   |
+59 | use crate::oauth::ErrorBodyLimit;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::oauth::OAuthClient`
+  --> login/src/auth/manager.rs:60:5
+   |
+60 | use crate::oauth::OAuthClient;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::oauth::OAuthError`
+  --> login/src/auth/manager.rs:61:5
+   |
+61 | use crate::oauth::OAuthError;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::oauth::RefreshTokenGrant`
+  --> login/src/auth/manager.rs:63:5
+   |
+63 | use crate::oauth::RefreshTokenGrant;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::oauth::TokenEncoding`
+  --> login/src/auth/manager.rs:64:5
+   |
+64 | use crate::oauth::TokenEncoding;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::oauth::TokenEndpoint`
+  --> login/src/auth/manager.rs:65:5
+   |
+65 | use crate::oauth::TokenEndpoint;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::token_data::parse_jwt_expiration`
+  --> login/src/auth/manager.rs:71:5
+   |
+71 | use crate::token_data::parse_jwt_expiration;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_protocol::protocol::SessionSource`
+  --> login/src/auth/manager.rs:82:5
+   |
+82 | use codex_protocol::protocol::SessionSource;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused variable: `codex_home`
+   --> login/src/auth/manager.rs:257:9
+    |
+257 |         codex_home: &Path,
+    |         ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_codex_home`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `auth_credentials_store_mode`
+   --> login/src/auth/manager.rs:259:9
+    |
+259 |         auth_credentials_store_mode: AuthCredentialsStoreMode,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_auth_credentials_store_mode`
+
+warning: unused variable: `chatgpt_base_url`
+   --> login/src/auth/manager.rs:260:9
+    |
+260 |         chatgpt_base_url: Option<&str>,
+    |         ^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_chatgpt_base_url`
+
+warning: unused variable: `keyring_backend_kind`
+   --> login/src/auth/manager.rs:261:9
+    |
+261 |         keyring_backend_kind: AuthKeyringBackendKind,
+    |         ^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_keyring_backend_kind`
+
+warning: unused variable: `agent_identity_authapi_base_url`
+   --> login/src/auth/manager.rs:262:9
+    |
+262 |         agent_identity_authapi_base_url: Option<&str>,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_agent_identity_authapi_base_url`
+
+warning: unused variable: `auth_route_config`
+   --> login/src/auth/manager.rs:263:9
+    |
+263 |         auth_route_config: &AuthRouteConfig,
+    |         ^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_auth_route_config`
+
+warning: unused variable: `cached_auth`
+   --> login/src/auth/manager.rs:264:9
+    |
+264 |         cached_auth: Option<&CodexAuth>,
+    |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_cached_auth`
+
+warning: unused variable: `expected_workspace_ids`
+   --> login/src/auth/manager.rs:732:5
+    |
+732 |     expected_workspace_ids: Option<&[String]>,
+    |     ^^^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_expected_workspace_ids`
+
+warning: unused variable: `agent_identity`
+   --> login/src/auth/manager.rs:733:5
+    |
+733 |     agent_identity: &AgentIdentityStorage,
+    |     ^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_agent_identity`
+
+warning: unused variable: `reason`
+    --> login/src/auth/manager.rs:2698:9
+     |
+2698 |         reason: RefreshReason,
+     |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_reason`
+
+warning: constant `PERSONAL_ACCESS_TOKEN_PREFIX` is never used
+ --> login/src/auth/access_token.rs:1:7
+  |
+1 | const PERSONAL_ACCESS_TOKEN_PREFIX: &str = "at-";
+  |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: enum `CodexAccessToken` is never used
+ --> login/src/auth/access_token.rs:3:17
+  |
+3 | pub(super) enum CodexAccessToken<'a> {
+  |                 ^^^^^^^^^^^^^^^^
+
+warning: function `classify_codex_access_token` is never used
+ --> login/src/auth/access_token.rs:8:15
+  |
+8 | pub(super) fn classify_codex_access_token(access_token: &str) -> CodexAccessToken<'_> {
+  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `bootstrap_unavailable` is never used
+  --> login/src/auth/agent_identity.rs:21:19
+   |
+20 | impl AgentIdentityAuthError {
+   | --------------------------- associated function in this implementation
+21 |     pub(super) fn bootstrap_unavailable(error: &std::io::Error) -> Option<&Self> {
+   |                   ^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `create_raw_auth_client` is never used
+   --> login/src/auth/default_client.rs:439:15
+    |
+439 | pub(crate) fn create_raw_auth_client(
+    |               ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `create_default_auth_client` is never used
+   --> login/src/auth/default_client.rs:449:15
+    |
+449 | pub(crate) fn create_default_auth_client(
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: method `as_record` is never used
+  --> login/src/auth/storage.rs:96:19
+   |
+85 | impl AgentIdentityStorage {
+   | ------------------------- method in this implementation
+...
+96 |     pub(crate) fn as_record(&self) -> Option<&AgentIdentityAuthRecord> {
+   |                   ^^^^^^^^^
+
+warning: method `compare_and_save` is never used
+   --> login/src/auth/storage.rs:213:8
+    |
+180 | pub(super) trait AuthStorageBackend: Debug + Send + Sync {
+    |                  ------------------ method in this trait
+...
+213 |     fn compare_and_save(&self, expected: &AuthDotJson, auth: &AuthDotJson) -> std::io::Result<()> {
+    |        ^^^^^^^^^^^^^^^^
+
+warning: function `try_parse_error_message` is never used
+ --> login/src/auth/util.rs:3:15
+  |
+3 | pub(crate) fn try_parse_error_message(text: &str) -> String {
+  |               ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: field `storage` is never read
+   --> login/src/auth/manager.rs:128:5
+    |
+126 | pub struct ChatgptAuth {
+    |            ----------- field in this struct
+127 |     state: ChatgptAuthState,
+128 |     storage: Arc<dyn AuthStorageBackend>,
+    |     ^^^^^^^
+    |
+    = note: `ChatgptAuth` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: field `client` is never read
+   --> login/src/auth/manager.rs:139:5
+    |
+137 | struct ChatgptAuthState {
+    |        ---------------- field in this struct
+138 |     auth_dot_json: Arc<Mutex<Option<AuthDotJson>>>,
+139 |     client: HttpClient,
+    |     ^^^^^^
+    |
+    = note: `ChatgptAuthState` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: constant `TOKEN_REFRESH_INTERVAL` is never used
+   --> login/src/auth/manager.rs:142:7
+    |
+142 | const TOKEN_REFRESH_INTERVAL: i64 = 8;
+    |       ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `CHATGPT_ACCESS_TOKEN_REFRESH_WINDOW_MINUTES` is never used
+   --> login/src/auth/manager.rs:143:7
+    |
+143 | const CHATGPT_ACCESS_TOKEN_REFRESH_WINDOW_MINUTES: i64 = 5;
+    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `REFRESH_TOKEN_EXPIRED_MESSAGE` is never used
+   --> login/src/auth/manager.rs:145:7
+    |
+145 | const REFRESH_TOKEN_EXPIRED_MESSAGE: &str = "Your access token could not be refreshed because your refresh token has expired. Pleas...
+    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `REFRESH_TOKEN_REUSED_MESSAGE` is never used
+   --> login/src/auth/manager.rs:146:7
+    |
+146 | const REFRESH_TOKEN_REUSED_MESSAGE: &str = "Your access token could not be refreshed because your refresh token was already used. P...
+    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `REFRESH_TOKEN_INVALIDATED_MESSAGE` is never used
+   --> login/src/auth/manager.rs:147:7
+    |
+147 | const REFRESH_TOKEN_INVALIDATED_MESSAGE: &str = "Your access token could not be refreshed because your refresh token was revoked. P...
+    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `permanent_external_auth_error` is never used
+   --> login/src/auth/manager.rs:217:4
+    |
+217 | fn permanent_external_auth_error(message: impl Into<String>) -> RefreshTokenError {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: methods `current_auth_json`, `current_token_data`, `storage`, `client`, and `persist_agent_identity_record` are never used
+   --> login/src/auth/manager.rs:585:8
+    |
+584 | impl ChatgptAuth {
+    | ---------------- methods in this implementation
+585 |     fn current_auth_json(&self) -> Option<AuthDotJson> {
+    |        ^^^^^^^^^^^^^^^^^
+...
+590 |     fn current_token_data(&self) -> Option<TokenData> {
+    |        ^^^^^^^^^^^^^^^^^^
+...
+594 |     fn storage(&self) -> &Arc<dyn AuthStorageBackend> {
+    |        ^^^^^^^
+...
+598 |     fn client(&self) -> &HttpClient {
+    |        ^^^^^^
+...
+602 |     fn persist_agent_identity_record(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `persist_agent_identity_record` is never used
+   --> login/src/auth/manager.rs:610:4
+    |
+610 | fn persist_agent_identity_record(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `same_login_for_persistence` is never used
+    --> login/src/auth/manager.rs:1222:4
+     |
+1222 | fn same_login_for_persistence(expected: &TokenData, stored: &TokenData) -> bool {
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `persist_tokens` is never used
+    --> login/src/auth/manager.rs:1233:15
+     |
+1233 | pub(super) fn persist_tokens(
+     |               ^^^^^^^^^^^^^^
+
+warning: method `storage_mode` is never used
+    --> login/src/auth/manager.rs:1338:8
+     |
+1285 | impl AuthDotJson {
+     | ---------------- method in this implementation
+...
+1338 |     fn storage_mode(
+     |        ^^^^^^^^^^^^
+
+warning: fields `code` and `description` are never read
+  --> login/src/oauth/authorization.rs:62:9
+   |
+61 |     Provider {
+   |     -------- fields in this variant
+62 |         code: &'a str,
+   |         ^^^^
+63 |         description: Option<&'a str>,
+   |         ^^^^^^^^^^^
+
+warning: variant `Json` is never constructed
+  --> login/src/oauth/client.rs:19:5
+   |
+17 | pub(crate) enum TokenEncoding {
+   |                 ------------- variant in this enum
+18 |     Form,
+19 |     Json,
+   |     ^^^^
+   |
+   = note: `TokenEncoding` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+
+warning: variants `ProactiveExpiry` and `Scheduled` are never constructed
+  --> login/src/oauth/client.rs:48:5
+   |
+47 | pub(crate) enum RefreshReason {
+   |                 ------------- variants in this enum
+48 |     ProactiveExpiry,
+   |     ^^^^^^^^^^^^^^^
+49 |     Scheduled,
+   |     ^^^^^^^^^
+   |
+   = note: `RefreshReason` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+
+warning: variant `Unlimited` is never constructed
+  --> login/src/oauth/error.rs:43:5
+   |
+42 | pub(crate) enum ErrorBodyLimit {
+   |                 -------------- variant in this enum
+43 |     Unlimited,
+   |     ^^^^^^^^^
+   |
+   = note: `ErrorBodyLimit` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: field `body_read_error` is never read
+  --> login/src/oauth/error.rs:53:9
+   |
+49 | pub(crate) struct TokenRejection {
+   |                   -------------- field in this struct
+...
+53 |     pub body_read_error: Option<HttpError>,
+   |         ^^^^^^^^^^^^^^^
+   |
+   = note: `TokenRejection` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: method `authentication_factory` is never used
+  --> login/src/outbound_proxy.rs:39:19
+   |
+15 | impl AuthRouteConfig {
+   | -------------------- method in this implementation
+...
+39 |     pub(crate) fn authentication_factory(&self, endpoint: &str) -> HttpClientFactory {
+   |                   ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `codex-login` (lib) generated 51 warnings (run `cargo fix --lib -p codex-login` to apply 23 suggestions)
+warning: unused import: `anyhow::bail`
+ --> rmcp-client/src/oauth_client_registration.rs:4:5
+  |
+4 | use anyhow::bail;
+  |     ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-rmcp-client` (lib) generated 1 warning (run `cargo fix --lib -p codex-rmcp-client` to apply 1 suggestion)
+warning: constant `MAX_DECODED_UPLOAD_BYTES` is never used
+  --> feedback/src/lib.rs:59:7
+   |
+59 | const MAX_DECODED_UPLOAD_BYTES: usize = 200 * 1024 * 1024;
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: method `feedback_attachments` is never used
+   --> feedback/src/lib.rs:717:8
+    |
+535 | impl FeedbackSnapshot {
+    | --------------------- method in this implementation
+...
+717 |     fn feedback_attachments<'a>(
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `archive_rollouts` is never used
+  --> feedback/src/rollout_archive.rs:20:15
+   |
+20 | pub(super) fn archive_rollouts<'a>(
+   |               ^^^^^^^^^^^^^^^^
+
+warning: function `with_individual_fallback` is never used
+  --> feedback/src/rollout_archive.rs:65:15
+   |
+65 | pub(super) fn with_individual_fallback<'a>(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `append_rollout` is never used
+  --> feedback/src/rollout_archive.rs:95:4
+   |
+95 | fn append_rollout<W: Write>(
+   |    ^^^^^^^^^^^^^^
+
+warning: struct `BoundedWriter` is never constructed
+   --> feedback/src/rollout_archive.rs:129:8
+    |
+129 | struct BoundedWriter<W> {
+    |        ^^^^^^^^^^^^^
+
+warning: function `encode_envelope` is never used
+  --> feedback/src/upload.rs:13:15
+   |
+13 | pub(super) fn encode_envelope(envelope: &Envelope) -> io::Result<(Vec<u8>, usize)> {
+   |               ^^^^^^^^^^^^^^^
+
+warning: function `encode_attachment_envelope` is never used
+  --> feedback/src/upload.rs:30:15
+   |
+30 | pub(super) fn encode_attachment_envelope(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `CountingWriter` is never constructed
+  --> feedback/src/upload.rs:48:8
+   |
+48 | struct CountingWriter<W> {
+   |        ^^^^^^^^^^^^^^
+
+warning: `codex-feedback` (lib) generated 9 warnings
+warning: unused import: `codex_login::auth::AgentIdentityAuthError`
+  --> model-provider/src/auth.rs:19:5
+   |
+19 | use codex_login::auth::AgentIdentityAuthError;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `codex_protocol::auth::RefreshTokenFailedError`
+  --> model-provider/src/provider.rs:22:5
+   |
+22 | use codex_protocol::auth::RefreshTokenFailedError;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: method `engage` is never used
+  --> model-provider/src/auth.rs:69:8
+   |
+64 | impl AgentIdentitySessionFallback {
+   | --------------------------------- method in this implementation
+...
+69 |     fn engage(&self) -> bool {
+   |        ^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: associated function `for_agent_identity` is never used
+  --> model-provider/src/auth.rs:91:8
+   |
+82 | impl ResolvedProviderAuth {
+   | ------------------------- associated function in this implementation
+...
+91 |     fn for_agent_identity(auth: AgentIdentityAuth) -> Self {
+   |        ^^^^^^^^^^^^^^^^^^
+
+warning: function `uses_fedramp_api_key` is never used
+   --> model-provider/src/auth.rs:339:15
+    |
+339 | pub(crate) fn uses_fedramp_api_key(
+    |               ^^^^^^^^^^^^^^^^^^^^
+
+warning: `codex-model-provider` (lib) generated 5 warnings (run `cargo fix --lib -p codex-model-provider` to apply 2 suggestions)
+    Checking codex-app-server v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server)
+warning: unused import: `std::io::Error as IoError`
+ --> app-server/src/request_processors/thread_summary.rs:7:5
+  |
+7 | use std::io::Error as IoError;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `auth_mode_to_api` is never used
+  --> app-server/src/auth_mode.rs:10:15
+   |
+10 | pub(crate) fn auth_mode_to_api(auth_mode: AuthMode) -> ApiAuthMode {
+   |               ^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: method `load_retained_session_config` is never used
+   --> app-server/src/config_manager.rs:317:25
+    |
+ 91 | impl ConfigManager {
+    | ------------------ method in this implementation
+...
+317 |     pub(crate) async fn load_retained_session_config(
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `EXTERNAL_AUTH_REFRESH_TIMEOUT` is never used
+  --> app-server/src/external_auth.rs:18:7
+   |
+18 | const EXTERNAL_AUTH_REFRESH_TIMEOUT: Duration = Duration::from_secs(10);
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `ExternalAuthBridge` is never constructed
+  --> app-server/src/external_auth.rs:20:19
+   |
+20 | pub(crate) struct ExternalAuthBridge {
+   |                   ^^^^^^^^^^^^^^^^^^
+
+warning: associated items `new` and `refresh` are never used
+  --> app-server/src/external_auth.rs:26:19
+   |
+25 | impl ExternalAuthBridge {
+   | ----------------------- associated items in this implementation
+26 |     pub(crate) fn new(outgoing: Arc<OutgoingMessageSender>, auth: CodexAuth) -> Self {
+   |                   ^^^
+...
+33 |     async fn refresh(&self, context: ExternalAuthRefreshContext) -> std::io::Result<CodexAuth> {
+   |              ^^^^^^^
+
+warning: function `reload_mcp_config_best_effort` is never used
+  --> app-server/src/mcp_refresh.rs:23:21
+   |
+23 | pub(crate) async fn reload_mcp_config_best_effort(
+   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variant `BestEffort` is never constructed
+  --> app-server/src/mcp_refresh.rs:41:5
+   |
+39 | enum ReloadPolicy {
+   |      ------------ variant in this enum
+40 |     Strict,
+41 |     BestEffort,
+   |     ^^^^^^^^^^
+   |
+   = note: `ReloadPolicy` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: method `send_request` is never used
+   --> app-server/src/outgoing_message.rs:374:25
+    |
+268 | impl OutgoingMessageSender {
+    | -------------------------- method in this implementation
+...
+374 |     pub(crate) async fn send_request(
+    |                         ^^^^^^^^^^^^
+
+warning: enum `AccountNotification` is never used
+  --> app-server/src/account_notifications.rs:10:17
+   |
+10 | pub(crate) enum AccountNotification {
+   |                 ^^^^^^^^^^^^^^^^^^^
+
+warning: method `send_account_notification` is never used
+  --> app-server/src/account_notifications.rs:16:25
+   |
+15 | impl OutgoingMessageSender {
+   | -------------------------- method in this implementation
+16 |     pub(crate) async fn send_account_notification(
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: enum `BedrockLoginCredentials` is never used
+  --> app-server/src/request_processors/account_processor.rs:29:6
+   |
+29 | enum BedrockLoginCredentials {
+   |      ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: fields `thread_manager` and `outgoing` are never read
+  --> app-server/src/request_processors/account_processor.rs:41:5
+   |
+39 | pub(crate) struct AccountRequestProcessor {
+   |                   ----------------------- fields in this struct
+40 |     auth_manager: Arc<AuthManager>,
+41 |     thread_manager: Arc<ThreadManager>,
+   |     ^^^^^^^^^^^^^^
+42 |     outgoing: Arc<OutgoingMessageSender>,
+   |     ^^^^^^^^
+   |
+   = note: `AccountRequestProcessor` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: multiple associated items are never used
+   --> app-server/src/request_processors/account_processor.rs:86:25
+    |
+ 52 | impl AccountRequestProcessor {
+    | ---------------------------- associated items in this implementation
+...
+ 86 |     pub(crate) async fn login_account(
+    |                         ^^^^^^^^^^^^^
+...
+ 94 |     pub(crate) async fn logout_account(
+    |                         ^^^^^^^^^^^^^^
+...
+119 |     fn current_account_updated_notification(&self) -> AccountUpdatedNotification {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+144 |     async fn maybe_refresh_plugin_caches_for_current_config(
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+196 |     fn spawn_effective_plugins_changed_task(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+209 |     async fn login_v2(
+    |              ^^^^^^^^
+...
+260 |     fn configured_auth_owned_by_host_error(&self) -> JSONRPCErrorError {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+288 |     async fn login_api_key_common(
+    |              ^^^^^^^^^^^^^^^^^^^^
+...
+320 |     async fn login_api_key_v2(&self, request_id: ConnectionRequestId, params: LoginApiKeyParams) {
+    |              ^^^^^^^^^^^^^^^^
+...
+337 |     async fn login_amazon_bedrock_v2(
+    |              ^^^^^^^^^^^^^^^^^^^^^^^
+...
+431 |     async fn send_login_success_notifications(&self, login_id: Option<Uuid>) {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+442 |     async fn send_account_login_notifications(&self, payload: AccountLoginCompletedNotification) {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+477 |     async fn logout_common(&self) -> std::result::Result<Option<AuthMode>, JSONRPCErrorError> {
+    |              ^^^^^^^^^^^^^
+...
+503 |     async fn logout_v2(&self, request_id: ConnectionRequestId) -> Result<(), JSONRPCErrorError> {
+    |              ^^^^^^^^^
+
+warning: struct `LoginGuard` is never constructed
+  --> app-server/src/request_processors/account_processor/gateway_oauth.rs:19:8
+   |
+19 | struct LoginGuard(Arc<std::sync::Mutex<Option<ActiveGatewayLogin>>>);
+   |        ^^^^^^^^^^
+
+warning: method `gateway_oauth_login` is never used
+  --> app-server/src/request_processors/account_processor/gateway_oauth.rs:76:25
+   |
+29 | impl AccountRequestProcessor {
+   | ---------------------------- method in this implementation
+...
+76 |     pub(crate) async fn gateway_oauth_login(
+   |                         ^^^^^^^^^^^^^^^^^^^
+
+warning: method `unload_for_workspace_switch` is never used
+ --> app-server/src/request_processors/thread_processor/workspace_switching.rs:7:25
+  |
+6 | impl ThreadRequestProcessor {
+  | --------------------------- method in this implementation
+7 |     pub(crate) async fn unload_for_workspace_switch(&self) -> Result<(), JSONRPCErrorError> {
+  |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `TurnAdmissionPause` is never constructed
+  --> app-server/src/turn_admission.rs:35:19
+   |
+35 | pub(crate) struct TurnAdmissionPause(TurnAdmission);
+   |                   ^^^^^^^^^^^^^^^^^^
+
+warning: method `pause` is never used
+  --> app-server/src/turn_admission.rs:38:25
+   |
+37 | impl TurnAdmission {
+   | ------------------ method in this implementation
+38 |     pub(crate) async fn pause(&self) -> Result<TurnAdmissionPause, JSONRPCErrorError> {
+   |                         ^^^^^
+
+warning: `codex-app-server` (lib) generated 19 warnings (run `cargo fix --lib -p codex-app-server` to apply 1 suggestion)
+    Checking codex-app-server-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-client)
+    Checking codex-exec-server-cli v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server-cli)
+    Checking codex-exec v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec)
+    Checking codex-tui v0.0.0 (/home/sig/files/qiri-release/codex-rs/tui)
+warning: fields `reason` and `turn_id` are never read
+    --> tui/src/app_event.rs:1676:9
+     |
+1674 |     SubmitFeedback {
+     |     -------------- fields in this variant
+1675 |         category: FeedbackCategory,
+1676 |         reason: Option<String>,
+     |         ^^^^^^
+1677 |         turn_id: Option<String>,
+     |         ^^^^^^^
+     |
+     = note: `AppEvent` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+     = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: variant `OpenFeedbackConsent` is never constructed
+    --> tui/src/app_event.rs:1669:5
+     |
+ 314 | pub(crate) enum AppEvent {
+     |                 -------- variant in this enum
+...
+1669 |     OpenFeedbackConsent {
+     |     ^^^^^^^^^^^^^^^^^^^
+     |
+     = note: `AppEvent` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: variants `BadResult`, `Bug`, `SafetyCheck`, and `Other` are never constructed
+    --> tui/src/app_event.rs:1863:5
+     |
+1862 | pub(crate) enum FeedbackCategory {
+     |                 ---------------- variants in this enum
+1863 |     BadResult,
+     |     ^^^^^^^^^
+1864 |     GoodResult,
+1865 |     Bug,
+     |     ^^^
+1866 |     SafetyCheck,
+     |     ^^^^^^^^^^^
+1867 |     Other,
+     |     ^^^^^
+     |
+     = note: `FeedbackCategory` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: function `feedback_selection_params` is never used
+   --> tui/src/bottom_pane/feedback_view.rs:132:15
+    |
+132 | pub(crate) fn feedback_selection_params(
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `make_feedback_item` is never used
+   --> tui/src/bottom_pane/feedback_view.rs:173:4
+    |
+173 | fn make_feedback_item(
+    |    ^^^^^^^^^^^^^^^^^^
+
+warning: constant `ANNOUNCEMENT_TIP_URL` is never used
+  --> tui/src/tooltips.rs:16:7
+   |
+16 | const ANNOUNCEMENT_TIP_URL: &str =
+   |       ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `preferred_tooltip` is never used
+  --> tui/src/tooltips.rs:47:15
+   |
+47 | pub(crate) fn preferred_tooltip<R: Rng + ?Sized>(
+   |               ^^^^^^^^^^^^^^^^^
+
+warning: static `ANNOUNCEMENT_TIP` is never used
+   --> tui/src/tooltips.rs:119:12
+    |
+119 |     static ANNOUNCEMENT_TIP: OnceLock<Option<AnnouncementTips>> = OnceLock::new();
+    |            ^^^^^^^^^^^^^^^^
+
+warning: constant `CURRENT_OS` is never used
+   --> tui/src/tooltips.rs:120:11
+    |
+120 |     const CURRENT_OS: TargetOs = TargetOs::current();
+    |           ^^^^^^^^^^
+
+warning: function `prewarm` is never used
+   --> tui/src/tooltips.rs:123:19
+    |
+123 |     pub(crate) fn prewarm(http_client_factory: HttpClientFactory) {
+    |                   ^^^^^^^
+
+warning: function `fetch_announcement_tip` is never used
+   --> tui/src/tooltips.rs:136:19
+    |
+136 |     pub(crate) fn fetch_announcement_tip(plan: Option<PlanType>) -> Option<String> {
+    |                   ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTipRaw` is never constructed
+   --> tui/src/tooltips.rs:144:12
+    |
+144 |     struct AnnouncementTipRaw {
+    |            ^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTipDocument` is never constructed
+   --> tui/src/tooltips.rs:155:12
+    |
+155 |     struct AnnouncementTipDocument {
+    |            ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTip` is never constructed
+   --> tui/src/tooltips.rs:160:12
+    |
+160 |     struct AnnouncementTip {
+    |            ^^^^^^^^^^^^^^^
+
+warning: enum `TargetOs` is never used
+   --> tui/src/tooltips.rs:172:10
+    |
+172 |     enum TargetOs {
+    |          ^^^^^^^^
+
+warning: associated function `current` is never used
+   --> tui/src/tooltips.rs:181:18
+    |
+180 |     impl TargetOs {
+    |     ------------- associated function in this implementation
+181 |         const fn current() -> Self {
+    |                  ^^^^^^^
+
+warning: function `fetch_announcement_tip_text` is never used
+   --> tui/src/tooltips.rs:193:14
+    |
+193 |     async fn fetch_announcement_tip_text(http_client_factory: HttpClientFactory) -> Option<String> {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTips` is never constructed
+   --> tui/src/tooltips.rs:205:23
+    |
+205 |     pub(super) struct AnnouncementTips(Vec<AnnouncementTip>);
+    |                       ^^^^^^^^^^^^^^^^
+
+warning: associated items `parse` and `select` are never used
+   --> tui/src/tooltips.rs:208:23
+    |
+207 |     impl AnnouncementTips {
+    |     --------------------- associated items in this implementation
+208 |         pub(super) fn parse(text: &str) -> Option<Self> {
+    |                       ^^^^^
+...
+221 |         pub(super) fn select(&self, plan: Option<PlanType>) -> Option<String> {
+    |                       ^^^^^^
+
+warning: associated items `from_raw`, `version_matches`, and `date_matches` are never used
+   --> tui/src/tooltips.rs:245:12
+    |
+244 |     impl AnnouncementTip {
+    |     -------------------- associated items in this implementation
+245 |         fn from_raw(raw: AnnouncementTipRaw) -> Option<Self> {
+    |            ^^^^^^^^
+...
+289 |         fn version_matches(&self, version: &str) -> bool {
+    |            ^^^^^^^^^^^^^^^
+...
+295 |         fn date_matches(&self, today: NaiveDate) -> bool {
+    |            ^^^^^^^^^^^^
+
+warning: `codex-tui` (lib) generated 20 warnings
+    Checking codex-cli v0.0.0 (/home/sig/files/qiri-release/codex-rs/cli)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 46.56s

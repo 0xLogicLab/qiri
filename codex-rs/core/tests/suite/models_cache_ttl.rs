@@ -396,7 +396,7 @@ async fn uses_cache_when_version_matches() -> Result<()> {
 
     let mut builder = test_codex().with_auth(CodexAuth::create_dummy_chatgpt_auth_for_testing());
     let identity = codex_model_provider::test_support::models_cache_entry(
-        &codex_model_provider_info::ModelProviderInfo::create_openai_provider(Some(format!(
+        &codex_model_provider_info::ModelProviderInfo::create_local_provider(Some(format!(
             "{}/v1",
             server.uri()
         ))),
@@ -471,7 +471,7 @@ async fn refreshes_when_cache_version_missing() -> Result<()> {
 
     let mut builder = test_codex().with_auth(CodexAuth::create_dummy_chatgpt_auth_for_testing());
     let identity = codex_model_provider::test_support::models_cache_entry(
-        &codex_model_provider_info::ModelProviderInfo::create_openai_provider(Some(format!(
+        &codex_model_provider_info::ModelProviderInfo::create_local_provider(Some(format!(
             "{}/v1",
             server.uri()
         ))),
@@ -531,7 +531,7 @@ async fn refreshes_when_cache_version_differs() -> Result<()> {
 
     let mut builder = test_codex().with_auth(CodexAuth::create_dummy_chatgpt_auth_for_testing());
     let identity = codex_model_provider::test_support::models_cache_entry(
-        &codex_model_provider_info::ModelProviderInfo::create_openai_provider(Some(format!(
+        &codex_model_provider_info::ModelProviderInfo::create_local_provider(Some(format!(
             "{}/v1",
             server.uri()
         ))),

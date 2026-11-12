@@ -16,7 +16,7 @@ async fn cancelled_turn_skips_launch_but_preserves_existing_work(trigger: Compac
     let phase = CompactionPhase::MidTurn;
     let server = responses::start_mock_server().await;
     let mut provider =
-        codex_model_provider_info::built_in_model_providers(/*openai_base_url*/ None)["openai"]
+        codex_model_provider_info::built_in_model_providers(/*openai_base_url*/ None)["local"]
             .clone();
     provider.base_url = Some(format!("{}/v1", server.uri()));
     provider.supports_websockets = false;

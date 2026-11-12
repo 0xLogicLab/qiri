@@ -775,20 +775,19 @@ async fn get_model_info_tracks_metadata_origin() {
         base_instructions: Some("Custom instructions".to_string()),
         ..Default::default()
     };
-    let manager = openai_manager_for_tests(
-        codex_home.path().to_path_buf(),
-        TestModelsEndpoint::new(Vec::new()),
-    );
-    let known_slug = manager
-        .get_remote_models()
-        .await
-        .first()
-        .expect("bundled models should include at least one model")
-        .slug
-        .clone();
+    let manager = static_manager_for_tests(ModelsResponse {
+        models: vec![remote_model("local-model", "Local", 0)],
+    });
+    let known_slug = "local-model".to_string();
+    let config = ModelsManagerConfig {
+        model_catalog: Some(ModelsResponse {
+            models: vec![remote_model(&known_slug, "Local", 0)],
+        }),
+        ..config
+    };
 
     let known = manager.get_model_info(known_slug.as_str(), &config).await;
-    assert_eq!(known.origin, ModelOrigin::Bundled);
+    assert_eq!(known.origin, ModelOrigin::ExplicitConfig);
     assert_eq!(known.slug, known_slug);
 
     let unknown = manager
@@ -803,29 +802,6 @@ async fn get_model_info_tracks_metadata_origin() {
             .and_then(|messages| messages.instructions_template.as_deref()),
         config.base_instructions.as_deref()
     );
-}
-
-#[tokio::test]
-async fn get_model_info_applies_long_context_override_to_bundled_gpt_5_6_models() {
-    let codex_home = tempdir().expect("temp dir");
-    let manager = openai_manager_for_tests(
-        codex_home.path().to_path_buf(),
-        TestModelsEndpoint::new(Vec::new()),
-    );
-    let config = ModelsManagerConfig {
-        model_context_window: Some(1_000_000),
-        ..Default::default()
-    };
-
-    for slug in ["gpt-5.6-sol", "gpt-5.6-terra", "gpt-5.6-luna"] {
-        let model_info = manager.get_model_info(slug, &config).await;
-        let mut expected = manager
-            .get_model_info(slug, &ModelsManagerConfig::default())
-            .await;
-        expected.context_window = Some(872_000);
-
-        assert_eq!(model_info, expected);
-    }
 }
 
 #[tokio::test]
@@ -902,15 +878,15 @@ async fn get_model_info_rejects_multi_segment_namespace_suffix_matching() {
         codex_home.path().to_path_buf(),
         TestModelsEndpoint::new(Vec::new()),
     );
-    let known_slug = manager
-        .get_remote_models()
-        .await
-        .first()
-        .expect("bundled models should include at least one model")
-        .slug
-        .clone();
-    let namespaced_model = format!("ns1/ns2/{known_slug}");
+    let known_slug = "local-model".to_string();
+    let config = ModelsManagerConfig {
+        model_catalog: Some(ModelsResponse {
+            models: vec![remote_model(&known_slug, "Local", 0)],
+        }),
+        ..config
+    };
 
+    let namespaced_model = format!("ns1/ns2/{known_slug}");
     let model_info = manager.get_model_info(&namespaced_model, &config).await;
 
     assert_eq!(model_info.slug, namespaced_model);
@@ -1014,39 +990,6 @@ async fn refresh_available_models_uses_cached_remote_only_catalog_for_chatgpt_au
         0,
         "fresh cache should avoid a model fetch"
     );
-}
-
-#[tokio::test]
-async fn get_model_info_uses_fallback_for_bundled_models_when_chatgpt_remote_is_authoritative() {
-    let remote_models = vec![remote_model(
-        "chatgpt-authoritative-model-info",
-        "ChatGPT Model Info",
-        /*priority*/ 0,
-    )];
-    let codex_home = tempdir().expect("temp dir");
-    let endpoint = TestModelsEndpoint::new(vec![remote_models]);
-    let manager = openai_manager_for_tests(codex_home.path().to_path_buf(), endpoint);
-    let bundled_slug = load_remote_models_from_file()
-        .expect("bundled models should parse")
-        .first()
-        .expect("bundled models should contain at least one model")
-        .slug
-        .clone();
-
-    manager
-        .refresh_available_models(
-            RefreshStrategy::OnlineIfUncached,
-            &DEFAULT_HTTP_CLIENT_FACTORY,
-        )
-        .await
-        .expect("refresh succeeds");
-
-    let model_info = manager
-        .get_model_info(&bundled_slug, &ModelsManagerConfig::default())
-        .await;
-
-    assert_eq!(model_info.slug, bundled_slug);
-    assert_eq!(model_info.origin, ModelOrigin::Synthetic);
 }
 
 #[tokio::test]
@@ -1786,42 +1729,6 @@ async fn refresh_available_models_uses_cached_chatgpt_when_external_api_key_is_u
     );
 }
 
-#[tokio::test]
-async fn refresh_available_models_fetches_with_chatgpt_auth_tokens() {
-    let dynamic_slug = "dynamic-model-only-for-test-chatgpt-auth-tokens";
-    let codex_home = tempdir().expect("temp dir");
-    let endpoint = TestModelsEndpoint::new(vec![vec![remote_model(
-        dynamic_slug,
-        "ChatGPT Auth Tokens",
-        /*priority*/ 1,
-    )]]);
-    let auth = chatgpt_auth_tokens_for_tests(codex_home.path()).await;
-    let manager = openai_manager_for_tests_with_auth(
-        codex_home.path().to_path_buf(),
-        endpoint.clone(),
-        Some(AuthManager::from_auth_for_testing(auth)),
-    );
-
-    manager
-        .refresh_available_models(RefreshStrategy::Online, &DEFAULT_HTTP_CLIENT_FACTORY)
-        .await
-        .expect("refresh should fetch with ChatGPT auth tokens");
-
-    assert!(
-        manager
-            .get_remote_models()
-            .await
-            .iter()
-            .any(|candidate| candidate.slug == dynamic_slug),
-        "remote refresh should include models fetched with ChatGPT auth tokens"
-    );
-    assert_eq!(
-        endpoint.fetch_count(),
-        1,
-        "endpoint should fetch models with ChatGPT auth tokens"
-    );
-}
-
 #[test]
 fn build_available_models_picks_default_after_hiding_hidden_models() {
     let manager = static_manager_for_tests(ModelsResponse { models: Vec::new() });
@@ -1901,7 +1808,7 @@ fn bundled_models_json_roundtrips() {
         "bundled models.json should round trip through serde"
     );
     assert!(
-        !response.models.is_empty(),
-        "bundled models.json should contain at least one model"
+        response.models.is_empty(),
+        "model selection must come from the explicitly configured endpoint or catalog"
     );
 }

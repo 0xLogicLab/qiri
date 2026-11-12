@@ -13,7 +13,6 @@ use serde::Deserialize;
 use std::time::Duration;
 use url::Url;
 
-pub const DEFAULT_REGISTRATION_URL: &str = "https://auth.openai.com/agent/register";
 const MAX_BODY_BYTES: usize = 64 * 1024;
 const REQUEST_TIMEOUT: Duration = Duration::from_secs(30);
 
@@ -41,7 +40,7 @@ impl RuntimeRegistrationClient {
             return Err(RegistrationError::InvalidEndpoint);
         }
         Ok(Self {
-            http: RouteAwareClientPool::with_chatgpt_cloudflare_cookies_without_redirects_or_request_logging(
+            http: RouteAwareClientPool::new_without_redirects_or_request_logging(
                 factory,
                 ClientRouteClass::Auth,
             ),

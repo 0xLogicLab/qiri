@@ -54,7 +54,7 @@ async fn config_changes_preserve_the_threads_established_routing() {
         .await
         .unwrap();
     config.web_search_mode.set(WebSearchMode::Cached).unwrap();
-    config.model_provider = ModelProviderInfo::create_openai_provider(Some(
+    config.model_provider = ModelProviderInfo::create_local_provider(Some(
         "http://127.0.0.1:0/backend-api/codex".into(),
     ));
     let auth_manager =

@@ -592,7 +592,7 @@ async fn current_time_reminder_is_refreshed_after_compaction() -> Result<()> {
         ],
     )
     .await;
-    let mut model_provider = built_in_model_providers(/*openai_base_url*/ None)["openai"].clone();
+    let mut model_provider = built_in_model_providers(/*openai_base_url*/ None)["local"].clone();
     model_provider.name = "OpenAI-compatible test provider".to_string();
     model_provider.base_url = Some(format!("{}/v1", server.uri()));
     model_provider.supports_websockets = false;
@@ -713,7 +713,7 @@ async fn opted_in_clock_failures_reach_the_model_without_aborting() -> Result<()
         ],
     )
     .await;
-    let mut model_provider = built_in_model_providers(/*openai_base_url*/ None)["openai"].clone();
+    let mut model_provider = built_in_model_providers(/*openai_base_url*/ None)["local"].clone();
     model_provider.name = "OpenAI-compatible test provider".to_string();
     model_provider.base_url = Some(format!("{}/v1", server.uri()));
     model_provider.supports_websockets = false;

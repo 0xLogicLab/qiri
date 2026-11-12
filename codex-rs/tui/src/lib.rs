@@ -61,7 +61,6 @@ use codex_login::AuthConfig;
 use codex_login::default_client::originator;
 use codex_login::default_client::set_default_client_residency_requirement;
 use codex_login::enforce_login_restrictions;
-use codex_login::is_workload_identity_selected;
 use codex_protocol::ThreadId;
 use codex_protocol::auth::AuthMode;
 use codex_protocol::config_types::AltScreenMode;
@@ -1256,7 +1255,7 @@ async fn run_ratatui_app(
     );
     let backend_id = crate::backend_id::BackendId::new();
     let uses_remote_workspace = app_server_target.uses_remote_workspace();
-    let workload_identity_selected = is_workload_identity_selected();
+    let workload_identity_selected = false;
     color_eyre::install()?;
 
     // Forward panic reports through tracing so they appear in the UI status

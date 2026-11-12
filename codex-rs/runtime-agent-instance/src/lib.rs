@@ -17,12 +17,10 @@ pub use bootstrap::RuntimeRegistrationMetadata;
 pub use bootstrap::RuntimeRegistrationRequest;
 pub use bootstrap::RuntimeRegistrationResponse;
 pub use bootstrap::RuntimeRole;
-pub use codex_http_client::is_openai_api_url;
 
 pub use auth::RuntimeAuth;
 pub use manager::RuntimeAuthError;
 pub use manager::RuntimeAuthManager;
-pub use registration::DEFAULT_REGISTRATION_URL;
 pub use registration::RegistrationError;
 pub use registration::RegistrationErrorCode;
 pub use registration::RuntimeRegistrationClient;

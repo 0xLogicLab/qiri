@@ -40,6 +40,6 @@ async fn offline_model_info_with_tool_output_override() {
 
     assert_eq!(
         model_info.truncation_policy,
-        TruncationPolicyConfig::tokens(/*limit*/ 123)
+        TruncationPolicyConfig::bytes(/*limit*/ 492)
     );
 }

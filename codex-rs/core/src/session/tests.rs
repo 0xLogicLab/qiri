@@ -898,7 +898,7 @@ fn test_model_client_session() -> crate::client::ModelClientSession {
         /*auth_manager*/ None,
         AgentIdentityAuthPolicy::JwtOnly,
         thread_id,
-        ModelProviderInfo::create_openai_provider(/* base_url */ /*base_url*/ None),
+        ModelProviderInfo::create_local_provider(/* base_url */ /*base_url*/ None),
         codex_protocol::protocol::SessionSource::Exec,
         "test_originator".to_string(),
         /*model_verbosity*/ None,
@@ -12166,7 +12166,7 @@ async fn make_remote_compaction_session(
     Arc<TurnContext>,
     async_channel::Receiver<Event>,
 ) {
-    let mut provider = built_in_model_providers(/*openai_base_url*/ None)["openai"].clone();
+    let mut provider = built_in_model_providers(/*openai_base_url*/ None)["local"].clone();
     provider.base_url = Some(format!("{server_uri}/v1"));
     provider.supports_websockets = false;
     make_session_and_context_with_auth_and_config_and_rx(

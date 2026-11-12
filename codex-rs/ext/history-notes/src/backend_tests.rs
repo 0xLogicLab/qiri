@@ -39,7 +39,7 @@ async fn routes_through_codex_backend_and_injects_trusted_session_agent_context(
     let auth_manager =
         AuthManager::from_auth_for_testing(CodexAuth::Headers(AuthHeaders::new(headers)));
     let provider = create_model_provider(
-        ModelProviderInfo::create_openai_provider(Some(format!(
+        ModelProviderInfo::create_local_provider(Some(format!(
             "{}/backend-api/codex",
             server.uri()
         ))),
@@ -123,7 +123,7 @@ async fn marks_encrypted_history_and_notes_arguments_without_changing_the_json_b
         AuthManager::from_auth_for_testing(CodexAuth::Headers(AuthHeaders::new(HeaderMap::new())));
     let backend = HistoryNotesBackend::new(
         create_model_provider(
-            ModelProviderInfo::create_openai_provider(Some(format!(
+            ModelProviderInfo::create_local_provider(Some(format!(
                 "{}/backend-api/codex",
                 server.uri()
             ))),

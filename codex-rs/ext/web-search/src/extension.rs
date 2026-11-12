@@ -234,7 +234,7 @@ mod tests {
         thread_store.insert(WebSearchExtensionConfig {
             provider_supports_search: true,
             http_client_factory: HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault),
-            provider: ModelProviderInfo::create_openai_provider(/*base_url*/ None),
+            provider: ModelProviderInfo::create_local_provider(/*base_url*/ None),
             settings: Default::default(),
         });
 

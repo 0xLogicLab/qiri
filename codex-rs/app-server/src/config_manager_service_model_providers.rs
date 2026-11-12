@@ -18,10 +18,9 @@ use codex_model_provider_info::AMAZON_BEDROCK_RUNTIME_PROVIDER_NAME;
 use codex_model_provider_info::GCP_PROVIDER_ID;
 use codex_model_provider_info::GCP_PROVIDER_NAME;
 use codex_model_provider_info::LMSTUDIO_OSS_PROVIDER_ID;
+use codex_model_provider_info::LOCAL_PROVIDER_ID;
 use codex_model_provider_info::ModelProviderInfo;
 use codex_model_provider_info::OLLAMA_OSS_PROVIDER_ID;
-use codex_model_provider_info::OPENAI_PROVIDER_ID;
-use codex_model_provider_info::OPENAI_PROVIDER_NAME;
 use codex_model_provider_info::built_in_model_providers;
 use std::collections::BTreeSet;
 
@@ -79,7 +78,7 @@ impl ConfigManager {
         let default_id = layers
             .required_model_provider()
             .or_else(|| effective.get("model_provider").and_then(TomlValue::as_str))
-            .unwrap_or(OPENAI_PROVIDER_ID);
+            .unwrap_or(LOCAL_PROVIDER_ID);
         let selection_layer = layers
             .layers_high_to_low()
             .find(|layer| layer.config.get("model_provider").is_some());
@@ -93,7 +92,7 @@ impl ConfigManager {
             .flat_map(|table| table.keys().map(String::as_str))
             // Local OSS built-ins cannot have configured provider tables.
             .filter(|id| !matches!(*id, OLLAMA_OSS_PROVIDER_ID | LMSTUDIO_OSS_PROVIDER_ID))
-            .chain([OPENAI_PROVIDER_ID])
+            .chain([LOCAL_PROVIDER_ID])
             .collect();
         let data = ids
             .into_iter()
@@ -132,8 +131,10 @@ pub(super) fn summarize_provider(
     let builtin_auth = uses_builtin_auth(display_name);
     let requires_rename = builtin.is_none() && (display_name.trim().is_empty() || builtin_auth);
     let external_auth = builtin_auth || config.is_some_and(has_external_auth);
-    let base_url = if id == OPENAI_PROVIDER_ID {
-        effective.get("openai_base_url")
+    let base_url = if id == LOCAL_PROVIDER_ID {
+        config
+            .and_then(|config| config.get("base_url"))
+            .or_else(|| effective.get("openai_base_url"))
     } else {
         config.and_then(|config| config.get("base_url"))
     }
@@ -141,7 +142,6 @@ pub(super) fn summarize_provider(
     .filter(|url| valid_endpoint(url))
     .map(str::to_owned);
     let settings = match id {
-        OPENAI_PROVIDER_ID => ProviderSettings::OpenAi,
         AMAZON_BEDROCK_PROVIDER_ID | AMAZON_BEDROCK_RUNTIME_PROVIDER_ID => {
             let aws = config.and_then(|provider| provider.get("aws"));
             ProviderSettings::Bedrock {
@@ -183,10 +183,7 @@ pub(super) fn summarize_provider(
 pub(super) fn uses_builtin_auth(name: &str) -> bool {
     matches!(
         name,
-        OPENAI_PROVIDER_NAME
-            | AMAZON_BEDROCK_PROVIDER_NAME
-            | AMAZON_BEDROCK_RUNTIME_PROVIDER_NAME
-            | GCP_PROVIDER_NAME
+        AMAZON_BEDROCK_PROVIDER_NAME | AMAZON_BEDROCK_RUNTIME_PROVIDER_NAME | GCP_PROVIDER_NAME
     )
 }
 

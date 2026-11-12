@@ -34,7 +34,6 @@ use super::BedrockAccessKeysAuth;
 use super::BedrockApiKeyAuth;
 use crate::token_data::TokenData;
 use codex_agent_identity::AgentIdentityJwtClaims;
-use codex_agent_identity::decode_agent_identity_jwt;
 use codex_config::types::AuthCredentialsStoreMode;
 pub use codex_config::types::AuthKeyringBackendKind;
 use codex_keyring_store::DefaultKeyringStore;
@@ -139,15 +138,7 @@ where
     value.as_deref().unwrap_or_default().serialize(serializer)
 }
 
-impl AgentIdentityAuthRecord {
-    pub(crate) fn from_agent_identity_jwt(jwt: &str) -> std::io::Result<Self> {
-        let claims = decode_agent_identity_jwt(jwt, /*jwks*/ None).map_err(|error| {
-            storage_error::with_context("failed to decode agent identity JWT", error)
-        })?;
-
-        Ok(claims.into())
-    }
-}
+impl AgentIdentityAuthRecord {}
 
 impl From<AgentIdentityJwtClaims> for AgentIdentityAuthRecord {
     fn from(claims: AgentIdentityJwtClaims) -> Self {

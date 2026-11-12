@@ -48,7 +48,7 @@ async fn failed_routing_blocks_a_prewarmed_classifier_connection() -> Result<()>
         AuthManager::from_auth_for_testing(CodexAuth::create_dummy_chatgpt_auth_for_testing());
     let mut config = sampler_config(base_url.clone());
     config.provider = create_model_provider(
-        ModelProviderInfo::create_openai_provider(Some(base_url)),
+        ModelProviderInfo::create_local_provider(Some(base_url)),
         Some(auth.clone()),
     );
     let sampler = connect_sampler(config).await?;
@@ -194,7 +194,7 @@ async fn idle_classifier_retains_the_owning_threads_workspace_binding() -> Resul
         Arc::new(ChangedBootstrap(AtomicBool::new(/*v*/ true)));
     auth.set_workspace_routing_resolver(Arc::downgrade(&resolver));
     let mut config = test.config.clone();
-    config.model_provider = ModelProviderInfo::create_openai_provider(Some(format!(
+    config.model_provider = ModelProviderInfo::create_local_provider(Some(format!(
         "{}/backend-api/codex",
         server.uri()
     )));

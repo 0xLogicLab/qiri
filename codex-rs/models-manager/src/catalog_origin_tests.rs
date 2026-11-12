@@ -8,7 +8,7 @@ use pretty_assertions::assert_eq;
 async fn catalog_origins_survive_reload_and_auth_change() {
     for (slug, reviewer_origin) in [
         ("codex-auto-review", ModelOrigin::Provider),
-        ("gateway-model", ModelOrigin::Bundled),
+        ("gateway-model", ModelOrigin::Synthetic),
     ] {
         let home = tempdir().unwrap();
         let model = remote_model_with_visibility(slug, "Gateway", /*priority*/ 0, "hide");
@@ -43,7 +43,11 @@ async fn catalog_origins_survive_reload_and_auth_change() {
                 .iter()
                 .find(|entry| entry.model.slug == "codex-auto-review")
                 .map(|entry| entry.origin),
-            Some(reviewer_origin)
+            if slug == "codex-auto-review" {
+                Some(ModelOrigin::Provider)
+            } else {
+                None
+            }
         );
 
         let restarted = openai_manager_for_tests(home.path().to_path_buf(), endpoint.clone());
@@ -97,7 +101,7 @@ async fn catalog_origins_survive_reload_and_auth_change() {
                 .get_model_info("codex-auto-review", &ModelsManagerConfig::default())
                 .await
                 .origin,
-            ModelOrigin::Bundled
+            ModelOrigin::Synthetic
         );
     }
 }

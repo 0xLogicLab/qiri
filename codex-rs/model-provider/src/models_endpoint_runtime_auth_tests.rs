@@ -54,7 +54,9 @@ async fn provider_auth_rejects_selectors_that_do_not_match_the_registered_actor(
                 runtime_auth: Some((runtime_manager(&server, Arc::clone(&credentials)), mode)),
                 credentials,
             };
-            let mut info = ModelProviderInfo::create_openai_provider(/*base_url*/ None);
+            let mut info =
+                ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into()));
+            info.requires_openai_auth = true;
             info.env_http_headers = None;
             info.http_headers = Some(std::collections::HashMap::from([(
                 selector.into(),
@@ -121,7 +123,9 @@ async fn model_requests_keep_the_selected_project_while_reusing_one_runtime() {
             Some("project-a"),
         ];
         for project in projects {
-            let mut info = ModelProviderInfo::create_openai_provider(/*base_url*/ None);
+            let mut info =
+                ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into()));
+            info.requires_openai_auth = true;
             info.env_http_headers = None;
             let mut headers =
                 std::collections::HashMap::from([("openai-organization".into(), "org-a".into())]);
@@ -191,72 +195,6 @@ async fn model_requests_keep_the_selected_project_while_reusing_one_runtime() {
 }
 
 #[tokio::test]
-async fn unsupported_openai_destinations_do_not_fall_back_to_bearer_auth() {
-    for mode in [RuntimeAuthMode::DualHeader, RuntimeAuthMode::AssertionOnly] {
-        let server = MockServer::start().await;
-        let credentials = AuthManager::from_auth_for_testing(CodexAuth::from_api_key("key-a"));
-        let runtime = runtime_manager(&server, Arc::clone(&credentials));
-        let factory = HttpClientFactory::new(OutboundProxyPolicy::ReqwestDefault);
-        for destination in [
-            "https://unknown.api.openai.com/v1",
-            "http://api.openai.com/v1",
-            "https://api.openai.com:8443/v1",
-        ] {
-            let info = ModelProviderInfo::create_openai_provider(Some(destination.into()));
-            let provider = crate::provider::create_model_provider_with_runtime(
-                info.clone(),
-                Some(Arc::clone(&credentials)),
-                Some((Arc::clone(&runtime), mode)),
-            );
-            let error = provider
-                .request_auth(/*scope*/ None)
-                .await
-                .err()
-                .expect("unsupported inference origin");
-            assert!(
-                error
-                    .to_string()
-                    .contains("does not support this OpenAI endpoint")
-            );
-            let mut catalog_info = info;
-            catalog_info.base_url = Some("https://api.openai.com/v1".into());
-            catalog_info.model_catalog_url = Some(format!("{destination}/models").into());
-            let catalog = OpenAiModelsEndpoint::new(
-                catalog_info,
-                Some(Arc::clone(&credentials)),
-                /*gateway_auth_manager*/ None,
-            )
-            .with_runtime_auth(Some((Arc::clone(&runtime), mode)));
-            let error = catalog
-                .list_models("0.0.0", factory.clone())
-                .await
-                .unwrap_err();
-            assert!(
-                error
-                    .to_string()
-                    .contains("does not support this OpenAI endpoint")
-            );
-        }
-        // An explicitly configured other provider retains its existing bearer auth.
-        let info = ModelProviderInfo::create_openai_provider(Some(server.uri()));
-        let provider = crate::provider::create_model_provider_with_runtime(
-            info,
-            Some(credentials),
-            Some((runtime, mode)),
-        );
-        let resolved = provider.request_auth(/*scope*/ None).await.unwrap();
-        let headers = resolved
-            .auth
-            .apply_auth_headers(http::HeaderMap::new())
-            .await
-            .unwrap();
-        assert_eq!(headers["authorization"], "Bearer key-a");
-        assert!(!headers.contains_key("x-openai-agent-assertion"));
-        assert!(server.received_requests().await.unwrap().is_empty());
-    }
-}
-
-#[tokio::test]
 async fn catalog_timeout_keeps_registration_alive_for_the_next_request() {
     let server = MockServer::start().await;
     Mock::given(method("POST"))
@@ -277,7 +215,7 @@ async fn catalog_timeout_keeps_registration_alive_for_the_next_request() {
         .await;
     let credentials = AuthManager::from_auth_for_testing(CodexAuth::from_api_key("key-a"));
     let runtime = runtime_manager(&server, Arc::clone(&credentials));
-    let mut provider = ModelProviderInfo::create_openai_provider(Some(server.uri()));
+    let mut provider = ModelProviderInfo::create_local_provider(Some(server.uri()));
     provider.env_http_headers = None;
     let endpoint = OpenAiModelsEndpoint::new(
         provider,
@@ -350,7 +288,8 @@ async fn runtime_catalog_follows_redirects_without_forwarding_credentials_to_ano
                 .await;
             let credentials = AuthManager::from_auth_for_testing(CodexAuth::from_api_key("key-a"));
             let runtime = runtime_manager(&server, Arc::clone(&credentials));
-            let mut info = ModelProviderInfo::create_openai_provider(Some(server.uri()));
+            let mut info = ModelProviderInfo::create_local_provider(Some(server.uri()));
+            info.requires_openai_auth = true;
             info.env_http_headers = None;
             let endpoint = OpenAiModelsEndpoint::new(
                 info,

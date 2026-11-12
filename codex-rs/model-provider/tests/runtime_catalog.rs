@@ -191,7 +191,8 @@ async fn check_catalog(server: &str) {
             credentials,
             runtime_auth: Some((runtime, mode)),
         };
-        let info = ModelProviderInfo::create_openai_provider(/*base_url*/ None);
+        let info =
+            ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into()));
         let provider = context.model_provider(info);
         let selected = provider
             .request_auth(/*scope*/ None)
@@ -218,7 +219,7 @@ async fn check_catalog(server: &str) {
                 "the returned catalog must contain the remote model"
             );
         }
-        let mut other_info = ModelProviderInfo::create_openai_provider(Some(server.to_owned()));
+        let mut other_info = ModelProviderInfo::create_local_provider(Some(server.to_owned()));
         other_info.model_catalog_url = Some(format!("{server}/models").into());
         let other = context.model_provider(other_info);
         let models = other.models_manager_without_cache(/*config_model_catalog*/ None);

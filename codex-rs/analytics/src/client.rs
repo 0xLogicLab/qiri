@@ -65,7 +65,6 @@ use codex_app_server_protocol::TurnStatus;
 use codex_app_server_protocol::item_event_to_server_notification;
 use codex_login::AuthManager;
 use codex_login::CodexAuth;
-use codex_model_provider::ChatgptBaseUrl;
 use codex_plugin::PluginId;
 use codex_plugin::PluginTelemetryMetadata;
 use codex_protocol::ThreadId;
@@ -123,13 +122,12 @@ enum AnalyticsEventsDestination {
 }
 
 impl AnalyticsEventsDestination {
-    fn from_base_url(base_url: ChatgptBaseUrl) -> Self {
+    fn from_capture_config() -> Self {
         let capture_file = analytics_capture_file_from_env();
-        Self::from_base_url_and_capture_file(base_url, capture_file)
+        Self::from_capture_file(capture_file)
     }
 
-    fn from_base_url_and_capture_file(
-        _base_url: ChatgptBaseUrl,
+    fn from_capture_file(
         capture_file: Option<PathBuf>,
     ) -> Self {
         #[cfg(debug_assertions)]
@@ -311,10 +309,9 @@ impl AnalyticsEventsClient {
 
     pub fn new(
         auth_manager: Arc<AuthManager>,
-        base_url: impl Into<ChatgptBaseUrl>,
         analytics_enabled: Option<bool>,
     ) -> Self {
-        let destination = AnalyticsEventsDestination::from_base_url(base_url.into());
+        let destination = AnalyticsEventsDestination::from_capture_config();
         Self {
             queue: (analytics_enabled != Some(false)
                 && destination != AnalyticsEventsDestination::Disabled)

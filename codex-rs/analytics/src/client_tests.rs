@@ -307,8 +307,7 @@ fn client_with_receiver() -> (
 #[cfg(debug_assertions)]
 fn analytics_destination_uses_explicit_capture_file() {
     let capture_path = unique_capture_path("destination");
-    let destination = AnalyticsEventsDestination::from_base_url_and_capture_file(
-        "https://example.com/backend-api/".into(),
+    let destination = AnalyticsEventsDestination::from_capture_file(
         Some(capture_path.clone()),
     );
 
@@ -905,7 +904,6 @@ async fn flush_is_noop_when_analytics_is_disabled() {
         codex_login::AuthManager::from_auth_for_testing(
             codex_login::CodexAuth::create_dummy_chatgpt_auth_for_testing(),
         ),
-        "https://chatgpt.com/backend-api".to_string(),
         /*analytics_enabled*/ Some(false),
     );
     client.track_notification(&ServerNotification::ThreadArchived(

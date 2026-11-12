@@ -40,7 +40,6 @@ use codex_model_provider::ProviderAuthRecoveryMessages;
 use codex_model_provider::ProviderUnauthorizedRecovery;
 use codex_model_provider::SharedModelProvider;
 use codex_model_provider::create_model_provider;
-use codex_model_provider_info::CHATGPT_CODEX_BASE_URL;
 use codex_model_provider_info::ModelProviderInfo;
 use codex_model_provider_info::WireApi;
 use codex_model_provider_info::create_oss_provider_with_base_url;
@@ -228,7 +227,7 @@ async fn workspace_routed_http_rejects_redirects_without_a_routing_header(
         ));
         let mut client = test_model_client(SessionSource::Exec);
         Arc::get_mut(&mut client.state).unwrap().provider = create_model_provider(
-            ModelProviderInfo::create_openai_provider(/*base_url*/ None),
+            ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into())),
             Some(manager),
         );
         if let Some(mode) = runtime_mode {
@@ -598,7 +597,7 @@ async fn responses_request_includes_internal_metadata_for_provider_grant_or_firs
     without_omitted_metadata.mark_tool_calls_complete();
 
     let mut provider =
-        ModelProviderInfo::create_openai_provider(Some("https://api.openai.com/v1".to_string()));
+        ModelProviderInfo::create_local_provider(Some("https://api.openai.com/v1".to_string()));
     let mut api_provider = provider.to_api_provider(/*auth_mode*/ None)?;
     let mut client = test_model_client(SessionSource::Cli);
     Arc::get_mut(&mut client.state)
@@ -817,7 +816,7 @@ fn responses_request_preserves_result_metadata_above_previous_aggregate_budget()
     // Follow the sampling path: budget the request copy before client serialization.
     recorder.attach_to_prompt(&mut prompt.input, &mut Default::default());
     let provider =
-        ModelProviderInfo::create_openai_provider(Some("https://api.openai.com/v1".to_string()));
+        ModelProviderInfo::create_local_provider(Some("https://api.openai.com/v1".to_string()));
     let api_provider = provider.to_api_provider(/*auth_mode*/ None)?;
     let mut client = test_model_client(SessionSource::Cli);
     Arc::get_mut(&mut client.state)
@@ -862,7 +861,7 @@ fn responses_request_preserves_result_metadata_above_previous_aggregate_budget()
 fn websocket_incremental_reuse_tracks_raw_result_metadata() -> anyhow::Result<()> {
     let provider = ModelProviderInfo {
         include_internal_metadata: false,
-        ..ModelProviderInfo::create_openai_provider(Some("https://api.openai.com/v1".to_string()))
+        ..ModelProviderInfo::create_local_provider(Some("https://api.openai.com/v1".to_string()))
     };
     let mut api_provider = provider.to_api_provider(/*auth_mode*/ None)?;
     let mut client = test_model_client(SessionSource::Cli);
@@ -1073,7 +1072,7 @@ async fn responses_http_preserves_raw_tool_metadata_for_openai_custom_endpoint()
         .mount(&server)
         .await;
     let mut provider =
-        ModelProviderInfo::create_openai_provider(Some(format!("{}/v1", server.uri())));
+        ModelProviderInfo::create_local_provider(Some(format!("{}/v1", server.uri())));
     provider.requires_openai_auth = false;
     provider.supports_websockets = false;
     let mut client = test_model_client(SessionSource::Cli);
@@ -2138,7 +2137,7 @@ fn model_client_with_counting_attestation(
             Some(AuthManager::from_auth_for_testing(
                 CodexAuth::create_dummy_chatgpt_auth_for_testing(),
             )),
-            ModelProviderInfo::create_openai_provider(Some(CHATGPT_CODEX_BASE_URL.to_string())),
+            ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".to_string())),
         )
     } else {
         (
@@ -2203,7 +2202,7 @@ fn thread_responses_headers_are_scoped_to_model_and_backend_auth() {
     Arc::get_mut(&mut model_client.state)
         .expect("test client should have unique session state")
         .provider = create_model_provider(
-        ModelProviderInfo::create_openai_provider(Some("https://proxy.example.com/v1".to_owned())),
+        ModelProviderInfo::create_local_provider(Some("https://proxy.example.com/v1".to_owned())),
         Some(AuthManager::from_auth_for_testing(chatgpt_auth.clone())),
     );
     assert_eq!(

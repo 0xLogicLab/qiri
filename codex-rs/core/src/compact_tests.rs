@@ -32,7 +32,7 @@ async fn local_compaction_retries_preserve_instructions_and_tool_metadata(
 ) -> anyhow::Result<()> {
     skip_if_no_network!(Ok(()));
     let server = responses::start_mock_server().await;
-    let provider = ModelProviderInfo::create_openai_provider(Some(format!("{}/v1", server.uri())));
+    let provider = ModelProviderInfo::create_local_provider(Some(format!("{}/v1", server.uri())));
     let (session, turn, _events) = make_session_and_context_with_auth_and_config_and_rx(
         CodexAuth::create_dummy_chatgpt_auth_for_testing(),
         Vec::new(),

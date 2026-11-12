@@ -20,7 +20,7 @@ use wiremock::matchers::path;
 async fn originator_managers_share_api_key_discovery_policy() {
     let server = MockServer::start().await;
     let home = tempfile::tempdir().unwrap();
-    let mut provider = ModelProviderInfo::create_openai_provider(Some(server.uri()));
+    let mut provider = ModelProviderInfo::create_local_provider(Some(server.uri()));
     provider.model_catalog_url = Some(format!("{}/models", server.uri()).into());
     provider.http_headers = Some(std::collections::HashMap::from([(
         codex_model_provider_info::RESIDENCY_HEADER_NAME.to_string(),
@@ -97,7 +97,7 @@ async fn originator_managers_share_api_key_discovery_policy() {
 async fn originator_catalogs_are_isolated_and_reused_from_disk() {
     let server = MockServer::start().await;
     let home = tempfile::tempdir().unwrap();
-    let mut provider = ModelProviderInfo::create_openai_provider(Some(server.uri()));
+    let mut provider = ModelProviderInfo::create_local_provider(Some(server.uri()));
     // The managed-residency test toggles the process-wide US policy. Keep this
     // provider's cache identity stable whether that policy is enabled or disabled.
     provider.http_headers = Some(std::collections::HashMap::from([

@@ -1,0 +1,480 @@
+   Compiling starlark v0.14.2
+   Compiling codex-execpolicy v0.0.0 (/home/sig/files/qiri-release/codex-rs/execpolicy)
+   Compiling codex-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/protocol)
+   Compiling codex-file-system v0.0.0 (/home/sig/files/qiri-release/codex-rs/file-system)
+   Compiling codex-api v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-api)
+   Compiling codex-features v0.0.0 (/home/sig/files/qiri-release/codex-rs/features)
+   Compiling codex-model-provider-info v0.0.0 (/home/sig/files/qiri-release/codex-rs/model-provider-info)
+   Compiling codex-shell-command v0.0.0 (/home/sig/files/qiri-release/codex-rs/shell-command)
+   Compiling codex-history v0.0.0 (/home/sig/files/qiri-release/codex-rs/history)
+   Compiling codex-utils-output-truncation v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/output-truncation)
+   Compiling codex-agent-identity v0.0.0 (/home/sig/files/qiri-release/codex-rs/agent-identity)
+   Compiling codex-context-fragments v0.0.0 (/home/sig/files/qiri-release/codex-rs/context-fragments)
+   Compiling codex-code-mode-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/code-mode-protocol)
+   Compiling codex-utils-audio v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/audio)
+   Compiling codex-git-utils v0.0.0 (/home/sig/files/qiri-release/codex-rs/git-utils)
+   Compiling codex-skills v0.0.0 (/home/sig/files/qiri-release/codex-rs/skills)
+   Compiling codex-memories-read v0.0.0 (/home/sig/files/qiri-release/codex-rs/memories/read)
+   Compiling codex-utils-cli v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/cli)
+   Compiling codex-state v0.0.0 (/home/sig/files/qiri-release/codex-rs/state)
+   Compiling codex-guardian-context v0.0.0 (/home/sig/files/qiri-release/codex-rs/guardian-context)
+   Compiling codex-exec-server-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server-protocol)
+   Compiling codex-config v0.0.0 (/home/sig/files/qiri-release/codex-rs/config)
+   Compiling codex-secrets v0.0.0 (/home/sig/files/qiri-release/codex-rs/secrets)
+   Compiling codex-utils-git-discovery v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/git-discovery)
+   Compiling codex-prompts v0.0.0 (/home/sig/files/qiri-release/codex-rs/prompts)
+   Compiling codex-otel v0.0.0 (/home/sig/files/qiri-release/codex-rs/otel)
+   Compiling codex-response-debug-context v0.0.0 (/home/sig/files/qiri-release/codex-rs/response-debug-context)
+   Compiling codex-agent-graph-store v0.0.0 (/home/sig/files/qiri-release/codex-rs/agent-graph-store)
+   Compiling codex-windows-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/windows-sandbox-rs)
+   Compiling codex-rollout v0.0.0 (/home/sig/files/qiri-release/codex-rs/rollout)
+   Compiling codex-code-mode v0.0.0 (/home/sig/files/qiri-release/codex-rs/code-mode)
+   Compiling codex-mxc-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/mxc-sandbox)
+   Compiling codex-sandboxing v0.0.0 (/home/sig/files/qiri-release/codex-rs/sandboxing)
+   Compiling codex-linux-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/linux-sandbox)
+   Compiling codex-rollout-trace v0.0.0 (/home/sig/files/qiri-release/codex-rs/rollout-trace)
+   Compiling codex-app-server-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-protocol)
+   Compiling codex-exec-server v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server)
+   Compiling codex-login v0.0.0 (/home/sig/files/qiri-release/codex-rs/login)
+   Compiling codex-agent-roles v0.0.0 (/home/sig/files/qiri-release/codex-rs/agent-roles)
+warning: function `create_raw_auth_client` is never used
+   --> login/src/auth/default_client.rs:439:15
+    |
+439 | pub(crate) fn create_raw_auth_client(
+    |               ^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: fields `storage`, `original`, `workspace_id`, `email`, and `connection` are never read
+  --> login/src/auth/manager/workspace_switching.rs:32:5
+   |
+31 | pub struct WorkspaceLogin {
+   |            -------------- fields in this struct
+32 |     storage: Arc<dyn AuthStorageBackend>,
+   |     ^^^^^^^
+33 |     original: AuthDotJson,
+   |     ^^^^^^^^
+34 |     pub(crate) workspace_id: String,
+   |                ^^^^^^^^^^^^
+35 |     pub(crate) email: Option<String>,
+   |                ^^^^^
+36 |     pub(crate) connection: Option<String>,
+   |                ^^^^^^^^^^
+   |
+   = note: `WorkspaceLogin` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: method `save` is never used
+  --> login/src/auth/manager/workspace_switching.rs:46:19
+   |
+45 | impl WorkspaceLogin {
+   | ------------------- method in this implementation
+46 |     pub(crate) fn save(&self, mut updated: AuthDotJson) -> io::Result<()> {
+   |                   ^^^^
+
+warning: fields `code` and `description` are never read
+  --> login/src/oauth/authorization.rs:62:9
+   |
+61 |     Provider {
+   |     -------- fields in this variant
+62 |         code: &'a str,
+   |         ^^^^
+63 |         description: Option<&'a str>,
+   |         ^^^^^^^^^^^
+
+   Compiling codex-feedback v0.0.0 (/home/sig/files/qiri-release/codex-rs/feedback)
+   Compiling codex-runtime-agent-instance v0.0.0 (/home/sig/files/qiri-release/codex-rs/runtime-agent-instance)
+   Compiling codex-models-manager v0.0.0 (/home/sig/files/qiri-release/codex-rs/models-manager)
+warning: `codex-login` (lib) generated 4 warnings
+warning: constant `MAX_DECODED_UPLOAD_BYTES` is never used
+  --> feedback/src/lib.rs:59:7
+   |
+59 | const MAX_DECODED_UPLOAD_BYTES: usize = 200 * 1024 * 1024;
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: method `feedback_attachments` is never used
+   --> feedback/src/lib.rs:717:8
+    |
+535 | impl FeedbackSnapshot {
+    | --------------------- method in this implementation
+...
+717 |     fn feedback_attachments<'a>(
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `archive_rollouts` is never used
+  --> feedback/src/rollout_archive.rs:20:15
+   |
+20 | pub(super) fn archive_rollouts<'a>(
+   |               ^^^^^^^^^^^^^^^^
+
+warning: function `with_individual_fallback` is never used
+  --> feedback/src/rollout_archive.rs:65:15
+   |
+65 | pub(super) fn with_individual_fallback<'a>(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `append_rollout` is never used
+  --> feedback/src/rollout_archive.rs:95:4
+   |
+95 | fn append_rollout<W: Write>(
+   |    ^^^^^^^^^^^^^^
+
+warning: struct `BoundedWriter` is never constructed
+   --> feedback/src/rollout_archive.rs:129:8
+    |
+129 | struct BoundedWriter<W> {
+    |        ^^^^^^^^^^^^^
+
+warning: function `encode_envelope` is never used
+  --> feedback/src/upload.rs:13:15
+   |
+13 | pub(super) fn encode_envelope(envelope: &Envelope) -> io::Result<(Vec<u8>, usize)> {
+   |               ^^^^^^^^^^^^^^^
+
+warning: function `encode_attachment_envelope` is never used
+  --> feedback/src/upload.rs:30:15
+   |
+30 | pub(super) fn encode_attachment_envelope(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `CountingWriter` is never constructed
+  --> feedback/src/upload.rs:48:8
+   |
+48 | struct CountingWriter<W> {
+   |        ^^^^^^^^^^^^^^
+
+   Compiling codex-model-provider v0.0.0 (/home/sig/files/qiri-release/codex-rs/model-provider)
+warning: `codex-feedback` (lib) generated 9 warnings
+   Compiling codex-backend-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/backend-client)
+   Compiling codex-cloud-config v0.0.0 (/home/sig/files/qiri-release/codex-rs/cloud-config)
+warning: unused import: `std::sync::Arc`
+  --> cloud-config/src/service.rs:24:5
+   |
+24 | use std::sync::Arc;
+   |     ^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: associated function `auth_failure` is never used
+  --> cloud-config/src/backend.rs:39:19
+   |
+38 | impl BundleRequestError {
+   | ----------------------- associated function in this implementation
+39 |     pub(crate) fn auth_failure(
+   |                   ^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: method `without_cache` is never used
+  --> cloud-config/src/service.rs:81:19
+   |
+63 | impl<S: BundleSource + 'static> CloudConfigBundleService<S> {
+   | ----------------------------------------------------------- method in this implementation
+...
+81 |     pub(crate) fn without_cache(mut self) -> Self {
+   |                   ^^^^^^^^^^^^^
+
+   Compiling codex-utils-plugins v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/plugins)
+   Compiling codex-rmcp-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/rmcp-client)
+   Compiling codex-apply-patch v0.0.0 (/home/sig/files/qiri-release/codex-rs/apply-patch)
+warning: unused import: `anyhow::bail`
+ --> rmcp-client/src/oauth_client_registration.rs:4:5
+  |
+4 | use anyhow::bail;
+  |     ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-cloud-config` (lib) generated 3 warnings (run `cargo fix --lib -p codex-cloud-config` to apply 1 suggestion)
+   Compiling codex-plugin v0.0.0 (/home/sig/files/qiri-release/codex-rs/plugin)
+   Compiling codex-arg0 v0.0.0 (/home/sig/files/qiri-release/codex-rs/arg0)
+   Compiling codex-connectors v0.0.0 (/home/sig/files/qiri-release/codex-rs/connectors)
+   Compiling codex-hooks v0.0.0 (/home/sig/files/qiri-release/codex-rs/hooks)
+   Compiling codex-tools v0.0.0 (/home/sig/files/qiri-release/codex-rs/tools)
+   Compiling codex-message-board v0.0.0 (/home/sig/files/qiri-release/codex-rs/message-board)
+   Compiling codex-mcp v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-mcp)
+warning: `codex-rmcp-client` (lib) generated 1 warning (run `cargo fix --lib -p codex-rmcp-client` to apply 1 suggestion)
+   Compiling codex-message-board-mcp v0.0.0 (/home/sig/files/qiri-release/codex-rs/message-board-mcp)
+   Compiling codex-guardian-v3 v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/guardian-v3)
+   Compiling codex-analytics v0.0.0 (/home/sig/files/qiri-release/codex-rs/analytics)
+   Compiling codex-thread-store v0.0.0 (/home/sig/files/qiri-release/codex-rs/thread-store)
+   Compiling codex-extension-api v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/extension-api)
+   Compiling codex-core-plugins v0.0.0 (/home/sig/files/qiri-release/codex-rs/core-plugins)
+   Compiling codex-agent-message-board-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/agent-message-board-client)
+   Compiling codex-guardian-reviewer v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/guardian-reviewer)
+   Compiling codex-skills-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/skills)
+   Compiling codex-home v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-home)
+   Compiling codex-git-attribution v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/git-attribution)
+   Compiling codex-multi-env-copy-file v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/multi-env-copy-file)
+   Compiling codex-agent-message-board-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/agent-message-board)
+   Compiling codex-connectors-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/connectors)
+   Compiling codex-core v0.0.0 (/home/sig/files/qiri-release/codex-rs/core)
+   Compiling codex-guardian-v2 v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/guardian-v2)
+   Compiling codex-app-server-transport v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-transport)
+   Compiling codex-memories-write v0.0.0 (/home/sig/files/qiri-release/codex-rs/memories/write)
+   Compiling codex-web-search-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/web-search)
+   Compiling codex-history-notes-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/history-notes)
+   Compiling codex-memories-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/memories)
+   Compiling codex-image-generation-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/image-generation)
+   Compiling codex-queue-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/queue)
+   Compiling codex-chatgpt v0.0.0 (/home/sig/files/qiri-release/codex-rs/chatgpt)
+   Compiling codex-mcp-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/mcp)
+   Compiling codex-goal-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/goal)
+   Compiling codex-external-agent-migration v0.0.0 (/home/sig/files/qiri-release/codex-rs/external-agent-migration)
+   Compiling core_test_support v0.0.0 (/home/sig/files/qiri-release/codex-rs/core/tests/common)
+   Compiling codex-app-server-daemon v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-daemon)
+   Compiling app_test_support v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server/tests/common)
+   Compiling codex-app-server v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server)
+warning: unused import: `super::EmbeddedNetworkPolicy`
+ --> app-server/src/in_process_bootstrap_tests.rs:3:5
+  |
+3 | use super::EmbeddedNetworkPolicy;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `base64::Engine`
+ --> app-server/src/in_process_bootstrap_tests.rs:6:5
+  |
+6 | use base64::Engine;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused import: `base64::engine::general_purpose::URL_SAFE_NO_PAD`
+ --> app-server/src/in_process_bootstrap_tests.rs:7:5
+  |
+7 | use base64::engine::general_purpose::URL_SAFE_NO_PAD;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_http_client::DestinationPolicy`
+  --> app-server/src/in_process_bootstrap_tests.rs:15:5
+   |
+15 | use codex_http_client::DestinationPolicy;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_http_client::HttpClientFactory`
+  --> app-server/src/in_process_bootstrap_tests.rs:16:5
+   |
+16 | use codex_http_client::HttpClientFactory;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_http_client::NetworkPermit`
+  --> app-server/src/in_process_bootstrap_tests.rs:17:5
+   |
+17 | use codex_http_client::NetworkPermit;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_http_client::NetworkPolicyDenied`
+  --> app-server/src/in_process_bootstrap_tests.rs:18:5
+   |
+18 | use codex_http_client::NetworkPolicyDenied;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_login::AuthCredentialsStoreMode`
+  --> app-server/src/in_process_bootstrap_tests.rs:19:5
+   |
+19 | use codex_login::AuthCredentialsStoreMode;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_login::AuthKeyringBackendKind`
+  --> app-server/src/in_process_bootstrap_tests.rs:20:5
+   |
+20 | use codex_login::AuthKeyringBackendKind;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_login::AuthManager`
+  --> app-server/src/in_process_bootstrap_tests.rs:21:5
+   |
+21 | use codex_login::AuthManager;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_login::CodexAuth`
+  --> app-server/src/in_process_bootstrap_tests.rs:22:5
+   |
+22 | use codex_login::CodexAuth;
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_login::ExternalAuth`
+  --> app-server/src/in_process_bootstrap_tests.rs:23:5
+   |
+23 | use codex_login::ExternalAuth;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_login::ExternalAuthFuture`
+  --> app-server/src/in_process_bootstrap_tests.rs:24:5
+   |
+24 | use codex_login::ExternalAuthFuture;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_login::ExternalAuthRefreshContext`
+  --> app-server/src/in_process_bootstrap_tests.rs:25:5
+   |
+25 | use codex_login::ExternalAuthRefreshContext;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::Account`
+  --> app-server/src/request_processors.rs:22:5
+   |
+22 | use codex_app_server_protocol::Account;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::GetAccountParams`
+  --> app-server/src/request_processors.rs:70:5
+   |
+70 | use codex_app_server_protocol::GetAccountParams;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::GetAccountResponse`
+  --> app-server/src/request_processors.rs:71:5
+   |
+71 | use codex_app_server_protocol::GetAccountResponse;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_backend_client::Client as BackendClient`
+   --> app-server/src/request_processors.rs:297:5
+    |
+297 | use codex_backend_client::Client as BackendClient;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_model_provider::create_model_provider`
+   --> app-server/src/request_processors.rs:389:5
+    |
+389 | use codex_model_provider::create_model_provider;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variable does not need to be mutable
+   --> app-server/src/request_processors/account_processor.rs:450:9
+    |
+450 |         mut payload: AccountLoginCompletedNotification,
+    |         ----^^^^^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `auth_mode_to_api` is never used
+  --> app-server/src/auth_mode.rs:10:15
+   |
+10 | pub(crate) fn auth_mode_to_api(auth_mode: AuthMode) -> ApiAuthMode {
+   |               ^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `EXTERNAL_AUTH_REFRESH_TIMEOUT` is never used
+  --> app-server/src/external_auth.rs:18:7
+   |
+18 | const EXTERNAL_AUTH_REFRESH_TIMEOUT: Duration = Duration::from_secs(10);
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `ExternalAuthBridge` is never constructed
+  --> app-server/src/external_auth.rs:20:19
+   |
+20 | pub(crate) struct ExternalAuthBridge {
+   |                   ^^^^^^^^^^^^^^^^^^
+
+warning: associated items `new` and `refresh` are never used
+  --> app-server/src/external_auth.rs:26:19
+   |
+25 | impl ExternalAuthBridge {
+   | ----------------------- associated items in this implementation
+26 |     pub(crate) fn new(outgoing: Arc<OutgoingMessageSender>, auth: CodexAuth) -> Self {
+   |                   ^^^
+...
+33 |     async fn refresh(&self, context: ExternalAuthRefreshContext) -> std::io::Result<CodexAuth> {
+   |              ^^^^^^^
+
+warning: enum `BedrockLoginCredentials` is never used
+  --> app-server/src/request_processors/account_processor.rs:29:6
+   |
+29 | enum BedrockLoginCredentials {
+   |      ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: fields `thread_manager` and `outgoing` are never read
+  --> app-server/src/request_processors/account_processor.rs:41:5
+   |
+39 | pub(crate) struct AccountRequestProcessor {
+   |                   ----------------------- fields in this struct
+40 |     auth_manager: Arc<AuthManager>,
+41 |     thread_manager: Arc<ThreadManager>,
+   |     ^^^^^^^^^^^^^^
+42 |     outgoing: Arc<OutgoingMessageSender>,
+   |     ^^^^^^^^
+   |
+   = note: `AccountRequestProcessor` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: multiple associated items are never used
+   --> app-server/src/request_processors/account_processor.rs:86:25
+    |
+ 52 | impl AccountRequestProcessor {
+    | ---------------------------- associated items in this implementation
+...
+ 86 |     pub(crate) async fn login_account(
+    |                         ^^^^^^^^^^^^^
+...
+ 94 |     pub(crate) async fn logout_account(
+    |                         ^^^^^^^^^^^^^^
+...
+119 |     fn current_account_updated_notification(&self) -> AccountUpdatedNotification {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+144 |     async fn maybe_refresh_plugin_caches_for_current_config(
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+196 |     fn spawn_effective_plugins_changed_task(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+209 |     async fn login_v2(
+    |              ^^^^^^^^
+...
+294 |     async fn login_api_key_common(
+    |              ^^^^^^^^^^^^^^^^^^^^
+...
+326 |     async fn login_api_key_v2(&self, request_id: ConnectionRequestId, params: LoginApiKeyParams) {
+    |              ^^^^^^^^^^^^^^^^
+...
+343 |     async fn login_amazon_bedrock_v2(
+    |              ^^^^^^^^^^^^^^^^^^^^^^^
+...
+437 |     async fn send_login_success_notifications(&self, login_id: Option<Uuid>) {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+448 |     async fn send_account_login_notifications(
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+486 |     async fn logout_common(&self) -> std::result::Result<Option<AuthMode>, JSONRPCErrorError> {
+    |              ^^^^^^^^^^^^^
+...
+515 |     async fn logout_v2(&self, request_id: ConnectionRequestId) -> Result<(), JSONRPCErrorError> {
+    |              ^^^^^^^^^
+
+warning: struct `LoginGuard` is never constructed
+  --> app-server/src/request_processors/account_processor/gateway_oauth.rs:19:8
+   |
+19 | struct LoginGuard(Arc<std::sync::Mutex<Option<ActiveGatewayLogin>>>);
+   |        ^^^^^^^^^^
+
+warning: method `gateway_oauth_login` is never used
+  --> app-server/src/request_processors/account_processor/gateway_oauth.rs:76:25
+   |
+29 | impl AccountRequestProcessor {
+   | ---------------------------- method in this implementation
+...
+76 |     pub(crate) async fn gateway_oauth_login(
+   |                         ^^^^^^^^^^^^^^^^^^^
+
+warning: method `unload_for_workspace_switch` is never used
+ --> app-server/src/request_processors/thread_processor/workspace_switching.rs:7:25
+  |
+6 | impl ThreadRequestProcessor {
+  | --------------------------- method in this implementation
+7 |     pub(crate) async fn unload_for_workspace_switch(&self) -> Result<(), JSONRPCErrorError> {
+  |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `codex-app-server` (lib test) generated 30 warnings (run `cargo fix --lib -p codex-app-server --tests` to apply 20 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4m 45s
+     Running unittests src/lib.rs (target/debug/deps/codex_app_server-73a43eca0ca496ce)
+
+running 1 test
+test in_process::bootstrap::tests::startup_reloads_the_callers_selected_project ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 397 filtered out; finished in 0.06s

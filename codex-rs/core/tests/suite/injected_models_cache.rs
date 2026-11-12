@@ -304,7 +304,7 @@ async fn account_switch_during_cache_store_preserves_new_catalog_for_next_turn()
         initial_auth.clone(),
         home.path().to_path_buf(),
     );
-    let mut provider_info = built_in_model_providers(/*openai_base_url*/ None)["openai"].clone();
+    let mut provider_info = built_in_model_providers(/*openai_base_url*/ None)["local"].clone();
     provider_info.base_url = Some(format!("{}/v1", server.uri()));
     provider_info.supports_websockets = false;
     let cache = Arc::new(TestModelsCache {

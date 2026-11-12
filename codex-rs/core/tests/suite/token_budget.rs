@@ -1220,7 +1220,7 @@ async fn token_budget_context_uses_new_window_after_compaction(
         ],
     )
     .await;
-    let mut model_provider = built_in_model_providers(/*openai_base_url*/ None)["openai"].clone();
+    let mut model_provider = built_in_model_providers(/*openai_base_url*/ None)["local"].clone();
     model_provider.base_url = Some(format!("{}/v1", server.uri()));
     model_provider.supports_websockets = false;
 
@@ -1392,7 +1392,7 @@ async fn token_budget_mid_turn_auto_compaction_resets_before_active_follow_up(
         ],
     )
     .await;
-    let mut model_provider = built_in_model_providers(/*openai_base_url*/ None)["openai"].clone();
+    let mut model_provider = built_in_model_providers(/*openai_base_url*/ None)["local"].clone();
     model_provider.name = "OpenAI (test)".into();
     model_provider.base_url = Some(format!("{}/v1", server.uri()));
     model_provider.supports_websockets = false;

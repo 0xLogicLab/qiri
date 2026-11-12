@@ -236,64 +236,20 @@ async fn credential_files_scope_token_caches_and_refreshes() {
 }
 
 #[tokio::test]
-async fn bundled_vertex_models_filter_catalog_and_normalize_unsupported_tool_metadata() {
-    let provider = GcpModelProvider::new(
-        ModelProviderInfo::create_gcp_provider(),
-        /*auth_manager*/ None,
-    );
-    let manager = provider.models_manager(
-        PathBuf::from("unused-codex-home"),
-        /*config_model_catalog*/ None,
-    );
-    let bundled_models = codex_models_manager::bundled_models_response()
-        .expect("bundled model catalog should deserialize")
-        .models;
-    let mut expected: Vec<_> = ["gpt-6-astra", "gpt-6.1-sol", "gpt-6.1-terra", "gpt-6-luna"]
-        .into_iter()
-        .map(|slug| {
-            bundled_models
-                .iter()
-                .find(|model| model.slug == slug)
-                .expect("bundled catalog should contain the supported Vertex model")
-                .clone()
-        })
-        .collect();
-    for model in &mut expected {
-        model.use_responses_lite = false;
-        model.tool_mode = Some(ToolMode::Direct);
-        model.apply_patch_tool_type = None;
-    }
-
-    assert_eq!(manager.get_remote_models().await, expected);
-    assert_eq!(
-        manager
-            .try_list_models()
-            .expect("static models should be available")
-            .into_iter()
-            .map(|model| (model.model, model.show_in_picker))
-            .collect::<Vec<_>>(),
-        vec![
-            ("gpt-6.1-sol".to_string(), true),
-            ("gpt-6-astra".to_string(), true),
-            ("gpt-6-luna".to_string(), true),
-            ("gpt-6.1-terra".to_string(), true),
-        ]
-    );
-}
-
-#[tokio::test]
 async fn configured_vertex_models_filter_catalog_and_normalize_tool_metadata_without_cache() {
     for model in ["gpt-6.1-sol", "gpt-6.1-terra"] {
         let provider = GcpModelProvider::new(
             ModelProviderInfo::create_gcp_provider(),
             /*auth_manager*/ None,
         );
-        let mut configured_model = codex_models_manager::bundled_models_response()
-            .expect("bundled model catalog should deserialize")
-            .models
-            .into_iter()
-            .find(|info| info.slug == model)
-            .expect("bundled model catalog should contain the supported Vertex model");
+        let mut configured_model =
+            codex_models_manager::test_support::construct_model_info_offline_for_tests(
+                model,
+                &ModelsManagerConfig::default(),
+            )
+            .model
+            .as_ref()
+            .clone();
         configured_model.use_responses_lite = true;
         configured_model.tool_mode = Some(ToolMode::CodeModeOnly);
         configured_model.apply_patch_tool_type = Some(ApplyPatchToolType::Freeform);

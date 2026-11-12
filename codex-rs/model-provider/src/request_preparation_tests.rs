@@ -10,19 +10,12 @@ use serde_json::json;
 use tempfile::TempDir;
 
 #[tokio::test]
-async fn explicit_provider_token_survives_a_workspace_switch_during_setup() {
+async fn explicit_provider_token_survives_credential_rotation_during_setup() {
     let home = TempDir::new().unwrap();
-    let claims = json!({"https://api.openai.com/auth": {"chatgpt_user_id": "user-a"}});
-    let payload = base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(claims.to_string());
-    let token = format!("header.{payload}.signature");
-    let initial = CodexAuth::from_external_chatgpt_tokens(
-        &token,
-        "workspace-a",
-        /*chatgpt_plan_type*/ None,
-    )
-    .unwrap();
+    let initial = CodexAuth::from_api_key("key-a");
     let manager = AuthManager::from_auth_for_testing_with_home(initial, home.path().to_path_buf());
-    let mut info = ModelProviderInfo::create_openai_provider(/*base_url*/ None);
+    let mut info =
+        ModelProviderInfo::create_local_provider(Some("http://localhost:8000/v1".into()));
     info.experimental_bearer_token = Some("provider-token".into());
     let provider = create_model_provider(info, Some(manager.clone()));
 
@@ -34,11 +27,11 @@ async fn explicit_provider_token_survives_a_workspace_switch_during_setup() {
             attempts += 1;
             async {
                 let (_, auth) = provider.api_provider_and_auth().await?;
-                codex_login::auth::login_with_chatgpt_auth_tokens(
+                codex_login::login_with_api_key(
                     home.path(),
-                    &token,
-                    "workspace-b",
-                    /*chatgpt_plan_type*/ None,
+                    "key-b",
+                    codex_login::AuthCredentialsStoreMode::File,
+                    codex_login::AuthKeyringBackendKind::default(),
                 )?;
                 manager.reload().await;
                 Ok(auth)
@@ -48,10 +41,7 @@ async fn explicit_provider_token_survives_a_workspace_switch_during_setup() {
     .await
     .unwrap();
 
-    assert_eq!(
-        manager.auth_cached().unwrap().get_account_id().as_deref(),
-        Some("workspace-b")
-    );
+    assert_eq!(manager.auth_cached().unwrap().api_key(), Some("key-b"));
     assert_eq!(attempts, 1);
     let mut headers = http::HeaderMap::new();
     auth.add_auth_headers(&mut headers).unwrap();
