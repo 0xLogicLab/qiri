@@ -283,7 +283,7 @@ def test_packaged_executor_matches_subcommand_startup(
         [
             "--aws-sigv4",
             "--remote",
-            "https://example.openai.com",
+            "https://example.vendor.example.test",
             "--environment-id",
             "env-1",
         ],
@@ -299,7 +299,7 @@ def test_packaged_executor_matches_subcommand_startup(
             "--connect",
             "ws://127.0.0.1:0",
             "--remote",
-            "https://example.openai.com",
+            "https://example.vendor.example.test",
             "--environment-id",
             "env-1",
         ],

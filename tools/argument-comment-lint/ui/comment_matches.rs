@@ -6,7 +6,7 @@ fn create_openai_url(base_url: Option<String>, retry_count: usize) -> String {
 }
 
 fn main() {
-    let base_url = Some(String::from("https://api.openai.com"));
+    let base_url = Some(String::from("https://www.example.net"));
     create_openai_url(base_url, 3);
     create_openai_url(/*base_url*/ None, 3);
 }

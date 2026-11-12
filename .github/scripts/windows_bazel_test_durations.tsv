@@ -27,9 +27,6 @@
 //codex-rs/apply-patch:apply-patch-unit-tests	48
 //codex-rs/apply-patch:apply_patch-bin-unit-tests	24
 //codex-rs/arg0:arg0-unit-tests	24
-//codex-rs/backend-client:backend-client-unit-tests	41
-//codex-rs/chatgpt:chatgpt-all-test-windows-cross	26
-//codex-rs/chatgpt:chatgpt-unit-tests	27
 //codex-rs/cli:cli-app_server-test-windows-cross	3
 //codex-rs/cli:cli-app_server_daemon-test-windows-cross	1
 //codex-rs/cli:cli-cloud_auth-test-windows-cross	47
