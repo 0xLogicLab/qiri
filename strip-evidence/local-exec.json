@@ -1,0 +1,16 @@
+{
+  "kind": "simulated-loopback-model",
+  "exit_code": 0,
+  "requests": [
+    {
+      "path": "/v1/responses",
+      "model": "qiri-local-smoke"
+    },
+    {
+      "path": "/v1/responses",
+      "model": "qiri-local-smoke"
+    }
+  ],
+  "tool_output_seen_by_model": true,
+  "final_marker": true
+}

@@ -86,4 +86,3 @@ test dump::tests::response_body_dump_streams_body_and_writes_response_file ... o
 test dump::tests::dump_request_writes_redacted_headers_and_json_body ... ok
 
 test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
-

@@ -415,4 +415,3 @@ test otlp::tests::build_http_client_accepts_pem_client_identity ... ok
 test otlp::tests::build_http_client_works_in_current_thread_runtime ... ok
 
 test result: ok. 36 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.10s
-

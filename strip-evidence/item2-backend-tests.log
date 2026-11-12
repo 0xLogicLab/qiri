@@ -343,4 +343,3 @@ test client::analytics::tests::account_analytics_decodes_each_endpoint_and_accep
 test client::request_tests::bootstrap_get_recovers_from_stalled_body_before_cloud_startup_timeout ... ok
 
 test result: ok. 50 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.09s
-

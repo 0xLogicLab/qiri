@@ -1,0 +1,7 @@
+{
+  "action": "terminate stalled full unit-test process after more than 8 minutes",
+  "pid": 3003154,
+  "known_pending_test": "environment_selection::connection_tests::lifecycle_waits_for_recovery::retry_exhaustion",
+  "result": "incomplete; not counted as passed",
+  "runner": "RUST_MIN_STACK=67108864, --test-threads=8"
+}

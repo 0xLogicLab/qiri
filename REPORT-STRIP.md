@@ -16,7 +16,7 @@
 
 ## 执行记录与证据
 
-盘点发现服务功能横跨共享认证、配置、插件和 app-server，不能只删除题目中列出的几个 crate。各项结果、提交和验证将随执行补充。当前尚未宣称通过任何专项验收。
+当前结论：**尚未完成全部专项，不可按本任务标准验收或合并**。已完成下述独立子项并保留本地模型协议；官方认证刷新、默认 provider 等仍有运行实现。以下记录不把未完成项当作协议例外。
 
 ### 2. 云任务删除
 
@@ -63,3 +63,97 @@
 验证：login 全部 222 个、rmcp-client 全部 260 个测试通过（另 1 个子进程辅助测试忽略）。扩大 app-server 测试发现的旧枚举映射及测试导入问题已修正，最终交付检查/测试结果另列。
 
 **未完成**：AuthManager 内的官方刷新/撤销、agent-identity/PAT/workload identity、云配置与 workspace routing、连接器以及 TUI 账号/订阅视图仍有实现。这些不是允许保留的本地模型协议例外，不能据本节将项目 1 判定为完成。
+
+## 本地 exec 与命令入口验收
+
+`strip-evidence/local-exec-smoke.py` 使用隔离的应用配置目录，在 loopback 启动模拟 Responses 服务。CLI 连续两次 POST /v1/responses，先执行 `printf QIRI_LOCAL_EXEC_OK`，再将成功的工具输出回传并完成助手回答；进程退出 0。请求次数、工具输出回传和最终标记见 local-exec.json，原始 JSON 事件见 local-exec.stdout。未知模型使用了现有 fallback metadata，并有明确提示。
+
+这是**模拟模型协议/工具执行验收**，不是请求真实本地模型完成推理的验收。尚未获得真实本地模型的可用端点和模型名，不能把模拟结果算作任务要求的真实模型验收通过。
+
+CLI 的 login / logout / cloud / cloud-tasks / apply 均实测返回错误，无崩溃；`--help` 不再展示这些入口，见 removed-entries.json 与 cli-help.txt。TUI 的账号相关残留仍列为未完成，不据 CLI 的结果推断全部 TUI 功能已经删除。
+
+## 保留的协议与数据边界
+
+- Responses 流式事件、工具调用结构、自定义 endpoint / API Key 和通用 HTTP/MCP 能力保留。现有协议 crate 的数据结构没有因名称含 OpenAI 而被机械删除。
+- web search / image generation / compaction / realtime 可由用户自己的兼容端点提供的线格式保留；本次已拆出 realtime sideband 的隐式官方地址，其余官方绑定仍需继续审查。
+- app-server-protocol 中 34 个与已删路径有关的请求/响应/枚举定义及生成镜像作为纯数据兼容保留，逐条位置、原因和运行时说明见 retained-schema.tsv。保留类型不代表保留服务实现，也不豁免尚未删除的账号刷新等运行代码。
+- 共享 login / backend-client / chatgpt / cloud-config crate 仍有未清理的服务调用，不能整 crate 删除后连带破坏自定义模型接入。**当前仅删除了可独立核实的子功能，不能把“共享”当作这些服务实现允许永久保留的理由。**
+
+### 5b. Doctor 上游探针
+
+删除 doctor 中已无调用的上游 GitHub/Homebrew 版本探针，以及上游桌面应用 appcast HTTP 探针与其专属测试。保留 Qiri 自己的 update-feed 状态说明。macOS 网络诊断仅在实际配置了 provider base_url 时检查该地址的系统代理配置，不再为未配置端点补上官方账号服务器地址。
+
+CLI 全套：285 通过、4 失败、1 忽略；清理前已有测试产物复跑：289 通过、相同 4 个失败、1 忽略。移除的 4 个测试均属于本节删去的上游探针；共同测试的失败集合和可解析结果均相同，见 cli-baseline-comparison.json。基线测试产物的 SHA-256、先前 release-doctor-bin.log 中的确切路径以及源码提交时间关联均记录在该 JSON，不将当前测试产物冒充基线。
+
+## 遗留项：不满足硬验收线
+
+以下均为**未完成工作**，不是“功能端点例外”，也不是本地模型协议层的保留理由：
+
+| 范围 | 仍需删除/拆分的实现位置 | 状态 |
+| --- | --- | --- |
+| 官方认证和账号授权 | login/src/auth/manager.rs、personal_access_token.rs、workload_identity.rs；agent-identity；runtime-agent-instance/registration.rs | 官方刷新/撤销/注册仍存在 |
+| 云配置与账号路由 | cloud-config；app-server/config_manager、in_process_bootstrap、account_processor/workspace_routing；exec-server-cli/config.rs | 仍有账号云配置/默认地址绑定 |
+| 官方 provider 与模型 | model-provider-info、model-provider/chatgpt_base_url、provider、models_endpoint；models-manager 模型目录 | 官方预置/路由尚未清完；不能宣称默认只走本地 |
+| 其他托管能力 | connectors、chatgpt、codex-mcp 的 hosted apps；core-plugins/startup_sync 的官方备份源；Guardian decisions；app-server-daemon/update_loop | 仍需拆除服务实现，保留通用本地工具/远程自建协议 |
+| 账号界面与推广 | TUI onboarding/status/backend_banners、安全与订阅提示；protocol/error.rs 的订阅引导 | 仍需连同入口、配置、文案与测试清理 |
+| 测试/文案 | domain-audit.tsv 中标记未完成的旧夹具、快照和产品文案 | 尚未全部删除或中性化 |
+| 真正本地模型推理 | 需要可用的本地 endpoint / model / Key 环境变量信息 | 当前只有模拟端点验收 |
+
+目前没有证据证明这些剩余实现“删掉就必然删除本地协议层”。因此本报告**不调用任务书的死结例外将它们算作完成**，也没有为 README 写入“全部 OpenAI 服务依赖已移除”的不实声明。README 已补充已完成子项和未通过全量验收的状态。
+
+## 构建与测试证据（不能解读为全量通过）
+
+全部 Cargo 操作使用仓库固定 Rust 1.95.0，工作目录为当前 worktree 的 codex-rs；基线提取/测试也只在本工作区内部进行，没有访问其他开发 worktree。日志仅在保存时去掉行末空白。
+
+| 检查 | 结果 | 证据 / 限制 |
+| --- | --- | --- |
+| `cargo check --locked -p codex-cli -p codex-app-server -p codex-core` | 通过 | final-delivery-check.log / .exit |
+| `cargo build --locked -p codex-cli --bin codex` | 通过 | final-cli-build.log / .exit；随后再次运行 loopback exec 成功 |
+| 默认 `cargo check --locked` | 失败 101，与基线系统依赖错误相同 | baseline-default-check.log、final-default-check.log；default-check-comparison.json 内 3 个 pkg-config 诊断块逐字相同：glib-2.0、gobject-2.0、gstreamer-1.0。编译顺序/缓存日志不同，不声称完整日志字节相同 |
+| backend-client 单元套件 | 50 通过 | item2-backend-tests.log |
+| codex-api / login / rmcp-client 单元套件 | 200 / 222 / 260 通过，另 1 忽略 | item1-and4-tests.log |
+| features / sandboxing / skills / MCP | 47 / 83 / 54 / 279 通过 | item3-other-tests.log、item3-mcp-tests.log；MCP 已补齐 CLI 后复跑 |
+| config 单元套件 | 399 通过、3 个基线失败 | baseline-config-tests.log、item3-tests.log；402 项结果完全相同 |
+| analytics / feedback / otel | 126 / 26 / 36 通过，另 1 忽略 | item6-tests.log |
+| CLI 完整单元套件 | 285 通过、4 个基线失败、1 忽略 | cli-tests.log、baseline-cli-tests.log、cli-baseline-comparison.json；基线 294 项，本次 290 项，删除 4 个上游探针测试；失败集合相同 |
+| core / app-server 原始单元运行 | 测试栈溢出中止 | delivery-lib-tests.log；不是编译失败，不计为通过 |
+| app-server，64 MiB 测试线程栈、8 并发 | 420 通过、4 失败 | app-server-tests.log；1 项缺少 test_stdio_server，其他为 gateway 登录和 routing 超时；未完成全套基线对照，不能宣称无新增失败 |
+| core，64 MiB 测试线程栈、8 并发 | 未完成 | core-tests.log；恢复重试测试等待超过 8 分钟后终止，core-full-run-limit.json；含旧遥测断言、缺少 code-mode-host、快照等失败，不能标为通过 |
+| 本地协议工具调用 | 通过（模拟模型） | local-exec.json、local-exec.stdout；不替代真实本地模型验收 |
+
+core 的 5 处旧 HTTP 遥测测试已同步为验证“即使启用旧设置也不上传”的回归测试，保留 MCP 审批决策与线程正常启动的断言；这不是通过调整产品网络行为绕过测试。其单独复跑证据与辅助 MCP 二进制补齐后的单项结果随最终记录附后。
+
+## 审计方法
+
+完整跟踪文件域名 grep（仅去除行末空白）见 strip-evidence/domain-grep.txt；逐行位置、分类、保留理由或未完成标记见 domain-audit.tsv，统计见 domain-summary.json。命令为 `git grep -I -n -i -E 'chatgpt[.]com|developers[.]openai[.]com|auth[.]openai[.]com|api[.]openai[.]com|openai[.]com'`。仅排除这两份审计输出本身，避免递归复制；新旧报告/证据若匹配，单独标为审计元数据，不作为产品端点豁免。
+
+8 处协议注释引用已逐条核对，内容为工具调用、推理、结构化输出、Apps 文件元数据格式参考；注释不执行请求。生成的 schema/SDK 纯数据定义单独归类。旧服务夹具、文案及运行源码候选均标为“未完成”，没有机械替换、拆分域名字符串或将候选误标为版权/协议例外。
+
+当前跟踪树共 865 个匹配行：117 个运行源码候选、681 个旧测试/夹具、49 个其他待审查项、10 个生成协议数据定义和 8 个已核对的协议参考注释。
+
+**运行源码仍存在官方服务调用路径，域名硬验收不通过。** 本报告与 README 均明确这一点。
+
+补充验证：`RUST_MIN_STACK=67108864 cargo test --locked -p codex-core --lib analytics -- --test-threads=8`：11 通过、0 失败，包含上述 5 项同步用例，日志 core-analytics-regressions.log。只证明这组改动的回归结果；不替代仍未完成的 core 全套验收。
+
+
+补充验证：已构建 `cargo build --locked -p codex-rmcp-client --bin test_stdio_server`，随后 app-server 缺少辅助程序的那一项单独复跑通过（app-server-fixture-retest.log）。原始全套运行的另外 3 项失败仍未完成基线对照，不计为通过。
+
+## 提交与删除规模
+
+| 子项 | 提交 |
+| --- | --- |
+| 先写盘点表 | `0d1d0fa` |
+| 云任务 crate 与云 diff 入口 | `df9b42f` |
+| Responses 代理官方认证与默认地址 | `155a3a1` |
+| feedback / analytics 回传与默认指标 | `b676faf` |
+| 内置官方文档源 | `618b269` |
+| Realtime sideband 默认官方绑定 | `9b1c6ad` |
+| 官方交互登录、账号处理实现与 hosted CIMD | `463aa37` |
+| Doctor 上游探针 | `edc0521` |
+| core 遥测隐私回归测试 | `532713d` |
+
+相对专项基线的产品树（排除本报告和证据）共修改 130 个文件，删除 71 个文件，新增 219 行、删除 21550 行，另含 1 个二进制文件变更。可复核统计见 change-stats.json。根 LICENSE 和 NOTICE 与专项基线无差异。
+
+报告/审计证据由最终审计提交交付；旧的回传/文档本地提交曾仅为校正 Cargo.lock 的分项边界而重建，表中均为最终分支上的提交号，没有推送或合并。
+
+仍在 `chore/public-release-cleanup`。用户提供的两份任务书保持未跟踪、未修改。没有修改主 worktree 或其他开发分支。

@@ -988,4 +988,3 @@ test oauth::tests::persistor_tests::failed_refresh_does_not_adopt_unbound_replac
 test perform_oauth_login::tests::ordinary_oauth_login_persists_issuer_without_a_refresh_token ... ok
 
 test result: ok. 260 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 41.57s
-

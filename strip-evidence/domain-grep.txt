@@ -1,0 +1,865 @@
+.github/scripts/publish_r2_release.py:476:                        f"https://releases.openai.com/{PREFIX}/releases/"
+bazel/extensions/codex_release_archive.bzl:31:            "https://releases.openai.com/codex/releases/{}/{}".format(version, asset),
+codex-cli/scripts/init_firewall.sh:15:    ALLOWED_DOMAINS=("api.openai.com")
+codex-cli/scripts/init_firewall.sh:110:if ! curl --connect-timeout 5 https://api.openai.com >/dev/null 2>&1; then
+codex-cli/scripts/init_firewall.sh:111:    echo "ERROR: Firewall verification failed - unable to reach https://api.openai.com"
+codex-cli/scripts/init_firewall.sh:114:    echo "Firewall verification passed - able to reach https://api.openai.com as expected"
+codex-cli/scripts/run_in_container.sh:14:OPENAI_ALLOWED_DOMAINS="${OPENAI_ALLOWED_DOMAINS:-api.openai.com}"
+codex-rs/agent-identity/src/lib.rs:41:const AGENT_IDENTITY_JWT_ISSUER: &str = "https://chatgpt.com/codex-backend/agent-identity";
+codex-rs/agent-identity/src/lib.rs:43:const PROD_AGENT_IDENTITY_AUTHAPI_BASE_URL: &str = "https://auth.openai.com/api/accounts";
+codex-rs/agent-identity/src/lib.rs:58:            "https://chatgpt.com"
+codex-rs/agent-identity/src/lib.rs:59:            | "https://chatgpt.com/backend-api"
+codex-rs/agent-identity/src/lib.rs:60:            | "https://chatgpt.com/codex"
+codex-rs/agent-identity/src/lib.rs:61:            | "https://chatgpt.com/backend-api/codex"
+codex-rs/agent-identity/src/lib.rs:62:            | "https://chat.openai.com"
+codex-rs/agent-identity/src/lib.rs:63:            | "https://chat.openai.com/backend-api"
+codex-rs/agent-identity/src/lib.rs:64:            | "https://chat.openai.com/codex"
+codex-rs/agent-identity/src/lib.rs:65:            | "https://chat.openai.com/backend-api/codex" => Ok(Self::Production),
+codex-rs/agent-identity/src/lib.rs:78:            Self::Production => "https://chatgpt.com/backend-api",
+codex-rs/agent-identity/src/lib.rs:881:            ChatGptEnvironment::from_chatgpt_base_url("https://chatgpt.com/backend-api/codex")?,
+codex-rs/agent-identity/src/lib.rs:886:            "https://auth.openai.com/api/accounts"
+codex-rs/agent-identity/src/lib.rs:907:            agent_registration_url("https://auth.openai.com/api/accounts"),
+codex-rs/agent-identity/src/lib.rs:908:            "https://auth.openai.com/api/accounts/v1/agent/register"
+codex-rs/agent-identity/src/lib.rs:923:            agent_task_registration_url("https://auth.openai.com/api/accounts", "agent-runtime-id"),
+codex-rs/agent-identity/src/lib.rs:924:            "https://auth.openai.com/api/accounts/v1/agent/agent-runtime-id/task/register"
+codex-rs/agent-identity/src/lib.rs:928:                "https://auth.openai.com/api/accounts/",
+codex-rs/agent-identity/src/lib.rs:931:            "https://auth.openai.com/api/accounts/v1/agent/agent-runtime-id/task/register"
+codex-rs/agent-identity/src/lib.rs:972:            agent_identity_jwks_url("https://chatgpt.com/backend-api"),
+codex-rs/agent-identity/src/lib.rs:973:            "https://chatgpt.com/backend-api/wham/agent-identities/jwks"
+codex-rs/agent-identity/src/lib.rs:976:            agent_identity_jwks_url("https://chatgpt.com/backend-api/"),
+codex-rs/agent-identity/src/lib.rs:977:            "https://chatgpt.com/backend-api/wham/agent-identities/jwks"
+codex-rs/analytics/src/client_tests.rs:908:        "https://chatgpt.com/backend-api".to_string(),
+codex-rs/app-server-daemon/src/update_loop.rs:75:const INSTALL_URL: &str = "https://chatgpt.com/codex/install.sh";
+codex-rs/app-server-daemon/src/update_loop.rs:77:const INSTALL_URL: &str = "https://chatgpt.com/codex/install.ps1";
+codex-rs/app-server-protocol/schema/json/ClientRequest.json:3158:      "description": "A summary of the reasoning performed by the model. This can be useful for debugging and understanding the model's reasoning process. See https://platform.openai.com/docs/guides/reasoning?api-mode=responses#reasoning-summaries",
+codex-rs/app-server-protocol/schema/json/ServerNotification.json:3668:      "description": "A summary of the reasoning performed by the model. This can be useful for debugging and understanding the model's reasoning process. See https://platform.openai.com/docs/guides/reasoning?api-mode=responses#reasoning-summaries",
+codex-rs/app-server-protocol/schema/json/codex_app_server_protocol.schemas.json:19633:        "description": "A summary of the reasoning performed by the model. This can be useful for debugging and understanding the model's reasoning process. See https://platform.openai.com/docs/guides/reasoning?api-mode=responses#reasoning-summaries",
+codex-rs/app-server-protocol/schema/json/codex_app_server_protocol.v2.schemas.json:15594:      "description": "A summary of the reasoning performed by the model. This can be useful for debugging and understanding the model's reasoning process. See https://platform.openai.com/docs/guides/reasoning?api-mode=responses#reasoning-summaries",
+codex-rs/app-server-protocol/schema/json/v2/ConfigReadResponse.json:982:      "description": "A summary of the reasoning performed by the model. This can be useful for debugging and understanding the model's reasoning process. See https://platform.openai.com/docs/guides/reasoning?api-mode=responses#reasoning-summaries",
+codex-rs/app-server-protocol/schema/json/v2/ThreadSettingsUpdatedNotification.json:157:      "description": "A summary of the reasoning performed by the model. This can be useful for debugging and understanding the model's reasoning process. See https://platform.openai.com/docs/guides/reasoning?api-mode=responses#reasoning-summaries",
+codex-rs/app-server-protocol/schema/json/v2/TurnStartParams.json:336:      "description": "A summary of the reasoning performed by the model. This can be useful for debugging and understanding the model's reasoning process. See https://platform.openai.com/docs/guides/reasoning?api-mode=responses#reasoning-summaries",
+codex-rs/app-server-protocol/schema/typescript/ReasoningEffort.ts:6: * See https://platform.openai.com/docs/guides/reasoning?api-mode=responses#get-started-with-reasoning
+codex-rs/app-server-protocol/schema/typescript/ReasoningSummary.ts:8: * See https://platform.openai.com/docs/guides/reasoning?api-mode=responses#reasoning-summaries
+codex-rs/app-server-protocol/src/protocol/v2/tests.rs:3060:        "allowedDomains": ["api.openai.com"],
+codex-rs/app-server-protocol/src/protocol/v2/tests.rs:3078:            allowed_domains: Some(vec!["api.openai.com".to_string()]),
+codex-rs/app-server-protocol/src/protocol/v2/tests.rs:3097:            ("api.openai.com".to_string(), NetworkDomainPermission::Allow),
+codex-rs/app-server-protocol/src/protocol/v2/tests.rs:3103:        review_domains: Some(vec!["api.openai.com".to_string()]),
+codex-rs/app-server-protocol/src/protocol/v2/tests.rs:3105:        allowed_domains: Some(vec!["api.openai.com".to_string()]),
+codex-rs/app-server-protocol/src/protocol/v2/tests.rs:3131:                "api.openai.com": "allow",
+codex-rs/app-server-protocol/src/protocol/v2/tests.rs:3134:            "reviewDomains": ["api.openai.com"],
+codex-rs/app-server-protocol/src/protocol/v2/tests.rs:3136:            "allowedDomains": ["api.openai.com"],
+codex-rs/app-server-transport/src/transport/remote_control/enroll.rs:525:        let first_target = normalize_remote_control_url("https://chatgpt.com/remote/control")
+codex-rs/app-server-transport/src/transport/remote_control/enroll.rs:611:        let first_target = normalize_remote_control_url("https://chatgpt.com/remote/control")
+codex-rs/app-server-transport/src/transport/remote_control/protocol.rs:197:    host == "chatgpt.com"
+codex-rs/app-server-transport/src/transport/remote_control/protocol.rs:199:        || host.ends_with(".chatgpt.com")
+codex-rs/app-server-transport/src/transport/remote_control/protocol.rs:271:                "invalid remote control URL `{remote_control_url}`; expected HTTPS URL for chatgpt.com or chatgpt-staging.com, or HTTP/HTTPS URL for localhost"
+codex-rs/app-server-transport/src/transport/remote_control/protocol.rs:300:            normalize_remote_control_url("https://chatgpt.com/backend-api")
+codex-rs/app-server-transport/src/transport/remote_control/protocol.rs:301:                .expect("chatgpt.com URL should normalize"),
+codex-rs/app-server-transport/src/transport/remote_control/protocol.rs:303:                websocket_url: "wss://chatgpt.com/backend-api/wham/remote/control/server"
+codex-rs/app-server-transport/src/transport/remote_control/protocol.rs:305:                enroll_url: "https://chatgpt.com/backend-api/wham/remote/control/server/enroll"
+codex-rs/app-server-transport/src/transport/remote_control/protocol.rs:307:                refresh_url: "https://chatgpt.com/backend-api/wham/remote/control/server/refresh"
+codex-rs/app-server-transport/src/transport/remote_control/protocol.rs:309:                pair_url: "https://chatgpt.com/backend-api/wham/remote/control/server/pair"
+codex-rs/app-server-transport/src/transport/remote_control/protocol.rs:312:                    "https://chatgpt.com/backend-api/wham/remote/control/server/pair/status"
+codex-rs/app-server-transport/src/transport/remote_control/protocol.rs:381:            "http://chatgpt.com/backend-api",
+codex-rs/app-server-transport/src/transport/remote_control/protocol.rs:384:            "https://chat.openai.com/backend-api",
+codex-rs/app-server-transport/src/transport/remote_control/protocol.rs:385:            "https://chatgpt.com.evil.com/backend-api",
+codex-rs/app-server-transport/src/transport/remote_control/protocol.rs:386:            "https://evilchatgpt.com/backend-api",
+codex-rs/app-server-transport/src/transport/remote_control/protocol.rs:396:                    "invalid remote control URL `{remote_control_url}`; expected HTTPS URL for chatgpt.com or chatgpt-staging.com, or HTTP/HTTPS URL for localhost"
+codex-rs/app-server-transport/src/transport/remote_control/tests.rs:104:        "https://api.openai.com/auth": {
+codex-rs/app-server-transport/src/transport/remote_control/websocket.rs:2057:            "https://api.openai.com/auth": {
+codex-rs/app-server/src/bespoke_event_handling.rs:2511:            target: "api.openai.com:443".to_string(),
+codex-rs/app-server/src/bespoke_event_handling.rs:2512:            host: "api.openai.com".to_string(),
+codex-rs/app-server/src/config_manager_provider_tests.rs:22:#[test_case("openai", "model_catalog_url = 'https://chatgpt.com/backend-api/codex/models'", "https://chatgpt.com/backend-api/codex/models", "https://chatgpt.com/backend-api/codex/other-models", None; "openai_catalog")]
+codex-rs/app-server/src/config_manager_provider_tests.rs:23:#[test_case("openai", "model_catalog_url = 'https://chatgpt.com/backend-api/codex/models'", "https://chatgpt.com/backend-api/codex/models", "https://chatgpt.com/backend-api/codex/other-models", Some("https://us.api.openai.com/v1"); "openai_regional_catalog")]
+codex-rs/app-server/src/config_manager_provider_tests.rs:57:            "openai_base_url = 'https://eu.api.openai.com/v1'",
+codex-rs/app-server/src/in_process_bootstrap.rs:84:                .unwrap_or("https://chatgpt.com/backend-api/"),
+codex-rs/app-server/src/in_process_bootstrap_tests.rs:60:    let content_url = "https://chatgpt.com/backend-api/codex/responses".parse()?;
+codex-rs/app-server/src/in_process_bootstrap_tests.rs:80:                "https://api.openai.com/auth": {
+codex-rs/app-server/src/in_process_bootstrap_tests.rs:203:        (None, "https://gov.chatgpt.com/backend-api/"),
+codex-rs/app-server/src/request_processors/account_processor/workspace_routing_tests.rs:145:            backend_origin: "https://chatgpt.com".into(),
+codex-rs/app-server/src/request_processors/account_processor/workspace_routing_tests.rs:171:#[test_case(Some("https://gov.chatgpt.com/backend-api/"), "NO_CONSTRAINT", "https://gov.chatgpt.com"; "configured_only")]
+codex-rs/app-server/src/request_processors/account_processor/workspace_routing_tests.rs:172:#[test_case(None, "https://gov.chatgpt.com", "https://gov.chatgpt.com"; "discovered_only")]
+codex-rs/app-server/src/request_processors/account_processor/workspace_routing_tests.rs:173:#[test_case(Some("https://GOV.chatgpt.com:443/backend-api/"), "https://gov.chatgpt.com", "https://gov.chatgpt.com"; "matching_effective_port")]
+codex-rs/app-server/src/request_processors/account_processor/workspace_routing_tests.rs:175:#[test_case(None, "NO_CONSTRAINT", "https://chatgpt.com"; "existing_default")]
+codex-rs/app-server/src/request_processors/account_processor/workspace_routing_tests.rs:183:        resolve_routing(entry, required, "https://chatgpt.com/backend-api/").unwrap(),
+codex-rs/app-server/src/request_processors/account_processor/workspace_routing_tests.rs:192:#[test_case("https://other.example/backend-api/", "https://gov.chatgpt.com"; "host_conflict")]
+codex-rs/app-server/src/request_processors/account_processor/workspace_routing_tests.rs:193:#[test_case("http://gov.chatgpt.com/backend-api/", "https://gov.chatgpt.com"; "scheme_conflict")]
+codex-rs/app-server/src/request_processors/account_processor/workspace_routing_tests.rs:194:#[test_case("https://gov.chatgpt.com:444/backend-api/", "https://gov.chatgpt.com"; "port_conflict")]
+codex-rs/app-server/src/request_processors/account_processor/workspace_routing_tests.rs:201:    assert!(resolve_routing(entry, Some(required), "https://chatgpt.com").is_err());
+codex-rs/app-server/src/request_processors/account_processor/workspace_routing_tests.rs:223:            "https://chatgpt.com"
+codex-rs/app-server/src/request_processors/feedback_processor.rs:855:                "https://chatgpt.com/backend-api".to_string(),
+codex-rs/app-server/src/request_processors/feedback_processor.rs:872:            "https://chatgpt.com/backend-api",
+codex-rs/app-server/src/request_processors/feedback_processor.rs:901:                "https://chatgpt.com/backend-api".to_string(),
+codex-rs/app-server/src/request_processors/feedback_processor.rs:918:            "https://chatgpt.com/backend-api",
+codex-rs/app-server/src/user_verification_test_support.rs:276:    let payload = URL_SAFE_NO_PAD.encode(serde_json::to_vec(&json!({"jti": token, "https://api.openai.com/auth": {"chatgpt_account_id": "account-1", "chatgpt_account_user_id": "membership-1"}}))?);
+codex-rs/app-server/tests/common/auth_fixtures.rs:30:                "accounts": [{"id": account_id, "workspace_backend_origin": "https://chatgpt.com",
+codex-rs/app-server/tests/common/auth_fixtures.rs:163:            "https://api.openai.com/auth".to_string(),
+codex-rs/app-server/tests/suite/auth.rs:225:                backend_origin: "https://chatgpt.com".to_string(),
+codex-rs/app-server/tests/suite/v2/account.rs:224:        backend_origin: "https://chatgpt.com".to_string(),
+codex-rs/app-server/tests/suite/v2/account_enterprise_tests.rs:590:            "https://api.openai.com/auth":{"chatgpt_user_id":"enterprise-user","chatgpt_account_id":WORKSPACE_ID_REFRESHED,"chatgpt_plan_type":"business"}}).to_string())));
+codex-rs/app-server/tests/suite/v2/account_enterprise_tests.rs:1061:            "https://api.openai.com/auth": {"chatgpt_user_id": "enterprise-user", "chatgpt_account_id": WORKSPACE_ID_REFRESHED, "chatgpt_plan_type": "business"}
+codex-rs/app-server/tests/suite/v2/account_enterprise_tests.rs:1097:            "https://api.openai.com/auth": {"chatgpt_user_id": "enterprise-user", "chatgpt_account_id": WORKSPACE_ID_REFRESHED, "chatgpt_plan_type": "business"}
+codex-rs/app-server/tests/suite/v2/app_list.rs:628:        install_url: Some("https://chatgpt.com/apps/beta-app/beta".to_string()),
+codex-rs/app-server/tests/suite/v2/app_list.rs:650:            install_url: Some("https://chatgpt.com/apps/beta/beta".to_string()),
+codex-rs/app-server/tests/suite/v2/app_list.rs:667:            install_url: Some("https://chatgpt.com/apps/alpha/alpha".to_string()),
+codex-rs/app-server/tests/suite/v2/app_list.rs:776:            install_url: Some("https://chatgpt.com/apps/beta/beta".to_string()),
+codex-rs/app-server/tests/suite/v2/app_list.rs:793:            install_url: Some("https://chatgpt.com/apps/alpha/alpha".to_string()),
+codex-rs/app-server/tests/suite/v2/app_list.rs:896:        install_url: Some("https://chatgpt.com/apps/alpha/alpha".to_string()),
+codex-rs/app-server/tests/suite/v2/app_list.rs:1004:        install_url: Some("https://chatgpt.com/apps/beta/beta".to_string()),
+codex-rs/app-server/tests/suite/v2/app_list.rs:1046:        install_url: Some("https://chatgpt.com/apps/alpha/alpha".to_string()),
+codex-rs/app-server/tests/suite/v2/app_list.rs:1255:            install_url: Some("https://chatgpt.com/apps/beta-app/beta".to_string()),
+codex-rs/app-server/tests/suite/v2/app_list.rs:1278:                install_url: Some("https://chatgpt.com/apps/beta-app/beta".to_string()),
+codex-rs/app-server/tests/suite/v2/app_list.rs:1295:                install_url: Some("https://chatgpt.com/apps/alpha/alpha".to_string()),
+codex-rs/app-server/tests/suite/v2/app_list.rs:1354:                install_url: Some("https://chatgpt.com/apps/beta-app/beta".to_string()),
+codex-rs/app-server/tests/suite/v2/app_list.rs:1371:                install_url: Some("https://chatgpt.com/apps/alpha/alpha".to_string()),
+codex-rs/app-server/tests/suite/v2/app_list.rs:1401:        install_url: Some("https://chatgpt.com/apps/alpha/alpha".to_string()),
+codex-rs/app-server/tests/suite/v2/app_read.rs:209:        Some("https://files.openai.com/content?id=beta"),
+codex-rs/app-server/tests/suite/v2/app_read.rs:220:                app_response("alpha", "Alpha", Some("https://files.openai.com/content?id=alpha")),
+codex-rs/app-server/tests/suite/v2/app_read.rs:257:                metadata_json("beta", "Beta", Some("https://files.openai.com/content?id=beta")),
+codex-rs/app-server/tests/suite/v2/app_read.rs:258:                metadata_json("alpha", "Alpha", Some("https://files.openai.com/content?id=alpha")),
+codex-rs/app-server/tests/suite/v2/app_read.rs:271:                    Some("https://files.openai.com/content?id=beta")
+codex-rs/app-server/tests/suite/v2/app_read.rs:276:                    Some("https://files.openai.com/content?id=alpha")
+codex-rs/app-server/tests/suite/v2/app_read.rs:299:                    Some("https://files.openai.com/content?id=alpha")
+codex-rs/app-server/tests/suite/v2/app_read.rs:304:                    Some("https://files.openai.com/content?id=beta")
+codex-rs/app-server/tests/suite/v2/app_read.rs:676:        "iconUrlDark": format!("https://files.openai.com/content?id={id}-dark"),
+codex-rs/app-server/tests/suite/v2/app_read.rs:678:        "installUrl": format!("https://chatgpt.com/apps/{}/{id}", name.to_ascii_lowercase()),
+codex-rs/app-server/tests/suite/v2/app_read.rs:704:        "icon_dark_url": format!("https://files.openai.com/content?id={id}-dark"),
+codex-rs/app-server/tests/suite/v2/curated_mcp_sync.rs:82:            &["config", "user.email", "codex-tests@openai.com"],
+codex-rs/app-server/tests/suite/v2/git_attribution.rs:54:Co-authored-by: Codex <noreply@openai.com>
+codex-rs/app-server/tests/suite/v2/mcp_resource/plugin_metadata_refresh.rs:21:    let original_logo = "https://files.openai.com/plugins/logo.png?sv=1&sr=b&sig=first&se=old";
+codex-rs/app-server/tests/suite/v2/mcp_resource/plugin_metadata_refresh.rs:22:    let renewed_logo = "https://files.openai.com/plugins/logo.png?sv=1&sr=b&sig=second&se=new";
+codex-rs/app-server/tests/suite/v2/mcp_resource/plugin_metadata_refresh.rs:23:    let changed_logo = "https://files.openai.com/plugins/new-logo.png?sv=1&sr=b&sig=third&se=new";
+codex-rs/app-server/tests/suite/v2/plugin_install.rs:381:                install_url: Some("https://chatgpt.com/apps/alpha/alpha".to_string()),
+codex-rs/app-server/tests/suite/v2/plugin_install.rs:1354:                install_url: Some("https://chatgpt.com/apps/alpha/alpha".to_string()),
+codex-rs/app-server/tests/suite/v2/plugin_install.rs:1716:                    "https://chatgpt.com/apps/asdk-app-6938a94a61d881918ef32cb999ff937c/asdk_app_6938a94a61d881918ef32cb999ff937c"
+codex-rs/app-server/tests/suite/v2/plugin_install.rs:2187:                    install_url: Some("https://chatgpt.com/apps/alpha/alpha".to_string()),
+codex-rs/app-server/tests/suite/v2/plugin_install.rs:2373:                install_url: Some("https://chatgpt.com/apps/alpha/alpha".to_string()),
+codex-rs/app-server/tests/suite/v2/plugin_install.rs:2474:                install_url: Some("https://chatgpt.com/apps/alpha/alpha".to_string()),
+codex-rs/app-server/tests/suite/v2/plugin_install.rs:2482:                    "https://chatgpt.com/apps/asdk-app-6938a94a61d881918ef32cb999ff937c/asdk_app_6938a94a61d881918ef32cb999ff937c"
+codex-rs/app-server/tests/suite/v2/plugin_list.rs:1666:    "websiteURL": "https://openai.com/",
+codex-rs/app-server/tests/suite/v2/plugin_list.rs:1667:    "privacyPolicyURL": "https://openai.com/policies/row-privacy-policy/",
+codex-rs/app-server/tests/suite/v2/plugin_list.rs:1668:    "termsOfServiceURL": "https://openai.com/policies/row-terms-of-use/",
+codex-rs/app-server/tests/suite/v2/plugin_list.rs:1720:        Some("https://openai.com/")
+codex-rs/app-server/tests/suite/v2/plugin_list.rs:1724:        Some("https://openai.com/policies/row-privacy-policy/")
+codex-rs/app-server/tests/suite/v2/plugin_list.rs:1728:        Some("https://openai.com/policies/row-terms-of-use/")
+codex-rs/app-server/tests/suite/v2/plugin_read.rs:1688:    "websiteURL": "https://openai.com/",
+codex-rs/app-server/tests/suite/v2/plugin_read.rs:1689:    "privacyPolicyURL": "https://openai.com/policies/row-privacy-policy/",
+codex-rs/app-server/tests/suite/v2/plugin_read.rs:1690:    "termsOfServiceURL": "https://openai.com/policies/row-terms-of-use/",
+codex-rs/app-server/tests/suite/v2/plugin_read.rs:1924:        Some("https://chatgpt.com/apps/gmail/gmail")
+codex-rs/app-server/tests/suite/v2/rate_limit_reset_credits.rs:235:                "id": "account-123", "workspace_backend_origin": "https://chatgpt.com",
+codex-rs/app-server/tests/suite/v2/turn_start.rs:431:            .email("employee@openai.com"),
+codex-rs/app-server/tests/suite/v2/workspace_routing.rs:111:                {"id": "selected", "name": "Selected workspace", "workspace_backend_origin": "https://gov.chatgpt.com", "account_routing_override": "NO_CONSTRAINT"}
+codex-rs/app-server/tests/suite/v2/workspace_routing.rs:162:        "requiresOpenaiAuth": true, "workspaceRouting": routing("selected", "https://gov.chatgpt.com", "NO_CONSTRAINT")
+codex-rs/app-server/tests/suite/v2/workspace_routing.rs:242:            "id": "selected", "workspace_backend_origin": "https://chatgpt.com", "account_routing_override": "NO_CONSTRAINT"
+codex-rs/app-server/tests/suite/v2/workspace_routing.rs:249:            "requiresOpenaiAuth": true, "workspaceRouting": routing("selected", "https://chatgpt.com", "NO_CONSTRAINT")})
+codex-rs/app-server/tests/suite/v2/workspace_routing.rs:330:            {"id": "first", "workspace_backend_origin": "https://chatgpt.com", "account_routing_override": "us_cr"},
+codex-rs/app-server/tests/suite/v2/workspace_routing.rs:331:            {"id": "second", "workspace_backend_origin": "https://gov.chatgpt.com", "account_routing_override": "us"}
+codex-rs/app-server/tests/suite/v2/workspace_routing.rs:337:        ("first", "https://chatgpt.com", "us_cr"),
+codex-rs/app-server/tests/suite/v2/workspace_routing.rs:338:        ("second", "https://gov.chatgpt.com", "us"),
+codex-rs/app-server/tests/suite/v2/workspace_routing.rs:398:                "id": "selected", "workspace_backend_origin": "https://chatgpt.com", "account_routing_override": "NO_CONSTRAINT"
+codex-rs/app-server/tests/suite/v2/workspace_routing.rs:400:        assert_eq!(read(&mut server).await?["workspaceRouting"], routing("selected", "https://chatgpt.com", "NO_CONSTRAINT"));
+codex-rs/backend-client/src/client.rs:229:        if (base_url.starts_with("https://chatgpt.com")
+codex-rs/backend-client/src/client.rs:230:            || base_url.starts_with("https://chat.openai.com"))
+codex-rs/backend-client/src/client.rs:1041:        let chatgpt_client = test_client("https://chatgpt.com/backend-api", PathStyle::ChatGptApi);
+codex-rs/backend-client/src/client.rs:1044:            "https://chatgpt.com/backend-api/wham/accounts/send_add_credits_nudge_email"
+codex-rs/backend-client/src/client.rs:1071:        let chatgpt_client = test_client("https://chatgpt.com/backend-api", PathStyle::ChatGptApi);
+codex-rs/backend-client/src/client.rs:1074:            "https://chatgpt.com/backend-api/wham/profiles/me"
+codex-rs/backend-client/src/client.rs:1086:        let chatgpt_client = test_client("https://chatgpt.com/backend-api", PathStyle::ChatGptApi);
+codex-rs/backend-client/src/client.rs:1089:            "https://chatgpt.com/backend-api/wham/workspace-messages"
+codex-rs/backend-client/src/client.rs:1158:            "https://chatgpt.com/backend-api",
+codex-rs/backend-client/src/client/rate_limit_resets_tests.rs:58:        test_client("https://chatgpt.com/backend-api", PathStyle::ChatGptApi)
+codex-rs/backend-client/src/client/rate_limit_resets_tests.rs:60:        "https://chatgpt.com/backend-api/wham/usage"
+codex-rs/backend-client/src/client/rate_limit_resets_tests.rs:63:        test_client("https://chatgpt.com/backend-api", PathStyle::ChatGptApi)
+codex-rs/backend-client/src/client/rate_limit_resets_tests.rs:65:        "https://chatgpt.com/backend-api/wham/rate-limit-reset-credits"
+codex-rs/backend-client/src/client/rate_limit_resets_tests.rs:68:        test_client("https://chatgpt.com/backend-api", PathStyle::ChatGptApi)
+codex-rs/backend-client/src/client/rate_limit_resets_tests.rs:70:        "https://chatgpt.com/backend-api/wham/rate-limit-reset-credits/consume"
+codex-rs/backend-client/src/client/thread_usage_tests.rs:21:        Client::new("https://chatgpt.com/backend-api", factory).thread_usage_url(),
+codex-rs/backend-client/src/client/thread_usage_tests.rs:22:        "https://chatgpt.com/backend-api/wham/usage/thread_usage/query"
+codex-rs/backend-client/src/client/turn_usage.rs:56:            Some("chatgpt.com" | "chat.openai.com") => Some("api.chatgpt.com"),
+codex-rs/cli/src/doctor.rs:2651:        "https://chatgpt.com/backend-api/",
+codex-rs/cli/src/doctor.rs:3872:                "https://chatgpt.com/backend-api/",
+codex-rs/cli/src/doctor.rs:3903:                    "https://chatgpt.com/backend-api/",
+codex-rs/cli/src/doctor.rs:3934:            "https://chatgpt.com/backend-api/",
+codex-rs/cli/src/doctor.rs:3949:            "https://chatgpt.com/backend-api/",
+codex-rs/cli/src/doctor.rs:3999:            "https://chatgpt.com/backend-api/",
+codex-rs/cli/src/doctor.rs:4040:            "https://chatgpt.com/backend-api/",
+codex-rs/cli/src/main.rs:3977:            "https://example.openai.com",
+codex-rs/cli/src/main.rs:4004:                "https://example.openai.com",
+codex-rs/cli/src/main.rs:4013:                "https://example.openai.com",
+codex-rs/cloud-config/src/bundle_loader.rs:195:                .unwrap_or_else(|| "https://chatgpt.com/backend-api/".to_string()),
+codex-rs/cloud-config/src/service_tests.rs:136:            "https://auth.openai.com/api/accounts",
+codex-rs/cloud-config/src/service_tests.rs:191:        "https://api.openai.com/auth": auth_payload,
+codex-rs/codex-api/src/api_bridge_tests.rs:820:        url: Some("https://chatgpt.com/backend-api/codex/models".to_string()),
+codex-rs/codex-api/src/endpoint/realtime_call.rs:423:            provider("https://api.openai.com/v1"),
+codex-rs/codex-api/src/endpoint/realtime_call.rs:442:        assert_eq!(request.url, "https://api.openai.com/v1/realtime/calls");
+codex-rs/codex-api/src/endpoint/realtime_call.rs:466:            provider("https://chatgpt.com/backend-api/codex"),
+codex-rs/codex-api/src/endpoint/realtime_call.rs:487:            "https://chatgpt.com/backend-api/codex/realtime/calls"
+codex-rs/codex-api/src/endpoint/realtime_call.rs:500:            provider("https://api.openai.com/v1"),
+codex-rs/codex-api/src/endpoint/realtime_call.rs:524:            "https://api.openai.com/v1/realtime/calls?intent=quicksilver&architecture=avas"
+codex-rs/codex-api/src/endpoint/realtime_call.rs:565:            provider("https://api.openai.com/v1"),
+codex-rs/codex-api/src/endpoint/realtime_call.rs:580:        assert_eq!(request.url, "https://api.openai.com/v1/live");
+codex-rs/codex-api/src/endpoint/realtime_call.rs:595:            provider("https://api.openai.com/v1"),
+codex-rs/codex-api/src/endpoint/realtime_call.rs:620:            "https://api.openai.com/v1/realtime/calls?intent=quicksilver&architecture=avas"
+codex-rs/codex-api/src/endpoint/realtime_call.rs:629:            provider("https://api.openai.com/v1"),
+codex-rs/codex-api/src/endpoint/realtime_call.rs:653:            provider("https://chatgpt.com/backend-api/codex"),
+codex-rs/codex-api/src/endpoint/realtime_call.rs:677:            "https://chatgpt.com/backend-api/codex/realtime/calls?intent=quicksilver&architecture=avas"
+codex-rs/codex-api/src/endpoint/realtime_call.rs:702:            provider("https://chatgpt.com/backend-api/codex"),
+codex-rs/codex-api/src/endpoint/realtime_call.rs:727:            "https://chatgpt.com/backend-api/codex/realtime/calls?intent=quicksilver&architecture=avas"
+codex-rs/codex-api/src/endpoint/realtime_call.rs:756:            provider("https://api.openai.com/v1"),
+codex-rs/codex-api/src/endpoint/realtime_websocket/methods.rs:2185:            "https://api.openai.com/v1",
+codex-rs/codex-api/src/endpoint/realtime_websocket/methods.rs:2194:            "wss://api.openai.com/v1/realtime?intent=quicksilver&model=snapshot"
+codex-rs/codex-api/src/endpoint/realtime_websocket/methods.rs:2300:            "https://api.openai.com/v1",
+codex-rs/codex-api/src/endpoint/realtime_websocket/methods.rs:2309:            "wss://api.openai.com/v1/realtime?call_id=rtc_test"
+codex-rs/codex-api/src/endpoint/search.rs:184:                            domains: Some(vec!["openai.com".to_string()]),
+codex-rs/codex-api/src/endpoint/search.rs:187:                            ref_id: "https://openai.com".to_string(),
+codex-rs/codex-api/src/endpoint/search.rs:202:                            allowed_domains: Some(vec!["openai.com".to_string()]),
+codex-rs/codex-api/src/endpoint/search.rs:265:                        "domains": ["openai.com"]
+codex-rs/codex-api/src/endpoint/search.rs:267:                    "open": [{"ref_id": "https://openai.com", "lineno": 12}]
+codex-rs/codex-api/src/endpoint/search.rs:277:                        "allowed_domains": ["openai.com"],
+codex-rs/codex-api/src/provider.rs:55:            "https://api.openai.com/v1",
+codex-rs/codex-api/src/sse/responses.rs:1088:        let raw_error = r#"{"type":"response.failed","sequence_number":3,"response":{"id":"resp_689bcf18d7f08194bf3440ba62fe05d803fee0cdac429894","object":"response","created_at":1755041560,"status":"failed","background":false,"error":{"code":"rate_limit_exceeded","message":"Rate limit reached for gpt-5.1 in organization org-AAA on tokens per min (TPM): Limit 30000, Used 22999, Requested 12528. Please try again in 11.054s. Visit https://platform.openai.com/account/rate-limits to learn more."}, "usage":null,"user":null,"metadata":{}}}"#;
+codex-rs/codex-api/src/sse/responses.rs:1103:                    "Rate limit reached for gpt-5.1 in organization org-AAA on tokens per min (TPM): Limit 30000, Used 22999, Requested 12528. Please try again in 11.054s. Visit https://platform.openai.com/account/rate-limits to learn more."
+codex-rs/codex-api/src/sse/responses.rs:1206:        let raw_error = r#"{"type":"response.failed","sequence_number":3,"response":{"id":"resp_fatal_quota","object":"response","created_at":1759771626,"status":"failed","background":false,"error":{"code":"insufficient_quota","message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors."},"incomplete_details":null}}"#;
+codex-rs/codex-api/src/sse/responses_error_parser_tests.rs:10:        message: Some("Rate limit reached for gpt-5.1 in organization org- on tokens per min (TPM): Limit 1, Used 1, Requested 19304. Please try again in 28ms. Visit https://platform.openai.com/account/rate-limits to learn more.".to_string()),
+codex-rs/codex-api/src/sse/responses_error_parser_tests.rs:25:        message: Some("Rate limit reached for gpt-5.1 in organization <ORG> on tokens per min (TPM): Limit 30000, Used 6899, Requested 24050. Please try again in 1.898s. Visit https://platform.openai.com/account/rate-limits to learn more.".to_string()),
+codex-rs/codex-mcp/src/auth_elicitation.rs:276:                Some("https://chatgpt.com/apps/google-calendar/connector_calendar".to_string()),
+codex-rs/codex-mcp/src/auth_elicitation.rs:281:                install_url: "https://chatgpt.com/apps/google-calendar/connector_calendar"
+codex-rs/codex-mcp/src/auth_elicitation.rs:299:                Some("https://chatgpt.com/apps/google-calendar/connector_calendar".to_string()),
+codex-rs/codex-mcp/src/auth_elicitation.rs:308:                Some("https://chatgpt.com/apps/google-drive/connector_drive".to_string()),
+codex-rs/codex-mcp/src/auth_elicitation.rs:390:            Some("https://chatgpt.com/apps/google-calendar/connector_calendar".to_string()),
+codex-rs/codex-mcp/src/auth_elicitation.rs:404:                                "https://chatgpt.com/apps/google-calendar/connector_calendar",
+codex-rs/codex-mcp/src/auth_elicitation.rs:415:                url: "https://chatgpt.com/apps/google-calendar/connector_calendar".to_string(),
+codex-rs/codex-mcp/src/auth_elicitation.rs:428:            Some("https://chatgpt.com/apps/google-calendar/connector_calendar".to_string()),
+codex-rs/codex-mcp/src/catalog_tests.rs:306:        let expected = server("https://chatgpt.com/mcp");
+codex-rs/codex-mcp/src/client_capabilities_tests.rs:94:            "https://chatgpt.com",
+codex-rs/codex-mcp/src/client_capabilities_tests.rs:152:                "https://chatgpt.com",
+codex-rs/codex-mcp/src/codex_apps/file_params.rs:7://! See <https://developers.openai.com/apps-sdk/reference#tool-descriptor-parameters>.
+codex-rs/codex-mcp/src/connection_manager/network_policy_tests.rs:92:        (Some("https://chatgpt.com/mcp"), true, true, true),
+codex-rs/codex-mcp/src/connection_manager/network_policy_tests.rs:93:        (Some("https://chatgpt.com/mcp"), true, false, false),
+codex-rs/codex-mcp/src/connection_manager/network_policy_tests.rs:94:        (Some("https://chatgpt.com/mcp"), false, true, false),
+codex-rs/codex-mcp/src/connection_manager/network_policy_tests.rs:95:        (Some("https://gov.chatgpt.com/mcp"), true, true, true),
+codex-rs/codex-mcp/src/connection_manager/network_policy_tests.rs:97:            Some("https://chatgpt.com.attacker.example/mcp"),
+codex-rs/codex-mcp/src/connection_manager/network_policy_tests.rs:102:        (Some("http://chatgpt.com/mcp"), true, true, false),
+codex-rs/codex-mcp/src/connection_manager/network_policy_tests.rs:106:        let mut server_config = reusable_server_config(url.unwrap_or("https://chatgpt.com/mcp"));
+codex-rs/codex-mcp/src/connection_manager/network_policy_tests.rs:130:            "https://chatgpt.com",
+codex-rs/codex-mcp/src/connection_manager_tests.rs:571:        "https://chatgpt.com/backend-api".to_string(),
+codex-rs/codex-mcp/src/connection_manager_tests.rs:4758:        "https://chatgpt.com",
+codex-rs/codex-mcp/src/connection_manager_tests.rs:4792:    config.chatgpt_base_url = "https://gov.chatgpt.com/backend-api/".to_string();
+codex-rs/codex-mcp/src/connection_manager_tests.rs:4924:            "url": "https://chatgpt.com/backend-api/ps/mcp",
+codex-rs/codex-mcp/src/connection_manager_tests.rs:6496:        let mut config = reusable_server_config("https://chatgpt.com/backend-api/ps/mcp");
+codex-rs/codex-mcp/src/connection_manager_tests.rs:7041:            "https://auth.openai.com/api/accounts",
+codex-rs/codex-mcp/src/connection_manager_tests.rs:7092:                "https://auth.openai.com/api/accounts",
+codex-rs/codex-mcp/src/mcp/mod.rs:401:    if [CHATGPT_CODEX_BASE_URL, "https://gov.chatgpt.com"]
+codex-rs/codex-mcp/src/mcp/mod.rs:647:    if (base_url.starts_with("https://chatgpt.com")
+codex-rs/codex-mcp/src/mcp/mod.rs:648:        || base_url.starts_with("https://chat.openai.com"))
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:212:        chatgpt_base_url: "https://chatgpt.com".to_string(),
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:565:        codex_apps_mcp_url_for_base_url("https://chatgpt.com/backend-api"),
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:566:        "https://chatgpt.com/backend-api/ps/mcp"
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:569:        codex_apps_mcp_url_for_base_url("https://chat.openai.com"),
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:570:        "https://chat.openai.com/backend-api/ps/mcp"
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:573:        codex_apps_mcp_url_for_base_url("https://gov.chatgpt.com/backend-api/"),
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:574:        "https://gov.chatgpt.com/backend-api/ps/mcp"
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:589:        "https://chatgpt.com",
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:598:    assert_eq!(url, "https://chatgpt.com/backend-api/ps/mcp");
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:604:        "https://chatgpt.com",
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:632:            "https://chatgpt.com",
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:660:        "https://chatgpt.com",
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:741:        ("https://gov.chatgpt.com", "https://chatgpt.com"),
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:743:            "https://chatgpt.com",
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:744:            "https://gov.chatgpt.com/backend-api/",
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:746:        ("https://chatgpt.com", "https://GOV.CHATGPT.COM:443"),
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:773:        "http://gov.chatgpt.com",
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:774:        "https://gov.chatgpt.com:8443",
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:775:        "https://gov.chatgpt.com.evil.example",
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:776:        "https://sub.gov.chatgpt.com",
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:777:        "https://gov.chatgpt.com.",
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:778:        "https://gov.chatgpt.com@evil.example",
+codex-rs/codex-mcp/src/mcp/mod_tests.rs:909:            assert_eq!(url, "https://chatgpt.com/backend-api/ps/mcp");
+codex-rs/codex-mcp/src/trusted_access_tests.rs:168:        "https://chatgpt.com/backend-api".to_string(),
+codex-rs/codex-mcp/src/trusted_access_tests.rs:229:            url: "https://chatgpt.com/backend-api/accounts/verified_access".to_string(),
+codex-rs/config/defaults.toml:14:chatgpt_base_url = "https://chatgpt.com/backend-api/"
+codex-rs/config/src/config_requirements.rs:4982:            "*.openai.com" = "allow"
+codex-rs/config/src/config_requirements.rs:5019:                        "*.openai.com".to_string(),
+codex-rs/config/src/config_requirements.rs:5080:            allowed_domains = ["api.example.com", "*.openai.com"]
+codex-rs/config/src/config_requirements.rs:5109:                        "*.openai.com".to_string(),
+codex-rs/config/src/config_requirements.rs:5157:                "*.openai.com" = "allow"
+codex-rs/config/src/config_requirements.rs:5190:                    "*.openai.com".to_string(),
+codex-rs/config/src/config_requirements.rs:5219:                "*.openai.com".to_string(),
+codex-rs/connectors/src/lib.rs:487:        .unwrap_or_else(|_| "https://chatgpt.com".to_string());
+codex-rs/connectors/src/lib.rs:582:            .unwrap_or_else(|_| "https://chatgpt.com".to_string());
+codex-rs/connectors/src/lib.rs:751:            Some("https://chatgpt.com/apps/alpha/alpha")
+codex-rs/core-plugins/src/manager_tests.rs:173:        "https://chatgpt.com".to_string(),
+codex-rs/core-plugins/src/manager_tests.rs:3134:            "https://chatgpt.com".to_string(),
+codex-rs/core-plugins/src/marketplace_policy/curated_skill_tests.rs:94:            "https://chatgpt.com/backend-api/".to_string(),
+codex-rs/core-plugins/src/plugins_config_input_tests.rs:25:        "https://chatgpt.com/backend-api".to_string(),
+codex-rs/core-plugins/src/remote/catalog_cache_tests.rs:24:        chatgpt_base_url: "https://chatgpt.com/backend-api".to_string(),
+codex-rs/core-plugins/src/remote/catalog_cache_tests.rs:52:        "https://chatgpt.com/backend-api".to_string(),
+codex-rs/core-plugins/src/remote/catalog_cache_tests.rs:101:        "https://chatgpt.com/backend-api".to_string(),
+codex-rs/core-plugins/src/remote/catalog_cache_tests.rs:178:        "https://chatgpt.com/backend-api".to_string(),
+codex-rs/core-plugins/src/remote_metadata_cache_tests.rs:34:            "logoUrl": "https://files.openai.com/logo.png?sig=old"
+codex-rs/core-plugins/src/remote_metadata_cache_tests.rs:82:    interface.logo_url = Some("https://files.openai.com/logo.png?sig=new".to_string());
+codex-rs/core-plugins/src/remote_metadata_tests.rs:12:    format!("https://files.openai.com/plugins/icon.png?sig={renewal}")
+codex-rs/core-plugins/src/remote_tests.rs:466:        "https://chatgpt.com/backend-api".to_string(),
+codex-rs/core-plugins/src/startup_sync.rs:27:    "https://chatgpt.com/backend-api/plugins/export/curated";
+codex-rs/core-plugins/src/test_support.rs:528:        "https://chatgpt.com/backend-api/".to_string(),
+codex-rs/core/config.schema.json:4513:      "description": "A summary of the reasoning performed by the model. This can be useful for debugging and understanding the model's reasoning process. See https://platform.openai.com/docs/guides/reasoning?api-mode=responses#reasoning-summaries",
+codex-rs/core/src/client.rs:566:/// `api.openai.com` sideband path.
+codex-rs/core/src/client_tests.rs:145:            "https://chatgpt.com/backend-api".into(),
+codex-rs/core/src/client_tests.rs:182:                    backend_origin: "https://gov.chatgpt.com".into(),
+codex-rs/core/src/client_tests.rs:244:                "https://gov.chatgpt.com/backend-api/codex"
+codex-rs/core/src/client_tests.rs:414:                json!({"jti": revision, "https://api.openai.com/auth": {"chatgpt_user_id": user}});
+codex-rs/core/src/client_tests.rs:601:        ModelProviderInfo::create_openai_provider(Some("https://api.openai.com/v1".to_string()));
+codex-rs/core/src/client_tests.rs:635:        (false, "https://api.openai.com/v1", true),
+codex-rs/core/src/client_tests.rs:636:        (false, "https://chatgpt.com/backend-api/codex", true),
+codex-rs/core/src/client_tests.rs:639:        (false, "http://api.openai.com/v1", false),
+codex-rs/core/src/client_tests.rs:640:        (false, "https://api.openai.com.evil.example/v1", false),
+codex-rs/core/src/client_tests.rs:641:        (false, "https://chatgpt.com.evil.example/v1", false),
+codex-rs/core/src/client_tests.rs:642:        (false, "https://api.openai.com@proxy.example.com/v1", false),
+codex-rs/core/src/client_tests.rs:820:        ModelProviderInfo::create_openai_provider(Some("https://api.openai.com/v1".to_string()));
+codex-rs/core/src/client_tests.rs:865:        ..ModelProviderInfo::create_openai_provider(Some("https://api.openai.com/v1".to_string()))
+codex-rs/core/src/client_tests.rs:882:            "https://api.openai.com/v1",
+codex-rs/core/src/client_tests.rs:889:            "https://api.openai.com/v1",
+codex-rs/core/src/client_tests.rs:896:            "https://api.openai.com/v1",
+codex-rs/core/src/client_tests.rs:903:            "https://api.openai.com/v1",
+codex-rs/core/src/client_tests.rs:2169:            "https://chatgpt.com/backend-api".into(),
+codex-rs/core/src/compact_tests.rs:532:            "Warning: Your account was flagged for potentially high-risk cyber activity and this request was routed to gpt-5.2 as a fallback. To regain access to gpt-5.3-codex, apply for trusted access: https://chatgpt.com/cyber or learn more: https://developers.openai.com/codex/concepts/cyber-safety",
+codex-rs/core/src/config/config_tests.rs:1603:"openai.com" = "allow"
+codex-rs/core/src/config/config_tests.rs:1664:                                "openai.com".to_string(),
+codex-rs/core/src/config/config_tests.rs:2685:                                    "openai.com".to_string(),
+codex-rs/core/src/config/config_tests.rs:3352:                                    "openai.com".to_string(),
+codex-rs/core/src/config/config_tests.rs:6748:            (&marked, "https://gov.chatgpt.com/backend-api/"),
+codex-rs/core/src/config/config_tests.rs:10381:base_url = "https://api.openai.com/v1"
+codex-rs/core/src/config/permissions_tests.rs:70:allowed_domains = ["openai.com"]
+codex-rs/core/src/config/permissions_tests.rs:83:                "*.openai.com".to_string(),
+codex-rs/core/src/config/permissions_tests.rs:112:            "*.openai.com".to_string(),
+codex-rs/core/src/config/permissions_tests.rs:365:                "openai.com".to_string(),
+codex-rs/core/src/config/permissions_tests.rs:379:                pattern: "openai.com".to_string(),
+codex-rs/core/src/context/world_state/environment_render_tests.rs:131:        vec!["api.example.com".to_string(), "*.openai.com".to_string()],
+codex-rs/core/src/context/world_state/environment_render_tests.rs:152:  <network enabled="true"><allowed>api.example.com,*.openai.com</allowed><denied>blocked.example.com</denied></network>
+codex-rs/core/src/context_manager/history.rs:1172:// See https://platform.openai.com/docs/guides/images-vision#calculating-costs.
+codex-rs/core/src/context_manager/history.rs:1176:// See https://platform.openai.com/docs/guides/images-vision#model-sizing-behavior.
+codex-rs/core/src/guardian/review_session_tests.rs:49:    let parent_uri = "wss://review-snapshot.chatgpt.com/backend-api/codex/responses"
+codex-rs/core/src/mcp_tool_call_tests.rs:556:            server_origin: Some("https://chatgpt.com/api/codex/ps/mcp"),
+codex-rs/core/src/realtime_conversation_tests.rs:41:        ("legacy-key", None, None, "https://api.openai.com/v1", None),
+codex-rs/core/src/realtime_conversation_tests.rs:46:            "https://gov.api.openai.com/v1",
+codex-rs/core/src/realtime_conversation_tests.rs:53:            "https://gov.api.openai.com/v1",
+codex-rs/core/src/session/mod.rs:579:const CYBER_VERIFY_URL: &str = "https://chatgpt.com/cyber";
+codex-rs/core/src/session/mod.rs:580:const CYBER_SAFETY_URL: &str = "https://developers.openai.com/codex/concepts/cyber-safety";
+codex-rs/core/src/session/tests.rs:915:            "https://chatgpt.com/backend-api".into(),
+codex-rs/core/src/tools/handlers/apply_patch_spec.rs:8:/// https://platform.openai.com/docs/guides/function-calling#custom-tools
+codex-rs/core/src/turn_metadata_tests.rs:613:    let uri = "wss://metadata-affinity.chatgpt.com/backend-api/codex/responses"
+codex-rs/core/tests/suite/builtin_model_catalog.rs:47:model_catalog_url = "https://chatgpt.com/backend-api/codex/models"
+codex-rs/core/tests/suite/builtin_model_catalog.rs:62:        Some("https://chatgpt.com/backend-api/codex/models"),
+codex-rs/core/tests/suite/client.rs:840:        "https://api.openai.com/auth": {
+codex-rs/core/tests/suite/code_mode.rs:2069:            "https://api.openai.com/auth": { "chatgpt_account_id": "account_id" },
+codex-rs/core/tests/suite/code_mode.rs:2624:#[test_case(true, true, true, false, "employee@openai.com", ToolMode::CodeModeOnly, ResultMetadataAnalytics::Config(None); "employee_keeps_metadata")]
+codex-rs/core/tests/suite/mcp_auth_elicitation.rs:418:                        "install_url": "https://chatgpt.com/apps/calendar/calendar",
+codex-rs/core/tests/suite/mcp_auth_elicitation.rs:429:            url: "https://chatgpt.com/apps/calendar/calendar".to_string(),
+codex-rs/core/tests/suite/mcp_auth_elicitation.rs:515:    assert!(!target_payload.contains("https://chatgpt.com/apps/"));
+codex-rs/core/tests/suite/scenarios_credential_masking.rs:52:        ("OPENAI_BASE_URL", "https://api.openai.com/v1"),
+codex-rs/core/tests/suite/scenarios_mcp_ema.rs:261:            "https://api.openai.com/auth": {"chatgpt_user_id":"user","chatgpt_account_id":"workspace","chatgpt_plan_type":"business"},
+codex-rs/core/tests/suite/sqlite_state.rs:80:            json!({"https://api.openai.com/auth": {"chatgpt_user_id": user_id}}).to_string(),
+codex-rs/exec-server-cli/src/config.rs:98:        url::Host::Domain(host) => ["openai.com", "openai.org"].into_iter().any(|domain| {
+codex-rs/exec-server-cli/src/config.rs:112:            "remote exec-server API-key authentication is restricted to HTTPS openai.com and openai.org hosts and subdomains or loopback hosts"
+codex-rs/exec-server-cli/src/config.rs:159:                .unwrap_or_else(|| "https://chatgpt.com/backend-api/".to_string()),
+codex-rs/exec-server-cli/src/config_tests.rs:16:        "https://openai.com/api",
+codex-rs/exec-server-cli/src/config_tests.rs:17:        "https://service.openai.com/api",
+codex-rs/exec-server-cli/src/config_tests.rs:39:        "http://service.openai.com/api",
+codex-rs/exec-server-cli/src/config_tests.rs:47:            "remote exec-server API-key authentication is restricted to HTTPS openai.com and openai.org hosts and subdomains or loopback hosts"
+codex-rs/exec-server-cli/src/config_tests.rs:59:        "remote exec-server API-key authentication is restricted to HTTPS openai.com and openai.org hosts and subdomains or loopback hosts"
+codex-rs/exec-server-cli/src/exec_server_args_tests.rs:303:        "https://example.openai.com",
+codex-rs/exec-server-cli/src/exec_server_args_tests.rs:320:    } if connect == "ws://127.0.0.1:8765" && remote == "https://example.openai.com" && environment_id == "env-1" && name == "forwarded");
+codex-rs/exec-server-cli/src/exec_server_auth_tests.rs:39:        &serde_json::json!({"https://api.openai.com/auth": claims}),
+codex-rs/exec-server/tests/chatgpt_cloudflare_affinity.rs:25:const CHATGPT_MCP_URL: &str = "https://chatgpt.com/backend-api/ps/mcp";
+codex-rs/exec-server/tests/chatgpt_cloudflare_affinity.rs:26:const NON_CHATGPT_MCP_URL: &str = "https://api.openai.com/backend-api/ps/mcp";
+codex-rs/exec-server/tests/chatgpt_cloudflare_affinity.rs:66:        ("chatgpt.com:443", "POST /backend-api/ps/mcp HTTP/1.1", None,)
+codex-rs/exec-server/tests/chatgpt_cloudflare_affinity.rs:109:            "api.openai.com:443",
+codex-rs/exec-server/tests/common/tls_proxy.rs:98:        "chatgpt.com".to_string(),
+codex-rs/exec-server/tests/common/tls_proxy.rs:99:        "api.openai.com".to_string(),
+codex-rs/exec-server/tests/exec_process.rs:528:    const CUSTOM_HOST: &str = "chatgpt.com";
+codex-rs/exec-server/tests/exec_process.rs:540:        "api.openai.com"
+codex-rs/exec-server/tests/exec_process.rs:563:            ("VENDOR_BASE_URL", "https://api.openai.com/v1".to_string()),
+codex-rs/exec-server/tests/exec_process.rs:572:            "api.openai.com"
+codex-rs/exec-server/tests/exec_process.rs:781:                "{command}; test \"$GH_ENTERPRISE_TOKEN\" = executor-unbound-enterprise-token || exit 45; test \"$AUTH_ALIAS\" = \"Bearer $OPENAI_API_KEY\" || exit 42; printf '|%s' \"$OPENAI_API_KEY\"; curl --silent --show-error --fail --max-time 5 --noproxy '' --config \"$HOME/curl.conf\" {vendor_header} \"${{OPENAI_BASE_URL:-https://api.openai.com/v1}}/models\" >/dev/null"
+codex-rs/exec/tests/suite/daybreak.rs:210:            "accounts": [{"id": "workspace", "workspace_backend_origin": "https://chatgpt.com",
+codex-rs/ext/git-attribution/src/world_state.rs:12:Co-authored-by: Codex <noreply@openai.com>
+codex-rs/ext/guardian-v2/src/async_scorer/decisions.rs:28:pub(super) const URL: &str = "https://api.openai.com/v1/decisions";
+codex-rs/ext/guardian-v2/src/async_scorer/sampler_routing_tests.rs:174:                    backend_origin: "https://gov.chatgpt.com".into(),
+codex-rs/ext/guardian-v2/src/async_scorer/sampler_tests.rs:245:            "https://chatgpt.com/backend-api".into(),
+codex-rs/ext/guardian-v2/src/async_scorer/sampler_tests.rs:660:            "https://chatgpt.com/backend-api".into(),
+codex-rs/ext/guardian-v2/src/async_scorer/sampler_tests.rs:840:            "https://chatgpt.com/backend-api".into(),
+codex-rs/ext/mcp/src/lib_tests.rs:17:            ("chatgpt_base_url".to_string(), "https://chatgpt.com".into()),
+codex-rs/ext/mcp/tests/hosted_apps_mcp.rs:29:            ("chatgpt_base_url".to_string(), "https://chatgpt.com".into()),
+codex-rs/ext/mcp/tests/hosted_apps_mcp.rs:44:    assert_eq!(url, "https://chatgpt.com/backend-api/ps/mcp");
+codex-rs/ext/mcp/tests/hosted_apps_mcp.rs:123:    assert_eq!(url, "https://chatgpt.com/backend-api/ps/mcp");
+codex-rs/ext/web-search/src/extension.rs:231:            "https://chatgpt.com/backend-api".to_string(),
+codex-rs/ext/web-search/web_run_description.md:11:* `open`: {"open": [{"ref_id": "turn0search0"}, {"ref_id": "https://www.openai.com", "lineno": 120}]}
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:228:        let https = reqwest::Url::parse("https://http-websocket-cookies.chatgpt.com/api").unwrap();
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:229:        let wss: Uri = "wss://http-websocket-cookies.chatgpt.com/api"
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:253:                &"ws://http-websocket-cookies.chatgpt.com/api"
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:260:            factory.chatgpt_cookie_header(&"wss://api.openai.com/api".parse().unwrap()),
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:277:        let first_url = reqwest::Url::parse("https://cookies.chatgpt.com/a").unwrap();
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:278:        let second_url = reqwest::Url::parse("https://cookies.chatgpt.com/b").unwrap();
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:309:        for url in ["http://chatgpt.com/a", "https://api.openai.com/a"] {
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:313:        let url = reqwest::Url::parse("https://chatgpt.com/a").unwrap();
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:324:        let url = reqwest::Url::parse("https://chatgpt.com/backend-api/codex/responses").unwrap();
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:356:        let url = reqwest::Url::parse("https://chatgpt.com/backend-api/codex/responses").unwrap();
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:362:        let followup_url = reqwest::Url::parse("https://chatgpt.com/backend-api/ps/mcp").unwrap();
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:368:            "https://chatgpt.com/",
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:369:            "https://other.chatgpt.com/backend-api/ps/mcp",
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:370:            "https://api.openai.com/backend-api/ps/mcp",
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:371:            "http://chatgpt.com/backend-api/ps/mcp",
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:387:        let url = reqwest::Url::parse("https://api.openai.com/v1/responses").unwrap();
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:398:        let url = reqwest::Url::parse("https://chatgpt.com/backend-api/codex/responses").unwrap();
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:411:        let url = reqwest::Url::parse("https://chatgpt.com/backend-api/codex/responses").unwrap();
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:430:            reqwest::Url::parse("https://chatgpt.com/backend-api/codex/responses").unwrap();
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:431:        let api_url = reqwest::Url::parse("https://api.openai.com/v1/responses").unwrap();
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:442:        let http_url = reqwest::Url::parse("http://chatgpt.com/backend-api/codex/responses")
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:444:        let https_url = reqwest::Url::parse("https://chatgpt.com/backend-api/codex/responses")
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:456:        let url = reqwest::Url::parse("http://chatgpt.com/backend-api/codex/responses").unwrap();
+codex-rs/http-client/src/chatgpt_cloudflare_cookies.rs:460:        let url = reqwest::Url::parse("wss://chatgpt.com/backend-api/codex/responses").unwrap();
+codex-rs/http-client/src/chatgpt_hosts.rs:4:    const EXACT_HOSTS: &[&str] = &["chatgpt.com", "chat.openai.com", "chatgpt-staging.com"];
+codex-rs/http-client/src/chatgpt_hosts.rs:5:    const SUBDOMAIN_SUFFIXES: &[&str] = &[".chatgpt.com", ".chatgpt-staging.com"];
+codex-rs/http-client/src/chatgpt_hosts.rs:20:            "chatgpt.com",
+codex-rs/http-client/src/chatgpt_hosts.rs:21:            "foo.chatgpt.com",
+codex-rs/http-client/src/chatgpt_hosts.rs:22:            "staging.chatgpt.com",
+codex-rs/http-client/src/chatgpt_hosts.rs:23:            "chat.openai.com",
+codex-rs/http-client/src/chatgpt_hosts.rs:31:            "evilchatgpt.com",
+codex-rs/http-client/src/chatgpt_hosts.rs:32:            "chatgpt.com.evil.example",
+codex-rs/http-client/src/chatgpt_hosts.rs:33:            "api.openai.com",
+codex-rs/http-client/src/chatgpt_hosts.rs:34:            "foo.chat.openai.com",
+codex-rs/http-client/src/chatgpt_routing_affinity_tests.rs:6:    let uri: Uri = "wss://affinity.chatgpt.com/backend-api/codex/responses"
+codex-rs/http-client/src/chatgpt_routing_affinity_tests.rs:50:        "ws://affinity.chatgpt.com/backend-api/codex/responses",
+codex-rs/http-client/src/chatgpt_routing_affinity_tests.rs:51:        "wss://other.chatgpt.com/backend-api/codex/responses",
+codex-rs/http-client/src/chatgpt_routing_affinity_tests.rs:52:        "wss://affinity.chatgpt.com:444/backend-api/codex/responses",
+codex-rs/http-client/src/chatgpt_routing_affinity_tests.rs:53:        "wss://affinity.chatgpt.com/backend-api/codex/other",
+codex-rs/http-client/src/chatgpt_routing_affinity_tests.rs:54:        "wss://api.openai.com/backend-api/codex/responses",
+codex-rs/http-client/src/chatgpt_routing_affinity_tests.rs:80:            "__oailb=wrong-domain; Domain=other.chatgpt.com; Path=/; Secure",
+codex-rs/http-client/src/openai_endpoints.rs:21:        "openai.com",
+codex-rs/http-client/src/openai_endpoints.rs:24:        "chatgpt.com",
+codex-rs/http-client/src/openai_endpoints.rs:40:        "api.openai.com"
+codex-rs/http-client/src/openai_endpoints.rs:41:            | "gov.api.openai.com"
+codex-rs/http-client/src/openai_endpoints.rs:42:            | "us.api.openai.com"
+codex-rs/http-client/src/openai_endpoints.rs:43:            | "eu.api.openai.com"
+codex-rs/http-client/src/openai_endpoints.rs:44:            | "au.api.openai.com"
+codex-rs/http-client/src/openai_endpoints.rs:45:            | "ca.api.openai.com"
+codex-rs/http-client/src/openai_endpoints.rs:46:            | "jp.api.openai.com"
+codex-rs/http-client/src/openai_endpoints.rs:47:            | "in.api.openai.com"
+codex-rs/http-client/src/openai_endpoints.rs:48:            | "sg.api.openai.com"
+codex-rs/http-client/src/openai_endpoints.rs:49:            | "kr.api.openai.com"
+codex-rs/http-client/src/openai_endpoints.rs:50:            | "gb.api.openai.com"
+codex-rs/http-client/src/openai_endpoints.rs:51:            | "ae.api.openai.com"
+codex-rs/http-client/src/openai_endpoints.rs:52:            | "mtls.api.openai.com"
+codex-rs/http-client/src/openai_endpoints.rs:53:            | "mtls-us.api.openai.com"
+codex-rs/http-client/src/openai_endpoints.rs:54:            | "mtls-eu.api.openai.com"
+codex-rs/http-client/src/openai_endpoints.rs:83:            "https://unknown.api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:84:            "https://api.openai.com../v1",
+codex-rs/http-client/src/openai_endpoints.rs:85:            "https://api.openai.com:8443/v1",
+codex-rs/http-client/src/openai_endpoints.rs:86:            "http://api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:87:            "https://user@api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:97:            "https://api.openai.com.example.test/v1",
+codex-rs/http-client/src/openai_endpoints.rs:112:            "https://api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:113:            "https://api.openai.com.:443/v1",
+codex-rs/http-client/src/openai_endpoints.rs:114:            "https://gov.api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:115:            "https://eu.api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:116:            "https://us.api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:117:            "https://au.api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:118:            "https://ca.api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:119:            "https://jp.api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:120:            "https://in.api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:121:            "https://sg.api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:122:            "https://kr.api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:123:            "https://gb.api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:124:            "https://ae.api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:125:            "https://mtls.api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:126:            "https://mtls-us.api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:127:            "https://mtls-eu.api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:130:            "https://chatgpt.com/backend-api",
+codex-rs/http-client/src/openai_endpoints.rs:131:            "https://chat.openai.com/backend-api",
+codex-rs/http-client/src/openai_endpoints.rs:132:            "https://us.chatgpt.com/backend-api",
+codex-rs/http-client/src/openai_endpoints.rs:139:            "http://api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:140:            "https://api.openai.com:8443/v1",
+codex-rs/http-client/src/openai_endpoints.rs:141:            "https://user@api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:142:            "https://user:password@chatgpt.com/backend-api",
+codex-rs/http-client/src/openai_endpoints.rs:143:            "https://api.openai.com.example.test/v1",
+codex-rs/http-client/src/openai_endpoints.rs:144:            "https://eu.api.openai.com.example.test/v1",
+codex-rs/http-client/src/openai_endpoints.rs:145:            "https://unknown.api.openai.com/v1",
+codex-rs/http-client/src/openai_endpoints.rs:146:            "https://evilchatgpt.com/backend-api",
+codex-rs/http-client/src/openai_endpoints.rs:147:            "https://chatgpt.com.example.test/backend-api",
+codex-rs/http-client/src/openai_endpoints.rs:148:            "https://foo.chat.openai.com/backend-api",
+codex-rs/http-client/src/outbound_proxy_tests.rs:154:        "wss://api.openai.com/v1/responses",
+codex-rs/http-client/src/outbound_proxy_tests.rs:157:            assert_eq!(request_url, "https://api.openai.com/v1/responses");
+codex-rs/http-client/src/outbound_proxy_tests.rs:159:            assert_eq!(origin.host, "api.openai.com");
+codex-rs/http-client/src/outbound_proxy_tests.rs:183:        "wss://api.openai.com/v1/responses",
+codex-rs/http-client/src/outbound_proxy_tests.rs:299:        "wss://api.openai.com/v1/responses",
+codex-rs/http-client/src/outbound_proxy_tests.rs:693:        host: "auth.openai.com".to_string(),
+codex-rs/http-client/src/outbound_proxy_tests.rs:696:    assert!(no_proxy_matches_origin("auth.openai.com", &origin));
+codex-rs/http-client/src/outbound_proxy_tests.rs:697:    assert!(!no_proxy_matches_origin("openai.com", &origin));
+codex-rs/http-client/src/outbound_proxy_tests.rs:698:    assert!(no_proxy_matches_origin(".openai.com", &origin));
+codex-rs/http-client/src/outbound_proxy_tests.rs:699:    assert!(no_proxy_matches_origin("*.openai.com", &origin));
+codex-rs/http-client/src/outbound_proxy_tests.rs:700:    assert!(no_proxy_matches_origin("auth.openai.com:443", &origin));
+codex-rs/http-client/src/outbound_proxy_tests.rs:701:    assert!(!no_proxy_matches_origin("auth.openai.com:8443", &origin));
+codex-rs/http-client/src/outbound_proxy_tests.rs:706:    let request_url = "https://auth.openai.com/oauth/token?access_token=secret";
+codex-rs/http-client/src/outbound_proxy_tests.rs:711:        system_proxy_cache_key("https://auth.openai.com/oauth/revoke")
+codex-rs/linux-sandbox/tests/suite/sandbox.rs:884:    assert_network_blocked(&["curl", "-I", "http://openai.com"]).await;
+codex-rs/linux-sandbox/tests/suite/sandbox.rs:889:    assert_network_blocked(&["wget", "-qO-", "http://openai.com"]).await;
+codex-rs/linux-sandbox/tests/suite/sandbox.rs:1562:    assert_network_blocked(&["getent", "ahosts", "openai.com"]).await;
+codex-rs/login/src/auth/account_user_id_tests.rs:10:    let payload = json!({"https://api.openai.com/auth": auth_claims});
+codex-rs/login/src/auth/agent_identity.rs:544:                "iss": "https://chatgpt.com/codex-backend/agent-identity",
+codex-rs/login/src/auth/auth_tests.rs:2036:        "https://api.openai.com/auth": auth_payload,
+codex-rs/login/src/auth/auth_tests.rs:2982:        "iss": "https://chatgpt.com/codex-backend/agent-identity",
+codex-rs/login/src/auth/auth_tests.rs:3008:            "iss": "https://chatgpt.com/codex-backend/agent-identity",
+codex-rs/login/src/auth/change_state_tests.rs:13:        "https://api.openai.com/auth": {"chatgpt_user_id": user},
+codex-rs/login/src/auth/manager.rs:230:const REFRESH_TOKEN_URL: &str = "https://auth.openai.com/oauth/token";
+codex-rs/login/src/auth/manager.rs:231:pub(super) const REVOKE_TOKEN_URL: &str = "https://auth.openai.com/oauth/revoke";
+codex-rs/login/src/auth/manager/workspace_switching_tests.rs:23:        "https://api.openai.com/auth": {
+codex-rs/login/src/auth/personal_access_token.rs:11:const PROD_AUTHAPI_BASE_URL: &str = "https://auth.openai.com/api/accounts";
+codex-rs/login/src/auth/source.rs:60:    #[serde(rename = "https://api.openai.com/auth", default)]
+codex-rs/login/src/auth/source_tests.rs:10:        "iss": "https://auth.openai.com/",
+codex-rs/login/src/auth/source_tests.rs:14:        "https://api.openai.com/auth": {
+codex-rs/login/src/auth/source_tests.rs:69:        vec!["https://api.openai.com/auth", "user_id"],
+codex-rs/login/src/auth/source_tests.rs:71:            "https://api.openai.com/auth",
+codex-rs/login/src/auth/source_tests.rs:74:        vec!["https://api.openai.com/auth", "wif_federation_rule_id"],
+codex-rs/login/src/auth/source_tests.rs:93:    let claims = json!({"https://api.openai.com/auth": {"user_id": "user-a"}, "jti": "one"});
+codex-rs/login/src/auth/storage_tests.rs:540:        "https://api.openai.com/auth": {
+codex-rs/login/src/auth/workload_identity.rs:32:const PROD_TOKEN_URL: &str = "https://auth.openai.com/oauth/token";
+codex-rs/login/src/auth/workload_identity.rs:220:        "https://chatgpt.com"
+codex-rs/login/src/auth/workload_identity.rs:221:        | "https://chatgpt.com/backend-api"
+codex-rs/login/src/auth/workload_identity.rs:222:        | "https://chatgpt.com/codex"
+codex-rs/login/src/auth/workload_identity.rs:223:        | "https://chatgpt.com/backend-api/codex"
+codex-rs/login/src/auth/workload_identity.rs:224:        | "https://chat.openai.com"
+codex-rs/login/src/auth/workload_identity.rs:225:        | "https://chat.openai.com/backend-api"
+codex-rs/login/src/auth/workload_identity.rs:226:        | "https://chat.openai.com/codex"
+codex-rs/login/src/auth/workload_identity.rs:227:        | "https://chat.openai.com/backend-api/codex" => {
+codex-rs/login/src/auth/workload_identity.rs:380:                .unwrap_or("https://chatgpt.com/backend-api"),
+codex-rs/login/src/auth/workload_identity_tests.rs:47:            "https://chatgpt.com/backend-api",
+codex-rs/login/src/auth/workload_identity_tests.rs:59:            "https://chatgpt.com/backend-api",
+codex-rs/login/src/auth/workload_identity_tests.rs:83:            "https://chatgpt.com/backend-api",
+codex-rs/login/src/auth/workload_identity_tests.rs:97:            "https://chatgpt.com/backend-api",
+codex-rs/login/src/auth/workload_identity_tests.rs:110:        "https://chatgpt.com/backend-api",
+codex-rs/login/src/auth/workload_identity_tests.rs:117:            "https://chatgpt.com/backend-api/",
+codex-rs/login/src/auth/workload_identity_tests.rs:156:        "https://chatgpt.com/backend-api",
+codex-rs/login/src/auth/workload_identity_tests.rs:186:        "https://api.openai.com/auth": {
+codex-rs/login/src/token_data.rs:90:    #[serde(rename = "https://api.openai.com/profile", default)]
+codex-rs/login/src/token_data.rs:92:    #[serde(rename = "https://api.openai.com/auth", default)]
+codex-rs/login/src/token_data.rs:124:    #[serde(rename = "https://api.openai.com/auth")]
+codex-rs/login/src/token_data_tests.rs:56:        "https://api.openai.com/auth": {
+codex-rs/login/src/token_data_tests.rs:70:        "https://api.openai.com/auth": {
+codex-rs/login/src/token_data_tests.rs:84:        "https://api.openai.com/auth": {
+codex-rs/login/src/token_data_tests.rs:99:        "https://api.openai.com/auth": {
+codex-rs/login/src/token_data_tests.rs:114:        "https://api.openai.com/auth": {
+codex-rs/login/src/token_data_tests.rs:132:        "https://api.openai.com/auth": {
+codex-rs/login/src/token_data_tests.rs:152:        "https://api.openai.com/auth": {
+codex-rs/login/src/token_data_tests.rs:173:        "https://api.openai.com/auth": {
+codex-rs/login/src/token_data_tests.rs:204:        "https://api.openai.com/auth": {
+codex-rs/login/tests/suite/auth_refresh.rs:233:            "https://api.openai.com/auth": { "chatgpt_user_id": "user-123", "chatgpt_account_id": "account-id" }
+codex-rs/login/tests/suite/auth_refresh.rs:364:                "https://api.openai.com/auth": { "chatgpt_user_id": "user-123", "chatgpt_account_id": "account-id" }
+codex-rs/model-provider-info/src/lib.rs:86:pub const CHATGPT_CODEX_BASE_URL: &str = "https://chatgpt.com/backend-api/codex";
+codex-rs/model-provider-info/src/lib.rs:482:            "https://api.openai.com/v1"
+codex-rs/model-provider-info/src/model_provider_info_tests.rs:202:base_url = "https://api.openai.com/v1"
+codex-rs/model-provider-info/src/model_provider_info_tests.rs:215:base_url = "https://api.openai.com/v1"
+codex-rs/model-provider-info/src/model_provider_info_tests.rs:999:    for inference_url in [None, Some("https://us.api.openai.com/v1")] {
+codex-rs/model-provider-info/src/model_provider_info_tests.rs:1000:        for catalog_url in [None, Some("https://chatgpt.com/backend-api/codex/models")] {
+codex-rs/model-provider-info/src/model_provider_info_tests.rs:1023:        "http://chatgpt.com/backend-api/codex/models",
+codex-rs/model-provider-info/src/model_provider_info_tests.rs:1024:        "https://chatgpt.com.evil.example/models",
+codex-rs/model-provider-info/src/model_provider_info_tests.rs:1025:        "https://evilchatgpt.com/models",
+codex-rs/model-provider-info/src/model_provider_info_tests.rs:1026:        "https://api.openai.com/v1/models",
+codex-rs/model-provider-info/src/model_provider_info_tests.rs:1028:        "https://user:secret@chatgpt.com/models",
+codex-rs/model-provider-info/src/model_provider_info_tests.rs:1060:        "chatgpt.com",
+codex-rs/model-provider-info/src/model_provider_info_tests.rs:1061:        "gov.chatgpt.com",
+codex-rs/model-provider-info/src/model_provider_info_tests.rs:1062:        "chat.openai.com",
+codex-rs/model-provider-info/src/model_provider_info_tests.rs:1065:        "CHATGPT.COM",
+codex-rs/model-provider/src/auth_tests.rs:46:        "https://auth.openai.com/api/accounts",
+codex-rs/model-provider/src/chatgpt_base_url.rs:6:pub const DEFAULT_CHATGPT_BASE_URL: &str = "https://chatgpt.com/backend-api/";
+codex-rs/model-provider/src/chatgpt_base_url.rs:7:const FEDRAMP_CHATGPT_BASE_URL: &str = "https://gov.chatgpt.com/backend-api/";
+codex-rs/model-provider/src/models_endpoint.rs:51:const FEDRAMP_CODEX_BASE_URL: &str = "https://gov.chatgpt.com/backend-api/codex";
+codex-rs/model-provider/src/models_endpoint_refresh_tests.rs:33:                "https://api.openai.com/auth": {
+codex-rs/model-provider/src/models_endpoint_runtime_auth_tests.rs:23:                let claims = json!({"session_id": "session-a", "https://api.openai.com/auth": {"user_id": "user-a", "chatgpt_account_id": "workspace-a"}});
+codex-rs/model-provider/src/models_endpoint_runtime_auth_tests.rs:201:            "https://unknown.api.openai.com/v1",
+codex-rs/model-provider/src/models_endpoint_runtime_auth_tests.rs:202:            "http://api.openai.com/v1",
+codex-rs/model-provider/src/models_endpoint_runtime_auth_tests.rs:203:            "https://api.openai.com:8443/v1",
+codex-rs/model-provider/src/models_endpoint_runtime_auth_tests.rs:222:            catalog_info.base_url = Some("https://api.openai.com/v1".into());
+codex-rs/model-provider/src/models_endpoint_tests.rs:72:            Some("https://chatgpt.com/backend-api/codex/models"),
+codex-rs/model-provider/src/models_endpoint_tests.rs:73:            "https://api.openai.com/v1",
+codex-rs/model-provider/src/models_endpoint_tests.rs:93:            Some("https://gov.chatgpt.com/backend-api/codex/models"),
+codex-rs/model-provider/src/models_endpoint_tests.rs:94:            "https://gov.api.openai.com/v1",
+codex-rs/model-provider/src/models_endpoint_tests.rs:100:            Some("https://gov.chatgpt.com/backend-api/codex/models"),
+codex-rs/model-provider/src/models_endpoint_tests.rs:101:            "https://gov.api.openai.com/v1",
+codex-rs/model-provider/src/models_endpoint_tests.rs:115:            "https://api.openai.com/v1",
+codex-rs/model-provider/src/models_endpoint_tests.rs:160:            "https://api.openai.com/v1",
+codex-rs/model-provider/src/models_endpoint_tests.rs:172:            "https://api.openai.com/v1",
+codex-rs/model-provider/src/models_endpoint_tests.rs:177:            "https://gov.chatgpt.com/backend-api/codex",
+codex-rs/model-provider/src/models_endpoint_tests.rs:178:            "https://gov.api.openai.com/v1",
+codex-rs/model-provider/src/models_endpoint_tests.rs:183:            "https://gov.chatgpt.com/backend-api/codex",
+codex-rs/model-provider/src/models_endpoint_tests.rs:184:            "https://gov.api.openai.com/v1",
+codex-rs/model-provider/src/models_endpoint_tests.rs:189:            "https://gov.chatgpt.com/backend-api/codex",
+codex-rs/model-provider/src/models_endpoint_tests.rs:190:            "https://gov.api.openai.com/v1",
+codex-rs/model-provider/src/models_endpoint_tests.rs:262:        "https://api.openai.com/v1"
+codex-rs/model-provider/src/models_identity_tests.rs:11:        "https://api.openai.com/auth": {"chatgpt_user_id": user}
+codex-rs/model-provider/src/models_identity_tests.rs:73:    provider.base_url = Some("https://gov.api.openai.com/v1".into());
+codex-rs/model-provider/src/models_identity_tests.rs:75:    provider.base_url = Some("https://api.openai.com/v1".into());
+codex-rs/model-provider/src/provider.rs:98:const FEDRAMP_API_BASE_URL: &str = "https://gov.api.openai.com/v1";
+codex-rs/model-provider/src/provider.rs:131:                        host == "api.openai.com" || codex_http_client::is_allowed_chatgpt_host(host)
+codex-rs/model-provider/src/provider_tests.rs:284:        ("legacy-key", "https://api.openai.com/v1"),
+codex-rs/model-provider/src/provider_tests.rs:287:            "https://gov.api.openai.com/v1",
+codex-rs/model-provider/src/provider_tests.rs:289:        ("commercial-key", "https://api.openai.com/v1"),
+codex-rs/model-provider/src/provider_tests.rs:312:        ("commercial-key", "https://api.openai.com/v1", None),
+codex-rs/model-provider/src/provider_tests.rs:315:            "https://gov.api.openai.com/v1",
+codex-rs/model-provider/src/provider_tests.rs:318:        ("commercial-key", "https://api.openai.com/v1", None),
+codex-rs/model-provider/src/request_preparation_tests.rs:15:    let claims = json!({"https://api.openai.com/auth": {"chatgpt_user_id": "user-a"}});
+codex-rs/model-provider/src/workspace_routing_tests.rs:41:                    backend_origin: "https://gov.chatgpt.com".into(),
+codex-rs/model-provider/src/workspace_routing_tests.rs:55:    let context = WorkspaceRoutingContext::new("https://chatgpt.com/backend-api".into());
+codex-rs/model-provider/src/workspace_routing_tests.rs:80:        "https://gov.chatgpt.com/backend-api/codex"
+codex-rs/model-provider/src/workspace_routing_tests.rs:109:    let routing_context = WorkspaceRoutingContext::new("https://chatgpt.com/backend-api".into());
+codex-rs/model-provider/src/workspace_routing_tests.rs:114:        backend_origin: "https://gov.chatgpt.com:8443".into(),
+codex-rs/model-provider/src/workspace_routing_tests.rs:133:            "https://gov.chatgpt.com:8443/backend-api/codex",
+codex-rs/model-provider/src/workspace_routing_tests.rs:141:    unrelated_path.base_url = Some("https://chatgpt.com/v1".into());
+codex-rs/model-provider/src/workspace_routing_tests.rs:168:    assert_eq!(api.provider.base_url, "https://api.openai.com/v1");
+codex-rs/model-provider/src/workspace_routing_tests.rs:174:    let routing_context = WorkspaceRoutingContext::new("https://chatgpt.com/backend-api".into());
+codex-rs/model-provider/src/workspace_routing_tests.rs:179:        backend_origin: "https://chatgpt.com".into(),
+codex-rs/model-provider/tests/runtime_catalog.rs:249:    let mut leaf = rcgen::CertificateParams::new(vec!["chatgpt.com".into()]).unwrap();
+codex-rs/model-provider/tests/runtime_catalog.rs:276:    assert!(connect.starts_with(b"CONNECT chatgpt.com:443 "));
+codex-rs/network-proxy/README.md:58:# Use exact hosts or scoped wildcards like `*.openai.com` or `**.openai.com`.
+codex-rs/network-proxy/README.md:62:"*.openai.com" = "allow"
+codex-rs/network-proxy/src/credential_broker/configured_tests.rs:716:            assert!(!broker.host_requires_mitm("api.openai.com", /*port*/ 443));
+codex-rs/network-proxy/src/credential_broker/configured_tests.rs:818:                            "api.openai.com",
+codex-rs/network-proxy/src/credential_broker/configured_tests.rs:831:                    "https://api.openai.com/v1/models",
+codex-rs/network-proxy/src/credential_broker/configured_tests.rs:1300:            Some("api.openai.com"),
+codex-rs/network-proxy/src/credential_broker/configured_tests.rs:2846:            Some("api.openai.com"),
+codex-rs/network-proxy/src/credential_broker/providers/openai.rs:16:const OPENAI_API_HOST: &str = "api.openai.com";
+codex-rs/network-proxy/src/credential_broker_tests.rs:664:    broker.inject_request_headers("api.openai.com", &mut headers);
+codex-rs/network-proxy/src/credential_broker_tests.rs:685:            "api.openai.com",
+codex-rs/network-proxy/src/credential_broker_tests.rs:769:    broker.inject_request_headers("api.openai.com", &mut openai_headers);
+codex-rs/network-proxy/src/credential_broker_tests.rs:950:    broker.inject_request_headers("api.openai.com", &mut headers);
+codex-rs/network-proxy/src/credential_broker_tests.rs:1102:    broker.inject_request_headers("api.openai.com", &mut headers);
+codex-rs/network-proxy/src/credential_broker_tests.rs:1106:    broker.inject_request_headers("api.openai.com", &mut headers);
+codex-rs/network-proxy/src/credential_broker_tests.rs:1114:        broker.inject_request_headers("api.openai.com", &mut explicit_headers);
+codex-rs/network-proxy/src/credential_broker_tests.rs:1522:        ("api.openai.com", "sk-real"),
+codex-rs/network-proxy/src/credential_broker_tests.rs:1532:                &["api.openai.com".to_string()],
+codex-rs/network-proxy/src/credential_broker_tests.rs:1535:            host != "api.openai.com" && expected_credential == "sk-real",
+codex-rs/network-proxy/src/credential_broker_tests.rs:1571:            &["api.openai.com".to_string()],
+codex-rs/network-proxy/src/http_proxy.rs:1939:            policy.set_allowed_domains(vec!["**.openai.com".to_string()]);
+codex-rs/network-proxy/src/http_proxy.rs:1940:            policy.set_denied_domains(vec!["api.openai.com".to_string()]);
+codex-rs/network-proxy/src/http_proxy.rs:1947:            .uri("https://api.openai.com:443")
+codex-rs/network-proxy/src/http_proxy.rs:1948:            .header("host", "api.openai.com:443")
+codex-rs/network-proxy/src/runtime.rs:1861:        let state = network_proxy_state_for_policy(network_settings(&["*.openai.com"], &[]));
+codex-rs/network-proxy/src/runtime.rs:1865:                .host_blocked("api.openai.com", /*port*/ 80)
+codex-rs/network-proxy/src/runtime.rs:1871:            state.host_blocked("openai.com", /*port*/ 80).await.unwrap(),
+codex-rs/network-proxy/src/runtime.rs:1889:                .host_blocked("api.openai.com", /*port*/ 443)
+codex-rs/network-proxy/src/runtime.rs:2140:        let mut config = network_settings(&["example.com", "api.openai.com"], &[]);
+codex-rs/network-proxy/src/runtime.rs:2362:        let patterns = vec!["*.openai.com".to_string()];
+codex-rs/network-proxy/src/runtime.rs:2364:        assert!(set.is_match("api.openai.com"));
+codex-rs/network-proxy/src/runtime.rs:2365:        assert!(!set.is_match("openai.com"));
+codex-rs/network-proxy/src/runtime.rs:2366:        assert!(!set.is_match("evilopenai.com"));
+codex-rs/network-proxy/src/runtime.rs:2371:        let patterns = vec!["**.openai.com".to_string()];
+codex-rs/network-proxy/src/runtime.rs:2373:        assert!(set.is_match("openai.com"));
+codex-rs/network-proxy/src/runtime.rs:2374:        assert!(set.is_match("api.openai.com"));
+codex-rs/network-proxy/src/runtime.rs:2375:        assert!(!set.is_match("evilopenai.com"));
+codex-rs/network-proxy/src/runtime.rs:2389:        assert!(set.is_match("api.openai.com"));
+codex-rs/network-proxy/src/socks5.rs:1041:        settings.set_allowed_domains(vec!["api.openai.com".to_string()]);
+codex-rs/network-proxy/src/socks5.rs:1046:            HostWithPort::try_from("api.openai.com:8443").expect("valid authority"),
+codex-rs/protocol/src/config_types.rs:59:/// See https://platform.openai.com/docs/guides/reasoning?api-mode=responses#reasoning-summaries
+codex-rs/protocol/src/config_types.rs:948:            allowed_domains: Some(vec!["openai.com".to_string()]),
+codex-rs/protocol/src/config_types.rs:969:            allowed_domains: Some(vec!["openai.com".to_string()]),
+codex-rs/protocol/src/error.rs:197:        "To use Codex with your ChatGPT plan, upgrade to Plus: https://chatgpt.com/explore/plus."
+codex-rs/protocol/src/error.rs:802:                "You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits{}",
+codex-rs/protocol/src/error.rs:823:                    "You’ve hit your usage limit. Upgrade to Plus to continue using Codex (https://chatgpt.com/explore/plus),{}",
+codex-rs/protocol/src/error.rs:829:                    "You’ve hit your usage limit. Visit https://chatgpt.com/settings/usage to purchase more credits{}",
+codex-rs/protocol/src/error_tests.rs:169:        "You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again later."
+codex-rs/protocol/src/error_tests.rs:178:            "You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again later.",
+codex-rs/protocol/src/error_tests.rs:333:        "You’ve hit your usage limit. Upgrade to Plus to continue using Codex (https://chatgpt.com/explore/plus), or try again later."
+codex-rs/protocol/src/error_tests.rs:349:        "You’ve hit your usage limit. Upgrade to Plus to continue using Codex (https://chatgpt.com/explore/plus), or try again later."
+codex-rs/protocol/src/error_tests.rs:498:            "You’ve hit your usage limit. Visit https://chatgpt.com/settings/usage to purchase more credits or try again at {expected_time}."
+codex-rs/protocol/src/error_tests.rs:520:                "Visit https://chatgpt.com/settings/usage to purchase more credits".to_string(),
+codex-rs/protocol/src/error_tests.rs:596:        url: Some("https://chatgpt.com/backend-api/codex/responses".to_string()),
+codex-rs/protocol/src/error_tests.rs:606:            "unexpected status {status}: Workspace is not authorized in this region., url: https://chatgpt.com/backend-api/codex/responses, request id: req-123"
+codex-rs/protocol/src/error_tests.rs:640:        url: Some("https://chatgpt.com/backend-api/codex/responses".to_string()),
+codex-rs/protocol/src/error_tests.rs:650:            "unexpected status {status}: plain text error, url: https://chatgpt.com/backend-api/codex/responses, cf-ray: 9c81f9f18f2fa49d-LHR, request id: req-xyz"
+codex-rs/protocol/src/error_tests.rs:661:        url: Some("https://chatgpt.com/backend-api/codex/models".to_string()),
+codex-rs/protocol/src/error_tests.rs:671:            "unexpected status {status}: plain text error, url: https://chatgpt.com/backend-api/codex/models, cf-ray: cf-ray-auth-401-test, request id: req-auth, auth error: missing_authorization_header, auth error code: token_expired"
+codex-rs/protocol/src/error_tests.rs:691:            "You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at {expected_time}."
+codex-rs/protocol/src/openai_models.rs:70:/// See https://platform.openai.com/docs/guides/reasoning?api-mode=responses#get-started-with-reasoning
+codex-rs/response-debug-context/src/lib.rs:133:            url: Some("https://chatgpt.com/backend-api/codex/models".to_string()),
+codex-rs/response-debug-context/src/lib.rs:154:            url: Some("https://chatgpt.com/backend-api/codex/responses".to_string()),
+codex-rs/runtime-agent-instance/src/manager_tests.rs:97:        "iss": "https://auth.openai.com/", "session_id": session, "jti": token,
+codex-rs/runtime-agent-instance/src/manager_tests.rs:98:        "https://api.openai.com/auth": {"user_id": "user-a", "chatgpt_account_id": "workspace-a"},
+codex-rs/runtime-agent-instance/src/registration.rs:16:pub const DEFAULT_REGISTRATION_URL: &str = "https://auth.openai.com/agent/register";
+codex-rs/skills/src/assets/samples/imagegen/SKILL.md:298:1. Create an API key in the OpenAI platform UI: https://platform.openai.com/api-keys
+codex-rs/thread-manager-sample/src/main.rs:365:            .unwrap_or_else(|| "https://chatgpt.com/backend-api/".to_string()),
+codex-rs/tools/src/json_schema/types.rs:14:/// See <https://developers.openai.com/api/docs/guides/structured-outputs#supported-schemas>.
+codex-rs/tools/src/request_plugin_install_tests.rs:21:            "https://chatgpt.com/apps/google-calendar/connector_2128aebfecb84f64a069897515042a44"
+codex-rs/tools/src/request_plugin_install_tests.rs:48:                    "https://chatgpt.com/apps/google-calendar/connector_2128aebfecb84f64a069897515042a44"
+codex-rs/tools/src/request_plugin_install_tests.rs:120:            "https://chatgpt.com/apps/gmail/connector_68df038e0ba48191908c8434991bbac2".to_string(),
+codex-rs/tools/src/request_plugin_install_tests.rs:144:                "https://chatgpt.com/apps/gmail/connector_68df038e0ba48191908c8434991bbac2"
+codex-rs/tools/src/tool_spec.rs:35:    // https://platform.openai.com/docs/guides/tools-web-search?api-mode=responses#:~:text=%7B%20type%3A%20%22web_search%22%20%7D%2C
+codex-rs/tools/src/tool_spec.rs:38:    // https://platform.openai.com/docs/guides/tools-web-search#live-internet-access
+codex-rs/tools/src/tool_spec.rs:81:/// https://platform.openai.com/docs/guides/function-calling?api-mode=responses
+codex-rs/tui/src/analytics/client_tests.rs:21:            "https://api.openai.com/auth": {
+codex-rs/tui/src/app/plugin_mentions.rs:157:                share_url: Some(format!("https://chatgpt.com/codex/plugins/share/{name}")),
+codex-rs/tui/src/app/tests/backend_banner_fallback_tests.rs:121:        assert!(queued.iter().any(|event| matches!(event, AppEvent::OpenUrlInBrowser { url } if url == "https://chatgpt.com/settings/usage")));
+codex-rs/tui/src/app/tests/security_setup_tests.rs:52:                "action": {"label": "Set up security", "url": "https://chatgpt.com/cyber"}
+codex-rs/tui/src/app/tests/security_setup_tests.rs:223:                    "action": {"label": "Set up security", "url": "https://chatgpt.com/cyber"}
+codex-rs/tui/src/app/tests/snapshots/codex_tui__app__tests__safety_buffering__safety_recourse.snap:8:  Learn more: https://help.openai.com/en/articles/20001326
+codex-rs/tui/src/app/tests/snapshots/codex_tui__app__tests__safety_buffering__safety_recourse.snap:9:  Apply for Daybreak: https://openai.com/form/enterprise-trusted-access-for-
+codex-rs/tui/src/app/tests/snapshots/codex_tui__app__tests__safety_buffering__safety_recourse.snap:18:  Learn more: https://help.openai.com/en/articles/20001326
+codex-rs/tui/src/app/tests/snapshots/codex_tui__app__tests__safety_buffering__safety_recourse.snap:19:  Apply for Daybreak: https://openai.com/form/enterprise-trusted-access-for-
+codex-rs/tui/src/app_server_session.rs:953:                    .is_some_and(|email| email.ends_with("@openai.com"))
+codex-rs/tui/src/app_server_session.rs:3003:                email: Some("teammate@openai.com".to_string()),
+codex-rs/tui/src/app_server_session.rs:3022:                Some("teammate@openai.com"),
+codex-rs/tui/src/app_server_session.rs:3118:                email: Some("teammate@openai.com".to_string()),
+codex-rs/tui/src/backend_banners/actions.rs:7:const USAGE_URL: &str = "https://chatgpt.com/settings/usage";
+codex-rs/tui/src/backend_banners/actions.rs:8:const WORKSPACE_USAGE_URL: &str = "https://chatgpt.com/admin/usage-limits/workspace";
+codex-rs/tui/src/backend_banners/actions.rs:48:                "https://chatgpt.com/admin/billing?codex_credit_action=add_credits".to_string()
+codex-rs/tui/src/backend_banners/actions.rs:51:            "buy_reset" => "https://chatgpt.com/codex/purchase/reset".to_string(),
+codex-rs/tui/src/backend_banners/actions.rs:54:            "open_plus_pricing_web" => "https://chatgpt.com/explore/plus".to_string(),
+codex-rs/tui/src/backend_banners/actions.rs:55:            "open_pro_pricing_web" => "https://chatgpt.com/explore/pro".to_string(),
+codex-rs/tui/src/backend_banners/actions.rs:57:                let mut url = url::Url::parse("https://chatgpt.com/").ok()?;
+codex-rs/tui/src/bottom_pane/app_link_view.rs:222:    host == "chatgpt.com"
+codex-rs/tui/src/bottom_pane/app_link_view.rs:224:        || host.ends_with(".chatgpt.com")
+codex-rs/tui/src/bottom_pane/app_link_view.rs:952:            auth_url_request("https://chatgpt.com/apps/google-calendar/connector_calendar");
+codex-rs/tui/src/bottom_pane/app_link_view.rs:966:            "https://chatgpt.com/apps/google-calendar/connector_calendar"
+codex-rs/tui/src/bottom_pane/app_link_view.rs:1012:            "http://chatgpt.com/apps/google-calendar/connector_calendar",
+codex-rs/tui/src/bottom_pane/app_link_view.rs:1013:            "https://user:pass@chatgpt.com/apps/google-calendar/connector_calendar",
+codex-rs/tui/src/bottom_pane/app_link_view.rs:1014:            "https://chatgpt.com.evil.example/apps/google-calendar/connector_calendar",
+codex-rs/tui/src/bottom_pane/app_link_view.rs:1015:            "https://evilchatgpt.com/apps/google-calendar/connector_calendar",
+codex-rs/tui/src/bottom_pane/app_link_view.rs:1678:                url: "https://chatgpt.com/apps/google-calendar/connector_google_calendar"
+codex-rs/tui/src/bottom_pane/feedback_note_view.rs:39:const FEEDBACK_POLICY_URL: &str = "https://help.openai.com/en/articles/5722486-how-your-data-is-used-to-improve-model-performance";
+codex-rs/tui/src/bottom_pane/mod.rs:2918:                    "https://chatgpt.com/settings/usage"
+codex-rs/tui/src/bottom_pane/snapshots/codex_tui__bottom_pane__app_link_view__tests__app_link_view_auth_suggestion_with_reason.snap:11:  https://chatgpt.com/apps/google-calendar/connector_google_calendar
+codex-rs/tui/src/chatwidget.rs:173:const TRUSTED_ACCESS_FOR_CYBER_VERIFICATION_WARNING: &str = "Your conversations have multiple flags for possible cybersecurity risk. Responses may take longer because extra safety checks are on. To get authorized for security work, join the Trusted Access for Cyber program: https://chatgpt.com/cyber";
+codex-rs/tui/src/chatwidget.rs:471:const DEFAULT_OPENAI_BASE_URL: &str = "https://api.openai.com/v1";
+codex-rs/tui/src/chatwidget/plugin_catalog.rs:67:const APPS_HELP_ARTICLE_URL: &str = "https://help.openai.com/en/articles/11487775-apps-in-chatgpt";
+codex-rs/tui/src/chatwidget/safety_buffering.rs:9:const SAFETY_BUFFERING_LEARN_MORE_URL: &str = "https://help.openai.com/en/articles/20001326";
+codex-rs/tui/src/chatwidget/snapshots/codex_tui__chatwidget__tests__daybreak_refusal_parent_owned.snap:9:  Learn more: https://help.openai.com/en/articles/20001326
+codex-rs/tui/src/chatwidget/snapshots/codex_tui__chatwidget__tests__memories_enable_prompt.snap:13:      Learn more: https://developers.openai.com/codex/memories
+codex-rs/tui/src/chatwidget/snapshots/codex_tui__chatwidget__tests__memories_settings_popup.snap:15:  Learn more: https://developers.openai.com/codex/memories
+codex-rs/tui/src/chatwidget/snapshots/codex_tui__chatwidget__tests__plugin_detail_popup_local_share_read_only.snap:16:     Sharing          Private · creator Test User · https://chatgpt.com/codex/plugins/share/docs
+codex-rs/tui/src/chatwidget/snapshots/codex_tui__chatwidget__tests__projectless_windows_sandbox_setup.snap:6:  <https://developers.openai.com/codex/windows>
+codex-rs/tui/src/chatwidget/snapshots/codex_tui__chatwidget__tests__slash_copy_whole_status.snap:7:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/chatwidget/snapshots/codex_tui__chatwidget__tests__slash_daybreak_unavailable.snap:5:• Daybreak is not available for this account. Apply at https://openai.com/form/enterprise-trusted-access-for-cyber/. Learn more at https://help.openai.com/en/articles/20001326.
+codex-rs/tui/src/chatwidget/snapshots/codex_tui__chatwidget__tests__windows_sandbox_required_enable_prompt.snap:7:  Learn more <https://developers.openai.com/codex/windows>
+codex-rs/tui/src/chatwidget/snapshots/codex_tui__chatwidget__tests__windows_sandbox_required_fallback_prompt.snap:8:  Learn more <https://developers.openai.com/codex/windows>
+codex-rs/tui/src/chatwidget/snapshots/codex_tui__chatwidget__tests__windows_sandbox_unelevated_policy.snap:6:  <https://developers.openai.com/codex/windows>
+codex-rs/tui/src/chatwidget/tests/app_server.rs:319:    assert_eq!(opened_url, "https://help.openai.com/en/articles/20001326");
+codex-rs/tui/src/chatwidget/tests/app_server.rs:2113:    assert!(rendered.contains("https://chatgpt.com/cyber"));
+codex-rs/tui/src/chatwidget/tests/luna_reserve_usage_tests.rs:34:            Some("https://chatgpt.com/?cta_tab=personal&highlight_plan=plus#pricing"),
+codex-rs/tui/src/chatwidget/tests/luna_reserve_usage_tests.rs:38:            Some("https://chatgpt.com/settings/usage?credits_modal=true"),
+codex-rs/tui/src/chatwidget/tests/luna_reserve_usage_tests.rs:42:            Some("https://chatgpt.com/settings/usage?credits_modal=true"),
+codex-rs/tui/src/chatwidget/tests/luna_reserve_usage_tests.rs:46:            Some("https://chatgpt.com/?cta_tab=personal&highlight_plan=plus#pricing"),
+codex-rs/tui/src/chatwidget/tests/permissions.rs:1012:    let url = "https://developers.openai.com/codex/windows";
+codex-rs/tui/src/chatwidget/tests/popups_and_settings.rs:1046:            share_url: Some("https://chatgpt.com/codex/plugins/share/docs".to_string()),
+codex-rs/tui/src/chatwidget/tests/security_setup_tests.rs:10:        "action":{"label":"Set up security","url":"https://chatgpt.com/cyber"}
+codex-rs/tui/src/chatwidget/tests/security_setup_tests.rs:37:        matches!(events.try_recv(), Ok(AppEvent::OpenUrlInBrowser { url }) if url == "https://chatgpt.com/cyber")
+codex-rs/tui/src/chatwidget/tests/snapshots/codex_tui__chatwidget__tests__app_server__app_server_bio_policy_error_renders_dedicated_notice.snap:9:  Trusted Access: https://chatgpt.com/r/b749fb02595e04c3007a54375f3f4374
+codex-rs/tui/src/chatwidget/tests/snapshots/codex_tui__chatwidget__tests__app_server__app_server_bio_policy_error_renders_dedicated_notice.snap:10:  Learn more: https://help.openai.com/en/articles/20001326
+codex-rs/tui/src/chatwidget/tests/snapshots/codex_tui__chatwidget__tests__permissions__windows_sandbox_wrapped_help_url.snap:9:  <https://developers.openai.com/codex
+codex-rs/tui/src/chatwidget/tests/status_and_layout.rs:275:    assert!(rendered.contains("https://chatgpt.com/cyber"));
+codex-rs/tui/src/custom_terminal.rs:1328:            "https://auth.openai.com/oauth/authorize?response_type=code&state={}",
+codex-rs/tui/src/history_cell/notices.rs:153:const SAFETY_ACCESS_BLOCK_LEARN_MORE_URL: &str = "https://help.openai.com/en/articles/20001326";
+codex-rs/tui/src/history_cell/notices.rs:163:                "https://chatgpt.com/r/b749fb02595e04c3007a54375f3f4374",
+codex-rs/tui/src/history_cell/notices.rs:181:                    "https://openai.com/form/enterprise-trusted-access-for-cyber/",
+codex-rs/tui/src/history_cell/snapshots/codex_tui__history_cell__tests__cyber_policy_error_event_astra_snapshot.snap:8:  Learn more: https://help.openai.com/en/articles/20001326
+codex-rs/tui/src/history_cell/snapshots/codex_tui__history_cell__tests__cyber_policy_error_event_available_snapshot.snap:8:  Learn more: https://help.openai.com/en/articles/20001326
+codex-rs/tui/src/history_cell/snapshots/codex_tui__history_cell__tests__cyber_policy_error_event_available_snapshot.snap:12:  Learn more: https://help.openai.com/en/articles/20001326
+codex-rs/tui/src/history_cell/snapshots/codex_tui__history_cell__tests__cyber_policy_error_event_narrow_snapshot.snap:13:  help.openai.com/en/
+codex-rs/tui/src/history_cell/snapshots/codex_tui__history_cell__tests__cyber_policy_error_event_narrow_snapshot.snap:16:  openai.com/form/enterprise-
+codex-rs/tui/src/history_cell/snapshots/codex_tui__history_cell__tests__cyber_policy_error_event_snapshot.snap:9:  Learn more: https://help.openai.com/en/articles/20001326
+codex-rs/tui/src/history_cell/snapshots/codex_tui__history_cell__tests__cyber_policy_error_event_snapshot.snap:10:  Apply for Daybreak: https://openai.com/form/enterprise-trusted-access-for-
+codex-rs/tui/src/history_cell/snapshots/codex_tui__history_cell__tests__safety_access_block_event_snapshot.snap:9:  Trusted Access: https://chatgpt.com/r/b749fb02595e04c3007a54375f3f4374
+codex-rs/tui/src/history_cell/snapshots/codex_tui__history_cell__tests__safety_access_block_event_snapshot.snap:10:  Learn more: https://help.openai.com/en/articles/20001326
+codex-rs/tui/src/history_cell/tests.rs:406:    let destination = "https://chatgpt.com/settings/usage";
+codex-rs/tui/src/insert_history.rs:504:        let destination = "https://developers.openai.com/";
+codex-rs/tui/src/insert_history.rs:505:        let markdown = "Instead of a Markdown-labeled link. That is the most reliably clickable form. Official OpenAI documentation does not appear to document this exact terminal-link behavior; this is an inference from how terminal hyperlink rendering works. [OpenAI Developers](https://developers.openai.com/)";
+codex-rs/tui/src/local_chatgpt_auth.rs:90:            "https://api.openai.com/auth": {
+codex-rs/tui/src/onboarding/auth.rs:723:            Some("https://developers.openai.com/codex/security"),
+codex-rs/tui/src/onboarding/auth.rs:729:            Some("https://chatgpt.com/#settings"),
+codex-rs/tui/src/onboarding/auth.rs:1246:        "https://auth.openai.com/oauth/authorize?",
+codex-rs/tui/src/onboarding/auth.rs:1561:                "https://chatgpt.com/device".to_string(),
+codex-rs/tui/src/onboarding/auth.rs:1642:            collect_osc8_chars(&buf, area, "https://developers.openai.com/codex/security"),
+codex-rs/tui/src/onboarding/auth.rs:1646:            collect_osc8_chars(&buf, area, "https://chatgpt.com/#settings"),
+codex-rs/tui/src/onboarding/auth.rs:1702:                "https://chatgpt.com/device".to_string(),
+codex-rs/tui/src/onboarding/auth.rs:1727:                "https://chatgpt.com/device".to_string(),
+codex-rs/tui/src/onboarding/bedrock.rs:40:    "https://learn.chatgpt.com/docs/enterprise/govcloud-configuration";
+codex-rs/tui/src/onboarding/bedrock.rs:462:                    "https://learn.chatgpt.com/docs/amazon-bedrock"
+codex-rs/tui/src/onboarding/bedrock_tests.rs:520:      Setup guide: https://learn.chatgpt.com/docs/amazon-bedrock
+codex-rs/tui/src/onboarding/snapshots/codex_tui__onboarding__auth__tests__continue_in_browser_narrow_long_url.snap:10:  https://auth.openai.com/oauth/authorize?re
+codex-rs/tui/src/security_setup.rs:63:                    && url.host_str() == Some("chatgpt.com")
+codex-rs/tui/src/security_setup_tests.rs:8:        "action":{"label":"Set up security","url":"https://chatgpt.com/cyber"}});
+codex-rs/tui/src/security_setup_tests.rs:12:        "http://chatgpt.com/cyber",
+codex-rs/tui/src/security_setup_tests.rs:13:        "https://chatgpt.com.evil.test/cyber",
+codex-rs/tui/src/security_setup_tests.rs:15:        "https://user@chatgpt.com/cyber",
+codex-rs/tui/src/security_setup_tests.rs:16:        "https://chatgpt.com:8080/cyber",
+codex-rs/tui/src/status/card.rs:55:const CHATGPT_USAGE_URL: &str = "https://chatgpt.com/settings/usage";
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_server_auth_required.snap:9:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_cached_limits_hide_credits_without_flag.snap:9:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_includes_credits_and_limits.snap:9:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_includes_enterprise_monthly_credit_limit.snap:9:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_includes_forked_from.snap:9:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_includes_monthly_limit.snap:9:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_includes_reasoning_details.snap:9:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_local_background_server.snap:9:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_remote_server.snap:9:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_shows_active_user_defined_profile.snap:9:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_shows_auto_review_permissions.snap:9:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_shows_chatgpt_plan_without_email.snap:9:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_shows_missing_limits_message.snap:9:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_shows_refreshing_limits_notice.snap:9:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_shows_stale_limits_message.snap:9:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_shows_unavailable_limits_message.snap:9:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_truncates_halfwidth_kana_in_narrow_terminal.snap:9:  Visit https://chatgpt.com/settings/usage
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_truncates_in_narrow_terminal.snap:9:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_uses_default_reasoning_when_config_empty.snap:9:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_uses_generic_limit_labels_for_unsupported_windows.snap:9:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__status_snapshot_wraps_enterprise_monthly_credit_details_in_narrow_terminal.snap:9:  Visit https://chatgpt.com/settings/usage for
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__transcript_overlay_status_rate_limit_refresh.snap:11:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/snapshots/codex_tui__status__tests__transcript_overlay_status_rate_limit_refresh.snap:43:  Visit https://chatgpt.com/settings/usage for up-to-date
+codex-rs/tui/src/status/tests.rs:367:                    "workspace_backend_origin": "https://chatgpt.com",
+codex-rs/tui/src/status/tests.rs:866:            fragments, "https://chatgpt.com/settings/usage",
+codex-rs/tui/src/status/tests.rs:873:                .all(|destination| destination == "https://chatgpt.com/settings/usage")
+codex-rs/tui/src/streaming/controller.rs:1639:  in one cell  |\n| Inline code   | `let x = value;`                | Monospace inline content |\n| Link          | [OpenAI](https://openai.com)    |
+codex-rs/tui/src/update_prompt.rs:291:        assert!(!rendered.contains("openai.com"));
+codex-rs/websocket-client/src/cookie_tests.rs:39:    let host = "websocket-cookie-test.chatgpt.com";
+codex-rs/websocket-client/src/cookie_tests.rs:40:    let other_host = "other-websocket-cookie-test.chatgpt.com";
+codex-rs/websocket-client/src/cookie_tests.rs:44:        "api.openai.com".to_string(),
+codex-rs/websocket-client/src/cookie_tests.rs:74:        ("wss://api.openai.com/v1/responses".to_string(), None),
+codex-rs/websocket-client/src/cookie_tests.rs:75:        ("wss://api.openai.com/v1/responses".to_string(), None),
+scripts/codex_package/smoke_tests/test_codex_package.py:286:            "https://example.openai.com",
+scripts/codex_package/smoke_tests/test_codex_package.py:302:            "https://example.openai.com",
+scripts/install/install.ps1:21:$ReleasesBaseUri = "https://releases.openai.com/codex"
+scripts/install/install.ps1:411:        Write-WarningStep "releases.openai.com is unavailable; falling back to GitHub Releases."
+scripts/install/install.sh:10:RELEASES_BASE_URL="https://releases.openai.com/codex"
+scripts/install/install.sh:402:  if ! parse_downloaded_release_metadata "$requested_release" "releases.openai.com"; then
+scripts/install/install.sh:413:  release_source="releases.openai.com"
+scripts/install/install.sh:426:      warn "releases.openai.com is unavailable; falling back to GitHub Releases."
+scripts/install/install.sh:494:  if [ "$release_source" = "releases.openai.com" ]; then
+scripts/install/test_install_sh.py:157:                    "https://releases.openai.com/codex/channels/latest",
+scripts/install/test_install_sh.py:158:                    f"https://releases.openai.com/codex/releases/{VERSION}/codex-package_SHA256SUMS",
+scripts/install/test_install_sh.py:159:                    f"https://releases.openai.com/codex/releases/{VERSION}/codex-package-aarch64-apple-darwin.tar.gz",
+scripts/install/test_install_sh.py:678:                            "https://releases.openai.com/codex/channels/latest",
+scripts/install/test_install_sh.py:712:                    f"https://releases.openai.com/codex/releases/{VERSION}/release.json",
+scripts/install/test_install_sh.py:743:                    "https://releases.openai.com/codex/channels/latest",
+scripts/install/test_install_sh.py:744:                    f"https://releases.openai.com/codex/releases/{VERSION}/codex-package_SHA256SUMS",
+scripts/install/test_install_sh.py:747:                    f"https://releases.openai.com/codex/releases/{VERSION}/codex-package-aarch64-apple-darwin.tar.gz",
+scripts/install/test_install_sh.py:774:                    "https://releases.openai.com/codex/channels/latest",
+scripts/install/test_install_sh.py:775:                    f"https://releases.openai.com/codex/releases/{VERSION}/codex-package_SHA256SUMS",
+scripts/install/test_install_sh.py:778:                    f"https://releases.openai.com/codex/releases/{VERSION}/codex-package-aarch64-apple-darwin.tar.gz",
+scripts/install/test_install_sh.py:810:                    "https://releases.openai.com/codex/channels/latest",
+scripts/install/test_install_sh.py:811:                    f"https://releases.openai.com/codex/releases/{VERSION}/codex-package_SHA256SUMS",
+scripts/install/test_install_sh.py:816:                    f"https://releases.openai.com/codex/releases/{VERSION}/codex-package-aarch64-apple-darwin.tar.gz",
+scripts/install/test_install_sh.py:854:                    "https://releases.openai.com/codex/channels/latest",
+scripts/install/test_install_sh.py:855:                    f"https://releases.openai.com/codex/releases/{VERSION}/codex-package_SHA256SUMS",
+scripts/install/test_install_sh.py:860:                    f"https://releases.openai.com/codex/releases/{VERSION}/codex-package-aarch64-apple-darwin.tar.gz",
+scripts/install/test_install_sh.py:885:                    "https://releases.openai.com/codex/channels/latest",
+scripts/install/test_install_sh.py:886:                    f"https://releases.openai.com/codex/releases/{VERSION}/codex-package_SHA256SUMS",
+scripts/install/test_install_sh.py:917:                    f"https://releases.openai.com/codex/releases/{MISMATCH_VERSION}/release.json",
+scripts/install/test_install_sh.py:918:                    f"https://releases.openai.com/codex/releases/{MISMATCH_VERSION}/codex-package_SHA256SUMS",
+scripts/install/test_install_sh.py:919:                    f"https://releases.openai.com/codex/releases/{MISMATCH_VERSION}/codex-package-aarch64-apple-darwin.tar.gz",
+scripts/install/test_install_sh.py:947:                    f"https://releases.openai.com/codex/releases/{VERSION}/release.json",
+scripts/install/test_install_sh.py:969:                    f"https://releases.openai.com/codex/releases/{VERSION}/release.json",
+scripts/install/test_install_sh.py:1045:              https://releases.openai.com/codex/channels/latest|https://releases.openai.com/codex/releases/*/release.json)
+scripts/install/test_install_sh.py:1051:              https://releases.openai.com/codex/releases/*/codex-package_SHA256SUMS)
+scripts/install/test_install_sh.py:1066:              https://releases.openai.com/codex/releases/*/codex-package-*.tar.gz)
+sdk/python/src/openai_codex/generated/v2_all.py:4008:            description="A summary of the reasoning performed by the model. This can be useful for debugging and understanding the model's reasoning process. See https://platform.openai.com/docs/guides/reasoning?api-mode=responses#reasoning-summaries"
+sdk/python/tests/test_app_server_login.py:54:            "https://api.openai.com/auth": {
+tools/argument-comment-lint/ui/allow_string_literals.rs:8:    describe("openai", r"https://api.openai.com/v1");
+tools/argument-comment-lint/ui/comment_matches.rs:9:    let base_url = Some(String::from("https://api.openai.com"));

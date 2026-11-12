@@ -1,0 +1,6 @@
+
+running 1 test
+kill: (3093290): No such process
+test message_processor::thread_lifecycle_tests::thread_start_unloads_after_requesting_connection_closes_during_mcp_startup ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 423 filtered out; finished in 1.24s

@@ -1,0 +1,54 @@
+[
+  {
+    "args": [
+      "login"
+    ],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "Error: `qiri login` is not supported by QIRI\n"
+  },
+  {
+    "args": [
+      "logout"
+    ],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "Error: `qiri logout` is not supported by QIRI\n"
+  },
+  {
+    "args": [
+      "cloud"
+    ],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "Error: `qiri cloud` is not supported by QIRI\n"
+  },
+  {
+    "args": [
+      "cloud-tasks"
+    ],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "Error: `qiri cloud-tasks` is not supported by QIRI\n"
+  },
+  {
+    "args": [
+      "apply"
+    ],
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "ERROR: TERM is set to \"dumb\". Refusing to start the interactive TUI because no terminal is available for a confirmation prompt (stdin/stderr is not a TTY). Run in a supported terminal or unset TERM.\n"
+  },
+  {
+    "args": [
+      "mcp",
+      "login",
+      "local",
+      "--oauth-client-registration",
+      "cimd"
+    ],
+    "exit_code": 2,
+    "stdout": "",
+    "stderr": "error: invalid value 'cimd' for '--oauth-client-registration <AUTO|DCR>'\n  [possible values: auto, dcr]\n\nFor more information, try '--help'.\n"
+  }
+]

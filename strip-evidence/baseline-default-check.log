@@ -13,7 +13,7 @@
    Compiling bindgen v0.72.1
    Compiling linux-raw-sys v0.4.15
     Checking x11rb-protocol v0.13.2
-warning: glib-sys@0.22.8: 
+warning: glib-sys@0.22.8:
 error: failed to run custom build command for `glib-sys v0.22.8`
 
 Caused by:
@@ -48,7 +48,7 @@ Caused by:
   HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `glib-2.0.pc`.
 
 warning: build failed, waiting for other jobs to finish...
-warning: gobject-sys@0.22.6: 
+warning: gobject-sys@0.22.6:
 error: failed to run custom build command for `gobject-sys v0.22.6`
 
 Caused by:
@@ -82,7 +82,7 @@ Caused by:
 
   HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gobject-2.0.pc`.
 
-warning: gstreamer-sys@0.25.2: 
+warning: gstreamer-sys@0.25.2:
 error: failed to run custom build command for `gstreamer-sys v0.25.2`
 
 Caused by:
@@ -115,4 +115,3 @@ Caused by:
   The PKG_CONFIG_PATH environment variable is not set.
 
   HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gstreamer-1.0.pc`.
-

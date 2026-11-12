@@ -1,0 +1,23 @@
+{
+  "baseline_libraries": [
+    "glib-2.0",
+    "gobject-2.0",
+    "gstreamer-1.0"
+  ],
+  "final_libraries": [
+    "glib-2.0",
+    "gobject-2.0",
+    "gstreamer-1.0"
+  ],
+  "diagnostics_identical": true,
+  "baseline": {
+    "glib-2.0": "  pkg-config exited with status code 1\n  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags glib-2.0 'glib-2.0 >= 2.56'\n\n  The system library `glib-2.0` required by crate `glib-sys` was not found.\n  The file `glib-2.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.\n  The PKG_CONFIG_PATH environment variable is not set.\n\n  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `glib-2.0.pc`.",
+    "gobject-2.0": "  pkg-config exited with status code 1\n  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags gobject-2.0 'gobject-2.0 >= 2.56'\n\n  The system library `gobject-2.0` required by crate `gobject-sys` was not found.\n  The file `gobject-2.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.\n  The PKG_CONFIG_PATH environment variable is not set.\n\n  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gobject-2.0.pc`.",
+    "gstreamer-1.0": "  pkg-config exited with status code 1\n  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags gstreamer-1.0 'gstreamer-1.0 >= 1.28'\n\n  The system library `gstreamer-1.0` required by crate `gstreamer-sys` was not found.\n  The file `gstreamer-1.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.\n  The PKG_CONFIG_PATH environment variable is not set.\n\n  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gstreamer-1.0.pc`."
+  },
+  "final": {
+    "gobject-2.0": "  pkg-config exited with status code 1\n  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags gobject-2.0 'gobject-2.0 >= 2.56'\n\n  The system library `gobject-2.0` required by crate `gobject-sys` was not found.\n  The file `gobject-2.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.\n  The PKG_CONFIG_PATH environment variable is not set.\n\n  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gobject-2.0.pc`.",
+    "glib-2.0": "  pkg-config exited with status code 1\n  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags glib-2.0 'glib-2.0 >= 2.56'\n\n  The system library `glib-2.0` required by crate `glib-sys` was not found.\n  The file `glib-2.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.\n  The PKG_CONFIG_PATH environment variable is not set.\n\n  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `glib-2.0.pc`.",
+    "gstreamer-1.0": "  pkg-config exited with status code 1\n  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags gstreamer-1.0 'gstreamer-1.0 >= 1.28'\n\n  The system library `gstreamer-1.0` required by crate `gstreamer-sys` was not found.\n  The file `gstreamer-1.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.\n  The PKG_CONFIG_PATH environment variable is not set.\n\n  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gstreamer-1.0.pc`."
+  }
+}

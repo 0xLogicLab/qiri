@@ -1,0 +1,9 @@
+{
+  "baseline": "7c3786d",
+  "scope": "product files, excluding REPORT-STRIP.md and strip-evidence",
+  "changed_files": 130,
+  "deleted_files": 71,
+  "added_lines": 219,
+  "deleted_lines": 21550,
+  "binary_files": 1
+}
