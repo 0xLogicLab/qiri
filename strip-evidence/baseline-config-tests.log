@@ -1,0 +1,643 @@
+    Blocking waiting for file lock on artifact directory
+   Compiling lock_api v0.4.14
+   Compiling getrandom v0.4.2
+   Compiling syn v3.0.3
+   Compiling generic-array v0.14.7
+   Compiling typenum v1.20.0
+   Compiling either v1.15.0
+   Compiling zeroize v1.8.2
+   Compiling rustix v1.1.4
+   Compiling linux-raw-sys v0.12.1
+   Compiling tinystr v0.8.3
+   Compiling ring v0.17.14
+   Compiling getrandom v0.2.17
+   Compiling memchr v2.8.1
+   Compiling serde_core v1.0.228
+   Compiling schemars v0.8.22
+   Compiling parking_lot v0.12.5
+   Compiling spin v0.9.8
+   Compiling serde v1.0.228
+   Compiling itertools v0.14.0
+   Compiling rustls-pki-types v1.14.0
+   Compiling aws-lc-rs v1.18.1
+   Compiling ts-rs v11.1.0
+   Compiling asn1-rs v0.7.1
+   Compiling bytes-utils v0.1.4
+   Compiling icu_locale_core v2.2.0
+   Compiling dashmap v6.1.0
+   Compiling tokio v1.52.3
+   Compiling prodash v31.0.1
+   Compiling flume v0.12.0
+   Compiling rustls-native-certs v0.8.3
+   Compiling aho-corasick v1.1.4
+   Compiling rand v0.10.1
+   Compiling codex-utils-absolute-path v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/absolute-path)
+   Compiling webpki-roots v1.0.10
+   Compiling moka v0.12.13
+   Compiling lock_free_hashtable v0.1.4
+   Compiling aws-smithy-types v1.4.7
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling gix-utils v0.5.0
+   Compiling digest v0.10.7
+   Compiling icu_provider v2.2.0
+   Compiling quickcheck v1.1.0
+   Compiling static_interner v0.1.2
+   Compiling opentelemetry v0.31.0
+   Compiling gix-hash v0.28.0
+   Compiling sha2 v0.10.9
+   Compiling sha1 v0.10.6
+   Compiling icu_properties v2.2.0
+   Compiling icu_normalizer v2.2.0
+   Compiling regex-automata v0.4.13
+   Compiling gix-fs v0.24.0
+   Compiling gix-hashtable v0.18.0
+   Compiling blake3 v1.8.2
+   Compiling sorted_vector_map v0.2.1
+   Compiling gix-object v0.66.0
+   Compiling der-parser v10.0.0
+   Compiling oid-registry v0.8.1
+   Compiling gix-url v0.40.0
+   Compiling lsp-types v0.97.0
+   Compiling pagable v0.4.1
+   Compiling yasna v0.6.0
+   Compiling display_container v0.9.0
+   Compiling serde_json v1.0.149
+   Compiling tracing-opentelemetry v0.32.1
+   Compiling hmac v0.12.1
+   Compiling idna_adapter v1.2.1
+   Compiling enumflags2 v0.7.12
+   Compiling icu_locale v2.2.0
+   Compiling idna v1.1.0
+   Compiling gix-quote v0.10.0
+   Compiling codex-utils-home-dir v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/home-dir)
+   Compiling codex-utils-string v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/string)
+   Compiling landlock v0.4.4
+   Compiling gix-commitgraph v0.41.0
+   Compiling codex-extension-items v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ext/items)
+   Compiling url v2.5.8
+   Compiling publicsuffix v2.3.0
+   Compiling codex-utils-redacted-string v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/redacted-string)
+   Compiling strum v0.27.2
+   Compiling schemafy_core v0.5.2
+   Compiling starlark_map v0.14.2
+   Compiling gix-revwalk v0.37.0
+   Compiling gix-command v0.12.0
+   Compiling gix-pack v0.76.0
+   Compiling gix-glob v0.29.0
+   Compiling gix-config-value v0.21.0
+   Compiling gix-diff v0.69.0
+   Compiling gix-refspec v0.47.0
+   Compiling futures-macro v0.3.34
+   Compiling gix-transport v0.61.0
+   Compiling tempfile v3.27.0
+   Compiling regex v1.12.3
+   Compiling cookie_store v0.22.1
+   Compiling fd-lock v4.0.4
+   Compiling gix-tempfile v26.0.0
+   Compiling codex-utils-path-uri v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/path-uri)
+   Compiling rustyline v14.0.0
+   Compiling icu_decimal v2.2.0
+   Compiling prost-derive v0.14.3
+   Compiling gix-traverse v0.63.0
+   Compiling Inflector v0.11.4
+   Compiling gix-revision v0.51.0
+   Compiling codex-utils-process v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/process)
+   Compiling gix-lock v26.0.0
+   Compiling gix-odb v0.86.0
+   Compiling codex-utils-path v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/path-utils)
+   Compiling gethostname v1.1.0
+   Compiling tokio-graceful v0.2.2
+   Compiling rama-utils v0.3.0-alpha.4
+   Compiling tokio-stream v0.1.18
+   Compiling schemafy_lib v0.5.2
+   Compiling tokio-native-tls v0.3.1
+   Compiling codex-utils-cache v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/cache)
+   Compiling gix-ref v0.69.0
+   Compiling gix-shallow v0.15.0
+   Compiling codex-utils-image v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/image)
+   Compiling codex-utils-pty v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/pty)
+   Compiling tokio-test v0.4.5
+   Compiling futures-util v0.3.34
+   Compiling rustls v0.23.46
+   Compiling schemafy v0.5.2
+   Compiling gix-protocol v0.67.0
+   Compiling gix-config v0.62.0
+   Compiling gix-discover v0.57.0
+   Compiling prost v0.14.3
+   Compiling prost-types v0.14.3
+   Compiling debugserver-types v0.5.0
+   Compiling rustls-webpki v0.103.16
+   Compiling x509-parser v0.18.1
+   Compiling gix v0.89.0
+   Compiling prost-build v0.14.3
+   Compiling tokio-util v0.7.18
+   Compiling futures-executor v0.3.34
+   Compiling hickory-proto v0.25.2
+   Compiling aws-smithy-async v1.2.14
+   Compiling futures v0.3.34
+   Compiling aws-smithy-runtime-api v1.12.0
+   Compiling rcgen v0.14.9
+   Compiling tonic-prost-build v0.14.3
+   Compiling rama-core v0.3.0-alpha.4
+   Compiling h2 v0.4.19
+   Compiling tower v0.5.3
+   Compiling codex-async-utils v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/async-utils)
+   Compiling aws-credential-types v1.2.11
+   Compiling aws-smithy-http v0.62.6
+   Compiling aws-sigv4 v1.3.7
+   Compiling tower-http v0.6.8
+   Compiling axum v0.8.8
+   Compiling hickory-resolver v0.25.2
+   Compiling starlark_syntax v0.14.2
+   Compiling tokio-rustls v0.26.4
+   Compiling codex-utils-rustls-provider v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/rustls-provider)
+   Compiling rama-http-types v0.3.0-alpha.4
+   Compiling starlark v0.14.2
+   Compiling hyper v1.11.1
+   Compiling rama-net v0.3.0-alpha.4
+   Compiling hyper-util v0.1.20
+   Compiling hyper-rustls v0.27.7
+   Compiling hyper-tls v0.6.0
+   Compiling hyper-timeout v0.5.2
+   Compiling tonic v0.14.3
+   Compiling reqwest v0.12.28
+   Compiling codex-http-client v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/http-client)
+   Compiling tonic-prost v0.14.3
+   Compiling rama-http-headers v0.3.0-alpha.4
+   Compiling rama-dns v0.3.0-alpha.4
+   Compiling rama-unix v0.3.0-alpha.4
+   Compiling rama-udp v0.3.0-alpha.4
+   Compiling rama-tls-rustls v0.3.0-alpha.4
+   Compiling codex-client v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/codex-client)
+   Compiling rama-http v0.3.0-alpha.4
+   Compiling rama-tcp v0.3.0-alpha.4
+   Compiling rama-socks5 v0.3.0-alpha.4
+   Compiling codex-execpolicy v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/execpolicy)
+   Compiling rama-http-core v0.3.0-alpha.4
+   Compiling rama-http-backend v0.3.0-alpha.4
+   Compiling codex-network-proxy v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/network-proxy)
+   Compiling codex-protocol v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/protocol)
+   Compiling codex-file-system v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/file-system)
+   Compiling codex-model-provider-info v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/model-provider-info)
+   Compiling codex-features v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/features)
+   Compiling codex-git-utils v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/git-utils)
+   Compiling codex-config v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/config)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5m 01s
+     Running unittests src/lib.rs (/home/sig/files/qiri-release/codex-rs/target/debug/deps/codex_config-4677d8dd01d059e2)
+
+running 402 tests
+test browser_computer_use_requirements::tests::webmcp_requirements_preserve_explicit_values_and_omission ... ok
+test application_storage_requirements::tests::storage_requirements_reject_unknown_keys ... ok
+test browser_computer_use_requirements::tests::webmcp_requirements_reject_non_booleans ... ok
+test browser_computer_use_requirements::tests::extension_headers_remain_scoped_to_extension ... ok
+test browser_computer_use_requirements::tests::extension_headers_preserve_templates_and_explicit_disablement ... ok
+test browser_computer_use_requirements::tests::extension_headers_reject_malformed_entries ... ok
+test browser_computer_use_requirements::tests::request_header_debug_redacts_values_in_parent_requirements ... ok
+test application_storage_requirements::tests::storage_requirements_project_and_protect_only_managed_settings ... ok
+test cloud_config_bundle::tests::legacy_speed_denial_is_normalized_without_changing_other_fragments ... ok
+test application_storage_requirements::tests::cloud_storage_layers_preserve_independent_fields_and_precedence ... ok
+test application_storage_requirements::tests::storage_requirements_reject_relative_paths_and_non_path_values ... ok
+test application_requirements::tests::invalid_application_policy_is_rejected_before_layer_overrides ... ok
+test application_requirements::tests::application_network_defaults_to_enabled_and_denies_unlisted_domains ... ok
+test cloud_config_bundle::tests::enterprise_speed_override_still_takes_precedence_over_legacy_baseline ... ok
+test cloud_config_layers::tests::home_relative_path_fields_are_allowed_and_resolved ... ok
+test application_requirements::tests::legacy_application_merge_uses_whole_table_precedence ... ok
+test application_requirements::tests::application_network_is_preserved_from_each_managed_source ... ok
+test cloud_config_bundle::tests::getter_returns_latest_result_across_clones ... ok
+test cloud_config_bundle::tests::shared_future_runs_once ... ok
+test cloud_config_bundle::tests::bundle_layers_can_strict_validate_enterprise_managed_config ... ok
+test cloud_config_layers::tests::enterprise_layers_precede_user_and_override_system ... ok
+test application_requirements::tests::cloud_bundle_application_network_uses_managed_precedence ... ok
+test cloud_config_bundle::tests::bundle_layers_preserve_enterprise_managed_bucket_order ... ok
+test browser_use::tests::browser_use_origin_policies_round_trip ... ok
+test cloud_config_layers::tests::relative_absolute_path_fields_resolve_against_base_dir ... ok
+test cloud_config_layers::tests::strict_layers_reject_unknown_config_fields ... ok
+test config_requirements::tests::allow_appshots_false_is_still_configured ... ok
+test cloud_config_layers::tests::layers_are_returned_in_stack_order ... ok
+test application_requirements::tests::application_network_uses_regular_toml_precedence ... ok
+test config_requirements::tests::allow_remote_control_false_is_still_configured ... ok
+test config_requirements::tests::blank_guardian_policy_config_is_empty ... ok
+test config_requirements::tests::allow_managed_hooks_only_false_is_still_configured ... ok
+test config_requirements::tests::allowed_approvals_reviewers_is_not_empty ... ok
+test config_requirements::tests::allowed_web_search_modes_allows_disabled ... ok
+test config_requirements::tests::auto_review_required_for_model_matches_exact_provider_aliases ... ok
+test config_requirements::tests::allowed_web_search_modes_empty_restricts_to_disabled ... ok
+test config_requirements::tests::composite_requirement_source_flattens_and_deduplicates_sources ... ok
+test config_requirements::tests::allowed_windows_sandbox_implementations_prefer_elevated_fallback ... ok
+test config_requirements::tests::allowed_web_search_modes_supports_indexed ... ok
+test computer_use::tests::computer_use_config_round_trips ... ok
+test config_requirements::tests::browser_and_computer_use_leaf_requirements_are_not_empty ... ok
+test config_requirements::tests::constraint_error_includes_requirement_source ... ok
+test config_requirements::tests::deserialize_allow_appshots ... ok
+test config_requirements::tests::deserialize_allow_managed_hooks_only ... ok
+test config_requirements::tests::deserialize_allowed_approval_policies ... ok
+test config_requirements::tests::deserialize_allowed_approvals_reviewers ... ok
+test config_requirements::tests::app_tool_result_source_requirements_parse_and_merge ... ok
+test config_requirements::tests::constraint_error_includes_composite_requirement_source ... ok
+test config_requirements::tests::constrained_fields_store_requirement_source ... ok
+test config_requirements::tests::deserialize_allowed_web_search_modes ... ok
+test config_requirements::tests::deserialize_apps_requirements ... ok
+test config_requirements::tests::deserialize_allowed_sandbox_modes ... ok
+test config_requirements::tests::deserialize_browser_and_computer_use_requirements ... ok
+test config_requirements::tests::deserialize_feature_requirements ... ok
+test config_requirements::tests::deserialize_allowed_windows_sandbox_implementations ... ok
+test config_requirements::tests::deserialize_guardian_policy_config ... ok
+test config_requirements::tests::deserialize_filesystem_deny_read_requirements ... ok
+test config_requirements::tests::deserialize_new_thread_model_defaults ... ok
+test config_requirements::tests::deserialize_apps_tool_requirements ... ok
+test cloud_config_layers::tests::raw_toml_diagnostics_use_enterprise_layer_name ... ok
+test config_requirements::tests::deserialize_legacy_allowed_approvals_reviewer ... ok
+test config_requirements::tests::deserialize_filesystem_deny_read_glob_requirements ... ok
+test config_requirements::tests::deserialize_remote_sandbox_config_requires_hostname_patterns_list ... ok
+test config_requirements::tests::empty_allowed_windows_sandbox_implementations_is_rejected ... ok
+test config_requirements::tests::empty_allowed_approvals_reviewers_is_rejected ... ok
+test config_requirements::tests::deserialize_plugin_mcp_server_requirements ... ok
+test config_requirements::tests::deserialize_managed_permission_profiles ... ok
+test cloud_config_bundle::tests::bundle_layers_resolve_paths_and_requirements_for_the_execution_host ... ok
+test config_requirements::tests::exec_policy_error_includes_requirement_source ... ok
+test config_requirements::tests::exact_requirement_for_config_path_matches_overlapping_paths ... ok
+test config_requirements::tests::deserialize_exec_policy_requirements ... ok
+test config_requirements::tests::deserialize_managed_hooks_requirements ... ok
+test config_requirements::tests::deserialize_plugin_mcp_server_matcher_requirement ... ok
+test config_requirements::tests::deserialize_mcp_server_matcher_requirements ... ok
+test config_requirements::tests::deserialize_mcp_server_requirements ... ok
+test config_requirements::tests::filesystem_requirements_table_cannot_define_a_permission_profile ... ok
+test config_requirements::tests::invalid_mcp_server_requirement_regex_reports_the_server_name_and_source ... ok
+test config_requirements::tests::merge_app_requirements_descending_keeps_higher_true_when_lower_is_unset ... ok
+test config_requirements::tests::merge_app_requirements_descending_prefers_false_from_lower_precedence ... ok
+test config_requirements::tests::merge_app_requirements_descending_preserves_higher_false_when_lower_missing_app ... ok
+test config_requirements::tests::merge_app_requirements_descending_preserves_higher_tool_approval_mode ... ok
+test config_requirements::tests::merge_app_requirements_descending_unions_distinct_apps ... ok
+test config_requirements::tests::legacy_network_requirements_are_preserved_as_constraints_with_source ... ok
+test config_requirements::tests::managed_hooks_constraint_rejects_drift ... ok
+test config_requirements::tests::merge_app_requirements_descending_uses_lower_tool_approval_when_higher_missing ... ok
+test config_requirements::tests::merge_app_requirements_descending_uses_lower_value_when_higher_missing ... ok
+test config_requirements::tests::merge_unset_fields_apps_empty_higher_source_does_not_block_lower_disables ... ok
+test config_requirements::tests::merge_unset_fields_copies_every_field_and_sets_sources ... ok
+test config_requirements::tests::invalid_plugin_mcp_server_regex_reports_plugin_and_server_name ... ok
+test config_requirements::tests::merge_unset_fields_fills_missing_values ... ok
+test config_requirements::tests::merge_unset_fields_ignores_blank_guardian_override ... ok
+test config_requirements::tests::merge_unset_fields_merges_apps_across_sources_with_enabled_evaluation ... ok
+test config_requirements::tests::merge_unset_fields_does_not_overwrite_existing_values ... ok
+test config_requirements::tests::network_permission_containers_project_allowed_and_denied_entries ... ok
+test config_requirements::tests::merge_unset_fields_does_not_overwrite_existing_hooks ... ok
+test config_requirements::tests::mixed_legacy_and_canonical_network_requirements_are_rejected ... ok
+test config_requirements::tests::network_proxy_and_experimental_network_are_equivalent_aliases ... ok
+test config_requirements::tests::network_requirements_table_cannot_define_a_permission_profile ... ok
+test config_requirements::tests::otel_requirements_project_exact_values_and_lock_only_managed_map_entries::span_attributes ... ok
+test config_requirements::tests::otel_requirements_project_exact_values_and_lock_only_managed_map_entries::exporter_endpoint ... ok
+test config_requirements::tests::otel_requirements_project_exact_values_and_lock_only_managed_map_entries::otel_parent ... ok
+test config_requirements::tests::otel_requirements_project_exact_values_and_lock_only_managed_map_entries::span_attributes_other ... ok
+test config_requirements::tests::otel_requirements_project_exact_values_and_lock_only_managed_map_entries::metrics_exporter ... ok
+test config_requirements::tests::otel_requirements_project_exact_values_and_lock_only_managed_map_entries::span_attributes_service_name ... ok
+test config_requirements::tests::remote_sandbox_config_does_not_override_higher_precedence_sandbox_modes ... ok
+test config_requirements::tests::remote_sandbox_config_first_match_overrides_top_level ... ok
+test config_requirements::tests::otel_requirements_project_exact_values_and_lock_only_managed_map_entries::environment ... ok
+test config_requirements::tests::otel_requirements_project_exact_values_and_lock_only_managed_map_entries::tracestate ... ok
+test config_requirements::tests::remote_sandbox_config_non_match_preserves_top_level ... ok
+test config_requirements::tests::otel_requirements_project_exact_values_and_lock_only_managed_map_entries::tracestate_empty ... ok
+test config_requirements::tests::otel_requirements_project_exact_values_and_lock_only_managed_map_entries::tracestate_managed ... ok
+test config_requirements::tests::otel_requirements_project_exact_values_and_lock_only_managed_map_entries::tracestate_managed_region ... ok
+test config_requirements::tests::otel_requirements_project_exact_values_and_lock_only_managed_map_entries::log_sse_deltas ... ok
+test config_requirements::tests::otel_requirements_project_exact_values_and_lock_only_managed_map_entries::tracestate_managed_tenant ... ok
+test config_requirements::tests::otel_requirements_project_exact_values_and_lock_only_managed_map_entries::log_user_prompt ... ok
+test config_requirements::tests::otel_requirements_project_exact_values_and_lock_only_managed_map_entries::tool_result ... ok
+test config_requirements::tests::otel_requirements_project_exact_values_and_lock_only_managed_map_entries::tool_result_max_bytes ... ok
+test config_requirements::tests::otel_requirements_project_exact_values_and_lock_only_managed_map_entries::trace_exporter ... ok
+test config_toml::bedrock_runtime_tests::runtime_provider_accepts_aws_profile_and_region_overrides ... ok
+test config_toml::tests::amazon_bedrock_auth_command_must_not_be_empty ... ok
+test config_requirements::tests::otel_requirements_project_exact_values_and_lock_only_managed_map_entries::tracestate_other ... ok
+test config_requirements::tests::permissions_network_requirements_are_preserved_as_constraints_with_source ... ok
+test config_toml::tests::sandbox_mode_uses_executor_platform_and_sandbox_level ... ok
+test config_toml::tests::forced_chatgpt_workspace_id_accepts_single_string ... ok
+test constraint::tests::constrained_add_validator_composes_with_existing_validator ... ok
+test config_toml::tests::forced_chatgpt_workspace_id_accepts_string_list ... ok
+test config_toml::tests::forced_chatgpt_workspace_id_rejects_comma_separated_string ... ok
+test config_toml::tests::gcp_provider_rejects_relative_credential_file ... ok
+test config_toml::tests::gcp_provider_accepts_partial_endpoint_and_auth_overrides ... ok
+test config_toml::tests::thread_unload_delay_requires_nonnegative_seconds ... ok
+test config_toml::bedrock_runtime_tests::custom_provider_still_rejects_aws_auth ... ok
+test constraint::tests::constrained_allow_only_rejects_different_values ... ok
+test constraint::tests::constrained_can_set_allows_probe_without_setting ... ok
+test constraint::tests::constrained_set_rejects_invalid_value_and_leaves_previous ... ok
+test constraint::tests::constrained_allow_any_accepts_any_value ... ok
+test hook_config::tests::hook_events_deserialize_camel_case_windows_override_from_toml ... ok
+test fingerprint::tests::fingerprint_preserves_nested_key_order_independence_and_existing_hash ... ok
+test hook_config::tests::hook_events_deserialize_from_toml_arrays_of_tables ... ok
+test hook_config::tests::hook_events_deserialize_windows_override_from_toml ... ok
+test hook_config::tests::hooks_file_deserializes_existing_json_shape ... ok
+test hook_config::tests::hook_handler_omits_unset_additional_context_limit ... ok
+test guardian::tests::required_models_preserve_cua_allowance_and_disable_all_tools_scoring ... ok
+test guardian::tests::explicit_catalog_policy_preserves_precedence_over_the_legacy_switch ... ok
+test constraint::tests::constrained_allow_any_default_uses_default_value ... ok
+test constraint::tests::constrained_new_rejects_invalid_initial_value ... ok
+test guardian::tests::legacy_cua_opt_in_and_disabled_feature_preserve_scoring_behavior ... ok
+test constraint::tests::constrained_normalizer_applies_on_init_and_set ... ok
+test guardian::tests::legacy_scope_applies_only_to_models_without_catalog_policy ... ok
+test hook_config::tests::hooks_file_deserializes_mcp_tool_handler_with_json_inputs ... ok
+test hook_config::tests::hooks_file_rejects_mcp_tool_handler_with_null_input ... ok
+test hook_config::tests::hooks_file_rejects_events_outside_hooks_object ... ok
+test hook_config::tests::hooks_toml_deserializes_inline_events_and_state_map ... ok
+test host_name::tests::normalize_fqdn_candidate_rejects_short_name ... ok
+test hook_config::tests::managed_hooks_requirements_flatten_hook_events ... ok
+test host_name::tests::os_host_name_matches_normalized_kernel_hostname ... ok
+test host_name::tests::normalize_fqdn_candidate_accepts_dns_qualified_name ... ok
+test host_name::tests::normalize_fqdn_candidate_trims_trailing_dot_and_normalizes_case ... ok
+test in_app_browser_requirements::tests::import_requirement_preserves_unset_and_explicit_values ... ok
+test in_app_browser_requirements::tests::legacy_merge_uses_whole_table_precedence ... ok
+test in_app_browser_requirements::tests::import_requirement_uses_normal_managed_toml_precedence ... ok
+test in_app_browser_requirements::tests::invalid_import_requirement_is_rejected_even_when_overridden ... ok
+test loader::tests::disabled_credential_broker_preserves_project_shell_settings ... ok
+test loader::tests::local_layer_projection_preserves_override_blockers_and_cloud_position ... ok
+test loader::projectless_directory_tests::project_root_lookup_preserves_cwd_fallback ... ok
+test loader::tests::missing_packaged_defaults_file_returns_an_error ... ok
+test loader::tests::profile_v2_allows_unrelated_legacy_profiles_in_base_user_config ... ok
+test loader::tests::project_config_cannot_bind_permission_shortcuts ... ok
+test loader::tests::managed_browser_import_denial_survives_user_and_session_config ... ok
+test loader::tests::packaged_defaults_have_lower_precedence_than_existing_config_layers ... ok
+test loader::projectless_directory_tests::skipped_discovery_does_not_claim_projectless ... ok
+test loader::tests::project_config_cannot_change_system_proxy_routing_or_credential_masking ... ok
+test loader::tests::project_config_cannot_change_configured_credential_broker_state ... ok
+test loader::tests::ignoring_login_requirements_preserves_local_auth_backend_requirements ... ok
+test loader::tests::project_config_cannot_override_configured_credential_broker_hosts ... ok
+test loader::tests::project_config_uses_platform_case_for_custom_credential_environment_keys ... ok
+test loader::tests::profile_v2_rejects_matching_legacy_profile_selector_in_base_user_config ... ok
+test loader::tests::project_environment_filters_preserve_child_policy ... ok
+test loader::unit_tests::legacy_managed_config_backfill_includes_read_only_sandbox_mode ... ok
+test loader::tests::project_config_cannot_override_custom_credential_provider_or_binding ... ok
+test loader::projectless_directory_tests::user_codex_home_is_not_a_project_layer ... ok
+test loader::projectless_directory_tests::unmarked_directory_is_projectless_even_with_saved_trust ... ok
+test loader::tests::profile_v2_rejects_matching_legacy_profile_in_base_user_config ... ok
+test loader::tests::project_environment_filters_keep_excluded_hosts_out_of_children ... ok
+test loader::unit_tests::legacy_managed_config_backfill_allows_user_when_guardian_is_required ... ok
+test loader::unit_tests::legacy_managed_config_backfill_preserves_user_only_approvals_reviewer ... ok
+test loader::unit_tests::ensure_resolve_relative_paths_in_config_toml_preserves_all_fields ... ok
+test marketplace_edit::tests::record_user_marketplace_omits_runtime_update_metadata ... ok
+test marketplace_edit::tests::remove_user_marketplace_returns_false_when_missing ... ok
+test marketplace_edit::tests::remove_user_marketplace_config_reports_case_mismatch ... ok
+test marketplace_edit::tests::remove_user_marketplace_config_removes_inline_table_entry ... ok
+test mcp_ema::tests::ema_profiles_and_auth_modes_preserve_non_project_authority ... ok
+test mcp_ema::tests::ema_credential_names_bind_user_workspace_issuer_and_client ... ok
+test mcp_ema::tests::ema_rejects_alternate_credentials_and_executor_custody ... ok
+test loader::projectless_directory_tests::managed_root_markers_control_projectless_classification ... ok
+test marketplace_edit::tests::remove_user_marketplace_removes_requested_entry ... ok
+test mcp_ema::tests::non_project_auth_changes_and_ordinary_oauth_remain_allowed ... ok
+test loader::tests::local_layers_keep_raw_paths_order_and_legacy_requirements ... ok
+test mcp_ema::tests::ema_registrations_require_one_atomic_non_project_source ... ok
+test mcp_ema::tests::project_cannot_reenable_trusted_disabled_ema_registration ... ok
+test mcp_requirements::tests::regex_matcher_allows_a_later_alternative_to_match_the_full_value ... ok
+test mcp_requirements::tests::command_matcher_matches_exact_positional_arguments ... ok
+test mcp_requirements::tests::regex_matcher_requires_a_full_value_match ... ok
+test mcp_ema::tests::xaa_opt_in_requires_a_non_project_source ... ok
+test mcp_requirements::tests::identity_requirement_keeps_ignoring_unrelated_sibling_fields ... ok
+test mcp_requirements::tests::legacy_command_identity_keeps_ignoring_arguments ... ok
+test mcp_requirements::tests::matcher_identity_rejects_unknown_fields ... ok
+test mcp_ema::tests::confidential_ema_registration_binds_secrets_to_trusted_issuers ... ok
+test mcp_requirements::tests::regex_matcher_validation_rejects_expression_that_cannot_be_wrapped ... ok
+test mcp_types::tests::deserialize_rejects_command_and_url ... ok
+test mcp_types::tests::deserialize_ignores_unknown_server_fields ... ok
+test mcp_types::tests::deserialize_rejects_env_for_http_transport ... ok
+test mcp_types::tests::deserialize_rejects_headers_for_stdio ... ok
+test mcp_types::tests::deserialize_rejects_inline_bearer_token_field ... ok
+test mcp_requirements::tests::requirement_deserializes_command_and_url_matcher_shapes ... ok
+test mcp_types::tests::app_tool_approval_restrictions_never_weaken_either_policy ... ok
+test mcp_requirements::tests::requirement_rejects_matchers_outside_identity ... ok
+test mcp_types::tests::deserialize_disabled_server_config ... ok
+test mcp_types::tests::deserialize_remote_stdio_server_accepts_foreign_absolute_cwd ... ok
+test mcp_types::tests::deserialize_rejects_nonpositive_mcp_tool_output_limits ... ok
+test mcp_types::tests::deserialize_required_server_config ... ok
+test mcp_types::tests::deserialize_server_config_with_tool_filters ... ok
+test mcp_types::tests::deserialize_server_config_with_parallel_tool_calls ... ok
+test mcp_types::tests::deserialize_stdio_command_server_config ... ok
+test mcp_types::tests::deserialize_server_config_with_default_tool_approval_mode ... ok
+test mcp_types::tests::deserialize_stdio_command_server_config_rejects_unknown_env_var_source ... ok
+test mcp_types::tests::deserialize_stdio_command_server_config_with_args ... ok
+test mcp_types::tests::deserialize_stdio_command_server_config_with_arg_with_args_and_env ... ok
+test mcp_types::tests::deserialize_stdio_command_server_config_with_env_var_sources ... ok
+test mcp_types::tests::deserialize_stdio_command_server_config_with_env_vars ... ok
+test mcp_types::tests::deserialize_streamable_http_server_config_with_env_var ... ok
+test mcp_types::tests::deserialize_streamable_http_server_config ... ok
+test mcp_types::tests::deserialize_streamable_http_server_config_with_oauth_resource ... ok
+test mcp_types::tests::deserialize_streamable_http_server_config_with_headers ... ok
+test mcp_types::tests::deserialize_streamable_http_server_config_with_oauth_client_id ... ok
+test mcp_types::tests::oauth_callback_port_falls_back_to_global_port ... ok
+test mcp_types::tests::oauth_callback_port_prefers_server_port_over_global_port ... ok
+test mcp_types::tests::rejects_http_headers_helper_outside_local_http_servers ... ok
+test mcp_types::tests::oauth_client_secret_requires_nonempty_secret_and_client_id ... ok
+test mcp_types::tests::serialize_round_trips_server_config_with_parallel_tool_calls ... ok
+test mcp_types::tests::oauth_client_secret_round_trips_without_debug_disclosure ... ok
+test merge::tests::empty_shell_environment_filter_representations_replace_the_other_form ... ok
+test merge::tests::credential_provider_remapping_preserves_inherited_settings ... ok
+test mcp_types::tests::serialize_round_trips_server_config_with_omitted_tool_exposure_surfaces ... ok
+test merge::tests::code_mode_overrides_preserve_enabled_state_and_cell_overhead ... ok
+test merge::tests::merge_multi_agent_v2_table_preserves_legacy_boolean_toggle ... ok
+test mcp_types::tests::deserialize_stdio_command_server_config_with_cwd ... ok
+test merge::tests::merge_toml_values_normalizes_legacy_agents_key_from_overlay ... ok
+test merge::tests::merge_multi_agent_v2_boolean_preserves_existing_feature_table ... ok
+test merge::tests::merge_multi_agent_v2_compatibility_excludes_opaque_desktop_paths ... ok
+test merge::tests::merge_toml_values_normalizes_permission_network_domains_before_overlaying ... ok
+test merge::tests::later_credential_provider_preserves_case_distinct_environment_overrides ... ok
+test merge::tests::higher_priority_credential_provider_replaces_overlapping_sources ... ok
+test merge::tests::merge_toml_values_normalizes_legacy_agents_key_across_layers ... ok
+test merge::tests::merge_toml_values_normalizes_legacy_key_from_base_layer ... ok
+test merge::tests::merge_toml_values_normalizes_legacy_key_from_overlay_layer ... ok
+test merge::tests::merge_toml_values_prefers_canonical_key_when_one_layer_has_both_names ... ok
+test merge::tests::network_proxy_feature_overrides_preserve_credential_broker_configuration ... ok
+test merge::tests::shell_environment_policy_filters_overlay_merges_unicode_keys_case_insensitively ... ok
+test merge::tests::shell_environment_policy_filters_overlay_merges_by_key_case_insensitively ... ok
+test merge::tests::multi_agent_v2_cli_compatibility_excludes_opaque_desktop_paths ... ok
+test merge::tests::multi_agent_v2_cli_overrides_preserve_boolean_and_nested_configuration ... ok
+test merge::tests::shell_environment_policy_filters_replace_lower_legacy_filter_fields ... ok
+test merge::tests::shell_environment_policy_legacy_array_overlay_replaces_legacy_array ... ok
+test merge::tests::shell_environment_policy_set_overlay_preserves_case_distinct_keys ... ok
+test merge::tests::sparse_overlay_preserves_unvisited_base_aliases ... ok
+test merge::tests::shell_environment_policy_legacy_arrays_replace_lower_filters ... ok
+test merge::tests::structured_mode_overrides_preserve_disabled_state_and_mode ... ok
+test path_context::tests::common_parser_uses_supplied_windows_drive_and_glob_separators ... ok
+test model_provider_requirements::tests::higher_requirements_merge_provider_fields_and_nested_tables ... ok
+test model_provider_requirements::tests::required_provider_definitions_are_validated_without_local_defaults ... ok
+test path_context::tests::composition_applies_each_layers_base_and_home_to_policy ... ok
+test loader::project_discovery::tests::managed_project_discovery_uses_managed_project_trust ... ok
+test path_context::tests::missing_supplied_home_does_not_fall_back_to_native_home ... ok
+test path_context::tests::denial_resolution_rejects_glob_syntax_in_supplied_facts ... ok
+test path_context::tests::windows_denial_globs_reject_ambiguous_roots_and_streams ... ok
+test path_context::tests::native_and_supplied_denials_reject_the_same_unsafe_facts ... ok
+test path_context::tests::failed_nested_composition_restores_outer_context_and_then_native_resolution ... ok
+test permissions_toml::tests::resolves_native_signing_and_substitution_actions_from_toml ... ok
+test permissions_toml::tests::rejects_misspelled_header_placeholder ... ok
+test path_context::tests::native_guard_and_supplied_native_facts_use_the_same_parser ... ok
+test loader::project_discovery::tests::managed_project_discovery_ignores_incomplete_nested_git_directory ... ok
+test permissions_toml::tests::rejects_multiple_signing_actions_and_unknown_signing_parameters ... ok
+test permissions_toml::tests::scoped_rules_reject_rollback_to_the_legacy_format ... ok
+test loader::project_discovery::tests::project_discovery_rejects_invalid_network_requirements ... ok
+test plugin_edit::tests::clear_user_plugin_missing_entry_does_not_create_config ... ok
+test permissions_toml::tests::profile_and_managed_requirements_reject_misspelled_mitm_matchers ... ok
+test project_trust::tests::posix_lookup_preserves_cwd_root_alias_order_and_case ... ok
+test requirements_layers::stack::tests::active_windows_managed_dir_conflicts_fail_closed ... ok
+test requirements_layers::stack::tests::auto_review_required_models_are_unioned_without_overwriting_new_thread_defaults ... ok
+test requirements_layers::stack::tests::cloud_auth_requirements_do_not_override_local_or_discard_other_policy ... ok
+test project_trust::tests::windows_prefers_exact_normalized_key_then_sorted_aliases ... ok
+test requirements_layers::stack::tests::empty_layers_compose_to_none ... ok
+test loader::projectless_directory_tests::project_markers_and_local_layers_prevent_projectless_classification ... ok
+test plugin_edit::tests::set_user_plugin_enabled_preserves_existing_plugin_fields ... ok
+test plugin_edit::tests::clear_user_plugin_removes_empty_plugins_table ... ok
+test requirements_layers::stack::tests::deny_read_only_layers_do_not_leave_empty_permissions_tables ... ok
+test requirements_layers::stack::tests::composition_strategy_applies_to_non_cloud_layers ... ok
+test requirements_layers::stack::tests::hostname_resolver_is_not_called_without_remote_sandbox_config ... ok
+test requirements_layers::stack::tests::fetched_policy_cannot_change_config_server ... ok
+test requirements_layers::stack::tests::marketplace_allowed_source_rejects_unknown_fields ... ok
+test plugin_edit::tests::set_user_plugin_enabled_follows_config_symlink ... ok
+test requirements_layers::stack::tests::browser_and_computer_use_requirements_use_regular_toml_merge ... ok
+test requirements_layers::stack::tests::feature_aliases_merge_with_layer_precedence ... ok
+test requirements_layers::stack::tests::hostname_resolver_is_called_once_for_multiple_remote_sandbox_layers ... ok
+test requirements_layers::stack::tests::inactive_hook_dir_conflicts_do_not_fail_composition ... ok
+test plugin_edit::tests::set_user_plugin_enabled_writes_plugin_entry ... ok
+test requirements_layers::stack::tests::higher_priority_config_server_replaces_previous_oauth_settings ... ok
+test requirements_layers::stack::tests::local_marketplace_path_is_not_resolved_during_requirements_merge ... ok
+test requirements_layers::stack::tests::extension_headers_replace_lower_priority_lists_including_explicit_empty ... ok
+test requirements_layers::stack::tests::marketplace_source_switch_uses_default_toml_merge ... ok
+test requirements_layers::stack::tests::parse_error_names_layer ... ok
+test requirements_layers::stack::tests::new_thread_model_defaults_use_toml_priority ... ok
+test requirements_layers::stack::tests::hooks_append_groups_and_reject_conflicting_managed_dirs ... ok
+test requirements_layers::stack::tests::marketplace_allowed_sources_use_default_toml_merge ... ok
+test requirements_layers::stack::tests::network_aliases_merge_with_layer_precedence_and_sources ... ok
+test requirements_layers::stack::tests::permissions_deny_read_unions_while_profiles_use_regular_toml_merge ... ok
+test requirements_layers::stack::tests::mcp_requirements_use_regular_toml_merge ... ok
+test requirements_layers::stack::tests::permissions_network_conflicts_with_top_level_network_across_layers ... ok
+test requirements_layers::stack::tests::permissions_network_merges_with_higher_precedence_filesystem_requirements ... ok
+test requirements_layers::stack::tests::merged_table_source_is_composite_in_priority_order ... ok
+test requirements_layers::stack::tests::network_maps_use_regular_toml_merge ... ok
+test requirements_layers::stack::tests::provider_auth_missing_command_is_rejected_after_composition ... ok
+test requirements_layers::stack::tests::regular_toml_merge_recurses_into_tables ... ok
+test requirements_layers::stack::tests::relative_paths_resolve_against_their_own_layer_base ... ok
+test requirements_layers::stack::tests::provider_auth_fragments_merge_without_losing_source_paths_or_explicit_values ... ok
+test loader::project_discovery::tests::managed_project_discovery_uses_file_markers_without_changing_precedence ... ok
+test requirements_layers::stack::tests::otel_requirements_compose_exact_values_atomic_exporters_and_metadata ... ok
+test shell_environment_policy::tests::shell_environment_policy_rejects_unicode_case_variant_filters_within_layer ... ok
+test requirements_layers::stack::tests::single_regular_layer_keeps_enterprise_managed_source ... ok
+test requirements_layers::stack::tests::remote_sandbox_config_is_applied_per_layer ... ok
+test shell_environment_policy::tests::shell_environment_policy_rejects_case_variant_filters_within_layer ... ok
+test shell_environment_policy::tests::shell_environment_policy_accepts_legacy_lists_or_filters ... ok
+test requirements_layers::stack::tests::rules_are_appended_in_priority_order ... ok
+test requirements_layers::stack::tests::windows_requirements_use_regular_toml_merge ... ok
+test skills_config::tests::later_path_rule_reenables_one_skill_disabled_by_name ... ok
+test requirements_layers::stack::tests::unmatched_remote_sandbox_config_does_not_shadow_lower_layers ... ok
+test skills_config::tests::path_rule_disables_selected_path ... ok
+test skills_config::tests::later_name_rule_reenables_path_disabled_skill ... ok
+test skills_config::tests::malformed_bundled_skills_config_defaults_to_enabled ... ok
+test shell_environment_policy::tests::shell_environment_policy_rejects_mixed_legacy_lists_and_filters ... ok
+test requirements_layers::stack::tests::top_level_values_use_toml_priority ... ok
+test skills_config::tests::bundled_skills_follow_effective_configuration ... ok
+test skills_config::tests::preserves_name_selectors ... ok
+test requirements_layers::stack::tests::webmcp_requirements_preserve_managed_layer_precedence ... ok
+test skills_config::tests::preserves_order_across_path_and_name_selectors ... ok
+test state::tests::enabled_layers_validate_shell_environment_policy ... ok
+test state::tests::enabled_layers_only_validate_representation_sensitive_shell_policy_fields ... ok
+test state::tests::origins_use_canonical_key_aliases ... ok
+test strict_config::tests::generic_validation_does_not_apply_config_toml_tui_fields ... ok
+test strict_config::tests::ignored_toml_field_errors_accept_non_file_source_names ... ok
+test skills_config::tests::session_flags_can_disable_user_enabled_path ... ok
+test state::tests::layer_iterators_preserve_precedence_and_disabled_layers ... ok
+test skills_config::tests::session_flags_can_reenable_user_disabled_path ... ok
+test state::tests::active_user_layer_is_highest_precedence_user_layer ... ok
+test strict_config::tests::strict_config_accepts_opaque_desktop_keys ... ok
+test state::tests::origins_attribute_multi_agent_v2_enabled_to_overriding_boolean_layer ... ok
+test state::tests::with_user_config_rejects_malformed_shell_policy_filter_fields ... ok
+test state::tests::with_user_config_updates_matching_user_layer_without_replacing_active_profile ... ok
+test state::tests::origins_omit_displaced_credential_providers ... ok
+test strict_config::tests::strict_config_accepts_tool_registry_config ... ok
+test state::tests::disabled_layers_do_not_validate_shell_environment_policy ... ok
+test loader::project_discovery::tests::project_strip_hooks_respect_trusted_broker_gates ... ok
+test strict_config::tests::strict_config_accepts_tui_notification_settings ... ok
+test thread_config::remote::tests::model_provider_proto_defaults_standalone_web_search_to_false ... ok
+test thread_config::remote::tests::model_provider_proto_roundtrips_through_domain_type ... ok
+test thread_config::tests::loader_returns_session_and_user_sources ... ok
+test strict_config::tests::strict_config_rejects_unknown_feature_key ... ok
+test strict_config::tests::strict_config_rejects_unknown_tui_key ... ok
+test strict_config::tests::checks_merged_config_and_ignores_disabled_layers ... FAILED
+test test_support::tests::adds_enterprise_requirements_in_order ... ok
+test strict_config::tests::strict_config_rejects_unknown_profile_feature_key ... ok
+test thread_config::tests::loader_translates_sources_to_config_layers ... ok
+test strict_config::tests::managed_network_unknown_fields_are_reported_for_each_spelling ... FAILED
+test strict_config::tests::removed_private_desktop_setting_has_migration_hint ... FAILED
+test strict_config::tests::wrapped_config_toml_still_rejects_unknown_feature_key ... ok
+test strict_config::tests::type_errors_take_precedence_over_ignored_fields ... ok
+test thread_config::remote::tests::load_thread_config_request_sets_timeout ... ok
+test tui_keymap::chord_tests::normalizes_each_stroke_in_a_key_chord ... ok
+test tui_keymap::chord_tests::rejects_an_invalid_second_chord_stroke ... ok
+test tui_keymap::tests::command_modifier_aliases_normalize_to_super ... ok
+test tui_keymap::chord_tests::deserializes_a_two_stroke_global_key_chord ... ok
+test tui_keymap::tests::activity_focus_accepts_custom_chords_and_can_be_disabled ... ok
+test tui_keymap::chord_tests::rejects_chords_longer_than_two_strokes ... ok
+test types::tests::memories_config_clamps_count_limits_to_nonzero_values ... ok
+test tui_keymap::tests::action_under_global_context_is_accepted ... ok
+test types::tests::memories_config_clamps_rate_limit_remaining_threshold ... ok
+test tui_keymap::tests::function_keys_through_f24_are_accepted ... ok
+test tui_keymap::chord_tests::keeps_single_keys_and_chords_as_alternative_bindings ... ok
+test types::tests::deserialize_skill_config_with_path_selector ... ok
+test tui_keymap::chord_tests::preserves_keybinding_validation_errors_when_deserializing_toml ... ok
+test types::tests::deserialize_skill_config_with_name_selector ... ok
+test tui_keymap::tests::minus_bindings_under_global_context_are_accepted ... ok
+test types::tests::memories_version_selects_pipeline_without_changing_other_defaults ... ok
+test types::tests::mouse_scroll_speed_accepts_integer_and_fractional_multipliers ... ok
+test types::tests::mouse_scroll_speed_rejects_nonpositive_and_nonfinite_values ... ok
+test tui_keymap::tests::transcript_find_accepts_custom_chords_and_can_be_disabled ... ok
+test types::tests::plugin_activation_inherits_defaults_without_explicit_enablement ... ok
+test types::tests::rendering_preferences_default_individually_and_ignore_animation_switch ... ok
+test thread_config::remote::tests::load_thread_config_calls_remote_service ... ok
+test loader::project_discovery::tests::managed_network_requirements_control_broker_project_discovery ... ok
+test loader::project_discovery::tests::project_cannot_define_or_rebind_credentials_via_permission_profiles ... ok
+test loader::tests::credential_masking_preserves_project_protections_in_both_loaders ... ok
+
+failures:
+
+---- strict_config::tests::checks_merged_config_and_ignores_disabled_layers stdout ----
+
+thread 'strict_config::tests::checks_merged_config_and_ignores_disabled_layers' (2923830) panicked at config/src/strict_config_tests.rs:276:5:
+assertion failed: `(left == right)`
+
+[1mDiff[0m [31m< left[0m / [32mright >[0m :
+[31m<[0m[1;48;5;52;31mQIRI[0m[31m is ignoring 3 unrecognized configuration settings. Check for typos or deprecated settings.[0m
+[32m>[0m[1;48;5;22;32mCodex[0m[32m is ignoring 3 unrecognized configuration settings. Check for typos or deprecated settings.[0m
+   enterprise-managed (Defaults, cfg): `model_providers.custom.unknown_timeout` is ignored.
+   session-flags: `model_providers.custom.unknown_timeout` is ignored.
+   session-flags: `profiles.work.features.include_view_image_tool` is ignored. Use [features].view_image to configure the image tool.
+
+
+
+---- strict_config::tests::managed_network_unknown_fields_are_reported_for_each_spelling stdout ----
+
+thread 'strict_config::tests::managed_network_unknown_fields_are_reported_for_each_spelling' (2923833) panicked at config/src/strict_config_tests.rs:320:9:
+assertion failed: `(left == right)`: network_proxy
+
+[1mDiff[0m [31m< left[0m / [32mright >[0m :
+ Some(
+[31m<    "[0m[1;48;5;52;31mQIRI[0m[31m is ignoring 2 unrecognized configuration settings. Check for typos or deprecated settings.\n  requirements (<unspecified>): `network_proxy.enabld` is ignored.\n  requirements (<unspecified>): `network_proxy.header_injections.0.unknown` is ignored.",[0m
+[32m>    "[0m[1;48;5;22;32mCodex[0m[32m is ignoring 2 unrecognized configuration settings. Check for typos or deprecated settings.\n  requirements (<unspecified>): `network_proxy.enabld` is ignored.\n  requirements (<unspecified>): `network_proxy.header_injections.0.unknown` is ignored.",[0m
+ )
+
+
+
+---- strict_config::tests::removed_private_desktop_setting_has_migration_hint stdout ----
+
+thread 'strict_config::tests::removed_private_desktop_setting_has_migration_hint' (2923834) panicked at config/src/strict_config_tests.rs:293:5:
+assertion failed: `(left == right)`
+
+[1mDiff[0m [31m< left[0m / [32mright >[0m :
+[31m<[0m[1;48;5;52;31mQIRI[0m[31m is ignoring 1 unrecognized configuration setting. Check for typos or deprecated settings.[0m
+[32m>[0m[1;48;5;22;32mCodex[0m[32m is ignoring 1 unrecognized configuration setting. Check for typos or deprecated settings.[0m
+   session-flags: `windows.sandbox_private_desktop` is ignored. Remove windows.sandbox_private_desktop; legacy Windows sandboxes always use a private desktop.
+
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    strict_config::tests::checks_merged_config_and_ignores_disabled_layers
+    strict_config::tests::managed_network_unknown_fields_are_reported_for_each_spelling
+    strict_config::tests::removed_private_desktop_setting_has_migration_hint
+
+test result: FAILED. 399 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+error: test failed, to rerun pass `-p codex-config --lib`

@@ -21,8 +21,6 @@ const SYSTEM_BWRAP_PROGRAM: &str = "bwrap";
 const MISSING_BWRAP_WARNING: &str = concat!(
     "QIRI could not find bubblewrap on PATH. ",
     "Install bubblewrap with your OS package manager. ",
-    "See the sandbox prerequisites: ",
-    "https://developers.openai.com/codex/concepts/sandboxing#prerequisites. ",
     "QIRI will use the bundled bubblewrap in the meantime.",
 );
 const USER_NAMESPACE_WARNING: &str =

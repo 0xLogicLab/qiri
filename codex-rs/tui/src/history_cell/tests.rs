@@ -422,7 +422,7 @@ fn composite_cell_preserves_child_web_links() {
 
 #[test]
 fn empty_mcp_output_preserves_docs_hyperlink() {
-    let destination = "https://developers.openai.com/codex/mcp";
+    let destination = "https://github.com/0xLogicLab/qiri/blob/main/docs/config.md";
     let cell: Box<dyn HistoryCell> = Box::new(empty_mcp_output());
 
     insta::assert_snapshot!(render_lines(&cell.display_lines(/*width*/ 80)).join("\n"), @r"

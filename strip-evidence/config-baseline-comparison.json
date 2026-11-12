@@ -1,0 +1,15 @@
+{
+  "baseline": 402,
+  "current": 402,
+  "identical": true,
+  "baseline_failures": [
+    "strict_config::tests::checks_merged_config_and_ignores_disabled_layers",
+    "strict_config::tests::managed_network_unknown_fields_are_reported_for_each_spelling",
+    "strict_config::tests::removed_private_desktop_setting_has_migration_hint"
+  ],
+  "current_failures": [
+    "strict_config::tests::managed_network_unknown_fields_are_reported_for_each_spelling",
+    "strict_config::tests::removed_private_desktop_setting_has_migration_hint",
+    "strict_config::tests::checks_merged_config_and_ignores_disabled_layers"
+  ]
+}

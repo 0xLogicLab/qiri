@@ -1,0 +1,728 @@
+   Compiling tokio v1.52.3
+   Compiling schemars v0.8.22
+   Compiling ts-rs v11.1.0
+   Compiling cookie_store v0.22.1
+   Compiling arrayvec v0.7.6
+   Compiling lsp-types v0.97.0
+   Compiling debugserver-types v0.5.0
+   Compiling codex-utils-string v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/string)
+   Compiling ml-kem v0.2.3
+   Compiling jsonwebtoken v9.3.1
+   Compiling blake3 v1.8.2
+   Compiling zbus v4.4.0
+   Compiling tracing-appender v0.2.4
+   Compiling rust-embed v8.11.0
+   Compiling age-core v0.12.0
+   Compiling sqlx-macros-core v0.9.0
+   Compiling sentry-types v0.46.1
+   Compiling i18n-embed v0.16.0
+   Compiling schemars v1.2.1
+   Compiling assert-json-diff v2.0.2
+   Compiling codex-utils-cargo-bin v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/cargo-bin)
+   Compiling codex-utils-absolute-path v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/absolute-path)
+   Compiling codex-utils-redacted-string v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/redacted-string)
+   Compiling pagable v0.4.1
+   Compiling codex-utils-home-dir v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/home-dir)
+   Compiling codex-utils-path-uri v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/path-uri)
+   Compiling codex-extension-items v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/items)
+   Compiling codex-utils-path v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/path-utils)
+   Compiling codex-install-context v0.0.0 (/home/sig/files/qiri-release/codex-rs/install-context)
+   Compiling age v0.12.1
+   Compiling codex-websocket-auth v0.0.0 (/home/sig/files/qiri-release/codex-rs/websocket-auth)
+   Compiling clatter v2.2.0
+   Compiling codex-core-plugin-common v0.0.0 (/home/sig/files/qiri-release/codex-rs/core-plugin-common)
+   Compiling sqlx-macros v0.9.0
+   Compiling codex-build-info v0.0.0 (/home/sig/files/qiri-release/codex-rs/build-info)
+   Compiling starlark_map v0.14.2
+   Compiling sentry-core v0.46.1
+   Compiling sentry v0.46.1
+   Compiling tokio-util v0.7.18
+   Compiling tokio-rustls v0.26.4
+   Compiling aws-smithy-async v1.2.14
+   Compiling rama-utils v0.3.0-alpha.4
+   Compiling tokio-graceful v0.2.2
+   Compiling tokio-stream v0.1.18
+   Compiling tokio-native-tls v0.3.1
+   Compiling hickory-proto v0.25.2
+   Compiling codex-utils-cache v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/cache)
+   Compiling codex-utils-pty v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/pty)
+   Compiling mxc-sdk v1.0.0 (https://github.com/microsoft/mxc?rev=b21120168d70befe12356411423266bfef168446#b2112016)
+   Compiling codex-uds v0.0.0 (/home/sig/files/qiri-release/codex-rs/uds)
+   Compiling codex-file-watcher v0.0.0 (/home/sig/files/qiri-release/codex-rs/file-watcher)
+   Compiling codex-file-search v0.0.0 (/home/sig/files/qiri-release/codex-rs/file-search)
+   Compiling process-wrap v10.0.0
+   Compiling deadpool v0.12.3
+   Compiling aws-smithy-runtime-api v1.12.0
+   Compiling tokio-tungstenite v0.28.0 (https://github.com/openai-oss-forks/tokio-tungstenite?rev=0e5b2d73aa18dd9f0a50ee9ff199d5aef7594186#0e5b2d73)
+   Compiling codex-utils-image v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/image)
+   Compiling tokio-test v0.4.5
+   Compiling opentelemetry_sdk v0.31.0
+   Compiling sqlx-core v0.9.0
+   Compiling h2 v0.4.19
+   Compiling tower v0.5.3
+   Compiling rama-core v0.3.0-alpha.4
+   Compiling codex-async-utils v0.0.0 (/home/sig/files/qiri-release/codex-rs/async-utils)
+   Compiling secret-service v4.0.0
+   Compiling aws-credential-types v1.2.11
+   Compiling tower-http v0.6.8
+   Compiling aws-smithy-http v0.62.6
+   Compiling aws-smithy-observability v0.1.5
+   Compiling aws-types v1.3.11
+   Compiling keyring v3.6.3
+   Compiling aws-sigv4 v1.3.7
+   Compiling hickory-resolver v0.25.2
+   Compiling codex-keyring-store v0.0.0 (/home/sig/files/qiri-release/codex-rs/keyring-store)
+   Compiling rama-http-types v0.3.0-alpha.4
+   Compiling sqlx-sqlite v0.9.0
+   Compiling starlark_syntax v0.14.2
+   Compiling hyper v1.11.1
+   Compiling rama-net v0.3.0-alpha.4
+   Compiling sqlx v0.9.0
+   Compiling starlark v0.14.2
+   Compiling hyper-util v0.1.20
+   Compiling hyper-rustls v0.27.7
+   Compiling hyper-tls v0.6.0
+   Compiling hyper-timeout v0.5.2
+   Compiling axum v0.8.8
+   Compiling reqwest v0.13.4
+   Compiling wiremock v0.6.5
+   Compiling tonic v0.14.3
+   Compiling reqwest v0.12.28
+   Compiling aws-smithy-http-client v1.1.12
+   Compiling aws-smithy-runtime v1.9.5
+   Compiling rama-dns v0.3.0-alpha.4
+   Compiling rama-http-headers v0.3.0-alpha.4
+   Compiling rama-udp v0.3.0-alpha.4
+   Compiling rama-unix v0.3.0-alpha.4
+   Compiling rama-tls-rustls v0.3.0-alpha.4
+   Compiling tonic-prost v0.14.3
+   Compiling opentelemetry-proto v0.31.0
+   Compiling codex-http-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/http-client)
+   Compiling opentelemetry-http v0.31.0
+   Compiling oauth2 v5.0.0
+   Compiling rmcp v3.5.1 (https://github.com/modelcontextprotocol/rust-sdk?rev=98a54789b80110ad210495c4ad845c89e1980471#98a54789)
+   Compiling rama-http v0.3.0-alpha.4
+   Compiling aws-runtime v1.5.17
+   Compiling codex-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-client)
+   Compiling codex-websocket-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/websocket-client)
+   Compiling codex-workload-identity v0.0.0 (/home/sig/files/qiri-release/codex-rs/workload-identity)
+   Compiling opentelemetry-otlp v0.31.0
+   Compiling aws-sdk-ssooidc v1.93.0
+   Compiling aws-sdk-signin v1.2.0
+   Compiling aws-sdk-sts v1.95.0
+   Compiling aws-sdk-sso v1.91.0
+   Compiling rama-tcp v0.3.0-alpha.4
+   Compiling rama-socks5 v0.3.0-alpha.4
+   Compiling aws-config v1.8.12
+   Compiling codex-aws-auth v0.0.0 (/home/sig/files/qiri-release/codex-rs/aws-auth)
+   Compiling rama-http-core v0.3.0-alpha.4
+   Compiling codex-execpolicy v0.0.0 (/home/sig/files/qiri-release/codex-rs/execpolicy)
+   Compiling rama-http-backend v0.3.0-alpha.4
+   Compiling codex-network-proxy v0.0.0 (/home/sig/files/qiri-release/codex-rs/network-proxy)
+   Compiling codex-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/protocol)
+   Compiling codex-api v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-api)
+   Compiling codex-file-system v0.0.0 (/home/sig/files/qiri-release/codex-rs/file-system)
+   Compiling codex-model-provider-info v0.0.0 (/home/sig/files/qiri-release/codex-rs/model-provider-info)
+   Compiling codex-features v0.0.0 (/home/sig/files/qiri-release/codex-rs/features)
+   Compiling codex-shell-command v0.0.0 (/home/sig/files/qiri-release/codex-rs/shell-command)
+   Compiling codex-history v0.0.0 (/home/sig/files/qiri-release/codex-rs/history)
+   Compiling codex-agent-identity v0.0.0 (/home/sig/files/qiri-release/codex-rs/agent-identity)
+   Compiling codex-utils-output-truncation v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/output-truncation)
+   Compiling codex-context-fragments v0.0.0 (/home/sig/files/qiri-release/codex-rs/context-fragments)
+   Compiling codex-git-utils v0.0.0 (/home/sig/files/qiri-release/codex-rs/git-utils)
+   Compiling codex-skills v0.0.0 (/home/sig/files/qiri-release/codex-rs/skills)
+   Compiling codex-guardian-context v0.0.0 (/home/sig/files/qiri-release/codex-rs/guardian-context)
+   Compiling codex-state v0.0.0 (/home/sig/files/qiri-release/codex-rs/state)
+   Compiling codex-exec-server-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server-protocol)
+   Compiling codex-config v0.0.0 (/home/sig/files/qiri-release/codex-rs/config)
+   Compiling codex-secrets v0.0.0 (/home/sig/files/qiri-release/codex-rs/secrets)
+   Compiling codex-prompts v0.0.0 (/home/sig/files/qiri-release/codex-rs/prompts)
+   Compiling codex-otel v0.0.0 (/home/sig/files/qiri-release/codex-rs/otel)
+   Compiling codex-response-debug-context v0.0.0 (/home/sig/files/qiri-release/codex-rs/response-debug-context)
+   Compiling codex-windows-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/windows-sandbox-rs)
+   Compiling codex-rollout v0.0.0 (/home/sig/files/qiri-release/codex-rs/rollout)
+   Compiling codex-mxc-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/mxc-sandbox)
+   Compiling codex-sandboxing v0.0.0 (/home/sig/files/qiri-release/codex-rs/sandboxing)
+   Compiling codex-linux-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/linux-sandbox)
+   Compiling codex-exec-server v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server)
+   Compiling codex-login v0.0.0 (/home/sig/files/qiri-release/codex-rs/login)
+   Compiling codex-feedback v0.0.0 (/home/sig/files/qiri-release/codex-rs/feedback)
+   Compiling codex-runtime-agent-instance v0.0.0 (/home/sig/files/qiri-release/codex-rs/runtime-agent-instance)
+   Compiling codex-models-manager v0.0.0 (/home/sig/files/qiri-release/codex-rs/models-manager)
+warning: unused import: `anyhow::anyhow`
+  --> feedback/src/lib.rs:15:5
+   |
+15 | use anyhow::anyhow;
+   |     ^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `MAX_DECODED_UPLOAD_BYTES` is never used
+  --> feedback/src/lib.rs:60:7
+   |
+60 | const MAX_DECODED_UPLOAD_BYTES: usize = 200 * 1024 * 1024;
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: method `feedback_attachments` is never used
+   --> feedback/src/lib.rs:718:8
+    |
+536 | impl FeedbackSnapshot {
+    | --------------------- method in this implementation
+...
+718 |     fn feedback_attachments<'a>(
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `archive_rollouts` is never used
+  --> feedback/src/rollout_archive.rs:20:15
+   |
+20 | pub(super) fn archive_rollouts<'a>(
+   |               ^^^^^^^^^^^^^^^^
+
+warning: function `with_individual_fallback` is never used
+  --> feedback/src/rollout_archive.rs:65:15
+   |
+65 | pub(super) fn with_individual_fallback<'a>(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `append_rollout` is never used
+  --> feedback/src/rollout_archive.rs:95:4
+   |
+95 | fn append_rollout<W: Write>(
+   |    ^^^^^^^^^^^^^^
+
+warning: struct `BoundedWriter` is never constructed
+   --> feedback/src/rollout_archive.rs:129:8
+    |
+129 | struct BoundedWriter<W> {
+    |        ^^^^^^^^^^^^^
+
+warning: function `encode_envelope` is never used
+  --> feedback/src/upload.rs:13:15
+   |
+13 | pub(super) fn encode_envelope(envelope: &Envelope) -> io::Result<(Vec<u8>, usize)> {
+   |               ^^^^^^^^^^^^^^^
+
+warning: function `encode_attachment_envelope` is never used
+  --> feedback/src/upload.rs:30:15
+   |
+30 | pub(super) fn encode_attachment_envelope(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `CountingWriter` is never constructed
+  --> feedback/src/upload.rs:48:8
+   |
+48 | struct CountingWriter<W> {
+   |        ^^^^^^^^^^^^^^
+
+   Compiling codex-model-provider v0.0.0 (/home/sig/files/qiri-release/codex-rs/model-provider)
+warning: `codex-feedback` (lib) generated 10 warnings (run `cargo fix --lib -p codex-feedback` to apply 1 suggestion)
+   Compiling codex-utils-plugins v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/plugins)
+   Compiling codex-rmcp-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/rmcp-client)
+   Compiling codex-exec-server-test-support v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server/tests/support)
+   Compiling codex-plugin v0.0.0 (/home/sig/files/qiri-release/codex-rs/plugin)
+   Compiling codex-connectors v0.0.0 (/home/sig/files/qiri-release/codex-rs/connectors)
+   Compiling codex-mcp v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-mcp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1m 45s
+     Running unittests src/lib.rs (target/debug/deps/codex_features-27c42c717b4f6bb9)
+
+running 47 tests
+test tests::codex_hooks_is_legacy_alias_for_hooks ... ok
+test tests::collab_is_legacy_alias_for_multi_agent ... ok
+test tests::default_enabled_features_are_stable ... ok
+test tests::apps_require_feature_flag_and_chatgpt_auth ... ok
+test tests::code_mode_only_requires_code_mode ... ok
+test tests::codex_apps_mcp_protocol_can_be_enabled_independently_of_generic_mcp ... ok
+test tests::executor_capability_discovery_is_an_opt_in_map_feature ... ok
+test tests::from_sources_applies_base_profile_and_overrides ... ok
+test tests::code_mode_host_feature_config_preserves_boolean_toggle ... ok
+test tests::cwd_relative_turn_diffs_is_an_opt_in_map_feature ... ok
+test tests::from_sources_ignores_removed_apply_patch_freeform_feature_key ... ok
+test tests::canonical_image_generation_toggle_wins_over_extension_alias ... ok
+test tests::from_sources_ignores_removed_image_detail_original_feature_key ... ok
+test tests::from_sources_ignores_removed_js_repl_feature_keys ... ok
+test tests::from_sources_ignores_removed_item_ids_feature_key ... ok
+test tests::from_sources_ignores_removed_plugin_hooks_feature_key ... ok
+test tests::code_mode_host_feature_config_deserializes_fallback_setting ... ok
+test tests::from_sources_accepts_and_ignores_removed_personality_feature_values ... ok
+test tests::from_sources_ignores_removed_terminal_resize_reflow_feature_key ... ok
+test tests::from_sources_ignores_removed_resize_all_images_feature_key ... ok
+test tests::from_sources_ignores_removed_tool_search_always_defer_mcp_tools_feature_key ... ok
+test tests::from_sources_ignores_removed_undo_feature_key ... ok
+test tests::guardian_v2_feature_config_preserves_boolean_toggle ... ok
+test tests::guardian_transcript_mode_rejects_invalid_values ... ok
+test tests::image_generation_extension_alias_is_supported ... ok
+test tests::image_generation_toggle_controls_extension_backed_generation ... ok
+test tests::guardian_v2_feature_config_accepts_boundary_values ... ok
+test tests::multi_agent_v2_feature_config_deserializes_boolean_toggle ... ok
+test tests::guardian_v2_feature_config_deserializes_classifier_and_transcript_settings ... ok
+test tests::non_prefixed_mcp_tool_names_feature_config_deserializes_boolean_toggle ... ok
+test tests::guardian_v3_feature_config_resolves_base_and_profile_toggles ... ok
+test tests::model_change_suppression_config_preserves_omission_and_explicit_values ... ok
+test tests::remote_control_config_is_ignored ... ok
+test tests::non_prefixed_mcp_tool_names_feature_config_deserializes_table ... ok
+test tests::removed_apps_mcp_path_override_shapes_are_ignored ... ok
+test tests::telepathy_is_legacy_alias_for_chronicle ... ok
+test tests::retired_worktree_and_voice_config_overrides_are_ignored ... ok
+test tests::guardian_thread_context_is_ignored_with_a_migration_notice ... ok
+test tests::multi_agent_v2_feature_config_deserializes_table ... ok
+test tests::tool_registry_config_is_not_a_feature_toggle ... ok
+test tests::sleep_tool_config_rejects_unknown_mode ... ok
+test tests::under_development_features_are_disabled_by_default ... ok
+test tests::guardian_v2_feature_config_rejects_invalid_settings ... ok
+test tests::runtime_auth_config_accepts_modes_without_implicitly_enabling_the_feature ... ok
+test tests::unstable_warning_event_ignores_enabled_structured_stable_feature ... ok
+test tests::unstable_warning_event_only_mentions_enabled_under_development_features ... ok
+test tests::use_legacy_landlock_config_records_deprecation_notice ... ok
+
+test result: ok. 47 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/codex_mcp-ef1ebe0ea7f6c50d)
+
+running 279 tests
+test auth_elicitation::tests::rejects_missing_or_mismatched_connector_ids ... ok
+test auth_elicitation::tests::detects_each_supported_connector_auth_reason ... ok
+test auth_elicitation::tests::auth_failure_detection_requires_trusted_connector_identity_and_auth_flag ... ok
+test auth_elicitation::tests::detects_auth_failure_without_an_install_url ... ok
+test auth_elicitation::tests::parses_auth_failure_from_trusted_connector_metadata ... ok
+test auth_elicitation::tests::builds_auth_elicitation_plan ... ok
+test auth_elicitation::tests::builds_url_elicitation_payload ... ok
+test catalog::tests::disabled_selected_plugin_does_not_veto_runtime_overlays ... ok
+test catalog::tests::executor_credential_policy_survives_catalog_rebuilds_and_materialization ... ok
+test catalog::tests::ema_policy_survives_rebuilds_and_rebinds_materialized_servers ... ok
+test catalog::tests::equal_precedence_uses_insertion_order_not_source_identity ... ok
+test catalog::tests::disabled_veto_only_disables_the_winning_registration ... ok
+test catalog::tests::disabled_discovered_plugin_remains_a_veto_for_runtime_overlays ... ok
+test catalog::tests::earlier_plugin_wins_with_an_explicit_conflict ... ok
+test catalog::tests::disabled_winner_remains_a_veto_when_the_catalog_is_extended ... ok
+test catalog::tests::environment_policy_exempts_only_explicitly_host_owned_apps ... ok
+test catalog::tests::environment_policy_preserves_selected_plugin_and_empty_server_allowlist_semantics ... ok
+test catalog::tests::extension_protocol_mode_follows_the_winner_through_materialization ... ok
+test catalog::tests::rejected_plugin_ema_registration_does_not_veto_hosted_apps ... ok
+test catalog::tests::retired_plugin_ema_does_not_veto_a_later_runtime_registration ... ok
+test catalog::tests::source_precedence_preserves_the_winning_registration ... ok
+test catalog::tests::selected_plugins_override_discovered_plugins_but_not_config ... ok
+test codex_apps::file_params::tests::declared_openai_file_fields_treat_names_literally ... ok
+test binding::model_search::tests::discovery_preserves_the_connectors_opaque_invocation_context ... ok
+test client_capabilities::tests::normalizes_legacy_form_capability_into_extensions ... ok
+test catalog::tests::selected_plugin_credential_policy_follows_origin_and_survives_catalog_rebuild ... ok
+test catalog::tests::plugin_host_root_is_retained_in_catalog_identity ... ok
+test codex_apps::file_params::tests::prepare_openai_file_params_for_model_leaves_tools_without_file_params_unchanged ... ok
+test client_capabilities::tests::selects_only_supported_mcp_extensions ... ok
+test codex_apps::file_params::tests::prepare_openai_file_params_for_model_masks_file_params ... ok
+test binding::tests::prepared_call_keeps_captured_connection_and_authority_after_refresh ... ok
+test binding::tests::prepared_call_does_not_reroute_after_captured_connection_closes ... ok
+test binding::tests::prepared_call_is_rejected_after_catalog_refresh ... ok
+test connection_manager::tests::call_tool_validates_environment_without_waiting_for_ready_connections ... ok
+test binding::tests::stale_prepared_call_does_not_run_preparation ... ok
+test binding::tests::sandbox_executable_requires_local_stdio_and_a_full_cli ... FAILED
+test connection_manager::tests::cancelling_startup_does_not_disable_a_ready_client ... ok
+test codex_apps::file_params::tests::prepare_openai_file_params_for_model_derives_supported_optional_fields ... ok
+test connection_manager::tests::codex_apps_env_bearer_token_bypasses_shared_tools_cache ... ok
+test client_capabilities::tests::user_verification_is_projected_only_to_the_host_owned_plugin_service ... ok
+test catalog::tests::materialized_server_requires_catalog_registration - should panic ... ok
+test connection_manager::tests::capture_binding_skips_pending_optional_servers_after_configured_shared_startup_grace ... ok
+test connection_manager::tests::capture_binding_uses_cache_published_during_optional_startup ... ok
+test connection_manager::tests::capture_binding_shares_optional_startup_grace_across_connection_sets ... ok
+test connection_manager::tests::capture_binding_retains_cached_tools_that_expire_while_waiting_for_another_server ... ok
+test binding::tests::preparation_holds_catalog_authority_until_it_finishes ... ok
+test connection_manager::tests::capture_binding_waits_for_optional_startup_when_shared_grace_is_disabled ... ok
+test connection_manager::tests::cancelled_elicitation_is_removed_without_affecting_other_pending_requests ... ok
+test connection_manager::tests::call_tool_requires_connection_without_waiting_for_startup ... ok
+test connection_manager::tests::connection_statuses_observe_clients_without_starting_them ... ok
+test connection_manager::tests::disabled_permissions_auto_accept_elicitation_with_empty_form_schema ... ok
+test connection_manager::tests::disabled_permissions_decline_requested_user_input_with_approval_metadata ... ok
+test connection_manager::tests::disabled_permissions_decline_user_input_without_an_event_channel ... ok
+test connection_manager::tests::disabled_permissions_do_not_surface_user_input_when_auto_denied ... ok
+test connection_manager::tests::disabled_permissions_do_not_auto_accept_elicitation_with_requested_fields ... ok
+test connection_manager::tests::disabled_permissions_surface_requested_user_input_with_non_codex_approval_metadata ... ok
+test connection_manager::tests::elicitation_capability_advertises_url_support_when_enabled ... ok
+test connection_manager::tests::elicitation_capability_uses_2025_06_18_shape_for_form_only_support ... ok
+test connection_manager::tests::elicitation_granular_policy_defaults_to_prompting ... ok
+test connection_manager::tests::elicitation_granular_policy_respects_never_and_config ... ok
+test connection_manager::tests::disabled_permissions_surface_requested_user_input_without_metadata ... ok
+test connection_manager::tests::connection_identity_uses_effective_authorization_headers ... ok
+test connection_manager::tests::connected_call_respects_server_tool_filters ... ok
+test connection_manager::tests::capture_binding_omits_cache_disabled_while_waiting_for_another_server ... ok
+test connection_manager::tests::filter_tools_applies_per_server_filters ... ok
+test connection_manager::tests::granular_policy_does_not_surface_requested_user_input ... ok
+test connection_manager::tests::idle_apps_clients_do_not_retain_replaced_tools ... ok
+test connection_manager::tests::connection_statuses_follow_latest_reconnect_outcome ... ok
+test connection_manager::tests::apps_catalog_broadcast_survives_an_older_local_refresh ... ok
+test connection_manager::tests::capture_binding_preserves_ready_client_catalog_and_shares_prepared_metadata ... ok
+test connection_manager::tests::apps_catalog_broadcast_preserves_running_calls_and_rejects_stale_calls ... ok
+test connection_manager::tests::catalog_listing_preserves_legacy_apps_tools_during_failed_startup ... ok
+test connection_manager::tests::connection_identity_distinguishes_agent_account_runtime_and_task ... ok
+test connection_manager::tests::capture_binding_exposes_cached_tools_before_startup ... ok
+test connection_manager::tests::list_all_tools_accepts_canonical_namespaced_tool_names ... ok
+test connection_manager::tests::capture_binding_resolves_concurrently_and_rechecks_cached_clients ... ok
+test connection_manager::tests::connection_identity_tracks_only_oauth_credentials_when_oauth_is_active ... ok
+test connection_manager::tests::apps_catalog_broadcast_restores_equivalent_calls ... ok
+test connection_manager::tests::list_all_tools_adds_server_metadata_to_tools ... ok
+test connection_manager::tests::list_all_tools_applies_legacy_mcp_prefix_by_default ... ok
+test connection_manager::tests::list_available_server_infos_uses_cache_while_client_is_pending ... ok
+test connection_manager::tests::list_all_tools_does_not_block_when_shared_codex_apps_cache_is_empty ... ok
+test connection_manager::tests::later_tool_list_retries_after_failed_reconnect_and_keeps_cached_tools ... ok
+test connection_manager::tests::mcp_init_error_display_identifies_oauth_reauthentication ... ok
+test connection_manager::tests::mcp_init_error_display_prompts_for_github_pat ... ok
+test connection_manager::tests::mcp_init_error_display_includes_startup_timeout_hint ... ok
+test connection_manager::tests::mcp_startup_failure_reason_requires_existing_oauth_and_auth_failure ... ok
+test connection_manager::tests::mcp_init_error_display_reports_generic_errors ... ok
+test connection_manager::tests::list_all_tools_uses_shared_codex_apps_cache_when_client_startup_fails ... ok
+test connection_manager::tests::list_all_tools_uses_shared_codex_apps_cache_while_client_is_pending ... ok
+test connection_manager::tests::list_all_tools_resolves_server_catalogs_concurrently ... ok
+test connection_manager::tests::mcp_init_error_display_prompts_for_login_when_auth_required ... ok
+test connection_manager::tests::network_policy_tests::recovered_session_policy_keeps_one_captured_call_authority ... ok
+test auth_changes::tests::auth_notifications_require_opt_in_and_follow_client_lifetime ... ok
+test connection_manager::tests::on_request_approval_forms_remain_with_the_reviewer ... ok
+test connection_manager::tests::list_all_tools_reconnects_failed_codex_apps_startup_and_reuses_client ... ok
+test connection_manager::tests::plugin_tool_suggestion_elicitations_are_declined_before_review ... ok
+test connection_manager::tests::read_only_policy_does_not_reuse_a_writable_connection ... ok
+test connection_manager::tests::reconciliation_reconnects_when_connection_identity_changes ... ok
+test connection_manager::tests::legacy_tool_catalog_rejects_repeated_pagination_cursor ... ok
+test connection_manager::tests::reconciliation_reconnects_when_host_plugin_root_changes ... ok
+test connection_manager::tests::reconciliation_cancels_a_reused_pending_server_when_disabled ... ok
+test connection_manager::tests::reconciliation_replaces_connection_when_protocol_mode_changes ... ok
+test connection_manager::tests::reconciliation_reuses_an_unchanged_ready_server ... ok
+test connection_manager::tests::reconciliation_retries_non_oauth_authentication_failures ... ok
+test connection_manager::tests::reconciliation_reuses_an_unchanged_pending_server_without_waiting ... ok
+test connection_manager::tests::reconciliation_replaces_connection_when_auth_mode_changes ... ok
+test connection_manager::tests::reconciliation_reuses_ready_server_when_startup_timeout_changes ... ok
+test connection_manager::tests::reconciliation_reuses_legacy_stdio_server_when_modern_protocol_is_enabled ... ok
+test connection_manager::tests::reconciliation_replaces_closed_connections ... ok
+test connection_manager::tests::reconciliation_updates_elicitation_policy_without_restarting_ready_server ... ok
+test connection_manager::tests::hard_refresh_keeps_client_catalog_local_when_shared_cache_loses_race ... ok
+test connection_manager::tests::server_metadata_preserves_tool_approval_policy ... ok
+test connection_manager::tests::restricted_never_policy_does_not_surface_requested_user_input ... ok
+test connection_manager::tests::shared_elicitation_router_targets_the_exact_pending_request ... ok
+test connection_manager::tests::shutdown_continues_after_caller_is_aborted ... ok
+test connection_manager::tests::shutdown_cancels_pending_tool_listing ... ok
+test connection_manager::tests::stalled_apps_client_publication_expires_at_the_configured_startup_timeout ... ok
+test connection_manager::tests::test_normalize_tools_disambiguates_sanitized_tool_name_collisions ... ok
+test connection_manager::tests::test_normalize_tools_duplicated_names_skipped ... ok
+test connection_manager::tests::stable_catalog_revisions_ignore_terminal_optional_server_failures ... ok
+test connection_manager::tests::test_normalize_tools_disambiguates_sanitized_namespace_collisions ... ok
+test connection_manager::tests::reconciliation_reuses_legacy_stdio_server_with_existing_protocol_marker ... ok
+test connection_manager::tests::test_normalize_tools_global_feature_omits_prefix_for_every_server ... ok
+test connection_manager::tests::test_normalize_tools_keeps_hyphenated_mcp_tools_callable ... ok
+test connection_manager::tests::test_normalize_tools_omits_prefix_only_for_selected_servers ... ok
+test connection_manager::tests::test_normalize_tools_long_names_same_server ... ok
+test connection_manager::tests::test_normalize_tools_sanitizes_invalid_characters ... ok
+test connection_manager::tests::test_normalize_tools_short_non_duplicated_names ... ok
+test connection_manager::tests::test_normalize_tools_selects_raw_server_name ... ok
+test connection_manager::tests::test_normalize_tools_respects_responses_api_name_length_boundaries ... ok
+test connection_manager::tests::resource_template_listings_skip_only_hosted_apps ... ok
+test connection_manager::tests::tool_catalog_cache_bypasses_http_headers_helpers ... ok
+test connection_manager::tests::tool_catalog_cache_bypasses_remote_sourced_environment_variables ... ok
+test connection_manager::tests::tool_filter_applies_disabled_list ... ok
+test connection_manager::tests::refreshed_catalog_follows_reused_client_without_mutating_old_bindings ... ok
+test connection_manager::tests::concurrent_authority_updates_never_auto_approve_mixed_policy ... ok
+test connection_manager::tests::tool_catalog_cache_sanitizes_tools_and_tracks_environment_generation ... ok
+test connection_manager::tests::reconciliation_reuses_connection_without_relisting_regular_tools ... ok
+test connection_manager::tests::tool_filter_allows_by_default ... ok
+test connection_manager::tests::tool_filter_applies_enabled_list ... ok
+test connection_manager::tests::tool_filter_applies_enabled_then_disabled ... ok
+test connection_manager::tests::shared_apps_snapshot_requires_writable_discovery_and_a_shared_cache ... ok
+test connection_pool::tests::negotiation_requires_the_stateless_protocol_and_detaches_startup_callbacks ... ok
+test connection_manager::tests::view_only_changes_reuse_connection_and_preserve_the_old_step ... ok
+test connection_manager::tests::network_policy_tests::tool_calls_deliver_only_negotiated_trusted_network_policy ... ok
+test elicitation::tests::abandonment_close_invalidates_a_published_responder_before_returning ... ok
+test elicitation::tests::abandonment_closed_receiver_cleans_up_without_delivery_or_replay ... ok
+test elicitation::tests::abandonment_close_joins_elected_actions_and_rejects_retained_router_admission ... ok
+test connection_manager::tests::tool_lists_do_not_block_and_share_codex_apps_startup_reconnect ... ok
+test elicitation::tests::abandonment_is_ordered_and_exactly_once_when_the_native_waiter_is_dropped ... ok
+test elicitation::tests::abandonment_resolve_reports_failed_response_delivery_once ... ok
+test elicitation::tests::bounded_sources_preserve_backpressure_across_close ... ok
+test connection_manager::tests::list_all_tools_blocks_while_client_is_pending_without_cached_tools ... ok
+test connection_pool::tests::timed_out_open_is_released_after_the_server_acknowledges_it ... ok
+test connection_pool::tests::new_chat_relists_tools_without_invalidating_or_waiting_for_existing_calls ... ok
+test elicitation::tests::closed_event_channel_immediately_cleans_up_pending_elicitation ... ok
+test elicitation::tests::elicitation_without_an_automatic_decision_prompts ... ok
+test connection_pool::tests::callback_during_startup_releases_waiting_chats_without_sharing_authority ... ok
+test elicitation::tests::strict_auto_review_preserves_guardian_denials_and_cancellations ... ok
+test elicitation::tests::strict_auto_review_fails_closed_without_a_canonical_decision ... ok
+test elicitation::tests::permission_elicitation_preserves_automatic_review_decisions ... ok
+test connection_pool::tests::releasing_lease_cancels_pending_call_before_release ... ok
+test elicitation::tests::strict_auto_review_respects_explicit_elicitation_denials ... ok
+test elicitation::tests::user_verification_cancels_for_an_event_receiver_without_host_activation ... ok
+test elicitation::tests::user_verification_cancels_when_no_app_can_receive_the_request ... ok
+test elicitation::tests::user_verification_drops_pending_response_when_the_request_is_cancelled ... ok
+test elicitation::tests::user_verification_rejects_attached_servers_even_if_they_use_the_plugin_service_name ... ok
+test connection_pool::tests::dropping_lease_outside_runtime_releases_it ... ok
+test connection_pool::tests::shared_startup_survives_first_chat_cancellation_and_rejects_released_bindings ... ok
+test mcp::auth::tests::resolve_oauth_scopes_falls_back_to_empty ... ok
+test mcp::auth::tests::resolve_oauth_scopes_prefers_configured_over_discovered ... ok
+test mcp::auth::tests::resolve_oauth_scopes_prefers_explicit ... ok
+test elicitation::tests::user_verification_requires_the_app_even_when_policy_would_approve_or_decline ... ok
+test mcp::auth::tests::resolve_oauth_scopes_preserves_explicitly_empty_configured_scopes ... ok
+test mcp::auth::tests::resolve_oauth_scopes_uses_discovered_when_needed ... ok
+test mcp::auth::tests::callback_resolution_preserves_registered_and_legacy_clients ... ok
+test mcp::tests::codex_apps_mcp_url_for_base_url_uses_plugin_service_paths ... ok
+test mcp::tests::codex_apps_server_config_forwards_thread_originator_header ... ok
+test mcp::tests::codex_apps_server_config_forwards_originator_and_configured_product_sku_headers ... ok
+test mcp::tests::codex_apps_server_config_sets_product_sku_header ... ok
+test mcp::auth::tests::should_retry_without_scopes_only_for_discovered_provider_errors ... ok
+test mcp::tests::codex_apps_server_config_uses_plugin_service_path ... ok
+test mcp::tests::effective_mcp_servers_preserve_executor_credential_policy ... ok
+test mcp::tests::mcp_prompt_auto_approval_honors_approved_tools_in_all_permission_modes ... ok
+test mcp::tests::qualified_mcp_tool_name_prefix_sanitizes_server_names_without_lowercasing ... ok
+test mcp::tests::effective_mcp_servers_reject_untrusted_origins_for_chatgpt_auth ... ok
+test mcp::tests::effective_mcp_servers_preserve_chatgpt_auth_for_trusted_origins ... ok
+test mcp::tests::mcp_prompt_auto_approval_honors_unrestricted_managed_profiles ... ok
+test mcp::tests::mcp_server_permissions_handle_unattached_and_threadless_servers ... ok
+test mcp::tests::ema_catalog_allows_only_configured_servers_without_widening_policy ... ok
+test pagination::tests::applies_a_default_timeout_when_no_timeout_is_configured ... ok
+test mcp::tests::selected_mcp_attribution_does_not_join_an_unrelated_local_summary ... ok
+test mcp::tests::status_snapshot_only_downgrades_oauth_and_ema_authentication_failures ... ok
+test mcp::tests::effective_mcp_servers_require_catalog_registration - should panic ... ok
+test mcp::tests::tool_plugin_context_collects_app_and_mcp_sources ... ok
+test pagination::tests::rejects_nonconsecutive_repeated_cursors ... ok
+test pagination::tests::collects_all_pages_including_an_empty_cursor ... ok
+test pagination::tests::applies_one_timeout_across_individually_timely_pages ... ok
+test pagination::tests::rejects_a_catalog_exceeding_the_item_limit_across_pages ... ok
+test pagination::tests::forwards_page_failures ... ok
+test pagination::tests::rejects_a_page_exceeding_the_catalog_item_limit ... ok
+test pagination::tests::rejects_excessive_pagination_before_fetching_another_page ... ok
+test plugin_config::tests::agent_plugin_mcp_preserves_arbitrary_server_names ... ok
+test plugin_config::tests::agent_plugin_mcp_preserves_server_named_mcp_servers ... ok
+test pagination::tests::rejects_oversized_pagination_cursors_before_following_them ... ok
+test plugin_config::tests::agent_plugin_mcp_expands_reserved_paths_and_maps_transports ... ok
+test plugin_config::tests::agent_plugin_mcp_rejects_explicit_null_optional_fields ... ok
+test plugin_config::tests::agent_plugin_mcp_enforces_closed_transport_and_path_semantics ... ok
+test plugin_config::tests::agent_plugin_mcp_rejects_missing_descendant_below_escaping_symlink ... ok
+test plugin_config::tests::agent_plugin_mcp_handles_portable_path_and_http_edge_cases ... ok
+test plugin_config::tests::agent_plugin_mcp_rejects_unsupported_schema ... ok
+test plugin_config::tests::agent_plugin_mcp_skips_invalid_server_without_disabling_siblings ... ok
+test plugin_config::tests::agent_plugin_mcp_treats_args_and_env_as_opaque_after_expansion ... ok
+test plugin_config::tests::agent_plugin_mcp_resolves_root_before_collapsing_parent_components ... ok
+test plugin_config::tests::agent_plugin_placeholder_expansion_is_single_pass ... ok
+test plugin_config::tests::declared_placement_preserves_local_plugin_normalization ... ok
+test plugin_config::tests::environment_placement_rejects_orchestrator_env_vars ... ok
+test plugin_config::tests::environment_placement_resolves_relative_cwd_beneath_plugin_root ... ok
+test plugin_config::tests::local_environment_placement_preserves_http_env_references ... ok
+test plugin_config::tests::environment_placement_rejects_relative_cwd_that_escapes_package ... ok
+test plugin_config::tests::local_environment_placement_preserves_local_env_vars ... ok
+test plugin_config::tests::executor_environment_placement_resolves_foreign_uri_cwd ... ok
+test plugin_config::tests::environment_placement_forces_authority_and_defaults_null_cwd ... ok
+test plugin_config::tests::local_environment_placement_rejects_remote_env_vars ... ok
+test rmcp_client::credential_policy_tests::configured_credentials_retain_host_environment_resolution ... ok
+test plugin_config::tests::native_plugin_mcp_cannot_self_declare_ema_auth ... ok
+test plugin_config::tests::remote_environment_placement_preserves_bearer_and_rejects_header_env_references ... ok
+test rmcp_client::credential_policy_tests::executor_credentials_reject_host_fallback_for_arbitrary_environment_names ... ok
+test rmcp_client::credential_policy_tests::servers_without_environment_credentials_do_not_require_host_fallback ... ok
+test rmcp_client::provenance_tests::provenance_preserves_short_descriptions_and_membership ... ok
+test rmcp_client::tests::advertised_server_implementation_takes_precedence_over_configured_name ... ok
+test rmcp_client::tests::missing_server_implementation_uses_configured_server_name ... ok
+test rmcp_client::tests::custom_mcp_connector_metadata_is_stripped ... ok
+test rmcp_client::tests::codex_apps_connector_metadata_is_preserved ... ok
+test rmcp_client::tests::startup_outcome_error_identifies_authentication_required ... ok
+test rmcp_client::tests::mcp_initialize_advertises_client_extensions ... ok
+test rmcp_client::provenance_tests::provenance_bounds_aggregate_names_and_retains_all_associations ... ok
+test runtime::tests::cached_bindings_are_scoped_to_the_published_runtime ... ok
+test runtime::tests::local_http_does_not_require_local_stdio_availability ... ok
+test runtime::tests::explicit_remote_stdio_and_http_accept_named_environment ... ok
+test runtime::tests::local_http_client_is_shared_across_resolution_and_context_clones ... ok
+test runtime::tests::local_stdio_requires_local_stdio_availability ... ok
+test runtime::tests::local_stdio_accepts_local_environment_when_available ... ok
+test runtime::tests::unknown_explicit_environment_is_rejected ... ok
+test server::tests::connection_identity_does_not_reuse_connections_across_credential_policies ... ok
+test server::tests::executor_connection_identity_does_not_capture_host_environment_values ... ok
+test runtime::tests::remote_stdio_accepts_foreign_absolute_cwd ... ok
+test server::tests::remote_http_connections_track_host_headers_but_not_executor_bearer_tokens ... ok
+test runtime::tests::publication_gate_opens_only_for_the_winning_candidate ... ok
+test server::tests::tool_catalog_cache_does_not_reuse_catalogs_across_credential_policies ... ok
+test sandbox_metadata::tests::sandbox_state_serializes_skip_missing_entries_as_missing_path_behavior ... ok
+test trusted_access::tests::rejects_api_key_authentication_without_sending_credentials ... ok
+test runtime::tests::cached_bindings_follow_the_clients_catalog_revision ... ok
+test runtime::shared_connection_tests::forced_refresh_replaces_pending_connection_without_interrupting_other_chats ... ok
+test connection_manager::tests::no_local_runtime_fails_local_stdio_but_keeps_local_http_server ... ok
+test connection_manager::tests::codex_apps_extension_does_not_share_host_owned_tools_cache ... ok
+test connection_manager::tests::hosted_apps_protocol_mode_is_independent_of_generic_mode ... ok
+test connection_manager::tests::mcp_init_error_display_quotes_server_names ... ok
+test trusted_access::tests::rejects_initial_unsupported_auth_after_switch_to_chatgpt ... ok
+test connection_pool::tests::connection_key_changes_with_the_owner_but_survives_credential_refresh ... ok
+test connection_manager::tests::hosted_actor_credentials_are_only_available_to_host_owned_mcp_servers ... ok
+test mcp::tests::effective_mcp_servers_preserve_runtime_servers ... ok
+test mcp::tests::ema_auth_statuses_do_not_wait_for_account_refresh ... ok
+test trusted_access::tests::rejects_verified_access_response_larger_than_one_mebibyte ... ok
+test connection_manager::tests::prepared_call_timeout_includes_trusted_access_lookup ... ok
+test connection_manager::tests::executor_owned_chatgpt_mcp_accepts_only_safe_explicit_authorization ... ok
+test trusted_access::tests::delivers_account_bound_verified_access_to_the_calling_plugin ... ok
+test connection_manager::tests::gov_codex_apps_retain_local_chatgpt_auth_provider ... ok
+test elicitation::tests::reused_elicitation_senders_follow_each_servers_latest_permission_authority ... ok
+test trusted_access::tests::returns_unknown_at_the_lookup_deadline ... ok
+test trusted_access::tests::replaces_untrusted_entitlements_on_malformed_response ... ok
+test connection_manager::tests::connection_identity_distinguishes_accounts_with_the_same_token ... ok
+test trusted_access::tests::uses_the_checked_auth_snapshot_for_request_headers ... ok
+test trusted_access::tests::rejects_auth_without_a_nonempty_account_id ... ok
+test trusted_access::tests::rejects_duplicate_cyber_programs ... ok
+test trusted_access::tests::rejects_identity_changes_before_sending_credentials ... ok
+test trusted_access::tests::maps_verified_access_states_and_rejects_invalid_provider_responses ... ok
+test trusted_access::tests::rejects_identity_changes_while_request_is_in_flight ... ok
+
+failures:
+
+---- binding::tests::sandbox_executable_requires_local_stdio_and_a_full_cli stdout ----
+Error: could not locate binary "codex"; tried env vars ["CARGO_BIN_EXE_codex"]; assert_cmd fallback failed: Cause: Cargo command not found: /home/sig/files/qiri-release/codex-rs/target/debug/codex
+
+
+
+
+failures:
+    binding::tests::sandbox_executable_requires_local_stdio_and_a_full_cli
+
+test result: FAILED. 278 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.98s
+
+error: test failed, to rerun pass `-p codex-mcp --lib`
+     Running unittests src/lib.rs (target/debug/deps/codex_sandboxing-3f8750d716adbf8e)
+
+running 83 tests
+test bwrap::tests::does_not_treat_wsl2_or_native_linux_as_wsl1 ... ok
+test bwrap::tests::system_bwrap_warning_reports_missing_system_bwrap ... ok
+test landlock::tests::legacy_landlock_flag_is_included_when_requested ... ok
+test bwrap::tests::detects_wsl1_proc_version_formats ... ok
+test manager::tests::danger_full_access_defaults_to_no_sandbox_without_network_requirements ... ok
+test manager::tests::explicit_mxc_only_overrides_the_windows_sandbox ... ok
+test manager::tests::danger_full_access_uses_platform_sandbox_with_network_requirements ... ok
+test manager::tests::managed_mitm_ca_bundle_becomes_readable_for_restricted_sandbox ... ok
+test manager::tests::restricted_file_system_uses_platform_sandbox_without_managed_network ... ok
+test landlock::tests::permission_profile_flag_is_included ... ok
+test bwrap::tests::system_bwrap_probe_does_not_wait_for_descendants_holding_stderr_open ... ok
+test landlock::tests::managed_context_takes_precedence_over_legacy_landlock ... ok
+test landlock::tests::proxy_network_requires_managed_requirements ... ok
+test bwrap::tests::full_disk_write_rejects_owned_bwrap_even_when_chmod_read_only ... ok
+test manager::tests::unsandboxed_transform_preserves_foreign_cwd_and_unrestricted_file_system_policy ... ok
+test bwrap::tests::root_cwd_does_not_hide_system_bwrap_candidates ... ok
+test bwrap::tests::finds_first_executable_bwrap_in_joined_search_path ... ok
+test bwrap::tests::skips_writable_bwrap_symlink_to_read_only_target ... ok
+test manager::tests::transform_linux_seccomp_uses_helper_alias_when_launcher_is_not_helper_path ... ok
+test bwrap::tests::root_write_preserves_a_read_only_system_installation ... ok
+test bwrap::tests::skips_bwrap_through_symlinked_path_directory_into_writable_root ... ok
+test manager::tests::transform_additional_permissions_enable_network_for_external_sandbox ... ok
+test manager::tests::transform_additional_permissions_preserves_denied_entries ... ok
+test bwrap::tests::skips_workspace_local_bwrap_in_joined_search_path ... ok
+test manager::tests::wsl1_allows_non_bubblewrap_linux_paths ... ok
+test manager::tests::transform_linux_seccomp_preserves_helper_path_in_arg0_when_available ... ok
+test manager::tests::wsl1_rejects_linux_bubblewrap_path ... ok
+test policy_transforms::tests::full_access_restricted_policy_skips_platform_sandbox_when_network_is_enabled ... ok
+test policy_transforms::tests::full_access_restricted_policy_still_uses_platform_sandbox_for_restricted_network ... ok
+test bwrap::tests::read_only_bwrap_carveout_does_not_trust_a_replaceable_parent ... ok
+test policy_transforms::tests::effective_file_system_sandbox_policy_merges_additional_write_roots ... ok
+test policy_transforms::tests::effective_file_system_sandbox_policy_returns_base_policy_without_additional_permissions ... ok
+test policy_transforms::tests::intersect_permission_profiles_preserves_denies_for_unresolved_tmpdir ... ok
+test policy_transforms::tests::intersect_permission_profiles_accepts_child_path_granted_for_requested_cwd ... ok
+test policy_transforms::tests::intersect_permission_profiles_drops_broader_cwd_grant_for_requested_child_path ... ok
+test policy_transforms::tests::intersect_permission_profiles_deduplicates_materialized_grants ... ok
+test bwrap::tests::skips_bwrap_in_symlinked_writable_root ... ok
+test policy_transforms::tests::intersect_permission_profiles_drops_ungranted_nonempty_path_requests ... ok
+test policy_transforms::tests::intersect_permission_profiles_drops_explicit_empty_reads_without_grant ... ok
+test policy_transforms::tests::intersect_permission_profiles_materializes_cwd_grant_for_reuse ... ok
+test policy_transforms::tests::intersect_permission_profiles_materializes_cwd_deny_entries ... ok
+test policy_transforms::tests::intersect_permission_profiles_preserves_explicit_empty_requested_reads ... ok
+test policy_transforms::tests::intersect_permission_profiles_preserves_parent_relative_project_root_restriction ... ok
+test policy_transforms::tests::intersect_permission_profiles_preserves_opaque_child_deny ... ok
+test policy_transforms::tests::intersect_permission_profiles_drops_deny_entries_without_filesystem_grants ... ok
+test policy_transforms::tests::materialize_additional_permissions_ignores_empty_tmpdir_deny ... ok
+test policy_transforms::tests::normalize_additional_permissions_drops_empty_nested_profiles ... ok
+test policy_transforms::tests::normalize_additional_permissions_preserves_deny_globs ... ok
+test policy_transforms::tests::normalize_additional_permissions_only_checks_convention_with_context ... ok
+test policy_transforms::tests::merge_file_system_policy_with_additional_permissions_carries_bounded_glob_scan_depth ... ok
+test policy_transforms::tests::normalize_additional_permissions_preserves_network ... ok
+test policy_transforms::tests::materialize_additional_permissions_preserves_authority_and_constraints ... ok
+test policy_transforms::tests::normalize_additional_permissions_preserves_symlinked_write_paths ... ok
+test policy_transforms::tests::normalize_additional_permissions_rejects_glob_read_grants ... ok
+test policy_transforms::tests::root_write_policy_with_carveouts_still_uses_platform_sandbox ... ok
+test policy_transforms::tests::merge_file_system_policy_with_additional_permissions_preserves_unreadable_roots ... ok
+test manager::tests::linux_unix_socket_grant_uses_effective_managed_policy ... ok
+test violation::tests::classifies_filesystem_violation_from_aggregated_output ... ok
+test sandbox_integrity::contents::tests::protected_metadata_contents_remain_read_only ... ok
+test violation::tests::classifies_filesystem_violation_with_unicode_before_marker ... ok
+test violation::tests::classifies_filesystem_violation_with_path ... ok
+test sandbox_integrity::contents::tests::missing_target_has_no_contents_to_mutate ... ok
+test violation::tests::classifies_legacy_denial_keywords ... ok
+test violation::tests::classifies_linux_sigsys_exit ... ok
+test violation::tests::does_not_classify_non_sandbox_mode ... ok
+test violation::tests::keeps_output_snippet_on_the_stream_that_matched ... ok
+test violation::tests::normalizes_backend_keywords_as_policy_denied ... ok
+test terminal_queries::tests::driver_backed_terminal_queries_are_answered ... ok
+test policy_transforms::tests::intersect_permission_profiles_uses_granted_unbounded_glob_scan_depth ... ok
+test policy_transforms::tests::intersect_permission_profiles_rejects_concrete_grants_matched_by_requested_deny_globs ... ok
+test policy_transforms::tests::intersect_permission_profiles_uses_granted_bounded_glob_scan_depth ... ok
+test violation::tests::preserves_legacy_denial_ordering ... ok
+test violation::tests::converts_blocked_request_to_network_violation ... ok
+test policy_transforms::tests::intersect_permission_profiles_materializes_relative_deny_globs_for_reuse ... ok
+test sandbox_integrity::contents::tests::deny_read_globs_protect_matching_contents_without_disabling_other_checks ... ok
+test bwrap::tests::skips_bwrap_in_writable_roots_outside_command_cwd ... ok
+test sandbox_integrity::contents::tests::contents_follow_links_and_resolved_write_grants ... ok
+test sandbox_integrity::contents::tests::contents_respect_write_grants_and_carveouts ... ok
+test terminal_queries::tests::direct_terminal_queries_are_answered ... ok
+test policy_transforms::tests::intersect_permission_profiles_preserves_rooted_first_segment_glob_deny ... ok
+test bwrap::tests::system_bwrap_warning_skips_unrelated_bwrap_failures ... ok
+test bwrap::tests::system_bwrap_probe_times_out_without_reporting_a_warning ... ok
+test bwrap::tests::system_bwrap_warning_reports_user_namespace_failures ... ok
+
+test result: ok. 83 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.21s
+
+     Running unittests src/lib.rs (target/debug/deps/codex_skills-648af19ffeffe735)
+
+running 54 tests
+test interface::tests::rejects_absolute_asset_paths ... ok
+test interface::tests::rejects_plugin_assets_outside_shared_assets_root ... ok
+test interface::tests::resolves_plugin_shared_assets ... ok
+test interface::tests::rejects_invalid_local_interface_fields ... ok
+test invocation::tests::script_run_detection_matches_runner_plus_extension ... ok
+test invocation::tests::script_run_detection_excludes_python_c ... ok
+test interface::tests::resolves_local_interface_fields_and_assets ... ok
+test interface::tests::drops_invalid_fields_without_discarding_valid_interface_fields ... ok
+test loading::tests::skill_root_loader_supports_shared_trait_objects ... ok
+test invocation::tests::skill_script_run_detection_matches_relative_path_from_skill_root ... ok
+test mentions::tests::plugin_config_names_ignore_mention_query_parameters ... ok
+test invocation::tests::skill_script_run_detection_matches_absolute_path_from_any_workdir ... ok
+test mentions::tests::plugin_config_names_require_a_plugin_identity ... ok
+test loading::tests::snapshot_handles_share_owner_managed_values_and_identity ... ok
+test model::tests::missing_policy_allows_implicit_invocation_and_all_products ... ok
+test mentions::tests::handles_many_sigils_without_looping ... ok
+test model::tests::policy_restricts_implicit_invocation_and_products ... ok
+test invocation::tests::skill_doc_read_detection_matches_absolute_path ... ok
+test invocation::tests::skill_doc_read_detection_matches_shared_read_parser ... ok
+test invocation::tests::windows_executor_skill_reads_share_powershell_classification ... ok
+test invocation::tests::powershell_skill_doc_read_matches_common_forms ... ok
+test parser::tests::uses_default_name_and_requires_description ... ok
+test mentions::tests::skips_common_env_vars ... ok
+test selection::tests::collect_explicit_skill_mentions_accepts_linked_discovery_path ... ok
+test mentions::tests::keeps_plugin_skill_namespaces ... ok
+test mentions::tests::stops_at_non_name_chars ... ok
+test mentions::tests::requires_link_syntax ... ok
+test mentions::tests::trims_linked_paths_and_allows_spacing ... ok
+test mentions::tests::requires_exact_name_boundaries ... ok
+test mentions::tests::handles_plain_and_linked_mentions ... ok
+test parser::tests::repairs_short_descriptions_containing_colons_and_apostrophes ... ok
+test parser::tests::preserves_block_scalar_bodies_while_repairing_other_fields ... ok
+test selection::tests::collect_explicit_skill_mentions_dedupes_by_path ... ok
+test parser::tests::repairs_unrecognized_frontmatter_fields_that_need_quotes ... ok
+test selection::tests::collect_explicit_skill_mentions_accepts_structured_discovery_path ... ok
+test parser::tests::parses_repairs_and_sanitizes_frontmatter ... ok
+test selection::tests::collect_explicit_skill_mentions_allows_explicit_path_with_connector_conflict ... ok
+test selection::tests::collect_explicit_skill_mentions_matches_windows_path_identity ... ok
+test parser::tests::preserves_overlong_descriptions_and_short_descriptions ... ok
+test selection::tests::collect_explicit_skill_mentions_rejects_disabled_discovery_path ... ok
+test selection::tests::collect_explicit_skill_mentions_skips_disabled_structured_and_blocks_plain_fallback ... ok
+test selection::tests::collect_explicit_skill_mentions_prefers_linked_path_over_name ... ok
+test selection::tests::collect_explicit_skill_mentions_skips_ambiguous_name ... ok
+test selection::tests::collect_explicit_skill_mentions_preserves_native_uri_characters ... ok
+test selection::tests::collect_explicit_skill_mentions_prioritizes_structured_inputs ... ok
+test selection::tests::collect_explicit_skill_mentions_prefers_resource_path ... ok
+test selection::tests::collect_explicit_skill_mentions_skips_missing_path_with_no_fallback ... ok
+test selection::tests::collect_explicit_skill_mentions_rejects_disabled_windows_path_identity ... ok
+test selection::tests::collect_explicit_skill_mentions_skips_when_linked_path_disabled ... ok
+test selection::tests::collect_explicit_skill_mentions_skips_plain_name_when_connector_matches ... ok
+test selection::tests::collect_explicit_skill_mentions_skips_missing_path_without_fallback ... ok
+test selection::tests::collect_explicit_skill_mentions_text_respects_skill_order ... ok
+test selection::tests::collect_explicit_skill_mentions_skips_invalid_structured_and_blocks_plain_fallback ... ok
+test tests::fingerprint_traverses_nested_entries ... ok
+
+test result: ok. 54 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: 1 target failed:
+    `-p codex-mcp --lib`

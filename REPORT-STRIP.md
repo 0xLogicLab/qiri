@@ -37,3 +37,11 @@
 删除 analytics 的 HTTP 目标和 POST 实现及相应远程投递测试。保留本地聚合和显式调试文件 capture；正常运行不再创建 analytics 投递队列。删除 Statsig 的官方 OTLP 地址和内置 Key，默认 metrics exporter 为 none，用户显式配置的 OTLP collector 保留。兼容内部 Statsig 枚举/旧配置值仍存在，但解析结果恒为 None，无法构造官方 exporter；这不是已删除所有账号用量界面的声明。
 
 验证：`cargo test --offline --no-fail-fast -p codex-feedback -p codex-analytics -p codex-otel --lib`：分别 26、126、36 通过，otel 另 1 忽略，无失败。完整日志见 strip-evidence/item6-tests.log。
+
+### 3. 官方文档源
+
+删除内置 openai-docs 技能（含下载脚本、参考资料、资源和专属测试）及 MCP 的官方文档源归因/改写包装。通用 HTTP MCP 和本地技能发现保留。沙箱/配置/feature 帮助说明改为本项目文档；TUI 的 MCP / memories 帮助链接指向本仓库。
+
+验证：features 47、sandboxing 83、skills 54 个测试通过。MCP 初跑缺少 CLI 可执行文件；构建 CLI 后直接重跑同一测试二进制，279 个测试全部通过。config 402 个测试中 399 通过、3 失败；已在当前工作区内以 `git archive 7c3786d` 提取专项基线复跑，402 个逐项结果完全相同（config-baseline-comparison.json）。三项均为此前 QIRI/Codex 文案不一致，不为本项更改测试掩盖基线失败。
+
+其他账号引导中的官方文档链接尚随账号界面保留，列入最终审计的未完成项；本节不宣称全部文案清理完成。
