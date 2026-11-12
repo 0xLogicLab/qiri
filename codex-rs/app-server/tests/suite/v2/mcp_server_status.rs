@@ -539,8 +539,7 @@ fn assert_dynamic_status(response: &ListMcpServerStatusResponse, process_label: 
 }
 
 #[tokio::test]
-async fn oauth_login_automatically_selects_callback_specific_cimd_without_metadata_issuer()
--> Result<()> {
+async fn oauth_login_uses_dynamic_registration_without_metadata_issuer() -> Result<()> {
     let responses_server = create_mock_responses_server_sequence_unchecked(Vec::new()).await;
     let listener = TcpListener::bind("127.0.0.1:0").await?;
     let base_url = format!("http://{}", listener.local_addr()?);
@@ -557,7 +556,7 @@ async fn oauth_login_automatically_selects_callback_specific_cimd_without_metada
     let registration_count = Arc::clone(&registrations);
     let (token_request_tx, mut token_request_rx) = mpsc::unbounded_channel();
     let (mcp_authorization_tx, mut mcp_authorization_rx) = mpsc::unbounded_channel();
-    let tool_name = Arc::new("cimd".to_string());
+    let tool_name = Arc::new("local".to_string());
     let mcp_service = StreamableHttpService::new(
         move || {
             Ok(McpStatusServer {
@@ -600,7 +599,7 @@ async fn oauth_login_automatically_selects_callback_specific_cimd_without_metada
                 let registrations = Arc::clone(&registration_count);
                 async move {
                     registrations.fetch_add(1, Ordering::SeqCst);
-                    Json(json!({"client_id": "unexpected-dcr-client"}))
+                    Json(json!({"client_id": "local-dcr-client"}))
                 }
             }),
         )
@@ -617,7 +616,7 @@ async fn oauth_login_automatically_selects_callback_specific_cimd_without_metada
                             .map(str::to_string),
                     ));
                     Json(json!({
-                        "access_token": "cimd-access-token",
+                        "access_token": "local-access-token",
                         "token_type": "Bearer",
                         "expires_in": 3600,
                         "refresh_token": "test-refresh-token",
@@ -633,7 +632,7 @@ async fn oauth_login_automatically_selects_callback_specific_cimd_without_metada
     let codex_home = TempDir::new()?;
     mock_responses_config(&responses_server.uri())
         .with_extra_config(&format!(
-            "mcp_oauth_credentials_store = \"file\"\n[mcp_servers.cimd]\nurl = \"{base_url}/mcp\""
+            "mcp_oauth_credentials_store = \"file\"\n[mcp_servers.local]\nurl = \"{base_url}/mcp\""
         ))
         .write(codex_home.path())?;
     let mut app_server = TestAppServer::builder()
@@ -645,7 +644,7 @@ async fn oauth_login_automatically_selects_callback_specific_cimd_without_metada
     let request_id = app_server
         .send_raw_request(
             "mcpServer/oauth/login",
-            Some(json!({"name": "cimd", "timeoutSecs": 10})),
+            Some(json!({"name": "local", "timeoutSecs": 10})),
         )
         .await?;
     let response: McpServerOauthLoginResponse =
@@ -657,21 +656,21 @@ async fn oauth_login_automatically_selects_callback_specific_cimd_without_metada
         .collect::<BTreeMap<String, String>>();
     let redirect_uri = parameters["redirect_uri"].clone();
     let mut callback_url = Url::parse(&redirect_uri)?;
-    let callback_id = callback_url
+    let _callback_id = callback_url
         .path()
         .strip_prefix("/callback/")
-        .expect("issuerless CIMD should use a resource-specific callback");
-    let client_id = format!("https://chatgpt.com/oauth/codex/{callback_id}/client.json");
+        .expect("issuerless OAuth should use a resource-specific callback");
+    let client_id = "local-dcr-client".to_string();
     assert_eq!(parameters.get("client_id"), Some(&client_id));
     assert_eq!(
         parameters.get("code_challenge_method").map(String::as_str),
         Some("S256")
     );
-    assert_eq!(registrations.load(Ordering::SeqCst), 0);
+    assert_eq!(registrations.load(Ordering::SeqCst), 1);
 
     callback_url
         .query_pairs_mut()
-        .append_pair("code", "cimd-authorization-code")
+        .append_pair("code", "local-authorization-code")
         .append_pair("state", &parameters["state"]);
     HttpClientBuilder::new()
         .build_direct()?
@@ -682,7 +681,7 @@ async fn oauth_login_automatically_selects_callback_specific_cimd_without_metada
     let (token_request, token_authorization) =
         timeout(DEFAULT_READ_TIMEOUT, token_request_rx.recv())
             .await?
-            .expect("CIMD authorization should exchange its authorization code");
+            .expect("OAuth authorization should exchange its authorization code");
     let token_parameters = url::form_urlencoded::parse(token_request.as_bytes())
         .into_owned()
         .collect::<BTreeMap<String, String>>();
@@ -707,14 +706,14 @@ async fn oauth_login_automatically_selects_callback_specific_cimd_without_metada
     assert_eq!(
         completed,
         McpServerOauthLoginCompletedNotification {
-            name: "cimd".to_string(),
+            name: "local".to_string(),
             thread_id: None,
             login_id: response.login_id,
             success: true,
             error: None,
         }
     );
-    assert_eq!(registrations.load(Ordering::SeqCst), 0);
+    assert_eq!(registrations.load(Ordering::SeqCst), 1);
 
     let request_id = app_server
         .send_raw_request("config/mcpServer/reload", /*params*/ None)
@@ -740,9 +739,9 @@ async fn oauth_login_automatically_selects_callback_specific_cimd_without_metada
         timeout(DEFAULT_READ_TIMEOUT, mcp_authorization_rx.recv())
             .await?
             .expect("MCP startup should use the access token"),
-        "Bearer cimd-access-token"
+        "Bearer local-access-token"
     );
-    assert_eq!(registrations.load(Ordering::SeqCst), 0);
+    assert_eq!(registrations.load(Ordering::SeqCst), 1);
 
     oauth_server_handle.abort();
     let _ = oauth_server_handle.await;

@@ -177,7 +177,7 @@ pub struct AddMcpStreamableHttpArgs {
     #[arg(
         long = "oauth-client-registration",
         value_enum,
-        value_name = "AUTO|CIMD|DCR",
+        value_name = "AUTO|DCR",
         requires = "url"
     )]
     pub oauth_client_registration: Option<McpOAuthClientRegistrationArg>,
@@ -190,7 +190,6 @@ pub struct AddMcpStreamableHttpArgs {
 #[derive(Debug, Clone, Copy, clap::ValueEnum)]
 pub enum McpOAuthClientRegistrationArg {
     Auto,
-    Cimd,
     Dcr,
 }
 
@@ -198,7 +197,6 @@ impl From<McpOAuthClientRegistrationArg> for McpOAuthClientRegistration {
     fn from(value: McpOAuthClientRegistrationArg) -> Self {
         match value {
             McpOAuthClientRegistrationArg::Auto => Self::Auto,
-            McpOAuthClientRegistrationArg::Cimd => Self::Cimd,
             McpOAuthClientRegistrationArg::Dcr => Self::Dcr,
         }
     }
@@ -227,7 +225,7 @@ pub struct LoginArgs {
     #[arg(
         long = "oauth-client-registration",
         value_enum,
-        value_name = "AUTO|CIMD|DCR"
+        value_name = "AUTO|DCR"
     )]
     pub oauth_client_registration: Option<McpOAuthClientRegistrationArg>,
 }
@@ -399,7 +397,7 @@ async fn run_add(config: &Config, add_args: AddArgs) -> Result<()> {
         }
     };
 
-    // DCR and CIMD register their callbacks during login; only an existing
+    // Dynamic registration registers their callbacks during login; only an existing
     // client ID has a redirect that must be persisted with the MCP server.
     let callback_url = oauth_client_id
         .as_ref()

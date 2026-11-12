@@ -1171,8 +1171,17 @@ fn ensure_auth_workspace_allowed(
     expected_workspace_ids: Option<&[String]>,
     account_id: &str,
 ) -> std::io::Result<()> {
-    crate::server::ensure_workspace_account_allowed(expected_workspace_ids, account_id)
-        .map_err(|message| std::io::Error::new(std::io::ErrorKind::PermissionDenied, message))
+    if expected_workspace_ids.is_none_or(|ids| ids.iter().any(|id| id == account_id)) {
+        Ok(())
+    } else {
+        Err(std::io::Error::new(
+            std::io::ErrorKind::PermissionDenied,
+            format!(
+                "Login is restricted to workspace id(s) {}.",
+                expected_workspace_ids.unwrap_or_default().join(", ")
+            ),
+        ))
+    }
 }
 
 fn ensure_agent_identity_workspace_allowed(

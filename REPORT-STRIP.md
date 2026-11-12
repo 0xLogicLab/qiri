@@ -51,3 +51,15 @@
 删除 WebRTC sideband 隐式指向官方 API 的地址；默认随已选择 provider 的 base_url，保留显式 sideband override，以支持本地/自建端点。对应测试改为 loopback 地址并验证路径。没有删除 Realtime 请求/流式事件结构，也没有删除自定义 provider 可提供的 web search、image generation、remote compaction 协议与执行能力。其官方默认 provider 和其他仅官方服务能力尚未全部清理，不计为已完成整项 4。
 
 验证：`cargo test --offline --no-fail-fast -p codex-login -p codex-rmcp-client -p codex-api --lib` 中 codex-api 全部 200 个测试通过（同次运行 login 222、rmcp-client 260 通过，另 1 忽略）。
+
+### 1a. 官方交互登录与已禁用账号处理实现
+
+删除 login crate 的浏览器 OAuth HTTP server、设备码流程、登录回调/成功页、HTML 资源、相应集成测试与 Bazel compile_data；移除专属模板/urlencoding 依赖。保留 API Key、通用自定义 OAuth、密钥存储与共享 HTTP 认证基础。原 server 内的工作区 ID 校验移到共享认证代码，保留错误语义。
+
+删除 app-server 的浏览器/设备码/ChatGPT token 登录方法、账号切换实现、已禁用的用量/额度重置/订阅邮件/工作区消息请求实现及其专属测试。旧 JSON-RPC 账号登录/订阅请求原本已经不支持，仍由分发器明确拒绝。API Key 自定义端点接入方式不变。
+
+同时删除 MCP OAuth 的 ChatGPT 托管 CIMD 地址、选择逻辑和 CLI 选项；自动注册使用目标服务的 DCR，保留已有 client ID 与用户自己的 OAuth 服务。app-server 的旧 CIMD 枚举为兼容纯数据定义保留，旧请求明确提示使用 auto / dcr；不再构造托管 metadata URL。协议/生成镜像未删，34 项保留数据类型逐条列在 strip-evidence/retained-schema.tsv。
+
+验证：login 全部 222 个、rmcp-client 全部 260 个测试通过（另 1 个子进程辅助测试忽略）。扩大 app-server 测试发现的旧枚举映射及测试导入问题已修正，最终交付检查/测试结果另列。
+
+**未完成**：AuthManager 内的官方刷新/撤销、agent-identity/PAT/workload identity、云配置与 workspace routing、连接器以及 TUI 账号/订阅视图仍有实现。这些不是允许保留的本地模型协议例外，不能据本节将项目 1 判定为完成。

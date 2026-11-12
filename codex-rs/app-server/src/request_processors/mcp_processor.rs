@@ -302,7 +302,11 @@ impl McpRequestProcessor {
             let oauth_credential_name = server.oauth_credential_name(&name);
             let client_registration = match client_registration.unwrap_or_default() {
                 McpServerOauthClientRegistration::Auto => McpOAuthClientRegistration::Auto,
-                McpServerOauthClientRegistration::Cimd => McpOAuthClientRegistration::Cimd,
+                McpServerOauthClientRegistration::Cimd => {
+                    return Err(invalid_request(
+                        "Hosted OAuth client metadata is not supported; use auto or dcr registration",
+                    ));
+                }
                 McpServerOauthClientRegistration::Dcr => McpOAuthClientRegistration::Dcr,
             };
             let callback_url =
