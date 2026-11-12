@@ -1,0 +1,7 @@
+
+running 2 tests
+test tests::register_task_request_uses_single_run_task_shape ... ok
+test tests::authorization_header_for_agent_task_serializes_signed_agent_assertion ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

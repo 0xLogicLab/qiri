@@ -1,0 +1,34 @@
+[
+  {
+    "entry": "login",
+    "exit_code": 1,
+    "message": [
+      "Error: `qiri login` is not supported by QIRI"
+    ],
+    "panicked": false
+  },
+  {
+    "entry": "logout",
+    "exit_code": 1,
+    "message": [
+      "Error: `qiri logout` is not supported by QIRI"
+    ],
+    "panicked": false
+  },
+  {
+    "entry": "cloud",
+    "exit_code": 1,
+    "message": [
+      "Error: `qiri cloud` is not supported by QIRI"
+    ],
+    "panicked": false
+  },
+  {
+    "entry": "cloud-tasks",
+    "exit_code": 1,
+    "message": [
+      "Error: `qiri cloud-tasks` is not supported by QIRI"
+    ],
+    "panicked": false
+  }
+]

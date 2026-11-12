@@ -1,0 +1,21 @@
+{
+  "baseline_failures": [
+    "tests::app_server_subcommands_reject_strict_config",
+    "tests::plugin_marketplace_help_uses_plugin_namespace",
+    "tests::root_strict_config_is_rejected_for_unsupported_subcommands",
+    "tests::worktree_flag_rejects_unsupported_session_and_management_commands"
+  ],
+  "current_failures": [
+    "tests::app_server_subcommands_reject_strict_config",
+    "tests::plugin_marketplace_help_uses_plugin_namespace",
+    "tests::root_strict_config_is_rejected_for_unsupported_subcommands",
+    "tests::worktree_flag_rejects_unsupported_session_and_management_commands"
+  ],
+  "new_failures": [],
+  "failure_sets_identical": true,
+  "completed_summaries": [
+    "test result: ok. 323 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 4.92s",
+    "test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s",
+    "test result: FAILED. 285 passed; 4 failed; 1 ignored; 0 measured; 0 filtered out; finished in 1.65s"
+  ]
+}

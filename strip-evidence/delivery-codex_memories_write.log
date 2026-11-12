@@ -1,0 +1,54 @@
+
+running 49 tests
+test phase1::tests::count_outcomes_keeps_usage_empty_when_no_job_reports_it ... ok
+test phase1::tests::count_outcomes_sums_token_usage_across_all_jobs ... ok
+test extensions::prune::tests::parses_timestamp_prefix_from_resource_file_name ... ok
+test phase1::job::tests::output_schema_requires_rollout_slug_and_keeps_it_nullable ... ok
+test control::tests::clear_memory_root_contents_rejects_symlinked_root ... ok
+test extensions::ad_hoc::tests::seeds_instructions_without_overwriting_existing_file ... ok
+test control::tests::clear_memory_root_contents_preserves_root_directory ... ok
+test extensions::prune::tests::prunes_only_old_resources_from_extensions_with_instructions ... ok
+test prompts::tests::build_consolidation_prompt_points_to_workspace_diff_and_extension_tree ... ok
+test prompts::tests::build_stage_one_input_message_truncates_rollout_using_model_context_window ... ok
+test rollout_input::tests::classifies_memory_excluded_fragments ... ok
+test phase1::tests::serializes_memory_rollout_redacts_secrets_before_prompt_upload ... ok
+test phase1::tests::serializes_agent_message_response_items_for_memory ... ok
+test phase1::tests::serializes_inter_agent_communications_for_memory ... ok
+test phase1::tests::serializes_memory_rollout_with_agents_removed_but_environment_kept ... ok
+test rollout_input::tests::extraction_chunks_preserve_unicode_evidence_with_bounded_messages ... ok
+test prompts::tests::build_stage_one_input_message_uses_default_limit_when_model_context_window_missing ... ok
+test rollout_input::tests::recent_rollout_items_bound_history_and_preserve_newest_records ... ok
+test phase2::sandbox_tests::consolidation_uses_canonical_parent_enforcement ... ok
+test phase2::workspace_roots_tests::consolidation_rebinds_workspace_roots_to_memory_root ... ok
+test startup_tests::memories_startup_creates_memory_root ... ok
+test startup_tests::dual_write_prepares_both_roots_without_importing_old_notes ... ok
+test startup_tests::memories_startup_phase1_explicit_model_override_drives_request_model ... ok
+test startup_tests::memories_startup_phase1_uses_live_thread_service_tier_and_detached_metadata ... ok
+test startup_tests::memories_startup_phase1_provider_default_drives_request_model ... ok
+test startup_tests::memories_startup_phase2_prunes_old_extension_resources_without_stage1_input ... ok
+test startup_tests::memories_startup_phase2_explicit_model_override_drives_request_model ... ok
+test startup_tests::memories_startup_phase2_prunes_old_extension_resources ... ok
+test startup_tests::memories_startup_phase1_v2_preserves_human_evidence_and_redacts_storage ... ok
+test startup_tests::memories_startup_removes_symlinked_extensions_before_seeding ... ok
+test startup_tests::memories_startup_phase2_v2_consolidates_without_a_handbook ... ok
+test storage::tests::rollout_summary_file_stem_sanitizes_and_truncates_slug ... ok
+test storage::tests::rollout_summary_file_stem_uses_uuid_timestamp_and_hash_when_slug_is_empty ... ok
+test storage::tests::rollout_summary_file_stem_uses_uuid_timestamp_and_hash_when_slug_missing ... ok
+test storage::tests::sync_rollout_summaries_and_raw_memories_file_keeps_latest_memories_only ... ok
+test workspace::tests::memory_storage_size_counts_nested_files_but_not_git_or_symlinks ... ok
+test workspace::tests::prepare_memory_workspace_recovers_unusable_git_dir ... ok
+test workspace::tests::previous_char_boundary_handles_multibyte_text ... ok
+test startup_tests::memories_startup_phase2_tracks_workspace_diff_across_runs ... ok
+test workspace::tests::render_workspace_diff_file_bounds_large_diff ... ok
+test workspace::tests::v2_accepts_summary_only_and_checks_its_format_and_size ... ok
+test workspace::tests::validate_consolidation_artifacts_rejects_invalid_summary ... ok
+test workspace::tests::reset_memory_workspace_baseline_removes_generated_diff ... ok
+test startup_tests::memories_startup_fails_consolidation_when_worker_creates_extension_symlink ... ok
+test startup_tests::memories_startup_phase2_uses_provider_model_and_standard_tier ... ok
+test startup_tests::phase2_replays_legacy_baseline_with_unchanged_inputs ... ok
+test startup_tests::phase2_retries_when_clean_workspace_is_missing_artifacts ... ok
+test startup_tests::dual_write::dual_write_runs_both_versions_until_v2_is_selected ... ok
+test startup_tests::memories_startup_phase2_scopes_stop_hooks ... ok
+
+test result: ok. 49 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 7.93s
+

@@ -1,0 +1,24 @@
+
+running 19 tests
+test bootstrap::tests::registration_decodes_composite_actor_contexts ... ok
+test bootstrap::tests::registration_serializes_the_supported_actor_authorizations ... ok
+test manager::tests::policy_recovery_preserves_pending_registration ... ok
+test manager::tests::projects_share_one_runtime_and_organization_changes_replace_it ... ok
+test manager::tests::new_request_uses_refreshed_credentials_without_replacing_the_runtime ... ok
+test registration::tests::new_initializations_use_new_keys_and_retry_ids ... ok
+test manager::tests::concurrent_requests_share_registration_and_replacement_preserves_in_flight_auth ... ok
+test registration::tests::registration_preserves_policy_revocation ... ok
+test registration::tests::registration_never_forwards_credentials_through_a_redirect ... ok
+test registration::tests::registration_rejects_unsafe_endpoints ... ok
+test manager::tests::failed_registration_does_not_poison_another_project_or_reuse_its_idempotency_key ... ok
+test registration::tests::registration_retries_keep_the_key_and_sign_fresh_assertions ... ok
+test manager::tests::registration_failure_reports_retryability ... ok
+test registration::tests::registration_rejects_incomplete_or_oversized_responses ... ok
+test manager::tests::recovery_is_bounded_and_revocation_cannot_trigger_reregistration ... ok
+test registration::tests::rejected_registration_preserves_only_status_and_known_error_codes ... ok
+test manager::tests::request_auth_replaces_stale_headers_and_signs_each_attempt ... ok
+test manager::tests::bootstrap_refresh_reuses_known_sources_but_replaces_sessionless_initialization ... ok
+test manager::tests::a_late_registration_cannot_publish_the_previous_actor ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.82s
+

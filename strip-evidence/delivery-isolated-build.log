@@ -1,0 +1,13 @@
+    Blocking waiting for file lock on artifact directory
+   Compiling codex-mcp-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/mcp)
+   Compiling codex-web-search-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/web-search)
+   Compiling codex-guardian-v2 v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/guardian-v2)
+   Compiling codex-app-server-transport v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-transport)
+   Compiling codex-cloud-config v0.0.0 (/home/sig/files/qiri-release/codex-rs/cloud-config)
+   Compiling codex-image-generation-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/image-generation)
+   Compiling codex-app-server v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server)
+   Compiling codex-app-server-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-client)
+   Compiling codex-tui v0.0.0 (/home/sig/files/qiri-release/codex-rs/tui)
+   Compiling codex-exec-server-cli v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server-cli)
+   Compiling codex-core v0.0.0 (/home/sig/files/qiri-release/codex-rs/core)
+    Finished `test` profile [unoptimized] target(s) in 10m 33s

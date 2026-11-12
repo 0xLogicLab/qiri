@@ -1,0 +1,3 @@
+
+running 1 test
+test ide_context::ipc::tests::fetch_ide_context_does_not_fall_back_after_primary_protocol_error ... 

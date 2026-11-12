@@ -1,0 +1,29 @@
+
+running 24 tests
+test command::tests::exec_server_forward_parses_shared_remote_options ... ok
+test command::tests::exec_server_parses_executor_credential_options ... ok
+test command::tests::exec_server_parses_direct_aws_options ... ok
+test command::tests::remote_forwarder_skips_cloud_config ... ok
+test command::tests::exec_server_transport_and_aws_options_require_registration_arguments ... ok
+test command::tests::exec_server_defaults_preserve_local_and_noise_modes ... ok
+test command::tests::exec_server_rejects_missing_or_conflicting_remote_options ... ok
+test command::tests::exec_server_direct_forwarding_remains_rejected ... ok
+test command::tests::exec_server_sigv4_does_not_enable_aws_auth_for_noise ... ok
+test config::tests::exec_server_remote_api_key_auth_rejects_http_openai_domain ... ok
+test config::tests::exec_server_remote_api_key_auth_accepts_explicit_custom_https_endpoint ... ok
+test config::tests::exec_server_remote_api_key_auth_accepts_http_loopback ... ok
+test config::tests::exec_server_remote_api_key_auth_accepts_https_openai_domains ... ok
+test config::tests::exec_server_remote_auth_accepts_api_key_auth ... ok
+test exec_server_auth::tests::invalid_signing_configuration_is_rejected ... ok
+test exec_server_credential::tests::expiry_is_checked_again_on_every_request ... ok
+test exec_server_credential::tests::eof_before_a_complete_frame_never_authenticates ... ok
+test exec_server_auth::tests::invalid_signing_request_is_a_permanent_auth_error ... ok
+test exec_server_telemetry::tests::parent_disconnect_still_stops_executor_after_signal_listener_error ... ok
+test exec_server_credential::tests::parser_rejects_unsupported_schema_without_exposing_input ... ok
+test exec_server_credential::tests::malformed_rotations_latch_failure_and_clear_existing_credential ... ok
+test exec_server_credential::tests::waits_for_initial_rotation_replaces_token_and_eof_clears_auth ... ok
+test exec_server_auth::tests::signs_requests_without_changing_payload_or_metadata ... ok
+test command::tests::standalone_help_documents_executor_options ... ok
+
+test result: ok. 24 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.28s
+

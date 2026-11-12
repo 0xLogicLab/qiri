@@ -1,0 +1,15 @@
+
+running 1 test
+test app::tests::in_app_resume_uses_configured_or_explicit_cwd ... 
+thread 'app::tests::in_app_resume_uses_configured_or_explicit_cwd' (914817) panicked at tui/src/app/tests.rs:8960:9:
+resume fixture must activate its explicit local provider: Some(ModelProviderNotConfigured { model_provider: "openai" })
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+[0 qFAILED
+
+failures:
+
+failures:
+    app::tests::in_app_resume_uses_configured_or_explicit_cwd
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 5609 filtered out; finished in 0.30s
+

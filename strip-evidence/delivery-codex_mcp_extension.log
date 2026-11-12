@@ -1,0 +1,31 @@
+
+running 26 tests
+test cloud_plugin::tests::account_change_clears_hosted_plugins_before_waiting_for_executor ... ok
+test cloud_plugin::tests::cloud_discovery_selects_regular_task_phase ... ok
+test cloud_plugin::tests::cloud_refresh_serializes_waiters_and_retries ... ok
+test cloud_plugin::tests::disabling_plugins_clears_cloud_catalog_and_skips_discovery ... ok
+test plugin::discovery::tests::merged_mcp_declarations_require_an_executor_location ... ok
+test plugin::provider::tests::malformed_declared_config_is_an_error ... ok
+test plugin::provider::tests::malformed_manifest_object_config_reports_actual_manifest_path ... ok
+test plugin::provider::tests::missing_default_config_is_empty ... ok
+test plugin::provider::tests::reads_declared_config_only_through_executor_file_system ... ok
+test plugin::provider::tests::reads_manifest_object_config_without_executor_file_system_access ... ok
+test plugin_contributor_state::tests::executor_refresh_preserves_order_and_removes_stale_entries ... ok
+test plugin_contributor_state::tests::partial_refresh_retains_entries_without_excluding_new_executor_plugins ... ok
+test plugin_contributor_state::tests::projection_respects_discovery_mode_and_preserves_enabled_plugins ... ok
+test tests::event_stream_tests::apps_resource_discovery_discards_invalidated_page ... ok
+test tests::event_stream_tests::apps_resource_discovery_discards_page_after_account_switch ... ok
+test tests::event_stream_tests::apps_resource_discovery_during_initial_tools_list ... ok
+test tests::event_stream_tests::apps_resource_discovery_multiplexes_catalogs_while_tools_list_is_pending ... ok
+test tests::event_stream_tests::apps_resource_discovery_observes_cancellation_after_inventory_finishes ... ok
+test tests::event_stream_tests::apps_resource_discovery_propagates_initial_tools_list_failure ... ok
+test tests::event_stream_tests::apps_resource_discovery_times_out_during_stalled_initialization ... ok
+test tests::event_stream_tests::event_connections_after_runtime_shutdown_do_not_inject_retired_account_tokens ... ok
+test tests::stream_manager_tests::access_changes_cancel_streams_with_full_output ... ok
+test tests::stream_manager_tests::cancelling_before_activation_releases_the_subscription_id ... ok
+test tests::stream_manager_tests::queued_updates_keep_their_stream_attempt_after_replacement ... ok
+test tests::stream_manager_tests::reloaded_tasks_can_cancel_surviving_streams ... ok
+test tests::stream_manager_tests::streams_outlive_tasks_and_activate_with_full_output ... ok
+
+test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.29s
+

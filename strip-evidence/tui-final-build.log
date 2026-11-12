@@ -1,0 +1,5 @@
+   Compiling codex-app-server v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server)
+   Compiling codex-app-server-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-client)
+   Compiling codex-tui v0.0.0 (/home/sig/files/qiri-release/codex-rs/tui)
+   Compiling codex-exec-server-cli v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server-cli)
+    Finished `test` profile [unoptimized] target(s) in 4m 15s

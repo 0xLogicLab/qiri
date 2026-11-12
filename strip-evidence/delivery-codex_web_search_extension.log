@@ -1,0 +1,15 @@
+
+running 10 tests
+test extension::tests::external_web_access_preserves_legacy_values_until_indexed ... ok
+test tool::tests::search_errors_preserve_short_messages_and_bound_utf8_output ... ok
+test output::tests::reports_search_status_for_logging_and_downstream_handling ... ok
+test tool::tests::rejects_literature_search_without_the_model_capability ... ok
+test tool::tests::command_action_reports_queries_and_navigation_detail ... ok
+test history::tests::keeps_only_text_from_recent_user_messages ... ok
+test history::tests::keeps_current_user_and_previous_visible_turn ... ok
+test tool::tests::search_request_headers_forward_thread_originator_and_turn_metadata ... ok
+test history::tests::ignores_contextual_user_messages_when_selecting_recent_turns ... ok
+test extension::tests::installed_extension_contributes_web_run_when_enabled ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

@@ -1,0 +1,10 @@
+{
+  "mode": "real inference using existing Qiri profile",
+  "endpoint_is_loopback": false,
+  "credentials_persisted": false,
+  "binary_sha256": "ca52558d32aebbb4c821b4c03de330fae7c63d65570ded0358afcedb840b8af0",
+  "exit_code": 0,
+  "tool_executed": true,
+  "final_marker": true,
+  "elapsed_seconds": 3.63
+}

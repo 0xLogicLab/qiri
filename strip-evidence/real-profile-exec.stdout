@@ -1,0 +1,7 @@
+{"type":"thread.started","thread_id":"01a1d06e-a9f0-73b2-ad48-1ad0fc94113f"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Model metadata for `<configured_model>` not found. Defaulting to fallback metadata; this can degrade performance and cause issues."}}
+{"type":"turn.started"}
+{"type":"item.started","item":{"id":"item_1","type":"command_execution","command":"/bin/bash -lc 'echo QIRI_REAL_EXEC_OK'","aggregated_output":"","exit_code":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_1","type":"command_execution","command":"/bin/bash -lc 'echo QIRI_REAL_EXEC_OK'","aggregated_output":"QIRI_REAL_EXEC_OK\n","exit_code":0,"status":"completed"}}
+{"type":"item.completed","item":{"id":"item_2","type":"agent_message","text":"QIRI_REAL_EXEC_DONE"}}
+{"type":"turn.completed","usage":{"input_tokens":17039,"cached_input_tokens":17037,"cache_write_input_tokens":0,"output_tokens":58,"reasoning_output_tokens":0}}

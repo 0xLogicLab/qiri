@@ -1,0 +1,16 @@
+{
+  "helper": "codex-code-mode-host",
+  "unchanged_since_strip_baseline": true,
+  "resource": "src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.rs",
+  "version": "152.2.0",
+  "public_sources_checked": [
+    "github.com/denoland/rusty_v8",
+    "github.com/seanh-oai/rusty_v8"
+  ],
+  "http_results": [
+    404,
+    404
+  ],
+  "build_terminated_after_seconds_over": 420,
+  "effect": "Optional test helper not built; CLI and MCP test helper binaries were generated. Compare affected test failures against baseline."
+}

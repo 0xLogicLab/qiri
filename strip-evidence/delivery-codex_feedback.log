@@ -1,0 +1,31 @@
+
+running 26 tests
+test feedback_diagnostics::tests::collect_from_pairs_ignores_absent_values ... ok
+test feedback_diagnostics::tests::collect_from_pairs_preserves_whitespace_and_empty_values ... ok
+test feedback_diagnostics::tests::collect_from_pairs_reports_raw_values_and_attachment ... ok
+test feedback_diagnostics::tests::collect_from_pairs_reports_values_verbatim ... ok
+test guardian::tests::records_keep_recent_failures_and_select_the_requested_tree ... ok
+test daemon_logs::tests::collects_bounded_tails_and_skips_missing_empty_and_nonregular_files ... ok
+test tests::feedback_attachments_gate_connectivity_diagnostics ... ok
+test tests::feedback_event_tests::custom_titles_preserve_comments_and_keep_submissions_separate ... ok
+test tests::feedback_event_tests::missing_or_blank_titles_preserve_session_titles_and_default_grouping ... ok
+test tests::feedback_event_tests::reason_tag_previews_preserve_full_comments_in_the_exception ... ok
+test tests::metadata_layer_records_tags_from_feedback_target ... ok
+test tests::logger_layer_filters_noisy_trace_payloads ... ok
+test tests::metadata_tests::bounded_dynamic_tags_still_update_existing_values ... ok
+test archive::tests::archive_preserves_selected_bytes_and_safe_names ... ok
+test tests::metadata_tests::refreshing_logs_preserves_captured_metadata ... ok
+test tests::ring_buffer_drops_front_when_full ... ok
+test tests::path_backed_attachments_use_binary_content_types ... ok
+test tests::metadata_tests::dynamic_tags_survive_upload_alongside_static_fields ... ok
+test tests::upload_tags_include_client_tags_and_preserve_reserved_fields ... ok
+test tests::save_rollout_tests::save_bounds_files_before_reading_or_compression ... ok
+test guardian::tests::record_count_and_bytes_are_bounded_across_threads ... ok
+test archive::tests::archive_bounds_all_contents_and_cleans_failed_exports ... ok
+test archive::tests::save_preserves_report_and_log_consent ... ok
+test archive::tests::save_rejects_oversized_events_without_publishing ... ok
+test tests::save_rollout_tests::save_preserves_duplicate_names_and_rejects_missing_selected_files ... ok
+test guardian::tests::busy_storage_retains_feedback_without_delaying_review_completion ... ok
+
+test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.61s
+

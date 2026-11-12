@@ -1,35 +1,75 @@
 file	line	type	what	reason_and_runtime
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	76	LoginAccountParams	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	138	LoginAppBrand	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	148	LoginAccountResponse	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	183	CancelLoginAccountParams	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	191	CancelLoginAccountStatus	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	199	CancelLoginAccountResponse	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	206	AccountSessionsAddParams	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	214	AccountSessionsListParams	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	222	AccountSessionsLogoutParams	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	229	AccountSessionsSwitchParams	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	243	AccountSessionsSwitchResponse	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	255	AccountSessionsResponse	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	263	AccountSession	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	278	AccountSessionWorkspace	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	288	AccountSessionWorkspaceKind	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	345	GetAccountRateLimitsParams	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	361	GetAccountRateLimitsResponse	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	380	RateLimitResetCreditsSummary	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	393	RateLimitResetCredit	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	413	RateLimitResetType	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	422	RateLimitResetCreditStatus	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	433	ConsumeAccountRateLimitResetCreditParams	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	446	ConsumeAccountRateLimitResetCreditResponse	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	453	ConsumeAccountRateLimitResetCreditOutcome	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	467	GetAccountTokenUsageParams	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	478	GetAccountTokenUsageResponse	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	490	GetWorkspaceMessagesResponse	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	500	WorkspaceMessage	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	515	WorkspaceMessageType	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	544	SendAddCreditsNudgeEmailParams	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	551	AddCreditsNudgeCreditType	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	559	SendAddCreditsNudgeEmailResponse	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/account.rs	566	AddCreditsNudgeEmailStatus	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
-codex-rs/app-server-protocol/src/protocol/v2/mcp.rs	314	McpServerOauthClientRegistration	纯请求/响应数据定义及生成镜像；不含 HTTP 客户端	旧客户端兼容；对应已删处理路径不执行官方请求；其余账号运行实现仍未完成清理
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	22	Account	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。 TUI 用 GetAuthStatus 合成本地 API-key 状态；不再请求 account/read。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	76	LoginAccountParams	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。 ApiKey 变体仍调用通用密钥保存；Chatgpt/DeviceCode/AuthTokens 明确拒绝。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	138	LoginAppBrand	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	148	LoginAccountResponse	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	183	CancelLoginAccountParams	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	191	CancelLoginAccountStatus	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	199	CancelLoginAccountResponse	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	206	AccountSessionsAddParams	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	214	AccountSessionsListParams	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	222	AccountSessionsLogoutParams	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	229	AccountSessionsSwitchParams	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	243	AccountSessionsSwitchResponse	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	255	AccountSessionsResponse	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	263	AccountSession	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	278	AccountSessionWorkspace	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	288	AccountSessionWorkspaceKind	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	296	LogoutAccountResponse	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	301	ChatgptAuthTokensRefreshReason	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	309	ChatgptAuthTokensRefreshParams	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	325	ChatgptAuthTokensRefreshResponse	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	345	GetAccountRateLimitsParams	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	361	GetAccountRateLimitsResponse	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	380	RateLimitResetCreditsSummary	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	393	RateLimitResetCredit	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	413	RateLimitResetType	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	422	RateLimitResetCreditStatus	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	433	ConsumeAccountRateLimitResetCreditParams	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	446	ConsumeAccountRateLimitResetCreditResponse	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	453	ConsumeAccountRateLimitResetCreditOutcome	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	467	GetAccountTokenUsageParams	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	478	GetAccountTokenUsageResponse	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	490	GetWorkspaceMessagesResponse	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	500	WorkspaceMessage	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	515	WorkspaceMessageType	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	525	AccountTokenUsageSummary	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	536	AccountTokenUsageDailyBucket	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	544	SendAddCreditsNudgeEmailParams	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	551	AddCreditsNudgeCreditType	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	559	SendAddCreditsNudgeEmailResponse	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	566	AddCreditsNudgeEmailStatus	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	574	GetAccountParams	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	587	GetAccountResponse	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	597	WorkspaceRouting	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	607	AccountRoutingOverride	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	618	AccountUpdatedNotification	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	626	GatewayOAuthStatus	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	636	GatewayOAuthChangedNotification	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	659	GatewayOAuthReadResponse	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	672	GatewayOAuthLoginResponse	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	677	GatewayOAuthCancelResponse	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	687	AccountRateLimitsUpdatedNotification	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	694	RateLimitSnapshot	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	731	RateLimitReachedType	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	782	RateLimitWindow	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	803	CreditsSnapshot	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	822	SpendControlLimitSnapshot	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	844	AccountLoginCompletedNotification	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/account.rs	857	DesktopOnboardingEntrypoint	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/apps.rs	12	AppsListParams	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/apps.rs	31	AppsInstalledParams	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/apps.rs	45	InstalledApp	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/apps.rs	62	AppsInstalledResponse	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/apps.rs	70	AppBranding	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/apps.rs	82	AppReview	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/apps.rs	89	AppScreenshot	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/apps.rs	100	AppMetadata	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。 显式自建 MCP/本地插件可携带同一元数据；不生成安装地址。
+codex-rs/app-server-protocol/src/protocol/v2/apps.rs	118	AppInfo	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。 显式自建 MCP/本地插件可携带同一元数据；不生成安装地址。
+codex-rs/app-server-protocol/src/protocol/v2/apps.rs	176	AppsReadParams	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/apps.rs	192	AppToolSummary	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。 显式自建 MCP/本地插件可携带同一元数据；不生成安装地址。
+codex-rs/app-server-protocol/src/protocol/v2/apps.rs	207	ConnectorMetadata	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。 显式自建 MCP/本地插件可携带同一元数据；不生成安装地址。
+codex-rs/app-server-protocol/src/protocol/v2/apps.rs	224	AppsReadResponse	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/apps.rs	233	AppSummary	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。 显式自建 MCP/本地插件可携带同一元数据；不生成安装地址。
+codex-rs/app-server-protocol/src/protocol/v2/apps.rs	258	AppsListResponse	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。
+codex-rs/app-server-protocol/src/protocol/v2/apps.rs	269	AppListUpdatedNotification	纯数据定义；不保留对应官方服务	JSON-RPC/SDK 数据合同及生成镜像；删除会级联改变旧客户端 schema。无 HTTP 实现；服务请求由 app-server/src/message_processor.rs 拒绝，不构造官方目标。

@@ -1,0 +1,7 @@
+{
+  "test": "ide_context::ipc::tests::fetch_ide_context_does_not_fall_back_after_primary_protocol_error",
+  "baseline": "7c3786d",
+  "elapsed_seconds": 301,
+  "unchanged_by_strip": true,
+  "action": "terminate hung baseline suite; rerun excluding this case and test it separately"
+}

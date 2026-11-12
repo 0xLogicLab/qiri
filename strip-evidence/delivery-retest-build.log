@@ -1,0 +1,6 @@
+    Blocking waiting for file lock on artifact directory
+   Compiling codex-tui v0.0.0 (/home/sig/files/qiri-release/codex-rs/tui)
+   Compiling codex-guardian-v2 v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/guardian-v2)
+   Compiling codex-mcp-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/mcp)
+   Compiling codex-model-provider v0.0.0 (/home/sig/files/qiri-release/codex-rs/model-provider)
+    Finished `test` profile [unoptimized] target(s) in 5m 38s

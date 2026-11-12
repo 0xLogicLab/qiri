@@ -1,0 +1,6 @@
+{
+  "test": "environment_selection::connection_tests::lifecycle_waits_for_recovery::retry_exhaustion",
+  "exit": 124,
+  "elapsed_seconds": 45.01,
+  "source_unchanged_since_baseline": true
+}

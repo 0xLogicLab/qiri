@@ -1,9 +1,81 @@
 {
   "baseline": "7c3786d",
-  "scope": "product files, excluding REPORT-STRIP.md and strip-evidence",
-  "changed_files": 130,
-  "deleted_files": 71,
-  "added_lines": 219,
-  "deleted_lines": 21550,
-  "binary_files": 1
+  "scope": "Product source, tests, fixtures, documentation, and build configuration; reports and evidence excluded",
+  "files": 1128,
+  "added_files": 1,
+  "deleted_files": 323,
+  "modified_files": 804,
+  "insertions": 4579,
+  "deletions": 104514,
+  "commits": [
+    [
+      "1eec5a4",
+      "chore(strip): finish neutral fixtures and document local-only service defaults"
+    ],
+    [
+      "b459714",
+      "feat(strip): remove hosted backends and their TUI entry points"
+    ],
+    [
+      "91177ce",
+      "feat(strip): default resume validation to the local provider"
+    ],
+    [
+      "4c288e5",
+      "feat(strip): retire remaining PAT state and use configured auxiliary models"
+    ],
+    [
+      "182eaf3",
+      "feat(strip): remove official release sources and container API defaults"
+    ],
+    [
+      "33649f4",
+      "feat(strip): remove service identity transport and require explicit model endpoints"
+    ],
+    [
+      "72780e9",
+      "feat(strip): remove account cloud configuration and workspace routing"
+    ],
+    [
+      "52e972c",
+      "chore(strip): record validation evidence and unresolved service dependencies"
+    ],
+    [
+      "532713d",
+      "chore(strip): verify core does not upload retired analytics"
+    ],
+    [
+      "edc0521",
+      "chore(strip): remove upstream doctor update probes"
+    ],
+    [
+      "463aa37",
+      "feat(strip): delete official browser login and account service handlers"
+    ],
+    [
+      "9b1c6ad",
+      "feat(strip): route realtime sideband through the selected provider"
+    ],
+    [
+      "618b269",
+      "feat(strip): remove bundled official documentation sources"
+    ],
+    [
+      "b676faf",
+      "feat(strip): delete feedback and analytics network delivery"
+    ],
+    [
+      "155a3a1",
+      "feat(strip): remove official federation and defaults from Responses proxy"
+    ],
+    [
+      "df9b42f",
+      "feat(strip): remove cloud task crates and cloud diff commands"
+    ],
+    [
+      "0d1d0fa",
+      "chore(strip): inventory service dependencies and protocol boundary"
+    ]
+  ],
+  "phase_commit_tip": "1eec5a4"
 }

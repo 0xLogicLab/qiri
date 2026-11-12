@@ -1,0 +1,289 @@
+    Blocking waiting for file lock on artifact directory
+   Compiling tokio-util v0.7.18
+   Compiling writeable v0.6.2
+   Compiling zerotrie v0.2.4
+   Compiling env_logger v0.11.9
+   Compiling similar v2.7.0
+   Compiling prettyplease v0.2.37
+   Compiling potential_utf v0.1.4
+   Compiling icu_locale_core v2.2.0
+   Compiling quickcheck v1.1.0
+   Compiling icu_collections v2.2.0
+   Compiling h2 v0.4.19
+   Compiling tower v0.5.3
+   Compiling tokio-stream v0.1.18
+   Compiling rama-core v0.3.0-alpha.4
+   Compiling icu_provider v2.2.0
+   Compiling sorted_vector_map v0.2.1
+   Compiling icu_properties v2.2.0
+   Compiling icu_normalizer v2.2.0
+   Compiling tower-http v0.6.8
+   Compiling icu_locale v2.2.0
+   Compiling pagable v0.4.1
+   Compiling tokio-test v0.4.5
+   Compiling idna_adapter v1.2.1
+   Compiling rama-http-types v0.3.0-alpha.4
+   Compiling fixed_decimal v0.7.2
+   Compiling codex-async-utils v0.0.0 (/home/sig/files/qiri-release/codex-rs/async-utils)
+   Compiling idna v1.1.0
+   Compiling icu_decimal v2.2.0
+   Compiling opentelemetry_sdk v0.31.0
+   Compiling url v2.5.8
+   Compiling hyper v1.11.1
+   Compiling publicsuffix v2.3.0
+   Compiling cookie_store v0.22.1
+   Compiling hickory-proto v0.25.2
+   Compiling starlark_map v0.14.2
+   Compiling hyper-util v0.1.20
+   Compiling rama-net v0.3.0-alpha.4
+   Compiling starlark_syntax v0.14.2
+   Compiling codex-utils-path-uri v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/path-uri)
+   Compiling hyper-rustls v0.27.7
+   Compiling hyper-tls v0.6.0
+   Compiling hickory-resolver v0.25.2
+   Compiling reqwest v0.12.28
+   Compiling starlark v0.14.2
+   Compiling axum v0.8.8
+   Compiling hyper-timeout v0.5.2
+   Compiling codex-http-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/http-client)
+warning: unused import: `std::sync::Arc`
+  --> http-client/src/outbound_proxy.rs:11:5
+   |
+11 | use std::sync::Arc;
+   |     ^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `http::HeaderValue`
+  --> http-client/src/outbound_proxy.rs:19:5
+   |
+19 | use http::HeaderValue;
+   |     ^^^^^^^^^^^^^^^^^
+
+   Compiling opentelemetry-http v0.31.0
+   Compiling rama-http-headers v0.3.0-alpha.4
+warning: variable does not need to be mutable
+   --> http-client/src/client_builder.rs:162:9
+    |
+162 |         mut self,
+    |         ----^^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: variable does not need to be mutable
+   --> http-client/src/client_builder.rs:200:9
+    |
+200 |         mut self,
+    |         ----^^^^
+    |         |
+    |         help: remove this `mut`
+
+warning: unused variable: `http_client_factory`
+   --> http-client/src/client_builder.rs:201:9
+    |
+201 |         http_client_factory: &HttpClientFactory,
+    |         ^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_http_client_factory`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+   Compiling rama-dns v0.3.0-alpha.4
+   Compiling rama-udp v0.3.0-alpha.4
+   Compiling rama-unix v0.3.0-alpha.4
+   Compiling rama-http v0.3.0-alpha.4
+   Compiling rama-tls-rustls v0.3.0-alpha.4
+warning: `codex-http-client` (lib) generated 5 warnings (run `cargo fix --lib -p codex-http-client` to apply 5 suggestions)
+   Compiling tonic v0.14.3
+   Compiling codex-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-client)
+   Compiling codex-websocket-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/websocket-client)
+warning: variable does not need to be mutable
+   --> websocket-client/src/lib.rs:151:9
+    |
+151 |         mut request: Request,
+    |         ----^^^^^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: variable does not need to be mutable
+   --> websocket-client/src/lib.rs:183:13
+    |
+183 |         let mut connection = WebSocketConnection::new(inner, permit);
+    |             ----^^^^^^^^^^
+    |             |
+    |             help: remove this `mut`
+
+   Compiling mxc-sdk v1.0.0 (https://github.com/microsoft/mxc?rev=b21120168d70befe12356411423266bfef168446#b2112016)
+warning: `codex-websocket-client` (lib) generated 2 warnings (run `cargo fix --lib -p codex-websocket-client` to apply 2 suggestions)
+   Compiling rama-tcp v0.3.0-alpha.4
+   Compiling tonic-prost v0.14.3
+   Compiling opentelemetry-proto v0.31.0
+   Compiling rama-socks5 v0.3.0-alpha.4
+   Compiling sqlx-core v0.9.0
+   Compiling opentelemetry-otlp v0.31.0
+   Compiling webbrowser v1.2.4
+   Compiling rama-http-core v0.3.0-alpha.4
+   Compiling prost-build v0.14.3
+   Compiling sqlx-sqlite v0.9.0
+   Compiling codex-workload-identity v0.0.0 (/home/sig/files/qiri-release/codex-rs/workload-identity)
+   Compiling tonic-build v0.14.3
+   Compiling codex-execpolicy v0.0.0 (/home/sig/files/qiri-release/codex-rs/execpolicy)
+   Compiling tonic-prost-build v0.14.3
+   Compiling sqlx v0.9.0
+   Compiling codex-code-mode-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/code-mode-protocol)
+   Compiling aws-smithy-http-client v1.1.12
+   Compiling rama-http-backend v0.3.0-alpha.4
+   Compiling rmcp v3.5.1 (https://github.com/modelcontextprotocol/rust-sdk?rev=98a54789b80110ad210495c4ad845c89e1980471#98a54789)
+   Compiling aws-smithy-runtime v1.9.5
+   Compiling codex-network-proxy v0.0.0 (/home/sig/files/qiri-release/codex-rs/network-proxy)
+   Compiling oauth2 v5.0.0
+   Compiling reqwest v0.13.4
+   Compiling sentry-types v0.46.1
+   Compiling aws-runtime v1.5.17
+   Compiling sentry-core v0.46.1
+   Compiling aws-sdk-sso v1.91.0
+   Compiling aws-sdk-ssooidc v1.93.0
+   Compiling aws-sdk-signin v1.2.0
+   Compiling aws-sdk-sts v1.95.0
+   Compiling sentry v0.46.1
+   Compiling libm v0.2.16
+   Compiling clang-sys v1.8.1
+   Compiling icu_calendar_data v2.2.0
+   Compiling rustix v0.38.44
+   Compiling resb v0.1.2
+   Compiling nom v7.1.3
+   Compiling libloading v0.8.9
+   Compiling core_maths v0.1.1
+   Compiling aws-config v1.8.12
+   Compiling calendrical_calculations v0.2.4
+   Compiling bindgen v0.72.1
+   Compiling linux-raw-sys v0.4.15
+   Compiling cexpr v0.6.0
+   Compiling zoneinfo64 v0.3.0
+   Compiling itertools v0.13.0
+   Compiling codex-aws-auth v0.0.0 (/home/sig/files/qiri-release/codex-rs/aws-auth)
+   Compiling strck v1.0.0
+   Compiling codex-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/protocol)
+   Compiling diplomat_core v0.15.0
+   Compiling wiremock v0.6.5
+   Compiling which v6.0.3
+warning: unused import: `crate::auth::KnownPlan`
+ --> protocol/src/error.rs:2:5
+  |
+2 | use crate::auth::KnownPlan;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+   Compiling icu_calendar v2.2.1
+   Compiling timezone_provider v0.2.3
+   Compiling petgraph v0.8.3
+   Compiling miniz_oxide v0.8.9
+   Compiling gzip-header v1.0.0
+   Compiling rand_pcg v0.10.2
+   Compiling fslock v0.2.1
+   Compiling lru-slab v0.1.2
+   Compiling ixdtf v0.6.4
+   Compiling quinn-proto v0.11.18
+   Compiling temporal_rs v0.2.3
+   Compiling v8 v152.2.0 (https://github.com/seanh-oai/rusty_v8.git?rev=350c5a859a9b3c84ab8701b3ad51e3b7699b30c0#350c5a85)
+   Compiling tree_magic_mini v3.2.2
+   Compiling diplomat v0.15.0
+   Compiling quinn-udp v0.5.14
+   Compiling diplomat-runtime v0.15.1
+   Compiling quinn v0.11.9
+   Compiling temporal_capi v0.2.3
+   Compiling wl-clipboard-rs v0.9.3
+   Compiling h3 v0.0.8 (https://github.com/hyperium/h3?rev=e07e69412876f7e26f026bd75a48b2704d8c8283#e07e6941)
+   Compiling codex-plugin-host v0.0.0 (/home/sig/files/qiri-release/codex-rs/plugin-host)
+   Compiling arboard v3.6.1
+error: failed to run custom build command for `v8 v152.2.0 (https://github.com/seanh-oai/rusty_v8.git?rev=350c5a859a9b3c84ab8701b3ad51e3b7699b30c0#350c5a85)`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/build/v8-c5a8a89279c17b28/build-script-build` (exit status: 101)
+  --- stdout
+  cargo:rerun-if-changed=.gn
+  cargo:rerun-if-changed=BUILD.gn
+  cargo:rerun-if-changed=src/binding.cc
+  cargo:rerun-if-env-changed=CCACHE
+  cargo:rerun-if-env-changed=CLANG_BASE_PATH
+  cargo:rerun-if-env-changed=CXXSTDLIB
+  cargo:rerun-if-env-changed=DENO_TRYBUILD
+  cargo:rerun-if-env-changed=DOCS_RS
+  cargo:rerun-if-env-changed=GN
+  cargo:rerun-if-env-changed=GN_ARGS
+  cargo:rerun-if-env-changed=HOST
+  cargo:rerun-if-env-changed=LIBCLANG_PATH
+  cargo:rerun-if-env-changed=NINJA
+  cargo:rerun-if-env-changed=OUT_DIR
+  cargo:rerun-if-env-changed=RUSTY_V8_ARCHIVE
+  cargo:rerun-if-env-changed=RUSTY_V8_ARCHIVE_SHA256
+  cargo:rerun-if-env-changed=RUSTY_V8_BINDGEN_RESOURCE_DIR
+  cargo:rerun-if-env-changed=RUSTY_V8_GLIBC_PREFIX
+  cargo:rerun-if-env-changed=RUSTY_V8_MIRROR
+  cargo:rerun-if-env-changed=RUSTY_V8_MIRROR_TAG
+  cargo:rerun-if-env-changed=RUSTY_V8_MIRROR_FALLBACK
+  cargo:rerun-if-env-changed=RUSTY_V8_MUSL_SYSROOT
+  cargo:rerun-if-env-changed=RUSTY_V8_SKIP_DOWNLOAD
+  cargo:rerun-if-env-changed=RUSTY_V8_SRC_BINDING_PATH
+  cargo:rerun-if-env-changed=RUSTY_V8_SRC_BINDING_URL
+  cargo:rerun-if-env-changed=SCCACHE
+  cargo:rerun-if-env-changed=V8_FORCE_DEBUG
+  cargo:rerun-if-env-changed=V8_FROM_SOURCE
+  cargo:rerun-if-env-changed=PYTHON
+  cargo:rerun-if-env-changed=DISABLE_CLANG
+  cargo:rerun-if-env-changed=EXTRA_GN_ARGS
+  cargo:rerun-if-env-changed=PRINT_GN_ARGS
+  cargo:rerun-if-env-changed=CARGO_ENCODED_RUSTFLAGS
+  cargo:rustc-link-lib=static=rusty_v8
+  lockfile: "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/build/v8.fslock"
+  Trying to fetch from https://github.com/denoland/rusty_v8/releases/download/v152.2.0/src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.rs
+  Looking for download in '"/home/sig/.cargo/.rusty_v8/v152_2_0_src_binding_ptrcomp_sandbox_release_aarch64_unknown_linux_gnu_rs"'
+  Looking for download in '"/home/sig/.cargo/.rusty_v8/https___github_com_denoland_rusty_v8_releases_download_v152_2_0_src_binding_ptrcomp_sandbox_release_aarch64_unknown_linux_gnu_rs"'
+  Downloading https://github.com/denoland/rusty_v8/releases/download/v152.2.0/src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.rs
+  Trying with Python...
+  Downloading https://github.com/denoland/rusty_v8/releases/download/v152.2.0/src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.rs...
+  HTTP Error 404: Not Found
+  Python downloader failed, trying with curl.
+  Failed to fetch from https://github.com/denoland/rusty_v8/releases/download/v152.2.0/src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.rs: no downloader (deno, python, curl) could fetch the URL
+
+  --- stderr
+  Traceback (most recent call last):
+    File "/home/sig/.cargo/git/checkouts/rusty_v8-1c356b58a53d1d98/350c5a8/./tools/download_file.py", line 63, in <module>
+      sys.exit(main())
+               ^^^^^^
+    File "/home/sig/.cargo/git/checkouts/rusty_v8-1c356b58a53d1d98/350c5a8/./tools/download_file.py", line 58, in main
+      DownloadUrl(args.url, f)
+    File "/home/sig/.cargo/git/checkouts/rusty_v8-1c356b58a53d1d98/350c5a8/./tools/download_file.py", line 44, in DownloadUrl
+      raise e
+    File "/home/sig/.cargo/git/checkouts/rusty_v8-1c356b58a53d1d98/350c5a8/./tools/download_file.py", line 28, in DownloadUrl
+      response = urlopen(url)
+                 ^^^^^^^^^^^^
+    File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+      return opener.open(url, data, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+      response = meth(req, response)
+                 ^^^^^^^^^^^^^^^^^^^
+    File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+      response = self.parent.error(
+                 ^^^^^^^^^^^^^^^^^^
+    File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+      return self._call_chain(*args)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+    File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+      result = func(*args)
+               ^^^^^^^^^^^
+    File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+      raise HTTPError(req.full_url, code, msg, hdrs, fp)
+  urllib.error.HTTPError: HTTP Error 404: Not Found
+
+  thread 'main' (618979) panicked at /home/sig/.cargo/git/checkouts/rusty_v8-1c356b58a53d1d98/350c5a8/build.rs:1814:9:
+  Failed to fetch the V8 prebuilt artifact /home/sig/.cargo/git/checkouts/rusty_v8-1c356b58a53d1d98/350c5a8/gen/src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.rs. Tried:
+  - https://github.com/denoland/rusty_v8/releases/download/v152.2.0/src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.rs: no downloader (deno, python, curl) could fetch the URL
+  If no prebuilt artifact is published for your target or version, compile V8 from source by setting V8_FROM_SOURCE=1. You can also point the build at an artifact via RUSTY_V8_ARCHIVE (static lib), a binding via RUSTY_V8_SRC_BINDING_URL or RUSTY_V8_SRC_BINDING_PATH (src binding only), a mirror via RUSTY_V8_MIRROR, or another release tag via RUSTY_V8_MIRROR_TAG.
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+warning: build failed, waiting for other jobs to finish...
+warning: `codex-protocol` (lib) generated 1 warning (run `cargo fix --lib -p codex-protocol` to apply 1 suggestion)

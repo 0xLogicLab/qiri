@@ -1,0 +1,100 @@
+
+running 66 tests
+test backend::pid::identity::tests::parses_start_ticks_after_comm_with_spaces_and_parentheses ... ok
+test backend::pid::identity::tests::previous_boot_does_not_require_process_inspection ... ok
+test backend::pid::identity::tests::reads_earlier_linux_identity_field ... ok
+test backend::pid::tests::app_server_disabled_remote_control_uses_compatible_args_and_runtime_env ... ok
+test backend::pid::tests::app_server_remote_control_uses_runtime_flag ... ok
+test backend::pid::tests::exited_unreaped_updater_is_reaped ... ok
+test backend::pid::tests::legacy_launch_clears_recovery_best_effort ... {"timestampMs":1794497064332,"processPid":855495,"stage":"process_spawn","outcome":"failed","elapsedMs":1,"failure":{"kind":"NotFound","os_code":2}}
+{"timestampMs":1794497064334,"processPid":855495,"stage":"process_spawn","outcome":"failed","elapsedMs":0,"failure":{"kind":"NotFound","os_code":2}}
+ok
+test backend::pid::tests::legacy_start_time_mismatch_preserves_record_and_process ... ok
+test backend::pid::tests::locked_empty_pid_file_is_treated_as_active_reservation ... ok
+test backend::pid::tests::pid_record_captures_the_resolved_launch_binary ... {"timestampMs":1794497069439,"processPid":855495,"stage":"process_spawn","outcome":"succeeded","elapsedMs":1,"failure":null}
+{"timestampMs":1794497069439,"processPid":855495,"event":"process_spawned","details":{"pid":855711}}
+{"timestampMs":1794497069464,"processPid":855495,"stage":"process_identity","outcome":"succeeded","elapsedMs":24,"failure":null}
+{"timestampMs":1794497069465,"processPid":855495,"stage":"pid_write","outcome":"succeeded","elapsedMs":0,"failure":null}
+{"timestampMs":1794497069465,"processPid":855495,"stage":"pid_publish","outcome":"succeeded","elapsedMs":0,"failure":null}
+{"timestampMs":1794497069465,"processPid":855495,"event":"shutdown_requested","details":{"pid":855711}}
+ok
+test backend::pid::tests::read_stderr_log_tail_returns_recent_complete_lines ... ok
+test backend::pid::tests::reservation_probe_releases_lock_with_duplicated_handle ... ok
+test backend::pid::tests::shutdown_grace_child ... ok
+test backend::pid::tests::shutdown_grace_handles_process_exit ... {"timestampMs":1794497069574,"processPid":855495,"event":"shutdown_requested","details":{"pid":855721}}
+{"timestampMs":1794497069591,"processPid":855495,"event":"shutdown_forced","details":{"pid":855721}}
+{"timestampMs":1794497069711,"processPid":855495,"event":"shutdown_requested","details":{"pid":855729}}
+{"timestampMs":1794497069941,"processPid":855495,"event":"shutdown_requested","details":{"pid":855739}}
+{"timestampMs":1794497070983,"processPid":855495,"event":"shutdown_forced","details":{"pid":855739}}
+ok
+test backend::pid::tests::stale_creation_time_never_stops_reused_pid ... ok
+test backend::pid::tests::stale_record_cleanup_preserves_replacement_record ... ok
+test backend::pid::tests::start_retries_stale_empty_pid_file_under_its_own_lock ... {"timestampMs":1794497071041,"processPid":855495,"stage":"process_spawn","outcome":"failed","elapsedMs":0,"failure":{"kind":"NotFound","os_code":2}}
+ok
+test backend::pid::tests::stderr_handoff_appends_after_truncation_without_gaps ... ok
+test backend::pid::tests::stderr_preservation_failure_does_not_prevent_opening_new_log ... {"timestampMs":1794497071045,"processPid":855495,"stage":"stderr_preservation","outcome":"failed","elapsedMs":0,"failure":{"kind":"IsADirectory","os_code":21}}
+ok
+test backend::pid::tests::stop_reaps_untracked_app_server_child ... {"timestampMs":1794497071098,"processPid":855495,"event":"shutdown_requested","details":{"pid":855776}}
+ok
+test backend::pid::tests::stop_waits_for_live_reservation_to_resolve ... ok
+test backend::pid::tests::stopping_updater_signals_its_installer_process_group ... {"timestampMs":1794497071242,"processPid":855495,"event":"shutdown_requested","details":{"pid":855784}}
+ok
+test backend::pid::tests::unlocked_empty_pid_file_is_treated_as_stale_reservation ... ok
+test backend::pid::tests::update_loop_uses_hidden_app_server_subcommand ... ok
+test backend::stderr_log::tests::logging_does_not_wait_for_a_stalled_worker ... ok
+test backend::stderr_log::tests::preserves_bounded_tail_and_keeps_it_after_empty_launch ... ok
+test backend::stderr_log::tests::prunes_live_log_without_disconnecting_inherited_append_handles ... ok
+test backend::stderr_log::tests::pruning_resets_the_write_position_of_a_legacy_nonappend_writer ... 
+running 1 test
+test backend::stderr_log::tests::pruning_resets_the_write_position_of_a_legacy_nonappend_writer ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 65 filtered out; finished in 0.00s
+
+ok
+test client::tests::parses_version_from_codex_user_agent ... ok
+test client::tests::rejects_user_agent_without_version ... ok
+test diagnostics::tests::failure_omits_error_messages_and_context ... ok
+test diagnostics::tests::result_record_preserves_json_shape_and_redacts_error_text ... ok
+test managed_install::path_tests::discovers_package_and_legacy_installs ... ok
+test managed_install::path_tests::older_managed_binary_does_not_claim_updater_support ... ok
+test managed_install::path_tests::updater_only_runs_for_stable_installer_owned_releases ... ok
+test managed_install::tests::executable_identity_uses_path_and_binary_contents ... ok
+test managed_install::tests::parses_codex_cli_version_output ... ok
+test managed_install::tests::rejects_malformed_codex_cli_version_output ... ok
+test prepare_install::tests::broken_selection_is_not_a_missing_installation ... ok
+test prepare_install::tests::explicit_selection_requires_unchanged_cli_and_pins_all_versions ... ok
+test prepare_install::tests::incomplete_source_fails_without_selecting_it ... ok
+test prepare_install::tests::legacy_selection_is_not_migrated_or_refreshed ... ok
+test prepare_install::tests::missing_source_returns_typed_error ... ok
+test prepare_install::tests::seeds_full_package ... ok
+test prepare_install::tests::standalone_seed_preserves_explicit_pin_or_latest_channel ... ok
+test remote_control_client::tests::disable_remote_control_retries_without_params_for_older_servers ... ok
+test remote_control_client::tests::enable_remote_control_reports_connecting_after_timeout ... ok
+test remote_control_client::tests::enable_remote_control_retries_without_params_for_older_servers ... ok
+test remote_control_client::tests::enable_remote_control_returns_errored_enable_response ... ok
+test remote_control_client::tests::enable_remote_control_uses_connected_enable_response_without_later_notification ... ok
+test remote_control_client::tests::enable_remote_control_waits_for_connected_notification ... ok
+test remote_control_client::tests::pairing_notification_does_not_extend_the_response_deadline ... ok
+test remote_control_client::tests::start_pairing_requests_manual_code ... ok
+test settings::tests::qiri_ignores_legacy_automatic_update_settings ... ok
+test settings::tests::remote_control_save_preserves_updater_settings ... ok
+test settings::tests::shutdown_grace_accepts_zero_through_five_minutes ... ok
+test settings::tests::telemetry_distinguishes_presence_from_default_values ... ok
+test settings::tests::update_interval_accepts_long_values_and_rejects_zero ... ok
+test tests::managed_local_backend_counts_as_bootstrapped_without_updater ... {"timestampMs":1794497076791,"processPid":855495,"stage":"process_spawn","outcome":"succeeded","elapsedMs":3,"failure":null}
+{"timestampMs":1794497076791,"processPid":855495,"event":"process_spawned","details":{"pid":856151}}
+{"timestampMs":1794497076818,"processPid":855495,"stage":"process_identity","outcome":"succeeded","elapsedMs":26,"failure":null}
+{"timestampMs":1794497076818,"processPid":855495,"stage":"pid_write","outcome":"succeeded","elapsedMs":0,"failure":null}
+{"timestampMs":1794497076818,"processPid":855495,"stage":"pid_publish","outcome":"succeeded","elapsedMs":0,"failure":null}
+{"timestampMs":1794497076819,"processPid":855495,"event":"shutdown_requested","details":{"pid":856151}}
+ok
+test tests::readiness_reports_stderr_promptly_when_daemon_is_gone ... ok
+test tests::remote_control_start_output_serializes_inner_output_without_tag ... ok
+test tests::remote_control_status_uses_camel_case_json ... ok
+test tests::restart_decision_preserves_forced_refreshes ... ok
+test tests::stop_and_fresh_start_discard_pending_thread_restore ... ok
+test tests::stop_creates_missing_home_parent ... ok
+test tests::waiting_lifecycle_command_uses_migrated_installation ... ok
+
+test result: ok. 66 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 12.65s
+

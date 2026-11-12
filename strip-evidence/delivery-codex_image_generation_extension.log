@@ -1,0 +1,22 @@
+
+running 17 tests
+test tool::tests::generated_output_returns_generated_image_helper_input_in_code_mode ... ok
+test tool::tests::generated_output_returns_image_input_and_output_hint ... ok
+test tool::tests::generated_output_omits_oversized_output_hint ... ok
+test tool::tests::artifact_path_sanitizes_session_and_call_ids ... ok
+test tool::tests::omitted_references_generate_with_fixed_defaults ... ok
+test tool::tests::conflicting_image_selectors_return_tool_error ... ok
+test tool::tests::recent_image_fallback_passes_file_backed_image_to_edit_request ... ok
+test tool::tests::recent_image_fallback_requires_requested_count ... ok
+test tool::tests::recent_image_fallback_selects_newest_images_in_chronological_order ... ok
+test tool::tests::recent_image_fallback_passes_file_backed_tool_output_to_edit_request ... ok
+test tool::tests::test_usage_limit_failure_without_an_exhausted_window_reset ... ok
+test tool::tests::too_many_referenced_image_paths_return_tool_error ... ok
+test tool::tests::uses_reserved_image_gen_namespace ... ok
+test tool::tests::imagegen_output_schema_does_not_change_direct_api_serialization ... ok
+test tool::tests::imagegen_code_mode_declaration_describes_generated_image_result ... ok
+test tool::tests::unreadable_or_invalid_reference_does_not_build_an_edit_request ... ok
+test tool::tests::referenced_files_record_the_exact_bytes_read_for_each_request ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+

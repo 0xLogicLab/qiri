@@ -1,0 +1,22 @@
+
+running 17 tests
+test dialer::tests::loopback_direct_drops_non_loopback_resolved_addresses ... ok
+test dialer::tests::loopback_direct_rejects_localhost_resolution_without_loopback_addresses ... ok
+test dialer::tests::no_proxy_subprocess_probe ... ok
+test dialer::tests::https_proxy_defaults_to_port_443_and_preserves_explicit_port ... ok
+test dialer::tests::happy_eyeballs_does_not_wait_for_stalled_preferred_family ... ok
+test dialer::tests::routed_tcp_connections_only_enable_nodelay_when_requested ... ok
+test dialer::tests::tungstenite_default_tls_mode_subprocess_probe ... ok
+test dialer::tests::direct_route_connects_secure_websocket ... ok
+test dialer::tests::http_proxy_tunnels_secure_websocket_before_handshake ... ok
+test tests::recognizes_loopback_websocket_destinations ... ok
+test tests::rejects_non_loopback_websocket_destinations ... ok
+test dialer::tests::tungstenite_default_tls_mode_ignores_invalid_custom_ca_in_a_subprocess ... ok
+test dialer::tests::public_connector_uses_factory_and_exposes_stream_and_sink ... ok
+test tests::network_policy_tests::revocation_wakes_split_reader_and_survives_writer_observing_it_first ... ok
+test dialer::tests::public_connector_enables_tcp_nodelay_when_requested ... ok
+test dialer::tests::https_proxy_tunnels_secure_websocket_before_handshake ... ok
+test dialer::tests::environment_proxy_route_honors_no_proxy_in_a_subprocess ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.25s
+

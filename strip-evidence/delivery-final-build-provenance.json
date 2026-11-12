@@ -1,0 +1,216 @@
+{
+  "exit": 0,
+  "libraries": [
+    {
+      "crate": "codex_core",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/core/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_core-2a217b776c1e13e3",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_config",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/config/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_config-16c361844c9b3182",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_guardian_v2",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/ext/guardian-v2/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_guardian_v2-89e7f51fa2b94ff2",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_core_plugins",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/core-plugins/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_core_plugins-6a9aed58c37f0d65",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_mcp_extension",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/ext/mcp/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_mcp_extension-0a56f6a2a286edaa",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_mcp",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/codex-mcp/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_mcp-d678e76f18dafaaf",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_responses_api_proxy",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/responses-api-proxy/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_responses_api_proxy-42fe4c2b0d4dd481",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_rmcp_client",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/rmcp-client/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_rmcp_client-361facd8d41c535b",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_api",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/codex-api/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_api-fc8707b456dc3501",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_login",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/login/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_login-e1d7d1e04016731a",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_app_server_daemon",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/app-server-daemon/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_app_server_daemon-21773a750b8e54ad",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_memories_write",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/memories/write/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_memories_write-f9ac12e700f12f7d",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_http_client",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/http-client/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_http_client-487fdfed703fdd3c",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_model_provider",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/model-provider/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_model_provider-7d8115482d4e136d",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_sandboxing",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/sandboxing/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_sandboxing-fac8bea1b8c59a0b",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_app_server_transport",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/app-server-transport/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_app_server_transport-a586508f695d3e4b",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_runtime_agent_instance",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/runtime-agent-instance/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_runtime_agent_instance-87f32fbfc434eea4",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_cloud_config",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/cloud-config/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_cloud_config-996c1d3979040ee1",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_web_search_extension",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/ext/web-search/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_web_search_extension-5e572ff6802023c1",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_image_generation_extension",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/ext/image-generation/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_image_generation_extension-4aaad9d3d1d0535b",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_connectors",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/connectors/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_connectors-4373ddd6671c0e37",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_analytics",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/analytics/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_analytics-0d27714a1621f0d4",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_otel",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/otel/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_otel-28f39250d26ca3dd",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_models_manager",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/models-manager/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_models_manager-9ce851d4142f56d4",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_websocket_client",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/websocket-client/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_websocket_client-597f2f2702986655",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_skills",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/skills/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_skills-3155911ef62f84e2",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_features",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/features/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_features-24c66f04fb71e80d",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_agent_identity",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/agent-identity/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_agent_identity-d682f24dba31c947",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_network_proxy",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/network-proxy/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_network_proxy-3f1ad30756d66d97",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_model_provider_info",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/model-provider-info/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_model_provider_info-df1ddb3df1ac7660",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_feedback",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/feedback/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_feedback-f383933eedd09dba",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_protocol",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/protocol/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_protocol-4466fcf23d0275fa",
+      "cargo_fresh": true
+    },
+    {
+      "crate": "codex_exec_server_cli",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/exec-server-cli/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_exec_server_cli-ecfcded367808fde",
+      "cargo_fresh": false
+    },
+    {
+      "crate": "codex_app_server",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/app-server/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_app_server-0e0ebbb43a1ba9a9",
+      "cargo_fresh": false
+    },
+    {
+      "crate": "codex_tui",
+      "manifest": "/home/sig/files/qiri-release/codex-rs/tui/Cargo.toml",
+      "binary": "/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_tui-88d2140f2a22f4c9",
+      "cargo_fresh": false
+    }
+  ],
+  "compiler_stream": "delivery-final-build.jsonl.gz"
+}

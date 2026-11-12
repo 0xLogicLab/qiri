@@ -1,1 +1,17 @@
 baseline-source/
+baseline-target/
+delivery-target/
+
+# Intermediate local diagnostics; final evidence is explicitly added to Git.
+*.jsonl
+rework-*
+baseline-*
+diagnostic-*
+core4-*
+tui-*.json
+test-summaries.json
+run-built-diagnostics.py
+summarize-tests.py
+
+# Isolated real-profile configurations are ephemeral and must never be staged.
+.real-profile-*/

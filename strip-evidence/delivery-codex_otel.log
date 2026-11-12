@@ -1,0 +1,42 @@
+
+running 37 tests
+test config::tests::retired_statsig_exporter_is_disabled ... ok
+test auth_storage::originator::tests::concurrent_clients_keep_their_originator_across_awaits_and_blocking_work ... ok
+test auth_storage::tests::secure_error_classification_is_independent_of_attempt_recording_order ... ok
+test auth_storage::tests::missing_credentials_and_failed_fallback_keep_distinct_outcomes ... ok
+test metrics::tags::tests::session_metric_tags_include_expected_tags_in_order ... ok
+test metrics::tags::tests::session_metric_tags_skip_missing_optional_tags ... ok
+test metrics::client::tests::counter_consent_uses_the_active_exporter ... ok
+test metrics::buffered::tests::opt_out_discards_pending_and_live_observations_until_reenabled ... ok
+test metrics::buffered::tests::redirecting_a_global_handle_does_not_change_the_buffers_installation ... ok
+test metrics::buffered::tests::startup_limits_and_validation_preserve_whole_pairs ... ok
+test auth_storage::tests::startup_fallback_exports_one_logical_operation_without_error_contents ... ok
+test metrics::buffered::tests::concurrent_installation_and_replacement_record_each_pair_once ... ok
+test otlp::tests::current_tokio_runtime_is_multi_thread_detects_runtime_flavor ... ok
+test provider::shutdown_tests::bounded_shutdown_survives_worker_guard_page_failure_child ... ignored
+test provider::shutdown_tests::bounded_shutdown_does_not_flush_when_worker_creation_fails ... ok
+test provider::shutdown_tests::drop_shuts_down_exporters_without_force_flush ... ok
+test provider::shutdown_tests::bounded_shutdown_completes_on_current_thread_runtime ... ok
+test provider::shutdown_tests::bounded_shutdown_completes_on_multi_thread_runtime ... ok
+test provider::shutdown_tests::explicit_shutdown_and_drop_shut_down_exporters_once_without_force_flush ... ok
+test provider::tests::log_export_target_excludes_trace_safe_events ... ok
+test provider::tests::disabled_trace_settings_replace_global_tracer_with_noop ... ok
+test provider::tests::resource_attributes_include_host_name_when_present ... ok
+test provider::tests::resource_attributes_omit_host_name_when_missing_or_empty ... ok
+test provider::tests::trace_export_target_only_includes_trace_safe_prefix ... ok
+test provider::tests::cached_global_metrics_follow_reinstalled_provider ... ok
+test tool_result::tests::telemetry_preview_returns_original_within_limits ... ok
+test provider::tests::statsig_disabled_metrics_are_not_exported ... ok
+test tool_result::tests::telemetry_preview_truncates_by_bytes ... ok
+test trace_context::tests::missing_traceparent_returns_none ... ok
+test trace_context::tests::parses_valid_w3c_trace_context ... ok
+test trace_context::tests::invalid_traceparent_returns_none ... ok
+test trace_context::tests::current_span_trace_id_returns_hex_trace_id ... ok
+test provider::shutdown_tests::bounded_shutdown_survives_worker_guard_page_failure ... ok
+test otlp::tests::build_async_http_client_accepts_pem_client_identity ... ok
+test otlp::tests::build_http_client_accepts_pem_client_identity ... ok
+test otlp::tests::build_http_client_works_in_current_thread_runtime ... ok
+test provider::shutdown_tests::bounded_shutdown_times_out_without_blocking_the_runtime ... ok
+
+test result: ok. 36 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.08s
+

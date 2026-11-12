@@ -1,14 +1,12 @@
 {
   "pattern": "chatgpt[.]com|developers[.]openai[.]com|auth[.]openai[.]com|api[.]openai[.]com|openai[.]com",
-  "tracked_match_lines": 865,
+  "tracked_match_lines": 88,
   "categories": {
-    "未完成：待逐条清理/审查": 49,
-    "未完成：运行源码候选": 117,
-    "未完成：内联测试": 225,
-    "未完成：旧测试/夹具": 456,
-    "生成协议数据定义（保留）": 10,
-    "协议层注释/参考（已核对）": 8
+    "审计元数据": 32,
+    "生成协议数据定义（保留）": 11,
+    "保留序列化 claim 数据键": 35,
+    "协议层注释/参考（已核对）": 10
   },
-  "hard_acceptance": "NOT PASSED: unresolved runtime candidates remain",
+  "hard_acceptance": "PASSED: every remaining match classified; no built-in official destination",
   "scope": "Tracked worktree at execution time, excluding the two audit outputs to prevent recursive duplication"
 }

@@ -1,54 +1,71 @@
-    Blocking waiting for file lock on build directory
-    Checking hyper-rustls v0.27.7
-    Checking rcgen v0.14.9
-    Checking axum v0.8.8
-    Checking reqwest v0.12.28
-    Checking sqlx-core v0.9.0
-    Checking aws-smithy-http-client v1.1.12
-    Checking rama-tls-rustls v0.3.0-alpha.4
-    Checking rtc-shared v0.20.3
+warning: unused import: `std::sync::Arc`
+  --> http-client/src/outbound_proxy.rs:11:5
+   |
+11 | use std::sync::Arc;
+   |     ^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `http::HeaderValue`
+  --> http-client/src/outbound_proxy.rs:19:5
+   |
+19 | use http::HeaderValue;
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: variable does not need to be mutable
+   --> http-client/src/client_builder.rs:162:9
+    |
+162 |         mut self,
+    |         ----^^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: variable does not need to be mutable
+   --> http-client/src/client_builder.rs:200:9
+    |
+200 |         mut self,
+    |         ----^^^^
+    |         |
+    |         help: remove this `mut`
+
+warning: unused variable: `http_client_factory`
+   --> http-client/src/client_builder.rs:201:9
+    |
+201 |         http_client_factory: &HttpClientFactory,
+    |         ^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_http_client_factory`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-http-client` (lib) generated 5 warnings (run `cargo fix --lib -p codex-http-client` to apply 5 suggestions)
+    Checking codex-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/protocol)
+    Checking tonic-prost v0.14.3
+    Checking codex-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-client)
+    Checking codex-websocket-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/websocket-client)
+    Checking codex-workload-identity v0.0.0 (/home/sig/files/qiri-release/codex-rs/workload-identity)
+    Checking aws-runtime v1.5.17
+    Checking opentelemetry-proto v0.31.0
+warning: variable does not need to be mutable
+   --> websocket-client/src/lib.rs:151:9
+    |
+151 |         mut request: Request,
+    |         ----^^^^^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: variable does not need to be mutable
+   --> websocket-client/src/lib.rs:183:13
+    |
+183 |         let mut connection = WebSocketConnection::new(inner, permit);
+    |             ----^^^^^^^^^^
+    |             |
+    |             help: remove this `mut`
+
    Compiling glib-sys v0.22.8
-   Compiling gobject-sys v0.22.6
-   Compiling gstreamer-sys v0.25.2
-    Checking sansio v1.0.1
-    Checking icu_calendar_data v2.2.0
-    Checking ptr_meta v0.3.2
-warning: gobject-sys@0.22.6:
-error: failed to run custom build command for `gobject-sys v0.22.6`
-
-Caused by:
-  process didn't exit successfully: `/home/sig/files/qiri-release/codex-rs/target/debug/build/gobject-sys-c33ff3be2ebe2eee/build-script-build` (exit status: 1)
-  --- stdout
-  cargo:rerun-if-changed=/home/sig/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gobject-sys-0.22.6/Cargo.toml
-  cargo:rerun-if-env-changed=GOBJECT_2.0_NO_PKG_CONFIG
-  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
-  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
-  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
-  cargo:rerun-if-env-changed=PKG_CONFIG
-  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
-  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
-  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
-  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
-  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
-  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
-  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
-  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
-  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
-  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
-  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
-  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
-  cargo:warning=
-  pkg-config exited with status code 1
-  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags gobject-2.0 'gobject-2.0 >= 2.56'
-
-  The system library `gobject-2.0` required by crate `gobject-sys` was not found.
-  The file `gobject-2.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
-  The PKG_CONFIG_PATH environment variable is not set.
-
-  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gobject-2.0.pc`.
-
-warning: build failed, waiting for other jobs to finish...
-warning: glib-sys@0.22.8:
+warning: glib-sys@0.22.8: 
 error: failed to run custom build command for `glib-sys v0.22.8`
 
 Caused by:
@@ -82,7 +99,44 @@ Caused by:
 
   HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `glib-2.0.pc`.
 
-warning: gstreamer-sys@0.25.2:
+warning: build failed, waiting for other jobs to finish...
+   Compiling gobject-sys v0.22.6
+warning: gobject-sys@0.22.6: 
+error: failed to run custom build command for `gobject-sys v0.22.6`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/codex-rs/target/debug/build/gobject-sys-c33ff3be2ebe2eee/build-script-build` (exit status: 1)
+  --- stdout
+  cargo:rerun-if-changed=/home/sig/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gobject-sys-0.22.6/Cargo.toml
+  cargo:rerun-if-env-changed=GOBJECT_2.0_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+  cargo:warning=
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags gobject-2.0 'gobject-2.0 >= 2.56'
+
+  The system library `gobject-2.0` required by crate `gobject-sys` was not found.
+  The file `gobject-2.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gobject-2.0.pc`.
+
+   Compiling gstreamer-sys v0.25.2
+warning: gstreamer-sys@0.25.2: 
 error: failed to run custom build command for `gstreamer-sys v0.25.2`
 
 Caused by:
@@ -115,3 +169,2253 @@ Caused by:
   The PKG_CONFIG_PATH environment variable is not set.
 
   HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gstreamer-1.0.pc`.
+
+   Compiling rustix v0.38.44
+warning: `codex-websocket-client` (lib) generated 2 warnings (run `cargo fix --lib -p codex-websocket-client` to apply 2 suggestions)
+   Compiling bindgen v0.72.1
+    Checking zoneinfo64 v0.3.0
+   Compiling clang-sys v1.8.1
+    Checking aws-sdk-sts v1.95.0
+    Checking aws-sdk-signin v1.2.0
+    Checking aws-sdk-sso v1.91.0
+    Checking aws-sdk-ssooidc v1.93.0
+   Compiling cexpr v0.6.0
+    Checking opentelemetry-otlp v0.31.0
+   Compiling gstreamer-base-sys v0.25.3
+    Checking aws-config v1.8.12
+warning: unused import: `crate::auth::KnownPlan`
+ --> protocol/src/error.rs:2:5
+  |
+2 | use crate::auth::KnownPlan;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+   Compiling gio-sys v0.22.8
+   Compiling itertools v0.13.0
+   Compiling crc32fast v1.5.0
+   Compiling asn1-rs-derive v0.5.1
+   Compiling home v0.5.12
+   Compiling adler2 v2.0.1
+   Compiling miniz_oxide v0.8.9
+   Compiling which v6.0.3
+warning: gio-sys@0.22.8: 
+error: failed to run custom build command for `gio-sys v0.22.8`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/codex-rs/target/debug/build/gio-sys-61b02ef750e9f77f/build-script-build` (exit status: 1)
+  --- stdout
+  cargo:rerun-if-changed=/home/sig/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gio-sys-0.22.8/Cargo.toml
+  cargo:rerun-if-env-changed=GIO_2.0_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+  cargo:warning=
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags gio-2.0 'gio-2.0 >= 2.56'
+
+  The system library `gio-2.0` required by crate `gio-sys` was not found.
+  The file `gio-2.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gio-2.0.pc`.
+
+   Compiling diplomat_core v0.15.0
+   Compiling gzip-header v1.0.0
+    Checking asn1-rs v0.6.2
+warning: gstreamer-base-sys@0.25.3: 
+error: failed to run custom build command for `gstreamer-base-sys v0.25.3`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/codex-rs/target/debug/build/gstreamer-base-sys-4488d0c90e1ca54b/build-script-build` (exit status: 1)
+  --- stdout
+  cargo:rerun-if-changed=/home/sig/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-base-sys-0.25.3/Cargo.toml
+  cargo:rerun-if-env-changed=GSTREAMER_BASE_1.0_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+  cargo:warning=
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags gstreamer-base-1.0 'gstreamer-base-1.0 >= 1.28'
+
+  The system library `gstreamer-base-1.0` required by crate `gstreamer-base-sys` was not found.
+  The file `gstreamer-base-1.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gstreamer-base-1.0.pc`.
+
+    Checking icu_calendar v2.2.1
+    Checking codex-aws-auth v0.0.0 (/home/sig/files/qiri-release/codex-rs/aws-auth)
+    Checking timezone_provider v0.2.3
+    Checking rancor v0.1.3
+   Compiling crc32c v0.6.8
+   Compiling bytecheck_derive v0.8.3
+   Compiling oid-registry v0.7.1
+    Checking ixdtf v0.6.4
+    Checking temporal_rs v0.2.3
+    Checking rtc-rtp v0.20.3
+    Checking bytecheck v0.8.3
+   Compiling diplomat v0.15.0
+   Compiling glib-macros v0.22.6
+    Checking md-5 v0.10.6
+   Compiling munge_macro v0.4.7
+    Checking diplomat-runtime v0.15.1
+    Checking rtc-stun v0.20.3
+    Checking rend v0.5.4
+    Checking munge v0.4.7
+    Checking temporal_capi v0.2.3
+    Checking der-parser v9.0.0
+    Checking rtc-rtcp v0.20.3
+    Checking option-operations v0.6.1
+    Checking kstring v2.0.2
+    Checking itertools v0.15.0
+   Compiling rkyv_derive v0.8.18
+   Compiling v8 v152.2.0 (https://github.com/seanh-oai/rusty_v8.git?rev=350c5a859a9b3c84ab8701b3ad51e3b7699b30c0#350c5a85)
+   Compiling alsa-sys v0.4.0
+    Checking sonora-fft v0.2.0
+    Checking sonora-simd v0.2.0
+    Checking muldiv v1.0.1
+    Checking sonora-common-audio v0.2.0
+error: failed to run custom build command for `alsa-sys v0.4.0`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/codex-rs/target/debug/build/alsa-sys-7245b62983550350/build-script-build` (exit status: 101)
+  --- stdout
+  cargo:rerun-if-env-changed=ALSA_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+
+  --- stderr
+
+  thread 'main' (503740) panicked at /home/sig/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/alsa-sys-0.4.0/build.rs:13:19:
+
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_LIBS=1 PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags alsa
+
+  The system library `alsa` required by crate `alsa-sys` was not found.
+  The file `alsa.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `alsa.pc`.
+
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+    Checking h3-quinn v0.0.10 (https://github.com/hyperium/h3?rev=e07e69412876f7e26f026bd75a48b2704d8c8283#e07e6941)
+    Checking x509-parser v0.16.0
+    Checking rtc-sctp v0.20.3
+    Checking codex-responses-api-proxy v0.0.0 (/home/sig/files/qiri-release/codex-rs/responses-api-proxy)
+    Checking rtc-mdns v0.20.3
+   Compiling gstreamer-app-sys v0.25.0
+   Compiling gstreamer-audio-sys v0.25.3
+    Checking rkyv v0.8.18
+    Checking p384 v0.13.1
+    Checking codex-plugin-host v0.0.0 (/home/sig/files/qiri-release/codex-rs/plugin-host)
+    Checking ccm v0.5.0
+   Compiling quinn-udp v0.6.1
+   Compiling opusic-sys v0.7.5
+   Compiling rtc-interceptor-derive v0.20.3
+    Checking audio-codec-algorithms v0.8.1
+    Checking atomic_refcell v0.1.14
+    Checking unicode-ident v1.0.22
+    Checking proc-macro2 v1.0.106
+    Checking rtc-interceptor v0.20.3
+    Checking audioadapter-sample v5.2.0
+warning: gstreamer-audio-sys@0.25.3: 
+error: failed to run custom build command for `gstreamer-audio-sys v0.25.3`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/codex-rs/target/debug/build/gstreamer-audio-sys-2640b1618f5e1c2e/build-script-build` (exit status: 1)
+  --- stdout
+  cargo:rerun-if-changed=/home/sig/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-audio-sys-0.25.3/Cargo.toml
+  cargo:rerun-if-env-changed=GSTREAMER_AUDIO_1.0_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+  cargo:warning=
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags gstreamer-audio-1.0 'gstreamer-audio-1.0 >= 1.28'
+
+  The system library `gstreamer-audio-1.0` required by crate `gstreamer-audio-sys` was not found.
+  The file `gstreamer-audio-1.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gstreamer-audio-1.0.pc`.
+
+    Checking rtc-ice v0.20.3
+warning: gstreamer-app-sys@0.25.0: 
+error: failed to run custom build command for `gstreamer-app-sys v0.25.0`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/codex-rs/target/debug/build/gstreamer-app-sys-ecc4a519dd72b17f/build-script-build` (exit status: 1)
+  --- stdout
+  cargo:rerun-if-changed=/home/sig/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-app-sys-0.25.0/Cargo.toml
+  cargo:rerun-if-env-changed=GSTREAMER_APP_1.0_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+  cargo:warning=
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags gstreamer-app-1.0 'gstreamer-app-1.0 >= 1.28'
+
+  The system library `gstreamer-app-1.0` required by crate `gstreamer-app-sys` was not found.
+  The file `gstreamer-app-1.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gstreamer-app-1.0.pc`.
+
+    Checking rtc-datachannel v0.20.3
+    Checking codex-tcp-tunnel v0.0.0 (/home/sig/files/qiri-release/codex-rs/tcp-tunnel)
+    Checking rtc-srtp v0.20.3
+    Checking rtc-turn v0.20.3
+    Checking rtc-media v0.20.3
+    Checking rtc-dtls v0.20.3
+    Checking rtc-sdp v0.20.3
+    Checking deno_core_icudata v0.78.0
+error: failed to run custom build command for `v8 v152.2.0 (https://github.com/seanh-oai/rusty_v8.git?rev=350c5a859a9b3c84ab8701b3ad51e3b7699b30c0#350c5a85)`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/codex-rs/target/debug/build/v8-bc167680a586ff6e/build-script-build` (exit status: 101)
+  --- stdout
+  cargo:rerun-if-changed=.gn
+  cargo:rerun-if-changed=BUILD.gn
+  cargo:rerun-if-changed=src/binding.cc
+  cargo:rerun-if-env-changed=CCACHE
+  cargo:rerun-if-env-changed=CLANG_BASE_PATH
+  cargo:rerun-if-env-changed=CXXSTDLIB
+  cargo:rerun-if-env-changed=DENO_TRYBUILD
+  cargo:rerun-if-env-changed=DOCS_RS
+  cargo:rerun-if-env-changed=GN
+  cargo:rerun-if-env-changed=GN_ARGS
+  cargo:rerun-if-env-changed=HOST
+  cargo:rerun-if-env-changed=LIBCLANG_PATH
+  cargo:rerun-if-env-changed=NINJA
+  cargo:rerun-if-env-changed=OUT_DIR
+  cargo:rerun-if-env-changed=RUSTY_V8_ARCHIVE
+  cargo:rerun-if-env-changed=RUSTY_V8_ARCHIVE_SHA256
+  cargo:rerun-if-env-changed=RUSTY_V8_BINDGEN_RESOURCE_DIR
+  cargo:rerun-if-env-changed=RUSTY_V8_GLIBC_PREFIX
+  cargo:rerun-if-env-changed=RUSTY_V8_MIRROR
+  cargo:rerun-if-env-changed=RUSTY_V8_MIRROR_TAG
+  cargo:rerun-if-env-changed=RUSTY_V8_MIRROR_FALLBACK
+  cargo:rerun-if-env-changed=RUSTY_V8_MUSL_SYSROOT
+  cargo:rerun-if-env-changed=RUSTY_V8_SKIP_DOWNLOAD
+  cargo:rerun-if-env-changed=RUSTY_V8_SRC_BINDING_PATH
+  cargo:rerun-if-env-changed=RUSTY_V8_SRC_BINDING_URL
+  cargo:rerun-if-env-changed=SCCACHE
+  cargo:rerun-if-env-changed=V8_FORCE_DEBUG
+  cargo:rerun-if-env-changed=V8_FROM_SOURCE
+  cargo:rerun-if-env-changed=PYTHON
+  cargo:rerun-if-env-changed=DISABLE_CLANG
+  cargo:rerun-if-env-changed=EXTRA_GN_ARGS
+  cargo:rerun-if-env-changed=PRINT_GN_ARGS
+  cargo:rerun-if-env-changed=CARGO_ENCODED_RUSTFLAGS
+  cargo:rustc-link-lib=static=rusty_v8
+  lockfile: "/home/sig/files/qiri-release/codex-rs/target/debug/build/v8.fslock"
+  Trying to fetch from https://github.com/denoland/rusty_v8/releases/download/v152.2.0/src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.rs
+  Looking for download in '"/home/sig/.cargo/.rusty_v8/v152_2_0_src_binding_ptrcomp_sandbox_release_aarch64_unknown_linux_gnu_rs"'
+  Looking for download in '"/home/sig/.cargo/.rusty_v8/https___github_com_denoland_rusty_v8_releases_download_v152_2_0_src_binding_ptrcomp_sandbox_release_aarch64_unknown_linux_gnu_rs"'
+  Deleting old tmpfile /home/sig/.cargo/git/checkouts/rusty_v8-1c356b58a53d1d98/350c5a8/gen/src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.tmp
+  Downloading https://github.com/denoland/rusty_v8/releases/download/v152.2.0/src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.rs
+  Trying with Python...
+  Downloading https://github.com/denoland/rusty_v8/releases/download/v152.2.0/src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.rs...
+  HTTP Error 404: Not Found
+  Python downloader failed, trying with curl.
+  Failed to fetch from https://github.com/denoland/rusty_v8/releases/download/v152.2.0/src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.rs: no downloader (deno, python, curl) could fetch the URL
+
+  --- stderr
+  Traceback (most recent call last):
+    File "/home/sig/.cargo/git/checkouts/rusty_v8-1c356b58a53d1d98/350c5a8/./tools/download_file.py", line 63, in <module>
+      sys.exit(main())
+               ^^^^^^
+    File "/home/sig/.cargo/git/checkouts/rusty_v8-1c356b58a53d1d98/350c5a8/./tools/download_file.py", line 58, in main
+      DownloadUrl(args.url, f)
+    File "/home/sig/.cargo/git/checkouts/rusty_v8-1c356b58a53d1d98/350c5a8/./tools/download_file.py", line 44, in DownloadUrl
+      raise e
+    File "/home/sig/.cargo/git/checkouts/rusty_v8-1c356b58a53d1d98/350c5a8/./tools/download_file.py", line 28, in DownloadUrl
+      response = urlopen(url)
+                 ^^^^^^^^^^^^
+    File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+      return opener.open(url, data, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+      response = meth(req, response)
+                 ^^^^^^^^^^^^^^^^^^^
+    File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+      response = self.parent.error(
+                 ^^^^^^^^^^^^^^^^^^
+    File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+      return self._call_chain(*args)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+    File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+      result = func(*args)
+               ^^^^^^^^^^^
+    File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+      raise HTTPError(req.full_url, code, msg, hdrs, fp)
+  urllib.error.HTTPError: HTTP Error 404: Not Found
+
+  thread 'main' (503960) panicked at /home/sig/.cargo/git/checkouts/rusty_v8-1c356b58a53d1d98/350c5a8/build.rs:1814:9:
+  Failed to fetch the V8 prebuilt artifact /home/sig/.cargo/git/checkouts/rusty_v8-1c356b58a53d1d98/350c5a8/gen/src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.rs. Tried:
+  - https://github.com/denoland/rusty_v8/releases/download/v152.2.0/src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.rs: no downloader (deno, python, curl) could fetch the URL
+  If no prebuilt artifact is published for your target or version, compile V8 from source by setting V8_FROM_SOURCE=1. You can also point the build at an artifact via RUSTY_V8_ARCHIVE (static lib), a binding via RUSTY_V8_SRC_BINDING_URL or RUSTY_V8_SRC_BINDING_PATH (src binding only), a mirror via RUSTY_V8_MIRROR, or another release tag via RUSTY_V8_MIRROR_TAG.
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+    Checking audioadapter v5.0.0
+   Compiling cpal v0.18.2
+    Checking audioadapter-buffers v5.2.0
+    Checking quote v1.0.45
+    Checking sonora-aec3 v0.2.0
+    Checking sonora-agc2 v0.2.0
+    Checking sonora-ns v0.2.0
+    Checking rtc v0.20.3
+    Checking codex-otel-trace-websocket v0.0.0 (/home/sig/files/qiri-release/codex-rs/otel-trace-websocket)
+    Checking windowfunctions v0.1.1
+   Compiling codex-bwrap v0.0.0 (/home/sig/files/qiri-release/codex-rs/bwrap)
+   Compiling visibility v0.1.1
+    Checking dasp_sample v0.11.0
+    Checking sonora v0.2.0
+error: failed to run custom build command for `codex-bwrap v0.0.0 (/home/sig/files/qiri-release/codex-rs/bwrap)`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/codex-rs/target/debug/build/codex-bwrap-b60d598be9954d62/build-script-build` (exit status: 101)
+  --- stdout
+  cargo:rustc-check-cfg=cfg(bwrap_available)
+  cargo:rerun-if-env-changed=CODEX_BWRAP_SOURCE_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_ALLOW_CROSS
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=CODEX_SKIP_BWRAP_BUILD
+  cargo:rerun-if-changed=/home/sig/files/qiri-release/codex-rs/bwrap/../vendor/bubblewrap/bubblewrap.c
+  cargo:rerun-if-changed=/home/sig/files/qiri-release/codex-rs/bwrap/../vendor/bubblewrap/bind-mount.c
+  cargo:rerun-if-changed=/home/sig/files/qiri-release/codex-rs/bwrap/../vendor/bubblewrap/network.c
+  cargo:rerun-if-changed=/home/sig/files/qiri-release/codex-rs/bwrap/../vendor/bubblewrap/utils.c
+  cargo:rerun-if-env-changed=LIBCAP_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=LIBCAP_STATIC
+  cargo:rerun-if-env-changed=LIBCAP_DYNAMIC
+  cargo:rerun-if-env-changed=PKG_CONFIG_ALL_STATIC
+  cargo:rerun-if-env-changed=PKG_CONFIG_ALL_DYNAMIC
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+
+  --- stderr
+
+  thread 'main' (505008) panicked at bwrap/build.rs:28:9:
+  failed to compile bubblewrap for Linux target: libcap not available via pkg-config: 
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_LIBS=1 PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags libcap
+
+  The system library `libcap` required by crate `codex-bwrap` was not found.
+  The file `libcap.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `libcap.pc`.
+
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+    Checking syn v2.0.117
+    Checking rubato v5.0.0
+    Checking libloading v0.8.9
+    Checking codex-stdio-to-uds v0.0.0 (/home/sig/files/qiri-release/codex-rs/stdio-to-uds)
+    Checking codex-cloud-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/cloud-client)
+    Checking webrtc v0.20.3
+    Checking codex-file-search v0.0.0 (/home/sig/files/qiri-release/codex-rs/file-search)
+    Checking codex-network-proxy v0.0.0 (/home/sig/files/qiri-release/codex-rs/network-proxy)
+warning: `codex-protocol` (lib) generated 1 warning (run `cargo fix --lib -p codex-protocol` to apply 1 suggestion)
+    Checking codex-api v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-api)
+    Checking codex-file-system v0.0.0 (/home/sig/files/qiri-release/codex-rs/file-system)
+    Checking codex-model-provider-info v0.0.0 (/home/sig/files/qiri-release/codex-rs/model-provider-info)
+    Checking codex-features v0.0.0 (/home/sig/files/qiri-release/codex-rs/features)
+warning: unused import: `codex_client::OPENAI_ORGANIZATION_HEADER`
+  --> model-provider-info/src/lib.rs:11:5
+   |
+11 | use codex_client::OPENAI_ORGANIZATION_HEADER;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `codex_client::OPENAI_PROJECT_HEADER`
+  --> model-provider-info/src/lib.rs:12:5
+   |
+12 | use codex_client::OPENAI_PROJECT_HEADER;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Checking codex-git-utils v0.0.0 (/home/sig/files/qiri-release/codex-rs/git-utils)
+warning: `codex-model-provider-info` (lib) generated 2 warnings (run `cargo fix --lib -p codex-model-provider-info` to apply 2 suggestions)
+    Checking codex-shell-command v0.0.0 (/home/sig/files/qiri-release/codex-rs/shell-command)
+    Checking codex-utils-output-truncation v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/output-truncation)
+    Checking codex-secrets v0.0.0 (/home/sig/files/qiri-release/codex-rs/secrets)
+    Checking codex-history v0.0.0 (/home/sig/files/qiri-release/codex-rs/history)
+    Checking codex-config v0.0.0 (/home/sig/files/qiri-release/codex-rs/config)
+    Checking codex-skills v0.0.0 (/home/sig/files/qiri-release/codex-rs/skills)
+warning: variable does not need to be mutable
+   --> codex-api/src/endpoint/responses_websocket.rs:219:9
+    |
+219 |         mut stream: WsStream,
+    |         ----^^^^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+    Checking codex-agent-identity v0.0.0 (/home/sig/files/qiri-release/codex-rs/agent-identity)
+warning: unused import: `http::StatusCode`
+  --> agent-identity/src/lib.rs:18:5
+   |
+18 | use http::StatusCode;
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-api` (lib) generated 1 warning (run `cargo fix --lib -p codex-api` to apply 1 suggestion)
+    Checking codex-otel v0.0.0 (/home/sig/files/qiri-release/codex-rs/otel)
+    Checking codex-state v0.0.0 (/home/sig/files/qiri-release/codex-rs/state)
+warning: struct `RegisterTaskRequest` is never constructed
+  --> agent-identity/src/lib.rs:77:8
+   |
+77 | struct RegisterTaskRequest {
+   |        ^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: struct `RegisterTaskResponse` is never constructed
+  --> agent-identity/src/lib.rs:83:8
+   |
+83 | struct RegisterTaskResponse {
+   |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `RegisterAgentRequest` is never constructed
+  --> agent-identity/src/lib.rs:95:8
+   |
+95 | struct RegisterAgentRequest {
+   |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `RegisterAgentResponse` is never constructed
+   --> agent-identity/src/lib.rs:103:8
+    |
+103 | struct RegisterAgentResponse {
+    |        ^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `task_id_from_register_task_response` is never used
+   --> agent-identity/src/lib.rs:132:4
+    |
+132 | fn task_id_from_register_task_response(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Checking codex-exec-server-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server-protocol)
+warning: `codex-agent-identity` (lib) generated 6 warnings (run `cargo fix --lib -p codex-agent-identity` to apply 1 suggestion)
+    Checking codex-code-mode-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/code-mode-protocol)
+    Checking codex-context-fragments v0.0.0 (/home/sig/files/qiri-release/codex-rs/context-fragments)
+    Checking codex-windows-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/windows-sandbox-rs)
+    Checking codex-guardian-context v0.0.0 (/home/sig/files/qiri-release/codex-rs/guardian-context)
+    Checking codex-code-mode v0.0.0 (/home/sig/files/qiri-release/codex-rs/code-mode)
+    Checking codex-mxc-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/mxc-sandbox)
+    Checking codex-sandboxing v0.0.0 (/home/sig/files/qiri-release/codex-rs/sandboxing)
+    Checking codex-prompts v0.0.0 (/home/sig/files/qiri-release/codex-rs/prompts)
+    Checking codex-linux-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/linux-sandbox)
+    Checking codex-response-debug-context v0.0.0 (/home/sig/files/qiri-release/codex-rs/response-debug-context)
+    Checking codex-utils-audio v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/audio)
+    Checking codex-rollout-trace v0.0.0 (/home/sig/files/qiri-release/codex-rs/rollout-trace)
+    Checking codex-memories-read v0.0.0 (/home/sig/files/qiri-release/codex-rs/memories/read)
+    Checking codex-utils-git-discovery v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/git-discovery)
+    Checking codex-utils-cli v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/cli)
+    Checking codex-worktree v0.0.0 (/home/sig/files/qiri-release/codex-rs/worktree)
+    Checking codex-exec-server v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server)
+    Checking codex-login v0.0.0 (/home/sig/files/qiri-release/codex-rs/login)
+    Checking codex-rollout v0.0.0 (/home/sig/files/qiri-release/codex-rs/rollout)
+    Checking codex-agent-graph-store v0.0.0 (/home/sig/files/qiri-release/codex-rs/agent-graph-store)
+warning: unused import: `std::time::Duration`
+  --> login/src/auth/manager.rs:27:5
+   |
+27 | use std::time::Duration;
+   |     ^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::time::Instant`
+  --> login/src/auth/manager.rs:28:5
+   |
+28 | use std::time::Instant;
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::access_token::CodexAccessToken`
+  --> login/src/auth/manager.rs:37:5
+   |
+37 | use super::access_token::CodexAccessToken;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::access_token::classify_codex_access_token`
+  --> login/src/auth/manager.rs:38:5
+   |
+38 | use super::access_token::classify_codex_access_token;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::default_client::create_default_auth_client`
+  --> login/src/auth/manager.rs:57:5
+   |
+57 | use crate::default_client::create_default_auth_client;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::oauth::ErrorBodyLimit`
+  --> login/src/auth/manager.rs:58:5
+   |
+58 | use crate::oauth::ErrorBodyLimit;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::oauth::OAuthClient`
+  --> login/src/auth/manager.rs:59:5
+   |
+59 | use crate::oauth::OAuthClient;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::oauth::OAuthError`
+  --> login/src/auth/manager.rs:60:5
+   |
+60 | use crate::oauth::OAuthError;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::oauth::RefreshTokenGrant`
+  --> login/src/auth/manager.rs:62:5
+   |
+62 | use crate::oauth::RefreshTokenGrant;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::oauth::TokenEncoding`
+  --> login/src/auth/manager.rs:63:5
+   |
+63 | use crate::oauth::TokenEncoding;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::oauth::TokenEndpoint`
+  --> login/src/auth/manager.rs:64:5
+   |
+64 | use crate::oauth::TokenEndpoint;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::token_data::parse_jwt_expiration`
+  --> login/src/auth/manager.rs:70:5
+   |
+70 | use crate::token_data::parse_jwt_expiration;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_protocol::protocol::SessionSource`
+  --> login/src/auth/manager.rs:81:5
+   |
+81 | use codex_protocol::protocol::SessionSource;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Checking codex-agent-roles v0.0.0 (/home/sig/files/qiri-release/codex-rs/agent-roles)
+    Checking codex-utils-sandbox-summary v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/sandbox-summary)
+    Checking codex-message-history v0.0.0 (/home/sig/files/qiri-release/codex-rs/message-history)
+warning: unused variable: `codex_home`
+   --> login/src/auth/manager.rs:241:9
+    |
+241 |         codex_home: &Path,
+    |         ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_codex_home`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `auth_credentials_store_mode`
+   --> login/src/auth/manager.rs:243:9
+    |
+243 |         auth_credentials_store_mode: AuthCredentialsStoreMode,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_auth_credentials_store_mode`
+
+warning: unused variable: `chatgpt_base_url`
+   --> login/src/auth/manager.rs:244:9
+    |
+244 |         chatgpt_base_url: Option<&str>,
+    |         ^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_chatgpt_base_url`
+
+warning: unused variable: `keyring_backend_kind`
+   --> login/src/auth/manager.rs:245:9
+    |
+245 |         keyring_backend_kind: AuthKeyringBackendKind,
+    |         ^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_keyring_backend_kind`
+
+warning: unused variable: `agent_identity_authapi_base_url`
+   --> login/src/auth/manager.rs:246:9
+    |
+246 |         agent_identity_authapi_base_url: Option<&str>,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_agent_identity_authapi_base_url`
+
+warning: unused variable: `auth_route_config`
+   --> login/src/auth/manager.rs:247:9
+    |
+247 |         auth_route_config: &AuthRouteConfig,
+    |         ^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_auth_route_config`
+
+warning: unused variable: `cached_auth`
+   --> login/src/auth/manager.rs:248:9
+    |
+248 |         cached_auth: Option<&CodexAuth>,
+    |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_cached_auth`
+
+warning: unused variable: `expected_workspace_ids`
+   --> login/src/auth/manager.rs:654:5
+    |
+654 |     expected_workspace_ids: Option<&[String]>,
+    |     ^^^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_expected_workspace_ids`
+
+warning: unused variable: `agent_identity`
+   --> login/src/auth/manager.rs:655:5
+    |
+655 |     agent_identity: &AgentIdentityStorage,
+    |     ^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_agent_identity`
+
+warning: unused variable: `reason`
+    --> login/src/auth/manager.rs:2614:9
+     |
+2614 |         reason: RefreshReason,
+     |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_reason`
+
+warning: constant `PERSONAL_ACCESS_TOKEN_PREFIX` is never used
+ --> login/src/auth/access_token.rs:1:7
+  |
+1 | const PERSONAL_ACCESS_TOKEN_PREFIX: &str = "at-";
+  |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: enum `CodexAccessToken` is never used
+ --> login/src/auth/access_token.rs:3:17
+  |
+3 | pub(super) enum CodexAccessToken<'a> {
+  |                 ^^^^^^^^^^^^^^^^
+
+warning: function `classify_codex_access_token` is never used
+ --> login/src/auth/access_token.rs:8:15
+  |
+8 | pub(super) fn classify_codex_access_token(access_token: &str) -> CodexAccessToken<'_> {
+  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `bootstrap_unavailable` is never used
+  --> login/src/auth/agent_identity.rs:21:19
+   |
+20 | impl AgentIdentityAuthError {
+   | --------------------------- associated function in this implementation
+21 |     pub(super) fn bootstrap_unavailable(error: &std::io::Error) -> Option<&Self> {
+   |                   ^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `create_raw_auth_client` is never used
+   --> login/src/auth/default_client.rs:413:15
+    |
+413 | pub(crate) fn create_raw_auth_client(
+    |               ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `create_default_auth_client` is never used
+   --> login/src/auth/default_client.rs:423:15
+    |
+423 | pub(crate) fn create_default_auth_client(
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: method `as_record` is never used
+  --> login/src/auth/storage.rs:96:19
+   |
+85 | impl AgentIdentityStorage {
+   | ------------------------- method in this implementation
+...
+96 |     pub(crate) fn as_record(&self) -> Option<&AgentIdentityAuthRecord> {
+   |                   ^^^^^^^^^
+
+warning: method `compare_and_save` is never used
+   --> login/src/auth/storage.rs:213:8
+    |
+180 | pub(super) trait AuthStorageBackend: Debug + Send + Sync {
+    |                  ------------------ method in this trait
+...
+213 |     fn compare_and_save(&self, expected: &AuthDotJson, auth: &AuthDotJson) -> std::io::Result<()> {
+    |        ^^^^^^^^^^^^^^^^
+
+warning: function `try_parse_error_message` is never used
+ --> login/src/auth/util.rs:3:15
+  |
+3 | pub(crate) fn try_parse_error_message(text: &str) -> String {
+  |               ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: field `storage` is never read
+   --> login/src/auth/manager.rs:125:5
+    |
+123 | pub struct ChatgptAuth {
+    |            ----------- field in this struct
+124 |     state: ChatgptAuthState,
+125 |     storage: Arc<dyn AuthStorageBackend>,
+    |     ^^^^^^^
+    |
+    = note: `ChatgptAuth` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: field `client` is never read
+   --> login/src/auth/manager.rs:136:5
+    |
+134 | struct ChatgptAuthState {
+    |        ---------------- field in this struct
+135 |     auth_dot_json: Arc<Mutex<Option<AuthDotJson>>>,
+136 |     client: HttpClient,
+    |     ^^^^^^
+    |
+    = note: `ChatgptAuthState` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: function `ensure_auth_workspace_allowed` is never used
+   --> login/src/auth/manager.rs:636:4
+    |
+636 | fn ensure_auth_workspace_allowed(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `same_login_for_persistence` is never used
+    --> login/src/auth/manager.rs:1138:4
+     |
+1138 | fn same_login_for_persistence(expected: &TokenData, stored: &TokenData) -> bool {
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `persist_tokens` is never used
+    --> login/src/auth/manager.rs:1149:15
+     |
+1149 | pub(super) fn persist_tokens(
+     |               ^^^^^^^^^^^^^^
+
+warning: method `storage_mode` is never used
+    --> login/src/auth/manager.rs:1254:8
+     |
+1201 | impl AuthDotJson {
+     | ---------------- method in this implementation
+...
+1254 |     fn storage_mode(
+     |        ^^^^^^^^^^^^
+
+warning: fields `code` and `description` are never read
+  --> login/src/oauth/authorization.rs:62:9
+   |
+61 |     Provider {
+   |     -------- fields in this variant
+62 |         code: &'a str,
+   |         ^^^^
+63 |         description: Option<&'a str>,
+   |         ^^^^^^^^^^^
+
+warning: variant `Json` is never constructed
+  --> login/src/oauth/client.rs:19:5
+   |
+17 | pub(crate) enum TokenEncoding {
+   |                 ------------- variant in this enum
+18 |     Form,
+19 |     Json,
+   |     ^^^^
+   |
+   = note: `TokenEncoding` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+
+warning: variants `ProactiveExpiry` and `Scheduled` are never constructed
+  --> login/src/oauth/client.rs:48:5
+   |
+47 | pub(crate) enum RefreshReason {
+   |                 ------------- variants in this enum
+48 |     ProactiveExpiry,
+   |     ^^^^^^^^^^^^^^^
+49 |     Scheduled,
+   |     ^^^^^^^^^
+   |
+   = note: `RefreshReason` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+
+warning: variant `Unlimited` is never constructed
+  --> login/src/oauth/error.rs:43:5
+   |
+42 | pub(crate) enum ErrorBodyLimit {
+   |                 -------------- variant in this enum
+43 |     Unlimited,
+   |     ^^^^^^^^^
+   |
+   = note: `ErrorBodyLimit` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: field `body_read_error` is never read
+  --> login/src/oauth/error.rs:53:9
+   |
+49 | pub(crate) struct TokenRejection {
+   |                   -------------- field in this struct
+...
+53 |     pub body_read_error: Option<HttpError>,
+   |         ^^^^^^^^^^^^^^^
+   |
+   = note: `TokenRejection` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: method `authentication_factory` is never used
+  --> login/src/outbound_proxy.rs:39:19
+   |
+15 | impl AuthRouteConfig {
+   | -------------------- method in this implementation
+...
+39 |     pub(crate) fn authentication_factory(&self, endpoint: &str) -> HttpClientFactory {
+   |                   ^^^^^^^^^^^^^^^^^^^^^^
+
+    Checking codex-utils-approval-presets v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/approval-presets)
+warning: `codex-login` (lib) generated 44 warnings (run `cargo fix --lib -p codex-login` to apply 23 suggestions)
+    Checking codex-models-manager v0.0.0 (/home/sig/files/qiri-release/codex-rs/models-manager)
+    Checking codex-runtime-agent-instance v0.0.0 (/home/sig/files/qiri-release/codex-rs/runtime-agent-instance)
+    Checking codex-cloud-config v0.0.0 (/home/sig/files/qiri-release/codex-rs/cloud-config)
+    Checking codex-config-schema v0.0.0 (/home/sig/files/qiri-release/codex-rs/config-schema)
+    Checking codex-experimental-api-macros v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-experimental-api-macros)
+    Checking codex-protocol-test-support v0.0.0 (/home/sig/files/qiri-release/codex-rs/protocol/tests/support)
+    Checking codex-execpolicy v0.0.0 (/home/sig/files/qiri-release/codex-rs/execpolicy)
+    Checking codex-http-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/http-client)
+    Checking codex-utils-readiness v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/readiness)
+    Checking codex-app-server-protocol-noop-macros v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-protocol-noop-macros)
+    Checking codex-feedback v0.0.0 (/home/sig/files/qiri-release/codex-rs/feedback)
+    Checking codex-app-server-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-protocol)
+warning: constant `MAX_DECODED_UPLOAD_BYTES` is never used
+  --> feedback/src/lib.rs:59:7
+   |
+59 | const MAX_DECODED_UPLOAD_BYTES: usize = 200 * 1024 * 1024;
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: method `feedback_attachments` is never used
+   --> feedback/src/lib.rs:717:8
+    |
+535 | impl FeedbackSnapshot {
+    | --------------------- method in this implementation
+...
+717 |     fn feedback_attachments<'a>(
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `archive_rollouts` is never used
+  --> feedback/src/rollout_archive.rs:20:15
+   |
+20 | pub(super) fn archive_rollouts<'a>(
+   |               ^^^^^^^^^^^^^^^^
+
+warning: function `with_individual_fallback` is never used
+  --> feedback/src/rollout_archive.rs:65:15
+   |
+65 | pub(super) fn with_individual_fallback<'a>(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `append_rollout` is never used
+  --> feedback/src/rollout_archive.rs:95:4
+   |
+95 | fn append_rollout<W: Write>(
+   |    ^^^^^^^^^^^^^^
+
+warning: struct `BoundedWriter` is never constructed
+   --> feedback/src/rollout_archive.rs:129:8
+    |
+129 | struct BoundedWriter<W> {
+    |        ^^^^^^^^^^^^^
+
+warning: function `encode_envelope` is never used
+  --> feedback/src/upload.rs:13:15
+   |
+13 | pub(super) fn encode_envelope(envelope: &Envelope) -> io::Result<(Vec<u8>, usize)> {
+   |               ^^^^^^^^^^^^^^^
+
+warning: function `encode_attachment_envelope` is never used
+  --> feedback/src/upload.rs:30:15
+   |
+30 | pub(super) fn encode_attachment_envelope(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `CountingWriter` is never constructed
+  --> feedback/src/upload.rs:48:8
+   |
+48 | struct CountingWriter<W> {
+   |        ^^^^^^^^^^^^^^
+
+warning: `codex-feedback` (lib) generated 9 warnings
+    Checking codex-model-provider v0.0.0 (/home/sig/files/qiri-release/codex-rs/model-provider)
+warning: unused import: `codex_model_provider_info::AMAZON_BEDROCK_GPT_5_6_LUNA_MODEL_ID`
+  --> model-provider/src/amazon_bedrock/mod.rs:20:5
+   |
+20 | use codex_model_provider_info::AMAZON_BEDROCK_GPT_5_6_LUNA_MODEL_ID;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `codex_model_provider_info::AMAZON_BEDROCK_GPT_5_6_TERRA_MODEL_ID`
+  --> model-provider/src/amazon_bedrock/mod.rs:21:5
+   |
+21 | use codex_model_provider_info::AMAZON_BEDROCK_GPT_5_6_TERRA_MODEL_ID;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_model_provider_info::AMAZON_BEDROCK_RUNTIME_GLOBAL_GPT_5_6_LUNA_MODEL_ID`
+  --> model-provider/src/amazon_bedrock/mod.rs:22:5
+   |
+22 | use codex_model_provider_info::AMAZON_BEDROCK_RUNTIME_GLOBAL_GPT_5_6_LUNA_MODEL_ID;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_model_provider_info::AMAZON_BEDROCK_RUNTIME_GLOBAL_GPT_5_6_TERRA_MODEL_ID`
+  --> model-provider/src/amazon_bedrock/mod.rs:23:5
+   |
+23 | use codex_model_provider_info::AMAZON_BEDROCK_RUNTIME_GLOBAL_GPT_5_6_TERRA_MODEL_ID;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_login::auth::AgentIdentityAuthError`
+  --> model-provider/src/auth.rs:19:5
+   |
+19 | use codex_login::auth::AgentIdentityAuthError;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_protocol::auth::RefreshTokenFailedError`
+  --> model-provider/src/provider.rs:22:5
+   |
+22 | use codex_protocol::auth::RefreshTokenFailedError;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: method `engage` is never used
+  --> model-provider/src/auth.rs:69:8
+   |
+64 | impl AgentIdentitySessionFallback {
+   | --------------------------------- method in this implementation
+...
+69 |     fn engage(&self) -> bool {
+   |        ^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: associated function `for_agent_identity` is never used
+  --> model-provider/src/auth.rs:91:8
+   |
+82 | impl ResolvedProviderAuth {
+   | ------------------------- associated function in this implementation
+...
+91 |     fn for_agent_identity(auth: AgentIdentityAuth) -> Self {
+   |        ^^^^^^^^^^^^^^^^^^
+
+warning: function `uses_fedramp_api_key` is never used
+   --> model-provider/src/auth.rs:339:15
+    |
+339 | pub(crate) fn uses_fedramp_api_key(
+    |               ^^^^^^^^^^^^^^^^^^^^
+
+warning: `codex-model-provider` (lib) generated 9 warnings (run `cargo fix --lib -p codex-model-provider` to apply 6 suggestions)
+    Checking opus v0.4.0
+    Checking codex-utils-plugins v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/plugins)
+    Checking codex-rmcp-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/rmcp-client)
+    Checking codex-apply-patch v0.0.0 (/home/sig/files/qiri-release/codex-rs/apply-patch)
+    Checking codex-exec-server-test-support v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server/tests/support)
+warning: unused import: `anyhow::bail`
+ --> rmcp-client/src/oauth_client_registration.rs:4:5
+  |
+4 | use anyhow::bail;
+  |     ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+    Checking codex-plugin v0.0.0 (/home/sig/files/qiri-release/codex-rs/plugin)
+    Checking codex-arg0 v0.0.0 (/home/sig/files/qiri-release/codex-rs/arg0)
+    Checking codex-connectors v0.0.0 (/home/sig/files/qiri-release/codex-rs/connectors)
+    Checking codex-hooks v0.0.0 (/home/sig/files/qiri-release/codex-rs/hooks)
+warning: unused import: `std::collections::HashMap`
+ --> connectors/src/lib.rs:1:5
+  |
+1 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::future::Future`
+ --> connectors/src/lib.rs:2:5
+  |
+2 | use std::future::Future;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+    Checking codex-test-binary-support v0.0.0 (/home/sig/files/qiri-release/codex-rs/test-binary-support)
+warning: field `expires_at` is never read
+  --> connectors/src/lib.rs:89:5
+   |
+87 | struct CachedConnectorDirectory {
+   |        ------------------------ field in this struct
+88 |     key: ConnectorDirectoryCacheKey,
+89 |     expires_at: Instant,
+   |     ^^^^^^^^^^
+   |
+   = note: `CachedConnectorDirectory` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `write_cached_directory_connectors_to_disk` is never used
+  --> connectors/src/directory_cache.rs:83:15
+   |
+83 | pub(crate) fn write_cached_directory_connectors_to_disk(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `codex-connectors` (lib) generated 4 warnings (run `cargo fix --lib -p codex-connectors` to apply 2 suggestions)
+    Checking codex-tools v0.0.0 (/home/sig/files/qiri-release/codex-rs/tools)
+    Checking codex-message-board v0.0.0 (/home/sig/files/qiri-release/codex-rs/message-board)
+    Checking codex-message-board-mcp v0.0.0 (/home/sig/files/qiri-release/codex-rs/message-board-mcp)
+    Checking codex-guardian-v3 v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/guardian-v3)
+warning: `codex-rmcp-client` (lib) generated 1 warning (run `cargo fix --lib -p codex-rmcp-client` to apply 1 suggestion)
+    Checking codex-mcp v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-mcp)
+warning: unused import: `codex_api::SharedAuthProvider`
+ --> codex-mcp/src/connection_manager/startup.rs:5:5
+  |
+5 | use codex_api::SharedAuthProvider;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `crate::server::EffectiveMcpServer`
+  --> codex-mcp/src/connection_manager/startup.rs:19:5
+   |
+19 | use crate::server::EffectiveMcpServer;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::env`
+  --> codex-mcp/src/mcp/mod.rs:17:5
+   |
+17 | use std::env;
+   |     ^^^^^^^^
+
+warning: variable does not need to be mutable
+   --> codex-mcp/src/mcp/mod.rs:394:9
+    |
+394 |     let mut servers = configured_servers
+    |         ----^^^^^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `auth`
+   --> codex-mcp/src/mcp/mod.rs:392:5
+    |
+392 |     auth: Option<&CodexAuth>,
+    |     ^^^^ help: if this is intentional, prefix it with an underscore: `_auth`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-mcp` (lib) generated 5 warnings (run `cargo fix --lib -p codex-mcp` to apply 5 suggestions)
+    Checking codex-extension-api v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/extension-api)
+    Checking codex-agent-message-board-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/agent-message-board-client)
+    Checking codex-home v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-home)
+    Checking codex-multi-env-copy-file v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/multi-env-copy-file)
+    Checking codex-agent-message-board-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/agent-message-board)
+    Checking codex-analytics v0.0.0 (/home/sig/files/qiri-release/codex-rs/analytics)
+    Checking codex-thread-store v0.0.0 (/home/sig/files/qiri-release/codex-rs/thread-store)
+    Checking codex-core-plugins v0.0.0 (/home/sig/files/qiri-release/codex-rs/core-plugins)
+    Checking codex-skills-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/skills)
+    Checking codex-guardian-reviewer v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/guardian-reviewer)
+    Checking codex-connectors-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/connectors)
+    Checking codex-core v0.0.0 (/home/sig/files/qiri-release/codex-rs/core)
+warning: unused import: `codex_api::RESPONSES_PATH`
+  --> core/src/client.rs:50:5
+   |
+50 | use codex_api::RESPONSES_PATH;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `codex_protocol::protocol::ModelRerouteEvent`
+   --> core/src/session/mod.rs:389:5
+    |
+389 | use codex_protocol::protocol::ModelRerouteEvent;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_protocol::protocol::ModelRerouteReason`
+   --> core/src/session/mod.rs:390:5
+    |
+390 | use codex_protocol::protocol::ModelRerouteReason;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `http::HeaderValue`
+   --> core/src/config/mod.rs:140:5
+    |
+140 | use http::HeaderValue;
+    |     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_extension_api::SessionIsolation`
+  --> core/src/mcp.rs:24:5
+   |
+24 | use codex_extension_api::SessionIsolation;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_mcp::CODEX_APPS_MCP_SERVER_NAME`
+  --> core/src/mcp.rs:27:5
+   |
+27 | use codex_mcp::CODEX_APPS_MCP_SERVER_NAME;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_login::AuthManager`
+  --> core/src/tools/spec_plan.rs:67:5
+   |
+67 | use codex_login::AuthManager;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_protocol::account::PlanType`
+  --> core/src/tools/spec_plan.rs:71:5
+   |
+71 | use codex_protocol::account::PlanType;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused variable: `originator`
+   --> core/src/mcp.rs:273:9
+    |
+273 |         originator: Option<&str>,
+    |         ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_originator`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `LEGACY_CODEX_APPS_REGISTRATION_ID` is never used
+  --> core/src/mcp.rs:43:7
+   |
+43 | const LEGACY_CODEX_APPS_REGISTRATION_ID: &str = "legacy_codex_apps";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-core` (lib) generated 10 warnings (run `cargo fix --lib -p codex-core` to apply 9 suggestions)
+    Checking codex-guardian-v2 v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/guardian-v2)
+    Checking codex-image-generation-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/image-generation)
+    Checking codex-app-server-transport v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-transport)
+    Checking codex-memories-write v0.0.0 (/home/sig/files/qiri-release/codex-rs/memories/write)
+    Checking codex-history-notes-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/history-notes)
+    Checking codex-goal-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/goal)
+warning: unused import: `crate::metrics::MEMORY_STARTUP`
+ --> memories/write/src/start.rs:3:5
+  |
+3 | use crate::metrics::MEMORY_STARTUP;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `codex_login::CodexAuth`
+  --> ext/guardian-v2/src/async_scorer/sampler/connection_pool.rs:28:5
+   |
+28 | use codex_login::CodexAuth;
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `codex_login::CodexAuth`
+  --> ext/guardian-v2/src/async_scorer/startup.rs:14:5
+   |
+14 | use codex_login::CodexAuth;
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+    Checking codex-memories-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/memories)
+    Checking codex-web-search-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/web-search)
+    Checking codex-queue-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/queue)
+    Checking codex-mcp-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/mcp)
+warning: constant `MEMORY_STARTUP` is never used
+ --> memories/write/src/metrics.rs:1:18
+  |
+1 | pub(crate) const MEMORY_STARTUP: &str = "codex.memory.startup";
+  |                  ^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `CODEX_LIMIT_ID` is never used
+  --> memories/write/src/lib.rs:50:22
+   |
+50 |     pub(super) const CODEX_LIMIT_ID: &str = "codex";
+   |                      ^^^^^^^^^^^^^^
+
+warning: unused import: `codex_core::config::Config`
+ --> ext/mcp/src/lib.rs:1:5
+  |
+1 | use codex_core::config::Config;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `codex_extension_api::ExtensionFuture`
+ --> ext/mcp/src/lib.rs:2:5
+  |
+2 | use codex_extension_api::ExtensionFuture;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_extension_api::ExtensionRegistryBuilder`
+ --> ext/mcp/src/lib.rs:3:5
+  |
+3 | use codex_extension_api::ExtensionRegistryBuilder;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_extension_api::McpServerContribution`
+ --> ext/mcp/src/lib.rs:4:5
+  |
+4 | use codex_extension_api::McpServerContribution;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_extension_api::McpServerContributionContext`
+ --> ext/mcp/src/lib.rs:5:5
+  |
+5 | use codex_extension_api::McpServerContributionContext;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_extension_api::McpServerContributor`
+ --> ext/mcp/src/lib.rs:6:5
+  |
+6 | use codex_extension_api::McpServerContributor;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_mcp::CODEX_APPS_MCP_SERVER_NAME`
+ --> ext/mcp/src/lib.rs:7:5
+  |
+7 | use codex_mcp::CODEX_APPS_MCP_SERVER_NAME;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `codex-memories-write` (lib) generated 3 warnings (run `cargo fix --lib -p codex-memories-write` to apply 1 suggestion)
+    Checking codex-external-agent-migration v0.0.0 (/home/sig/files/qiri-release/codex-rs/external-agent-migration)
+    Checking codex-ollama v0.0.0 (/home/sig/files/qiri-release/codex-rs/ollama)
+    Checking codex-lmstudio v0.0.0 (/home/sig/files/qiri-release/codex-rs/lmstudio)
+    Checking codex-app-server-test-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-test-client)
+warning: `codex-mcp-extension` (lib) generated 7 warnings (run `cargo fix --lib -p codex-mcp-extension` to apply 7 suggestions)
+    Checking codex-core-api v0.0.0 (/home/sig/files/qiri-release/codex-rs/core-api)
+    Checking codex-utils-oss v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/oss)
+    Checking codex-windows-sandbox-service v0.0.0 (/home/sig/files/qiri-release/codex-rs/windows-sandbox-service)
+    Checking codex-app-server-daemon v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-daemon)
+    Checking codex-thread-manager-sample v0.0.0 (/home/sig/files/qiri-release/codex-rs/thread-manager-sample)
+    Checking codex-agent-extension v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/agent)
+warning: `codex-guardian-v2` (lib) generated 2 warnings (run `cargo fix --lib -p codex-guardian-v2` to apply 2 suggestions)
+    Checking core_test_support v0.0.0 (/home/sig/files/qiri-release/codex-rs/core/tests/common)
+warning: enum `RestartIfRunningOutcome` is never used
+   --> app-server-daemon/src/lib.rs:217:17
+    |
+217 | pub(crate) enum RestartIfRunningOutcome {
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: enum `RestartMode` is never used
+   --> app-server-daemon/src/lib.rs:227:17
+    |
+227 | pub(crate) enum RestartMode {
+    |                 ^^^^^^^^^^^
+
+warning: enum `RestartDecision` is never used
+   --> app-server-daemon/src/lib.rs:235:6
+    |
+235 | enum RestartDecision {
+    |      ^^^^^^^^^^^^^^^
+
+warning: methods `try_restart_if_running`, `is_stable_standalone_release`, and `has_latest_selection_marker` are never used
+   --> app-server-daemon/src/lib.rs:528:25
+    |
+335 | impl Daemon {
+    | ----------- methods in this implementation
+...
+528 |     pub(crate) async fn try_restart_if_running(
+    |                         ^^^^^^^^^^^^^^^^^^^^^^
+...
+941 |     fn is_stable_standalone_release(&self) -> Result<bool> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+963 |     fn has_latest_selection_marker(&self) -> bool {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `restart_decision` is never used
+    --> app-server-daemon/src/lib.rs:1124:4
+     |
+1124 | fn restart_decision(
+     |    ^^^^^^^^^^^^^^^^
+
+warning: method `promote_legacy_identity` is never used
+  --> app-server-daemon/src/backend/pid_identity.rs:70:25
+   |
+69 | impl super::PidBackend {
+   | ---------------------- method in this implementation
+70 |     pub(crate) async fn promote_legacy_identity(&self) -> Result<()> {
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `is_stable_standalone_release` is never used
+  --> app-server-daemon/src/managed_install.rs:74:15
+   |
+74 | pub(crate) fn is_stable_standalone_release(codex_home: &Path, codex_bin: &Path) -> bool {
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `supports_daemon_update_loop` is never used
+   --> app-server-daemon/src/managed_install.rs:119:21
+    |
+119 | pub(crate) async fn supports_daemon_update_loop(codex_bin: &Path) -> bool {
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `supports_daemon_command` is never used
+   --> app-server-daemon/src/managed_install.rs:124:21
+    |
+124 | pub(crate) async fn supports_daemon_command(codex_bin: &Path, args: &[&str]) -> bool {
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `resolved_managed_codex_bin` is never used
+   --> app-server-daemon/src/managed_install.rs:143:21
+    |
+143 | pub(crate) async fn resolved_managed_codex_bin(codex_bin: &Path) -> Result<PathBuf> {
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: method `same_contents` is never used
+   --> app-server-daemon/src/managed_install.rs:193:19
+    |
+192 | impl ExecutableIdentity {
+    | ----------------------- method in this implementation
+193 |     pub(crate) fn same_contents(&self, other: &Self) -> bool {
+    |                   ^^^^^^^^^^^^^
+
+warning: field `auto_update_enabled` is never read
+  --> app-server-daemon/src/settings.rs:73:16
+   |
+71 | pub(crate) struct UpdaterSettings {
+   |                   --------------- field in this struct
+72 |     #[serde(default = "default_auto_update_enabled")]
+73 |     pub(crate) auto_update_enabled: bool,
+   |                ^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `UpdaterSettings` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: associated items `load` and `update_interval` are never used
+   --> app-server-daemon/src/settings.rs:108:25
+    |
+107 | impl UpdaterSettings {
+    | -------------------- associated items in this implementation
+108 |     pub(crate) async fn load(settings_file: &Path) -> Result<Self> {
+    |                         ^^^^
+...
+127 |     pub(crate) fn update_interval(&self, minute: Duration) -> Duration {
+    |                   ^^^^^^^^^^^^^^^
+
+warning: `codex-app-server-daemon` (lib) generated 13 warnings
+    Checking codex-app-server v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server)
+    Checking app_test_support v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server/tests/common)
+warning: unused import: `codex_app_server_protocol::AppListUpdatedNotification`
+  --> app-server/src/request_processors.rs:26:5
+   |
+26 | use codex_app_server_protocol::AppListUpdatedNotification;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `codex_app_server_protocol::AppsInstalledParams`
+  --> app-server/src/request_processors.rs:30:5
+   |
+30 | use codex_app_server_protocol::AppsInstalledParams;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::AppsInstalledResponse`
+  --> app-server/src/request_processors.rs:31:5
+   |
+31 | use codex_app_server_protocol::AppsInstalledResponse;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::AppsListParams`
+  --> app-server/src/request_processors.rs:32:5
+   |
+32 | use codex_app_server_protocol::AppsListParams;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::AppsListResponse`
+  --> app-server/src/request_processors.rs:33:5
+   |
+33 | use codex_app_server_protocol::AppsListResponse;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::AppsReadParams`
+  --> app-server/src/request_processors.rs:34:5
+   |
+34 | use codex_app_server_protocol::AppsReadParams;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::AppsReadResponse`
+  --> app-server/src/request_processors.rs:35:5
+   |
+35 | use codex_app_server_protocol::AppsReadResponse;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::InstalledApp`
+  --> app-server/src/request_processors.rs:82:5
+   |
+82 | use codex_app_server_protocol::InstalledApp;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_connectors::AppInfo`
+   --> app-server/src/request_processors.rs:299:5
+    |
+299 | use codex_connectors::AppInfo;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_core::McpManager`
+   --> app-server/src/request_processors.rs:303:5
+    |
+303 | use codex_core::McpManager;
+    |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_core::connectors::AccessibleConnectorsStatus`
+   --> app-server/src/request_processors.rs:321:5
+    |
+321 | use codex_core::connectors::AccessibleConnectorsStatus;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_core_plugins::PluginsManager`
+   --> app-server/src/request_processors.rs:341:5
+    |
+341 | use codex_core_plugins::PluginsManager;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `tokio_util::sync::DropGuard`
+   --> app-server/src/request_processors.rs:479:5
+    |
+479 | use tokio_util::sync::DropGuard;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::io::Error as IoError`
+ --> app-server/src/request_processors/thread_summary.rs:7:5
+  |
+7 | use std::io::Error as IoError;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused variable: `git_attribution_base_url`
+  --> app-server/src/extensions.rs:67:9
+   |
+67 |         git_attribution_base_url,
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^ help: try ignoring the field: `git_attribution_base_url: _`
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `http_client_factory`
+  --> app-server/src/extensions.rs:68:9
+   |
+68 |         http_client_factory,
+   |         ^^^^^^^^^^^^^^^^^^^ help: try ignoring the field: `http_client_factory: _`
+
+warning: unused variable: `app_list_shutdown_token`
+   --> app-server/src/message_processor.rs:436:13
+    |
+436 |         let app_list_shutdown_token = CancellationToken::new();
+    |             ^^^^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_app_list_shutdown_token`
+
+warning: unused variable: `config`
+    --> app-server/src/request_processors/plugins.rs:2137:5
+     |
+2137 |     config: &Config,
+     |     ^^^^^^ help: if this is intentional, prefix it with an underscore: `_config`
+
+warning: unused variable: `auth`
+    --> app-server/src/request_processors/plugins.rs:2138:5
+     |
+2138 |     auth: Option<&CodexAuth>,
+     |     ^^^^ help: if this is intentional, prefix it with an underscore: `_auth`
+
+warning: function `app_info_to_api` is never used
+  --> app-server/src/app_info.rs:22:15
+   |
+22 | pub(crate) fn app_info_to_api(app: AppInfo) -> ApiAppInfo {
+   |               ^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `connector_metadata_to_api` is never used
+  --> app-server/src/app_info.rs:63:15
+   |
+63 | pub(crate) fn connector_metadata_to_api(metadata: ConnectorMetadata) -> ApiConnectorMetadata {
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `app_branding_to_api` is never used
+   --> app-server/src/app_info.rs:109:4
+    |
+109 | fn app_branding_to_api(branding: AppBranding) -> ApiAppBranding {
+    |    ^^^^^^^^^^^^^^^^^^^
+
+warning: function `app_review_to_api` is never used
+   --> app-server/src/app_info.rs:128:4
+    |
+128 | fn app_review_to_api(review: AppReview) -> ApiAppReview {
+    |    ^^^^^^^^^^^^^^^^^
+
+warning: function `app_screenshot_to_api` is never used
+   --> app-server/src/app_info.rs:133:4
+    |
+133 | fn app_screenshot_to_api(screenshot: AppScreenshot) -> ApiAppScreenshot {
+    |    ^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `app_metadata_to_api` is never used
+   --> app-server/src/app_info.rs:146:4
+    |
+146 | fn app_metadata_to_api(metadata: AppMetadata) -> ApiAppMetadata {
+    |    ^^^^^^^^^^^^^^^^^^^
+
+warning: method `load_retained_session_config` is never used
+   --> app-server/src/config_manager.rs:317:25
+    |
+ 91 | impl ConfigManager {
+    | ------------------ method in this implementation
+...
+317 |     pub(crate) async fn load_retained_session_config(
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `EXTERNAL_AUTH_REFRESH_TIMEOUT` is never used
+  --> app-server/src/external_auth.rs:18:7
+   |
+18 | const EXTERNAL_AUTH_REFRESH_TIMEOUT: Duration = Duration::from_secs(10);
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `ExternalAuthBridge` is never constructed
+  --> app-server/src/external_auth.rs:20:19
+   |
+20 | pub(crate) struct ExternalAuthBridge {
+   |                   ^^^^^^^^^^^^^^^^^^
+
+warning: associated items `new` and `refresh` are never used
+  --> app-server/src/external_auth.rs:26:19
+   |
+25 | impl ExternalAuthBridge {
+   | ----------------------- associated items in this implementation
+26 |     pub(crate) fn new(outgoing: Arc<OutgoingMessageSender>, auth: CodexAuth) -> Self {
+   |                   ^^^
+...
+33 |     async fn refresh(&self, context: ExternalAuthRefreshContext) -> std::io::Result<CodexAuth> {
+   |              ^^^^^^^
+
+warning: method `send_request` is never used
+   --> app-server/src/outgoing_message.rs:374:25
+    |
+268 | impl OutgoingMessageSender {
+    | -------------------------- method in this implementation
+...
+374 |     pub(crate) async fn send_request(
+    |                         ^^^^^^^^^^^^
+
+warning: methods `logout_account`, `configured_auth_owned_by_host_error`, `logout_common`, and `logout_v2` are never used
+   --> app-server/src/request_processors/account_processor.rs:94:25
+    |
+ 52 | impl AccountRequestProcessor {
+    | ---------------------------- methods in this implementation
+...
+ 94 |     pub(crate) async fn logout_account(
+    |                         ^^^^^^^^^^^^^^
+...
+260 |     fn configured_auth_owned_by_host_error(&self) -> JSONRPCErrorError {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+477 |     async fn logout_common(&self) -> std::result::Result<Option<AuthMode>, JSONRPCErrorError> {
+    |              ^^^^^^^^^^^^^
+...
+503 |     async fn logout_v2(&self, request_id: ConnectionRequestId) -> Result<(), JSONRPCErrorError> {
+    |              ^^^^^^^^^
+
+warning: method `unload_for_workspace_switch` is never used
+ --> app-server/src/request_processors/thread_processor/workspace_switching.rs:7:25
+  |
+6 | impl ThreadRequestProcessor {
+  | --------------------------- method in this implementation
+7 |     pub(crate) async fn unload_for_workspace_switch(&self) -> Result<(), JSONRPCErrorError> {
+  |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `TurnAdmissionPause` is never constructed
+  --> app-server/src/turn_admission.rs:35:19
+   |
+35 | pub(crate) struct TurnAdmissionPause(TurnAdmission);
+   |                   ^^^^^^^^^^^^^^^^^^
+
+warning: method `pause` is never used
+  --> app-server/src/turn_admission.rs:38:25
+   |
+37 | impl TurnAdmission {
+   | ------------------ method in this implementation
+38 |     pub(crate) async fn pause(&self) -> Result<TurnAdmissionPause, JSONRPCErrorError> {
+   |                         ^^^^^
+
+warning: `codex-app-server` (lib) generated 34 warnings (run `cargo fix --lib -p codex-app-server` to apply 19 suggestions)
+    Checking codex-app-server-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/app-server-client)
+    Checking codex-exec-server-cli v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server-cli)
+warning: unused import: `codex_login::read_codex_access_token_from_env`
+  --> exec-server-cli/src/config.rs:13:5
+   |
+13 | use codex_login::read_codex_access_token_from_env;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `crate::exec_server_auth`
+  --> exec-server-cli/src/config.rs:19:5
+   |
+19 | use crate::exec_server_auth;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::atomic::AtomicBool`
+ --> exec-server-cli/src/exec_server_auth.rs:4:5
+  |
+4 | use std::sync::atomic::AtomicBool;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::atomic::Ordering`
+ --> exec-server-cli/src/exec_server_auth.rs:5:5
+  |
+5 | use std::sync::atomic::Ordering;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::time::Duration`
+ --> exec-server-cli/src/exec_server_auth.rs:6:5
+  |
+6 | use std::time::Duration;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_api::AuthHeadersFuture`
+ --> exec-server-cli/src/exec_server_auth.rs:9:5
+  |
+9 | use codex_api::AuthHeadersFuture;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_login::AuthManager`
+  --> exec-server-cli/src/exec_server_auth.rs:19:5
+   |
+19 | use codex_login::AuthManager;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_login::CodexAuth`
+  --> exec-server-cli/src/exec_server_auth.rs:20:5
+   |
+20 | use codex_login::CodexAuth;
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `tokio::sync::Semaphore`
+  --> exec-server-cli/src/exec_server_auth.rs:22:5
+   |
+22 | use tokio::sync::Semaphore;
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `codex-exec-server-cli` (lib) generated 9 warnings (run `cargo fix --lib -p codex-exec-server-cli` to apply 9 suggestions)
+    Checking codex-tui v0.0.0 (/home/sig/files/qiri-release/codex-rs/tui)
+    Checking codex-exec v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec)
+warning: unused import: `codex_app_server_protocol::AddCreditsNudgeCreditType`
+  --> tui/src/app.rs:98:5
+   |
+98 | use codex_app_server_protocol::AddCreditsNudgeCreditType;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `codex_app_server_protocol::SendAddCreditsNudgeEmailParams`
+   --> tui/src/app.rs:126:5
+    |
+126 | use codex_app_server_protocol::SendAddCreditsNudgeEmailParams;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_model_provider_info::AMAZON_BEDROCK_PROVIDER_ID`
+ --> tui/src/app/startup_prompts.rs:8:5
+  |
+8 | use codex_model_provider_info::AMAZON_BEDROCK_PROVIDER_ID;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::atomic::AtomicBool`
+  --> tui/src/app_event.rs:13:5
+   |
+13 | use std::sync::atomic::AtomicBool;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::GetAccountParams`
+  --> tui/src/app_server_session.rs:59:5
+   |
+59 | use codex_app_server_protocol::GetAccountParams;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `actionable_banner::BannerDismissal`
+   --> tui/src/bottom_pane/mod.rs:105:16
+    |
+105 | pub(crate) use actionable_banner::BannerDismissal;
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::terminal_hyperlinks::mark_underlined_hyperlink`
+  --> tui/src/bottom_pane/feedback_note_view.rs:27:5
+   |
+27 | use crate::terminal_hyperlinks::mark_underlined_hyperlink;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::AddCreditsNudgeCreditType`
+  --> tui/src/chatwidget.rs:81:5
+   |
+81 | use codex_app_server_protocol::AddCreditsNudgeCreditType;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::AddCreditsNudgeEmailStatus`
+  --> tui/src/chatwidget.rs:82:5
+   |
+82 | use codex_app_server_protocol::AddCreditsNudgeEmailStatus;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::onboarding::mark_url_hyperlink`
+  --> tui/src/chatwidget/plugin_catalog.rs:27:5
+   |
+27 | use crate::onboarding::mark_url_hyperlink;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::bottom_pane::ActionableBanner`
+ --> tui/src/chatwidget/rate_limits.rs:4:5
+  |
+4 | use crate::bottom_pane::ActionableBanner;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `uuid::Uuid`
+ --> tui/src/chatwidget/rate_limits.rs:6:5
+  |
+6 | use uuid::Uuid;
+  |     ^^^^^^^^^^
+
+warning: unused import: `crate::app_event::AppEvent`
+ --> tui/src/chatwidget/usage_history.rs:4:5
+  |
+4 | use crate::app_event::AppEvent;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fs`
+ --> tui/src/pets/asset_pack.rs:3:5
+  |
+3 | use std::fs;
+  |     ^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::AccountLoginCompletedNotification`
+  --> tui/src/onboarding/auth.rs:10:5
+   |
+10 | use codex_app_server_protocol::AccountLoginCompletedNotification;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::CancelLoginAccountParams`
+  --> tui/src/onboarding/auth.rs:13:5
+   |
+13 | use codex_app_server_protocol::CancelLoginAccountParams;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `ratatui::style::Modifier`
+  --> tui/src/onboarding/auth.rs:30:5
+   |
+30 | use ratatui::style::Modifier;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::motion::MotionMode`
+  --> tui/src/onboarding/auth.rs:52:5
+   |
+52 | use crate::motion::MotionMode;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::motion::shimmer_text`
+  --> tui/src/onboarding/auth.rs:53:5
+   |
+53 | use crate::motion::shimmer_text;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::terminal_hyperlinks::HyperlinkLine`
+  --> tui/src/onboarding/auth.rs:59:5
+   |
+59 | use crate::terminal_hyperlinks::HyperlinkLine;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::terminal_hyperlinks::mark_buffer_hyperlinks`
+  --> tui/src/onboarding/auth.rs:60:5
+   |
+60 | use crate::terminal_hyperlinks::mark_buffer_hyperlinks;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::terminal_hyperlinks::visible_lines`
+  --> tui/src/onboarding/auth.rs:61:5
+   |
+61 | use crate::terminal_hyperlinks::visible_lines;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_protocol::config_types::ForcedLoginMethod`
+  --> tui/src/onboarding/onboarding_screen.rs:32:5
+   |
+32 | use codex_protocol::config_types::ForcedLoginMethod;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::clipboard_copy::CopyFormat`
+  --> tui/src/onboarding/onboarding_screen.rs:36:5
+   |
+36 | use crate::clipboard_copy::CopyFormat;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::clipboard_copy::CopyStatus`
+  --> tui/src/onboarding/onboarding_screen.rs:37:5
+   |
+37 | use crate::clipboard_copy::CopyStatus;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::style::accent_color`
+ --> tui/src/status/card.rs:7:5
+  |
+7 | use crate::style::accent_color;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_protocol::account::PlanType`
+ --> tui/src/status/helpers.rs:9:5
+  |
+9 | use codex_protocol::account::PlanType;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variable does not need to be mutable
+    --> tui/src/app/event_dispatch.rs:1243:31
+     |
+1243 |             AppEvent::CodexOp(mut op) => {
+     |                               ----^^
+     |                               |
+     |                               help: remove this `mut`
+     |
+     = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `tui`
+   --> tui/src/app/history_ui.rs:276:47
+    |
+276 |     fn insert_pending_usage_output(&mut self, tui: &mut tui::Tui) {}
+    |                                               ^^^ help: if this is intentional, prefix it with an underscore: `_tui`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `model_provider_id`
+   --> tui/src/app/startup_prompts.rs:116:5
+    |
+116 |     model_provider_id: &str,
+    |     ^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_model_provider_id`
+
+warning: unused variable: `plan_type`
+    --> tui/src/app_server_session.rs:2083:5
+     |
+2083 |     plan_type: Option<codex_protocol::account::PlanType>,
+     |     ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_plan_type`
+
+warning: unused variable: `meta`
+  --> tui/src/bottom_pane/app_link_view.rs:90:13
+   |
+90 |             meta,
+   |             ^^^^ help: try ignoring the field: `meta: _`
+
+warning: unused variable: `thread_id`
+   --> tui/src/chatwidget/model_popups.rs:259:13
+    |
+259 |         let thread_id = self.thread_id();
+    |             ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_thread_id`
+
+warning: unused variable: `error_kind`
+   --> tui/src/chatwidget/turn_runtime.rs:468:50
+    |
+468 |     pub(super) fn on_rate_limit_error(&mut self, error_kind: RateLimitErrorKind, message: String) {
+    |                                                  ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_error_kind`
+
+warning: unused variable: `notice`
+   --> tui/src/history_cell/notices.rs:163:5
+    |
+163 |     notice: crate::daybreak::Notice,
+    |     ^^^^^^ help: if this is intentional, prefix it with an underscore: `_notice`
+
+warning: variable does not need to be mutable
+   --> tui/src/onboarding/auth.rs:288:13
+    |
+288 |         let mut options = self.displayed_sign_in_options();
+    |             ----^^^^^^^
+    |             |
+    |             help: remove this `mut`
+
+warning: unused variable: `requires_openai_auth`
+   --> tui/src/status/card.rs:278:9
+    |
+278 |         requires_openai_auth: bool,
+    |         ^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_requires_openai_auth`
+
+warning: variable does not need to be mutable
+   --> tui/src/status/card.rs:948:13
+    |
+948 |         let mut lines =
+    |             ----^^^^^
+    |             |
+    |             help: remove this `mut`
+
+warning: method `has_pending_recovery` is never used
+  --> tui/src/app/rate_limit_refresh.rs:47:19
+   |
+35 | impl RateLimitRefreshState {
+   | -------------------------- method in this implementation
+...
+47 |     pub(super) fn has_pending_recovery(&self) -> bool {
+   |                   ^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: fields `reason` and `turn_id` are never read
+    --> tui/src/app_event.rs:1612:9
+     |
+1610 |     SubmitFeedback {
+     |     -------------- fields in this variant
+1611 |         category: FeedbackCategory,
+1612 |         reason: Option<String>,
+     |         ^^^^^^
+1613 |         turn_id: Option<String>,
+     |         ^^^^^^^
+     |
+     = note: `AppEvent` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: variants `CommitPendingUsageOutput`, `CommitPendingUsageOutputAfterStreamShutdown`, and `OpenFeedbackConsent` are never constructed
+    --> tui/src/app_event.rs:833:5
+     |
+ 300 | pub(crate) enum AppEvent {
+     |                 -------- variants in this enum
+...
+ 833 |     CommitPendingUsageOutput,
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 836 |     CommitPendingUsageOutputAfterStreamShutdown,
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1605 |     OpenFeedbackConsent {
+     |     ^^^^^^^^^^^^^^^^^^^
+     |
+     = note: `AppEvent` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: variants `BadResult`, `Bug`, `SafetyCheck`, and `Other` are never constructed
+    --> tui/src/app_event.rs:1799:5
+     |
+1798 | pub(crate) enum FeedbackCategory {
+     |                 ---------------- variants in this enum
+1799 |     BadResult,
+     |     ^^^^^^^^^
+1800 |     GoodResult,
+1801 |     Bug,
+     |     ^^^
+1802 |     SafetyCheck,
+     |     ^^^^^^^^^^^
+1803 |     Other,
+     |     ^^^^^
+     |
+     = note: `FeedbackCategory` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: field `dismissal` is never read
+  --> tui/src/bottom_pane/actionable_banner.rs:36:16
+   |
+31 | pub(crate) struct ActionableBanner {
+   |                   ---------------- field in this struct
+...
+36 |     pub(crate) dismissal: BannerDismissal,
+   |                ^^^^^^^^^
+
+warning: variants `Actions` and `Information` are never constructed
+  --> tui/src/bottom_pane/actionable_banner.rs:58:5
+   |
+57 | enum InlineBannerContent {
+   |      ------------------- variants in this enum
+58 |     Actions(Box<ListSelectionView>),
+   |     ^^^^^^^
+59 |     Information {
+   |     ^^^^^^^^^^^
+
+warning: methods `transfer_inline_banner_from`, `show_actionable_banner`, `set_inline_banner`, and `inline_banner_lifecycle` are never used
+   --> tui/src/bottom_pane/actionable_banner.rs:177:19
+    |
+176 | impl BottomPane {
+    | --------------- methods in this implementation
+177 |     pub(crate) fn transfer_inline_banner_from(&mut self, previous: &mut Self) {
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+187 |     pub(crate) fn show_actionable_banner(&mut self, banner: ActionableBanner) {
+    |                   ^^^^^^^^^^^^^^^^^^^^^^
+...
+192 |     pub(crate) fn set_inline_banner(&mut self, banner: Option<ActionableBanner>) {
+    |                   ^^^^^^^^^^^^^^^^^
+...
+236 |     pub(crate) fn inline_banner_lifecycle(&self) -> (bool, bool) {
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `MCP_TOOL_CODEX_APPS_META_KEY` is never used
+  --> tui/src/bottom_pane/app_link_view.rs:41:7
+   |
+41 | const MCP_TOOL_CODEX_APPS_META_KEY: &str = "_codex_apps";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `CONNECTOR_AUTH_FAILURE_META_KEY` is never used
+  --> tui/src/bottom_pane/app_link_view.rs:42:7
+   |
+42 | const CONNECTOR_AUTH_FAILURE_META_KEY: &str = "connector_auth_failure";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `CONNECTOR_AUTH_FAILURE_IS_AUTH_FAILURE_KEY` is never used
+  --> tui/src/bottom_pane/app_link_view.rs:43:7
+   |
+43 | const CONNECTOR_AUTH_FAILURE_IS_AUTH_FAILURE_KEY: &str = "is_auth_failure";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `CONNECTOR_AUTH_FAILURE_CONNECTOR_ID_KEY` is never used
+  --> tui/src/bottom_pane/app_link_view.rs:44:7
+   |
+44 | const CONNECTOR_AUTH_FAILURE_CONNECTOR_ID_KEY: &str = "connector_id";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `CONNECTOR_AUTH_FAILURE_CONNECTOR_NAME_KEY` is never used
+  --> tui/src/bottom_pane/app_link_view.rs:45:7
+   |
+45 | const CONNECTOR_AUTH_FAILURE_CONNECTOR_NAME_KEY: &str = "connector_name";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_codex_apps_auth_url_parts` is never used
+   --> tui/src/bottom_pane/app_link_view.rs:110:8
+    |
+ 82 | impl AppLinkViewParams {
+    | ---------------------- associated function in this implementation
+...
+110 |     fn from_codex_apps_auth_url_parts(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: field `feedback_audience` is never read
+  --> tui/src/bottom_pane/feedback_note_view.rs:51:5
+   |
+46 | pub(crate) struct FeedbackNoteView {
+   |                   ---------------- field in this struct
+...
+51 |     feedback_audience: FeedbackAudience,
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: function `feedback_selection_params` is never used
+   --> tui/src/bottom_pane/feedback_view.rs:132:15
+    |
+132 | pub(crate) fn feedback_selection_params(
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `make_feedback_item` is never used
+   --> tui/src/bottom_pane/feedback_view.rs:173:4
+    |
+173 | fn make_feedback_item(
+    |    ^^^^^^^^^^^^^^^^^^
+
+warning: constant `USAGE_PROVIDER_UNAVAILABLE` is never used
+  --> tui/src/chatwidget/slash_dispatch.rs:41:7
+   |
+41 | const USAGE_PROVIDER_UNAVAILABLE: &str = "Usage data is unavailable for the active model provider.";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: method `ensure_usage_command_available` is never used
+    --> tui/src/chatwidget/slash_dispatch.rs:1229:8
+     |
+  43 | impl ChatWidget {
+     | --------------- method in this implementation
+...
+1229 |     fn ensure_usage_command_available(&mut self) -> bool {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: method `apply_usage_notice_read` is never used
+   --> tui/src/chatwidget/usage_notice.rs:181:19
+    |
+166 | impl ChatWidget {
+    | --------------- method in this implementation
+...
+181 |     pub(crate) fn apply_usage_notice_read(&mut self, request_id: u64) {
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: method `date_time_format` is never used
+  --> tui/src/clock_format.rs:18:19
+   |
+12 | impl ClockFormat {
+   | ---------------- method in this implementation
+...
+18 |     pub(crate) fn date_time_format(self) -> &'static str {
+   |                   ^^^^^^^^^^^^^^^^
+
+warning: function `mark_url_hyperlink` is never used
+  --> tui/src/onboarding/auth.rs:71:15
+   |
+71 | pub(crate) fn mark_url_hyperlink(buf: &mut Buffer, area: Rect, url: &str) {
+   |               ^^^^^^^^^^^^^^^^^^
+
+warning: constant `COPY_LINK` is never used
+  --> tui/src/onboarding/keys.rs:28:18
+   |
+28 | pub(crate) const COPY_LINK: [KeyBinding; 1] = [key_hint::plain(KeyCode::Char('c'))];
+   |                  ^^^^^^^^^
+
+warning: method `set_focused` is never used
+  --> tui/src/onboarding/welcome.rs:89:19
+   |
+59 | impl WelcomeWidget {
+   | ------------------ method in this implementation
+...
+89 |     pub(crate) fn set_focused(&self, focused: bool) {
+   |                   ^^^^^^^^^^^
+
+warning: field `normal_model_slug` is never read
+   --> tui/src/status/rate_limits.rs:105:9
+    |
+101 | pub(crate) struct RateLimitSnapshotDisplay {
+    |                   ------------------------ field in this struct
+...
+105 |     pub normal_model_slug: Option<String>,
+    |         ^^^^^^^^^^^^^^^^^
+    |
+    = note: `RateLimitSnapshotDisplay` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: constant `ANNOUNCEMENT_TIP_URL` is never used
+  --> tui/src/tooltips.rs:16:7
+   |
+16 | const ANNOUNCEMENT_TIP_URL: &str =
+   |       ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `preferred_tooltip` is never used
+  --> tui/src/tooltips.rs:47:15
+   |
+47 | pub(crate) fn preferred_tooltip<R: Rng + ?Sized>(
+   |               ^^^^^^^^^^^^^^^^^
+
+warning: static `ANNOUNCEMENT_TIP` is never used
+   --> tui/src/tooltips.rs:119:12
+    |
+119 |     static ANNOUNCEMENT_TIP: OnceLock<Option<AnnouncementTips>> = OnceLock::new();
+    |            ^^^^^^^^^^^^^^^^
+
+warning: constant `CURRENT_OS` is never used
+   --> tui/src/tooltips.rs:120:11
+    |
+120 |     const CURRENT_OS: TargetOs = TargetOs::current();
+    |           ^^^^^^^^^^
+
+warning: function `prewarm` is never used
+   --> tui/src/tooltips.rs:123:19
+    |
+123 |     pub(crate) fn prewarm(http_client_factory: HttpClientFactory) {
+    |                   ^^^^^^^
+
+warning: function `fetch_announcement_tip` is never used
+   --> tui/src/tooltips.rs:136:19
+    |
+136 |     pub(crate) fn fetch_announcement_tip(plan: Option<PlanType>) -> Option<String> {
+    |                   ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTipRaw` is never constructed
+   --> tui/src/tooltips.rs:144:12
+    |
+144 |     struct AnnouncementTipRaw {
+    |            ^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTipDocument` is never constructed
+   --> tui/src/tooltips.rs:155:12
+    |
+155 |     struct AnnouncementTipDocument {
+    |            ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTip` is never constructed
+   --> tui/src/tooltips.rs:160:12
+    |
+160 |     struct AnnouncementTip {
+    |            ^^^^^^^^^^^^^^^
+
+warning: enum `TargetOs` is never used
+   --> tui/src/tooltips.rs:172:10
+    |
+172 |     enum TargetOs {
+    |          ^^^^^^^^
+
+warning: associated function `current` is never used
+   --> tui/src/tooltips.rs:181:18
+    |
+180 |     impl TargetOs {
+    |     ------------- associated function in this implementation
+181 |         const fn current() -> Self {
+    |                  ^^^^^^^
+
+warning: function `fetch_announcement_tip_text` is never used
+   --> tui/src/tooltips.rs:193:14
+    |
+193 |     async fn fetch_announcement_tip_text(http_client_factory: HttpClientFactory) -> Option<String> {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTips` is never constructed
+   --> tui/src/tooltips.rs:205:23
+    |
+205 |     pub(super) struct AnnouncementTips(Vec<AnnouncementTip>);
+    |                       ^^^^^^^^^^^^^^^^
+
+warning: associated items `parse` and `select` are never used
+   --> tui/src/tooltips.rs:208:23
+    |
+207 |     impl AnnouncementTips {
+    |     --------------------- associated items in this implementation
+208 |         pub(super) fn parse(text: &str) -> Option<Self> {
+    |                       ^^^^^
+...
+221 |         pub(super) fn select(&self, plan: Option<PlanType>) -> Option<String> {
+    |                       ^^^^^^
+
+warning: associated items `from_raw`, `version_matches`, and `date_matches` are never used
+   --> tui/src/tooltips.rs:245:12
+    |
+244 |     impl AnnouncementTip {
+    |     -------------------- associated items in this implementation
+245 |         fn from_raw(raw: AnnouncementTipRaw) -> Option<Self> {
+    |            ^^^^^^^^
+...
+289 |         fn version_matches(&self, version: &str) -> bool {
+    |            ^^^^^^^^^^^^^^^
+...
+295 |         fn date_matches(&self, today: NaiveDate) -> bool {
+    |            ^^^^^^^^^^^^
+
+warning: `codex-tui` (lib) generated 77 warnings (run `cargo fix --lib -p codex-tui` to apply 38 suggestions)
+    Checking codex-cli v0.0.0 (/home/sig/files/qiri-release/codex-rs/cli)
+warning: unused variable: `auth_manager`
+    --> cli/src/main.rs:1856:9
+     |
+1856 |     let auth_manager =
+     |         ^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_auth_manager`
+     |
+     = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-cli` (bin "codex") generated 1 warning (run `cargo fix --bin "codex" -p codex-cli` to apply 1 suggestion)

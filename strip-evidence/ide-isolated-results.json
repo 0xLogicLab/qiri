@@ -1,0 +1,14 @@
+[
+  {
+    "version": "baseline",
+    "test": "ide_context::ipc::tests::fetch_ide_context_does_not_fall_back_after_primary_protocol_error",
+    "exit": 124,
+    "elapsed_seconds": 45.01
+  },
+  {
+    "version": "delivery",
+    "test": "ide_context::ipc::tests::fetch_ide_context_does_not_fall_back_after_primary_protocol_error",
+    "exit": 124,
+    "elapsed_seconds": 45.01
+  }
+]

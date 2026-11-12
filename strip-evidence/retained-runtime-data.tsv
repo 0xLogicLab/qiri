@@ -1,0 +1,15 @@
+file	retained	why	reachability_proof
+codex-rs/login/src/token_data.rs	IdToken/AccessToken claims	https://api.openai.com/auth 与 /profile 仅 serde 字段名	JWT decode -> serde JSON 字段匹配；无 URL 构造/请求。AuthManager 加载存储官方账号/PAT/agent/workload 凭据时不再激活它们。通用外部 OAuth 及旧会话数据仍复用字段结构。
+codex-rs/login/src/auth/source.rs	OAuthSource	JWT source continuity DTO	same_source 比较显式供应 token 的 iss/session/account continuity；不获取 issuer/JWKS，不发 HTTP。
+codex-rs/agent-identity/src/lib.rs	local identity signing/data	本地密钥与签名	已删除官方 JWKS 获取和任务注册；仅本地签名/序列化。
+codex-rs/runtime-agent-instance/src/registration.rs	explicit runtime registration protocol	显式自建注册接口	RuntimeAuthManager/registration 调用必须提供 URL；无官方默认 endpoint 或 Cookie；普通模型请求不自动启用。
+codex-rs/protocol/src/protocol.rs	ModelRerouteReason/Event	旧流式事件结构	仅反序列化/转发兼容事件；已删除从模型名不一致推断官方 cyber 账号处罚的逻辑，改为通用端点模型不一致警告。
+codex-rs/app-server-daemon/src/settings.rs	UpdaterSettings compatibility fields	本地设置读取/序列化	update_loop/manual_update/migration 的网络安装实现已删除，bootstrap 恒 false；手动 update 只能 --from-cli 显式本地包复制。
+codex-rs/config/src/config_toml.rs	legacy chatgpt_base_url	显式配置的兼容字段	defaults.toml 官方值已删，core 默认为空；不用于默认 provider。自建插件/MCP/远控协议仅在显式配置时使用调用者 URL。
+codex-rs/models-manager/src/test_support.rs	synthetic_models_response + tests/fixtures/local-model-catalog.json	显式测试能力夹具	由 offline/for_tests 辅助函数与测试配置选择；生产 bundled_models_response 仍为空；无官方 URL、计划授权、升级/推广或官方提示词。历史 model ID 仅用于兼容 wire 和本地模型选择测试。
+codex-rs/protocol/src/auth.rs; codex-rs/app-server-protocol/src/protocol/common.rs	legacy AuthMode labels	读取历史会话/SDK 数据的枚举标签	PersonalAccessTokenAuth 文件与 CodexAuth::PersonalAccessToken 活动认证变体已删除；旧 auth.json 的官方凭据模式在加载选择阶段被拒绝。标签不构造 HTTP 请求。
+codex-rs/tui/src/app/background_requests.rs; chatwidget/thread_usage.rs; chatwidget/rate_limits.rs	remote app-server compatibility RPC adapters	保留用户显式连接的自建 app-server 数据合同及本地格式化	只向已经显式选择的 app-server 连接发送 JSON-RPC，无官方 HTTP 客户端或域名；嵌入服务器不激活 ChatGPT 账号状态，has_codex_backend_auth/has_chatgpt_account 门控阻止通常启动/状态流程发起这些旧账号读取；嵌入分发器拒绝旧官方 RPC。
+codex-rs/core-plugins/src/remote.rs; remote_legacy.rs	explicit custom plugin server wire contract	显式服务 URL 的通用插件传输/数据合同	base URL 只取调用者配置且无默认值；TUI 仅在该值非空时请求额外远程区块；官方账号刷新、默认服务 URL、备份导出源均已删除。未配置时保留本地 Git/文件插件。
+codex-rs/core-plugins/src/startup_sync.rs	public GitHub repository sync	公开源代码仓库协议	只向 github.com/api.github.com 获取公开插件仓库，不再尝试官方私有备份导出源。
+codex-rs/core/src/client.rs; compact_model_fallback.rs	explicit Responses capabilities	本地模型协议边界	扩展元数据由显式 include_internal_metadata 授权；推理强度/摘要由模型能力和显式 feature 控制；模型切换后的 Responses 压缩回退不要求官方 provider 名称或官方账号。
+codex-rs/ext/mcp/src/cloud_plugin.rs; plugin_providers.rs	host-supplied PluginProvider abstraction	通用 MCP/插件数据协议	cloud provider 默认为 None，仅由宿主显式注入实现；已删除 HostedPluginRuntimeExtension 自动注入及其账号令牌转发，无官方端点或官方 transport。

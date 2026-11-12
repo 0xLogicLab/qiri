@@ -1,0 +1,15 @@
+
+running 10 tests
+test read_api_key::tests::reads_key_and_trims_newlines ... ok
+test read_api_key::tests::propagates_io_error ... ok
+test read_api_key::tests::reads_key_with_no_newlines ... ok
+test read_api_key::tests::errors_when_buffer_filled ... ok
+test read_api_key::tests::errors_on_invalid_utf8 ... ok
+test read_api_key::tests::errors_when_no_input_provided ... ok
+test read_api_key::tests::errors_on_invalid_characters ... ok
+test read_api_key::tests::reads_key_with_short_reads ... ok
+test dump::tests::dump_request_writes_redacted_headers_and_json_body ... ok
+test dump::tests::response_body_dump_streams_body_and_writes_response_file ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

@@ -1,0 +1,18 @@
+
+running 13 tests
+test cache::tests::load_rejects_missing_request_identity_before_reading_cache_file ... ok
+test cache::tests::load_reports_missing_and_malformed_cache_files ... ok
+test cache::tests::load_rejects_tampered_payload ... ok
+test cache::tests::load_rejects_unsupported_cache_version ... ok
+test cache::tests::load_rejects_expired_cache ... ok
+test cache::tests::save_writes_signed_payload_and_loads_for_matching_identity ... ok
+test cache::tests::load_rejects_cache_for_incomplete_or_different_identity ... ok
+test validation::tests::cloud_fragments_combine_before_provider_validation ... ok
+test validation::tests::cloud_bedrock_overrides_accept_supported_fields ... ok
+test validation::tests::cloud_validation_rejects_mixed_network_requirements ... ok
+test config_server::tests::policy_fetch_requires_config_server_sign_in ... ok
+test config_server::tests::cached_policy_is_reused_only_for_the_same_endpoint ... ok
+test config_server::tests::policy_fetch_uses_replacement_config_server_credentials ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 8.12s
+

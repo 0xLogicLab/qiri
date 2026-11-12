@@ -1,0 +1,2902 @@
+    Blocking waiting for file lock on artifact directory
+warning: unused import: `std::sync::Arc`
+  --> http-client/src/outbound_proxy.rs:11:5
+   |
+11 | use std::sync::Arc;
+   |     ^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `http::HeaderValue`
+  --> http-client/src/outbound_proxy.rs:19:5
+   |
+19 | use http::HeaderValue;
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: variable does not need to be mutable
+   --> http-client/src/client_builder.rs:162:9
+    |
+162 |         mut self,
+    |         ----^^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: variable does not need to be mutable
+   --> http-client/src/client_builder.rs:200:9
+    |
+200 |         mut self,
+    |         ----^^^^
+    |         |
+    |         help: remove this `mut`
+
+warning: unused variable: `http_client_factory`
+   --> http-client/src/client_builder.rs:201:9
+    |
+201 |         http_client_factory: &HttpClientFactory,
+    |         ^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_http_client_factory`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-http-client` (lib) generated 5 warnings (run `cargo fix --lib -p codex-http-client` to apply 5 suggestions)
+warning: unused import: `crate::auth::KnownPlan`
+ --> protocol/src/error.rs:2:5
+  |
+2 | use crate::auth::KnownPlan;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-protocol` (lib) generated 1 warning (run `cargo fix --lib -p codex-protocol` to apply 1 suggestion)
+warning: variable does not need to be mutable
+   --> websocket-client/src/lib.rs:151:9
+    |
+151 |         mut request: Request,
+    |         ----^^^^^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: variable does not need to be mutable
+   --> websocket-client/src/lib.rs:183:13
+    |
+183 |         let mut connection = WebSocketConnection::new(inner, permit);
+    |             ----^^^^^^^^^^
+    |             |
+    |             help: remove this `mut`
+
+warning: `codex-websocket-client` (lib) generated 2 warnings (run `cargo fix --lib -p codex-websocket-client` to apply 2 suggestions)
+warning: variable does not need to be mutable
+   --> codex-api/src/endpoint/responses_websocket.rs:219:9
+    |
+219 |         mut stream: WsStream,
+    |         ----^^^^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-api` (lib) generated 1 warning (run `cargo fix --lib -p codex-api` to apply 1 suggestion)
+warning: unused import: `codex_client::OPENAI_ORGANIZATION_HEADER`
+  --> model-provider-info/src/lib.rs:11:5
+   |
+11 | use codex_client::OPENAI_ORGANIZATION_HEADER;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `codex_client::OPENAI_PROJECT_HEADER`
+  --> model-provider-info/src/lib.rs:12:5
+   |
+12 | use codex_client::OPENAI_PROJECT_HEADER;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `codex-model-provider-info` (lib) generated 2 warnings (run `cargo fix --lib -p codex-model-provider-info` to apply 2 suggestions)
+warning: unused import: `http::StatusCode`
+  --> agent-identity/src/lib.rs:18:5
+   |
+18 | use http::StatusCode;
+   |     ^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: struct `RegisterTaskRequest` is never constructed
+  --> agent-identity/src/lib.rs:77:8
+   |
+77 | struct RegisterTaskRequest {
+   |        ^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: struct `RegisterTaskResponse` is never constructed
+  --> agent-identity/src/lib.rs:83:8
+   |
+83 | struct RegisterTaskResponse {
+   |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `RegisterAgentRequest` is never constructed
+  --> agent-identity/src/lib.rs:95:8
+   |
+95 | struct RegisterAgentRequest {
+   |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `RegisterAgentResponse` is never constructed
+   --> agent-identity/src/lib.rs:103:8
+    |
+103 | struct RegisterAgentResponse {
+    |        ^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `task_id_from_register_task_response` is never used
+   --> agent-identity/src/lib.rs:132:4
+    |
+132 | fn task_id_from_register_task_response(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `codex-agent-identity` (lib) generated 6 warnings (run `cargo fix --lib -p codex-agent-identity` to apply 1 suggestion)
+warning: unused import: `std::time::Duration`
+  --> login/src/auth/manager.rs:27:5
+   |
+27 | use std::time::Duration;
+   |     ^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::time::Instant`
+  --> login/src/auth/manager.rs:28:5
+   |
+28 | use std::time::Instant;
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::access_token::CodexAccessToken`
+  --> login/src/auth/manager.rs:37:5
+   |
+37 | use super::access_token::CodexAccessToken;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::access_token::classify_codex_access_token`
+  --> login/src/auth/manager.rs:38:5
+   |
+38 | use super::access_token::classify_codex_access_token;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::default_client::create_default_auth_client`
+  --> login/src/auth/manager.rs:57:5
+   |
+57 | use crate::default_client::create_default_auth_client;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::oauth::ErrorBodyLimit`
+  --> login/src/auth/manager.rs:58:5
+   |
+58 | use crate::oauth::ErrorBodyLimit;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::oauth::OAuthClient`
+  --> login/src/auth/manager.rs:59:5
+   |
+59 | use crate::oauth::OAuthClient;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::oauth::OAuthError`
+  --> login/src/auth/manager.rs:60:5
+   |
+60 | use crate::oauth::OAuthError;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::oauth::RefreshTokenGrant`
+  --> login/src/auth/manager.rs:62:5
+   |
+62 | use crate::oauth::RefreshTokenGrant;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::oauth::TokenEncoding`
+  --> login/src/auth/manager.rs:63:5
+   |
+63 | use crate::oauth::TokenEncoding;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::oauth::TokenEndpoint`
+  --> login/src/auth/manager.rs:64:5
+   |
+64 | use crate::oauth::TokenEndpoint;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::token_data::parse_jwt_expiration`
+  --> login/src/auth/manager.rs:70:5
+   |
+70 | use crate::token_data::parse_jwt_expiration;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_protocol::protocol::SessionSource`
+  --> login/src/auth/manager.rs:81:5
+   |
+81 | use codex_protocol::protocol::SessionSource;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused variable: `codex_home`
+   --> login/src/auth/manager.rs:241:9
+    |
+241 |         codex_home: &Path,
+    |         ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_codex_home`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `auth_credentials_store_mode`
+   --> login/src/auth/manager.rs:243:9
+    |
+243 |         auth_credentials_store_mode: AuthCredentialsStoreMode,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_auth_credentials_store_mode`
+
+warning: unused variable: `chatgpt_base_url`
+   --> login/src/auth/manager.rs:244:9
+    |
+244 |         chatgpt_base_url: Option<&str>,
+    |         ^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_chatgpt_base_url`
+
+warning: unused variable: `keyring_backend_kind`
+   --> login/src/auth/manager.rs:245:9
+    |
+245 |         keyring_backend_kind: AuthKeyringBackendKind,
+    |         ^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_keyring_backend_kind`
+
+warning: unused variable: `agent_identity_authapi_base_url`
+   --> login/src/auth/manager.rs:246:9
+    |
+246 |         agent_identity_authapi_base_url: Option<&str>,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_agent_identity_authapi_base_url`
+
+warning: unused variable: `auth_route_config`
+   --> login/src/auth/manager.rs:247:9
+    |
+247 |         auth_route_config: &AuthRouteConfig,
+    |         ^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_auth_route_config`
+
+warning: unused variable: `cached_auth`
+   --> login/src/auth/manager.rs:248:9
+    |
+248 |         cached_auth: Option<&CodexAuth>,
+    |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_cached_auth`
+
+warning: unused variable: `expected_workspace_ids`
+   --> login/src/auth/manager.rs:654:5
+    |
+654 |     expected_workspace_ids: Option<&[String]>,
+    |     ^^^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_expected_workspace_ids`
+
+warning: unused variable: `agent_identity`
+   --> login/src/auth/manager.rs:655:5
+    |
+655 |     agent_identity: &AgentIdentityStorage,
+    |     ^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_agent_identity`
+
+warning: unused variable: `reason`
+    --> login/src/auth/manager.rs:2614:9
+     |
+2614 |         reason: RefreshReason,
+     |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_reason`
+
+warning: constant `PERSONAL_ACCESS_TOKEN_PREFIX` is never used
+ --> login/src/auth/access_token.rs:1:7
+  |
+1 | const PERSONAL_ACCESS_TOKEN_PREFIX: &str = "at-";
+  |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: enum `CodexAccessToken` is never used
+ --> login/src/auth/access_token.rs:3:17
+  |
+3 | pub(super) enum CodexAccessToken<'a> {
+  |                 ^^^^^^^^^^^^^^^^
+
+warning: function `classify_codex_access_token` is never used
+ --> login/src/auth/access_token.rs:8:15
+  |
+8 | pub(super) fn classify_codex_access_token(access_token: &str) -> CodexAccessToken<'_> {
+  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `bootstrap_unavailable` is never used
+  --> login/src/auth/agent_identity.rs:21:19
+   |
+20 | impl AgentIdentityAuthError {
+   | --------------------------- associated function in this implementation
+21 |     pub(super) fn bootstrap_unavailable(error: &std::io::Error) -> Option<&Self> {
+   |                   ^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `create_raw_auth_client` is never used
+   --> login/src/auth/default_client.rs:413:15
+    |
+413 | pub(crate) fn create_raw_auth_client(
+    |               ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `create_default_auth_client` is never used
+   --> login/src/auth/default_client.rs:423:15
+    |
+423 | pub(crate) fn create_default_auth_client(
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: method `as_record` is never used
+  --> login/src/auth/storage.rs:96:19
+   |
+85 | impl AgentIdentityStorage {
+   | ------------------------- method in this implementation
+...
+96 |     pub(crate) fn as_record(&self) -> Option<&AgentIdentityAuthRecord> {
+   |                   ^^^^^^^^^
+
+warning: method `compare_and_save` is never used
+   --> login/src/auth/storage.rs:213:8
+    |
+180 | pub(super) trait AuthStorageBackend: Debug + Send + Sync {
+    |                  ------------------ method in this trait
+...
+213 |     fn compare_and_save(&self, expected: &AuthDotJson, auth: &AuthDotJson) -> std::io::Result<()> {
+    |        ^^^^^^^^^^^^^^^^
+
+warning: function `try_parse_error_message` is never used
+ --> login/src/auth/util.rs:3:15
+  |
+3 | pub(crate) fn try_parse_error_message(text: &str) -> String {
+  |               ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: field `storage` is never read
+   --> login/src/auth/manager.rs:125:5
+    |
+123 | pub struct ChatgptAuth {
+    |            ----------- field in this struct
+124 |     state: ChatgptAuthState,
+125 |     storage: Arc<dyn AuthStorageBackend>,
+    |     ^^^^^^^
+    |
+    = note: `ChatgptAuth` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: field `client` is never read
+   --> login/src/auth/manager.rs:136:5
+    |
+134 | struct ChatgptAuthState {
+    |        ---------------- field in this struct
+135 |     auth_dot_json: Arc<Mutex<Option<AuthDotJson>>>,
+136 |     client: HttpClient,
+    |     ^^^^^^
+    |
+    = note: `ChatgptAuthState` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: function `ensure_auth_workspace_allowed` is never used
+   --> login/src/auth/manager.rs:636:4
+    |
+636 | fn ensure_auth_workspace_allowed(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `same_login_for_persistence` is never used
+    --> login/src/auth/manager.rs:1138:4
+     |
+1138 | fn same_login_for_persistence(expected: &TokenData, stored: &TokenData) -> bool {
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `persist_tokens` is never used
+    --> login/src/auth/manager.rs:1149:15
+     |
+1149 | pub(super) fn persist_tokens(
+     |               ^^^^^^^^^^^^^^
+
+warning: method `storage_mode` is never used
+    --> login/src/auth/manager.rs:1254:8
+     |
+1201 | impl AuthDotJson {
+     | ---------------- method in this implementation
+...
+1254 |     fn storage_mode(
+     |        ^^^^^^^^^^^^
+
+warning: fields `code` and `description` are never read
+  --> login/src/oauth/authorization.rs:62:9
+   |
+61 |     Provider {
+   |     -------- fields in this variant
+62 |         code: &'a str,
+   |         ^^^^
+63 |         description: Option<&'a str>,
+   |         ^^^^^^^^^^^
+
+warning: variant `Json` is never constructed
+  --> login/src/oauth/client.rs:19:5
+   |
+17 | pub(crate) enum TokenEncoding {
+   |                 ------------- variant in this enum
+18 |     Form,
+19 |     Json,
+   |     ^^^^
+   |
+   = note: `TokenEncoding` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+
+warning: variants `ProactiveExpiry` and `Scheduled` are never constructed
+  --> login/src/oauth/client.rs:48:5
+   |
+47 | pub(crate) enum RefreshReason {
+   |                 ------------- variants in this enum
+48 |     ProactiveExpiry,
+   |     ^^^^^^^^^^^^^^^
+49 |     Scheduled,
+   |     ^^^^^^^^^
+   |
+   = note: `RefreshReason` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+
+warning: variant `Unlimited` is never constructed
+  --> login/src/oauth/error.rs:43:5
+   |
+42 | pub(crate) enum ErrorBodyLimit {
+   |                 -------------- variant in this enum
+43 |     Unlimited,
+   |     ^^^^^^^^^
+   |
+   = note: `ErrorBodyLimit` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: field `body_read_error` is never read
+  --> login/src/oauth/error.rs:53:9
+   |
+49 | pub(crate) struct TokenRejection {
+   |                   -------------- field in this struct
+...
+53 |     pub body_read_error: Option<HttpError>,
+   |         ^^^^^^^^^^^^^^^
+   |
+   = note: `TokenRejection` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: method `authentication_factory` is never used
+  --> login/src/outbound_proxy.rs:39:19
+   |
+15 | impl AuthRouteConfig {
+   | -------------------- method in this implementation
+...
+39 |     pub(crate) fn authentication_factory(&self, endpoint: &str) -> HttpClientFactory {
+   |                   ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `codex-login` (lib) generated 44 warnings (run `cargo fix --lib -p codex-login` to apply 23 suggestions)
+warning: unused import: `std::collections::HashMap`
+ --> connectors/src/lib.rs:1:5
+  |
+1 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::future::Future`
+ --> connectors/src/lib.rs:2:5
+  |
+2 | use std::future::Future;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: field `expires_at` is never read
+  --> connectors/src/lib.rs:89:5
+   |
+87 | struct CachedConnectorDirectory {
+   |        ------------------------ field in this struct
+88 |     key: ConnectorDirectoryCacheKey,
+89 |     expires_at: Instant,
+   |     ^^^^^^^^^^
+   |
+   = note: `CachedConnectorDirectory` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `write_cached_directory_connectors_to_disk` is never used
+  --> connectors/src/directory_cache.rs:83:15
+   |
+83 | pub(crate) fn write_cached_directory_connectors_to_disk(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `codex-connectors` (lib) generated 4 warnings (run `cargo fix --lib -p codex-connectors` to apply 2 suggestions)
+warning: constant `MAX_DECODED_UPLOAD_BYTES` is never used
+  --> feedback/src/lib.rs:59:7
+   |
+59 | const MAX_DECODED_UPLOAD_BYTES: usize = 200 * 1024 * 1024;
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: method `feedback_attachments` is never used
+   --> feedback/src/lib.rs:717:8
+    |
+535 | impl FeedbackSnapshot {
+    | --------------------- method in this implementation
+...
+717 |     fn feedback_attachments<'a>(
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `archive_rollouts` is never used
+  --> feedback/src/rollout_archive.rs:20:15
+   |
+20 | pub(super) fn archive_rollouts<'a>(
+   |               ^^^^^^^^^^^^^^^^
+
+warning: function `with_individual_fallback` is never used
+  --> feedback/src/rollout_archive.rs:65:15
+   |
+65 | pub(super) fn with_individual_fallback<'a>(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `append_rollout` is never used
+  --> feedback/src/rollout_archive.rs:95:4
+   |
+95 | fn append_rollout<W: Write>(
+   |    ^^^^^^^^^^^^^^
+
+warning: struct `BoundedWriter` is never constructed
+   --> feedback/src/rollout_archive.rs:129:8
+    |
+129 | struct BoundedWriter<W> {
+    |        ^^^^^^^^^^^^^
+
+warning: function `encode_envelope` is never used
+  --> feedback/src/upload.rs:13:15
+   |
+13 | pub(super) fn encode_envelope(envelope: &Envelope) -> io::Result<(Vec<u8>, usize)> {
+   |               ^^^^^^^^^^^^^^^
+
+warning: function `encode_attachment_envelope` is never used
+  --> feedback/src/upload.rs:30:15
+   |
+30 | pub(super) fn encode_attachment_envelope(
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `CountingWriter` is never constructed
+  --> feedback/src/upload.rs:48:8
+   |
+48 | struct CountingWriter<W> {
+   |        ^^^^^^^^^^^^^^
+
+warning: `codex-feedback` (lib) generated 9 warnings
+warning: unused import: `anyhow::bail`
+ --> rmcp-client/src/oauth_client_registration.rs:4:5
+  |
+4 | use anyhow::bail;
+  |     ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-rmcp-client` (lib) generated 1 warning (run `cargo fix --lib -p codex-rmcp-client` to apply 1 suggestion)
+warning: unused import: `codex_model_provider_info::AMAZON_BEDROCK_GPT_5_6_LUNA_MODEL_ID`
+  --> model-provider/src/amazon_bedrock/mod.rs:20:5
+   |
+20 | use codex_model_provider_info::AMAZON_BEDROCK_GPT_5_6_LUNA_MODEL_ID;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `codex_model_provider_info::AMAZON_BEDROCK_GPT_5_6_TERRA_MODEL_ID`
+  --> model-provider/src/amazon_bedrock/mod.rs:21:5
+   |
+21 | use codex_model_provider_info::AMAZON_BEDROCK_GPT_5_6_TERRA_MODEL_ID;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_model_provider_info::AMAZON_BEDROCK_RUNTIME_GLOBAL_GPT_5_6_LUNA_MODEL_ID`
+  --> model-provider/src/amazon_bedrock/mod.rs:22:5
+   |
+22 | use codex_model_provider_info::AMAZON_BEDROCK_RUNTIME_GLOBAL_GPT_5_6_LUNA_MODEL_ID;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_model_provider_info::AMAZON_BEDROCK_RUNTIME_GLOBAL_GPT_5_6_TERRA_MODEL_ID`
+  --> model-provider/src/amazon_bedrock/mod.rs:23:5
+   |
+23 | use codex_model_provider_info::AMAZON_BEDROCK_RUNTIME_GLOBAL_GPT_5_6_TERRA_MODEL_ID;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_login::auth::AgentIdentityAuthError`
+  --> model-provider/src/auth.rs:19:5
+   |
+19 | use codex_login::auth::AgentIdentityAuthError;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_protocol::auth::RefreshTokenFailedError`
+  --> model-provider/src/provider.rs:22:5
+   |
+22 | use codex_protocol::auth::RefreshTokenFailedError;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: method `engage` is never used
+  --> model-provider/src/auth.rs:69:8
+   |
+64 | impl AgentIdentitySessionFallback {
+   | --------------------------------- method in this implementation
+...
+69 |     fn engage(&self) -> bool {
+   |        ^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: associated function `for_agent_identity` is never used
+  --> model-provider/src/auth.rs:91:8
+   |
+82 | impl ResolvedProviderAuth {
+   | ------------------------- associated function in this implementation
+...
+91 |     fn for_agent_identity(auth: AgentIdentityAuth) -> Self {
+   |        ^^^^^^^^^^^^^^^^^^
+
+warning: function `uses_fedramp_api_key` is never used
+   --> model-provider/src/auth.rs:339:15
+    |
+339 | pub(crate) fn uses_fedramp_api_key(
+    |               ^^^^^^^^^^^^^^^^^^^^
+
+warning: `codex-model-provider` (lib) generated 9 warnings (run `cargo fix --lib -p codex-model-provider` to apply 6 suggestions)
+warning: unused import: `codex_api::SharedAuthProvider`
+ --> codex-mcp/src/connection_manager/startup.rs:5:5
+  |
+5 | use codex_api::SharedAuthProvider;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `crate::server::EffectiveMcpServer`
+  --> codex-mcp/src/connection_manager/startup.rs:19:5
+   |
+19 | use crate::server::EffectiveMcpServer;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::env`
+  --> codex-mcp/src/mcp/mod.rs:17:5
+   |
+17 | use std::env;
+   |     ^^^^^^^^
+
+warning: variable does not need to be mutable
+   --> codex-mcp/src/mcp/mod.rs:394:9
+    |
+394 |     let mut servers = configured_servers
+    |         ----^^^^^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `auth`
+   --> codex-mcp/src/mcp/mod.rs:392:5
+    |
+392 |     auth: Option<&CodexAuth>,
+    |     ^^^^ help: if this is intentional, prefix it with an underscore: `_auth`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-mcp` (lib) generated 5 warnings (run `cargo fix --lib -p codex-mcp` to apply 5 suggestions)
+warning: unused import: `codex_api::RESPONSES_PATH`
+  --> core/src/client.rs:50:5
+   |
+50 | use codex_api::RESPONSES_PATH;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `codex_protocol::protocol::ModelRerouteEvent`
+   --> core/src/session/mod.rs:389:5
+    |
+389 | use codex_protocol::protocol::ModelRerouteEvent;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_protocol::protocol::ModelRerouteReason`
+   --> core/src/session/mod.rs:390:5
+    |
+390 | use codex_protocol::protocol::ModelRerouteReason;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `http::HeaderValue`
+   --> core/src/config/mod.rs:140:5
+    |
+140 | use http::HeaderValue;
+    |     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_extension_api::SessionIsolation`
+  --> core/src/mcp.rs:24:5
+   |
+24 | use codex_extension_api::SessionIsolation;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_mcp::CODEX_APPS_MCP_SERVER_NAME`
+  --> core/src/mcp.rs:27:5
+   |
+27 | use codex_mcp::CODEX_APPS_MCP_SERVER_NAME;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_login::AuthManager`
+  --> core/src/tools/spec_plan.rs:67:5
+   |
+67 | use codex_login::AuthManager;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_protocol::account::PlanType`
+  --> core/src/tools/spec_plan.rs:71:5
+   |
+71 | use codex_protocol::account::PlanType;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused variable: `originator`
+   --> core/src/mcp.rs:273:9
+    |
+273 |         originator: Option<&str>,
+    |         ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_originator`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `LEGACY_CODEX_APPS_REGISTRATION_ID` is never used
+  --> core/src/mcp.rs:43:7
+   |
+43 | const LEGACY_CODEX_APPS_REGISTRATION_ID: &str = "legacy_codex_apps";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-core` (lib) generated 10 warnings (run `cargo fix --lib -p codex-core` to apply 9 suggestions)
+warning: unused import: `codex_login::CodexAuth`
+  --> ext/guardian-v2/src/async_scorer/sampler/connection_pool.rs:28:5
+   |
+28 | use codex_login::CodexAuth;
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `codex_login::CodexAuth`
+  --> ext/guardian-v2/src/async_scorer/startup.rs:14:5
+   |
+14 | use codex_login::CodexAuth;
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `codex-guardian-v2` (lib) generated 2 warnings (run `cargo fix --lib -p codex-guardian-v2` to apply 2 suggestions)
+warning: unused import: `crate::metrics::MEMORY_STARTUP`
+ --> memories/write/src/start.rs:3:5
+  |
+3 | use crate::metrics::MEMORY_STARTUP;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `MEMORY_STARTUP` is never used
+ --> memories/write/src/metrics.rs:1:18
+  |
+1 | pub(crate) const MEMORY_STARTUP: &str = "codex.memory.startup";
+  |                  ^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `CODEX_LIMIT_ID` is never used
+  --> memories/write/src/lib.rs:50:22
+   |
+50 |     pub(super) const CODEX_LIMIT_ID: &str = "codex";
+   |                      ^^^^^^^^^^^^^^
+
+warning: `codex-memories-write` (lib) generated 3 warnings (run `cargo fix --lib -p codex-memories-write` to apply 1 suggestion)
+warning: enum `RestartIfRunningOutcome` is never used
+   --> app-server-daemon/src/lib.rs:217:17
+    |
+217 | pub(crate) enum RestartIfRunningOutcome {
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: enum `RestartMode` is never used
+   --> app-server-daemon/src/lib.rs:227:17
+    |
+227 | pub(crate) enum RestartMode {
+    |                 ^^^^^^^^^^^
+
+warning: enum `RestartDecision` is never used
+   --> app-server-daemon/src/lib.rs:235:6
+    |
+235 | enum RestartDecision {
+    |      ^^^^^^^^^^^^^^^
+
+warning: methods `try_restart_if_running`, `is_stable_standalone_release`, and `has_latest_selection_marker` are never used
+   --> app-server-daemon/src/lib.rs:528:25
+    |
+335 | impl Daemon {
+    | ----------- methods in this implementation
+...
+528 |     pub(crate) async fn try_restart_if_running(
+    |                         ^^^^^^^^^^^^^^^^^^^^^^
+...
+941 |     fn is_stable_standalone_release(&self) -> Result<bool> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+963 |     fn has_latest_selection_marker(&self) -> bool {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `restart_decision` is never used
+    --> app-server-daemon/src/lib.rs:1124:4
+     |
+1124 | fn restart_decision(
+     |    ^^^^^^^^^^^^^^^^
+
+warning: method `promote_legacy_identity` is never used
+  --> app-server-daemon/src/backend/pid_identity.rs:70:25
+   |
+69 | impl super::PidBackend {
+   | ---------------------- method in this implementation
+70 |     pub(crate) async fn promote_legacy_identity(&self) -> Result<()> {
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `is_stable_standalone_release` is never used
+  --> app-server-daemon/src/managed_install.rs:74:15
+   |
+74 | pub(crate) fn is_stable_standalone_release(codex_home: &Path, codex_bin: &Path) -> bool {
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `supports_daemon_update_loop` is never used
+   --> app-server-daemon/src/managed_install.rs:119:21
+    |
+119 | pub(crate) async fn supports_daemon_update_loop(codex_bin: &Path) -> bool {
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `supports_daemon_command` is never used
+   --> app-server-daemon/src/managed_install.rs:124:21
+    |
+124 | pub(crate) async fn supports_daemon_command(codex_bin: &Path, args: &[&str]) -> bool {
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `resolved_managed_codex_bin` is never used
+   --> app-server-daemon/src/managed_install.rs:143:21
+    |
+143 | pub(crate) async fn resolved_managed_codex_bin(codex_bin: &Path) -> Result<PathBuf> {
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: method `same_contents` is never used
+   --> app-server-daemon/src/managed_install.rs:193:19
+    |
+192 | impl ExecutableIdentity {
+    | ----------------------- method in this implementation
+193 |     pub(crate) fn same_contents(&self, other: &Self) -> bool {
+    |                   ^^^^^^^^^^^^^
+
+warning: field `auto_update_enabled` is never read
+  --> app-server-daemon/src/settings.rs:73:16
+   |
+71 | pub(crate) struct UpdaterSettings {
+   |                   --------------- field in this struct
+72 |     #[serde(default = "default_auto_update_enabled")]
+73 |     pub(crate) auto_update_enabled: bool,
+   |                ^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `UpdaterSettings` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: associated items `load` and `update_interval` are never used
+   --> app-server-daemon/src/settings.rs:108:25
+    |
+107 | impl UpdaterSettings {
+    | -------------------- associated items in this implementation
+108 |     pub(crate) async fn load(settings_file: &Path) -> Result<Self> {
+    |                         ^^^^
+...
+127 |     pub(crate) fn update_interval(&self, minute: Duration) -> Duration {
+    |                   ^^^^^^^^^^^^^^^
+
+warning: `codex-app-server-daemon` (lib) generated 13 warnings
+warning: unused import: `codex_app_server_protocol::AppListUpdatedNotification`
+  --> app-server/src/request_processors.rs:26:5
+   |
+26 | use codex_app_server_protocol::AppListUpdatedNotification;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `codex_app_server_protocol::AppsInstalledParams`
+  --> app-server/src/request_processors.rs:30:5
+   |
+30 | use codex_app_server_protocol::AppsInstalledParams;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::AppsInstalledResponse`
+  --> app-server/src/request_processors.rs:31:5
+   |
+31 | use codex_app_server_protocol::AppsInstalledResponse;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::AppsListParams`
+  --> app-server/src/request_processors.rs:32:5
+   |
+32 | use codex_app_server_protocol::AppsListParams;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::AppsListResponse`
+  --> app-server/src/request_processors.rs:33:5
+   |
+33 | use codex_app_server_protocol::AppsListResponse;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::AppsReadParams`
+  --> app-server/src/request_processors.rs:34:5
+   |
+34 | use codex_app_server_protocol::AppsReadParams;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::AppsReadResponse`
+  --> app-server/src/request_processors.rs:35:5
+   |
+35 | use codex_app_server_protocol::AppsReadResponse;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::InstalledApp`
+  --> app-server/src/request_processors.rs:82:5
+   |
+82 | use codex_app_server_protocol::InstalledApp;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_connectors::AppInfo`
+   --> app-server/src/request_processors.rs:299:5
+    |
+299 | use codex_connectors::AppInfo;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_core::McpManager`
+   --> app-server/src/request_processors.rs:303:5
+    |
+303 | use codex_core::McpManager;
+    |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_core::connectors::AccessibleConnectorsStatus`
+   --> app-server/src/request_processors.rs:321:5
+    |
+321 | use codex_core::connectors::AccessibleConnectorsStatus;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_core_plugins::PluginsManager`
+   --> app-server/src/request_processors.rs:341:5
+    |
+341 | use codex_core_plugins::PluginsManager;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `tokio_util::sync::DropGuard`
+   --> app-server/src/request_processors.rs:479:5
+    |
+479 | use tokio_util::sync::DropGuard;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::io::Error as IoError`
+ --> app-server/src/request_processors/thread_summary.rs:7:5
+  |
+7 | use std::io::Error as IoError;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused variable: `git_attribution_base_url`
+  --> app-server/src/extensions.rs:67:9
+   |
+67 |         git_attribution_base_url,
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^ help: try ignoring the field: `git_attribution_base_url: _`
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `http_client_factory`
+  --> app-server/src/extensions.rs:68:9
+   |
+68 |         http_client_factory,
+   |         ^^^^^^^^^^^^^^^^^^^ help: try ignoring the field: `http_client_factory: _`
+
+warning: unused variable: `app_list_shutdown_token`
+   --> app-server/src/message_processor.rs:436:13
+    |
+436 |         let app_list_shutdown_token = CancellationToken::new();
+    |             ^^^^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_app_list_shutdown_token`
+
+warning: unused variable: `config`
+    --> app-server/src/request_processors/plugins.rs:2137:5
+     |
+2137 |     config: &Config,
+     |     ^^^^^^ help: if this is intentional, prefix it with an underscore: `_config`
+
+warning: unused variable: `auth`
+    --> app-server/src/request_processors/plugins.rs:2138:5
+     |
+2138 |     auth: Option<&CodexAuth>,
+     |     ^^^^ help: if this is intentional, prefix it with an underscore: `_auth`
+
+warning: function `app_info_to_api` is never used
+  --> app-server/src/app_info.rs:22:15
+   |
+22 | pub(crate) fn app_info_to_api(app: AppInfo) -> ApiAppInfo {
+   |               ^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `connector_metadata_to_api` is never used
+  --> app-server/src/app_info.rs:63:15
+   |
+63 | pub(crate) fn connector_metadata_to_api(metadata: ConnectorMetadata) -> ApiConnectorMetadata {
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `app_branding_to_api` is never used
+   --> app-server/src/app_info.rs:109:4
+    |
+109 | fn app_branding_to_api(branding: AppBranding) -> ApiAppBranding {
+    |    ^^^^^^^^^^^^^^^^^^^
+
+warning: function `app_review_to_api` is never used
+   --> app-server/src/app_info.rs:128:4
+    |
+128 | fn app_review_to_api(review: AppReview) -> ApiAppReview {
+    |    ^^^^^^^^^^^^^^^^^
+
+warning: function `app_screenshot_to_api` is never used
+   --> app-server/src/app_info.rs:133:4
+    |
+133 | fn app_screenshot_to_api(screenshot: AppScreenshot) -> ApiAppScreenshot {
+    |    ^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `app_metadata_to_api` is never used
+   --> app-server/src/app_info.rs:146:4
+    |
+146 | fn app_metadata_to_api(metadata: AppMetadata) -> ApiAppMetadata {
+    |    ^^^^^^^^^^^^^^^^^^^
+
+warning: method `load_retained_session_config` is never used
+   --> app-server/src/config_manager.rs:317:25
+    |
+ 91 | impl ConfigManager {
+    | ------------------ method in this implementation
+...
+317 |     pub(crate) async fn load_retained_session_config(
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `EXTERNAL_AUTH_REFRESH_TIMEOUT` is never used
+  --> app-server/src/external_auth.rs:18:7
+   |
+18 | const EXTERNAL_AUTH_REFRESH_TIMEOUT: Duration = Duration::from_secs(10);
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `ExternalAuthBridge` is never constructed
+  --> app-server/src/external_auth.rs:20:19
+   |
+20 | pub(crate) struct ExternalAuthBridge {
+   |                   ^^^^^^^^^^^^^^^^^^
+
+warning: associated items `new` and `refresh` are never used
+  --> app-server/src/external_auth.rs:26:19
+   |
+25 | impl ExternalAuthBridge {
+   | ----------------------- associated items in this implementation
+26 |     pub(crate) fn new(outgoing: Arc<OutgoingMessageSender>, auth: CodexAuth) -> Self {
+   |                   ^^^
+...
+33 |     async fn refresh(&self, context: ExternalAuthRefreshContext) -> std::io::Result<CodexAuth> {
+   |              ^^^^^^^
+
+warning: method `send_request` is never used
+   --> app-server/src/outgoing_message.rs:374:25
+    |
+268 | impl OutgoingMessageSender {
+    | -------------------------- method in this implementation
+...
+374 |     pub(crate) async fn send_request(
+    |                         ^^^^^^^^^^^^
+
+warning: methods `logout_account`, `configured_auth_owned_by_host_error`, `logout_common`, and `logout_v2` are never used
+   --> app-server/src/request_processors/account_processor.rs:94:25
+    |
+ 52 | impl AccountRequestProcessor {
+    | ---------------------------- methods in this implementation
+...
+ 94 |     pub(crate) async fn logout_account(
+    |                         ^^^^^^^^^^^^^^
+...
+260 |     fn configured_auth_owned_by_host_error(&self) -> JSONRPCErrorError {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+477 |     async fn logout_common(&self) -> std::result::Result<Option<AuthMode>, JSONRPCErrorError> {
+    |              ^^^^^^^^^^^^^
+...
+503 |     async fn logout_v2(&self, request_id: ConnectionRequestId) -> Result<(), JSONRPCErrorError> {
+    |              ^^^^^^^^^
+
+warning: method `unload_for_workspace_switch` is never used
+ --> app-server/src/request_processors/thread_processor/workspace_switching.rs:7:25
+  |
+6 | impl ThreadRequestProcessor {
+  | --------------------------- method in this implementation
+7 |     pub(crate) async fn unload_for_workspace_switch(&self) -> Result<(), JSONRPCErrorError> {
+  |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `TurnAdmissionPause` is never constructed
+  --> app-server/src/turn_admission.rs:35:19
+   |
+35 | pub(crate) struct TurnAdmissionPause(TurnAdmission);
+   |                   ^^^^^^^^^^^^^^^^^^
+
+warning: method `pause` is never used
+  --> app-server/src/turn_admission.rs:38:25
+   |
+37 | impl TurnAdmission {
+   | ------------------ method in this implementation
+38 |     pub(crate) async fn pause(&self) -> Result<TurnAdmissionPause, JSONRPCErrorError> {
+   |                         ^^^^^
+
+warning: `codex-app-server` (lib) generated 34 warnings (run `cargo fix --lib -p codex-app-server` to apply 19 suggestions)
+warning: unused import: `codex_app_server_protocol::AddCreditsNudgeCreditType`
+  --> tui/src/app.rs:98:5
+   |
+98 | use codex_app_server_protocol::AddCreditsNudgeCreditType;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `codex_app_server_protocol::SendAddCreditsNudgeEmailParams`
+   --> tui/src/app.rs:126:5
+    |
+126 | use codex_app_server_protocol::SendAddCreditsNudgeEmailParams;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_model_provider_info::AMAZON_BEDROCK_PROVIDER_ID`
+ --> tui/src/app/startup_prompts.rs:8:5
+  |
+8 | use codex_model_provider_info::AMAZON_BEDROCK_PROVIDER_ID;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::atomic::AtomicBool`
+  --> tui/src/app_event.rs:13:5
+   |
+13 | use std::sync::atomic::AtomicBool;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::GetAccountParams`
+  --> tui/src/app_server_session.rs:59:5
+   |
+59 | use codex_app_server_protocol::GetAccountParams;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `actionable_banner::BannerDismissal`
+   --> tui/src/bottom_pane/mod.rs:105:16
+    |
+105 | pub(crate) use actionable_banner::BannerDismissal;
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::terminal_hyperlinks::mark_underlined_hyperlink`
+  --> tui/src/bottom_pane/feedback_note_view.rs:27:5
+   |
+27 | use crate::terminal_hyperlinks::mark_underlined_hyperlink;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::AddCreditsNudgeCreditType`
+  --> tui/src/chatwidget.rs:81:5
+   |
+81 | use codex_app_server_protocol::AddCreditsNudgeCreditType;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::AddCreditsNudgeEmailStatus`
+  --> tui/src/chatwidget.rs:82:5
+   |
+82 | use codex_app_server_protocol::AddCreditsNudgeEmailStatus;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::onboarding::mark_url_hyperlink`
+  --> tui/src/chatwidget/plugin_catalog.rs:27:5
+   |
+27 | use crate::onboarding::mark_url_hyperlink;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::bottom_pane::ActionableBanner`
+ --> tui/src/chatwidget/rate_limits.rs:4:5
+  |
+4 | use crate::bottom_pane::ActionableBanner;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `uuid::Uuid`
+ --> tui/src/chatwidget/rate_limits.rs:6:5
+  |
+6 | use uuid::Uuid;
+  |     ^^^^^^^^^^
+
+warning: unused import: `crate::app_event::AppEvent`
+ --> tui/src/chatwidget/usage_history.rs:4:5
+  |
+4 | use crate::app_event::AppEvent;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::fs`
+ --> tui/src/pets/asset_pack.rs:3:5
+  |
+3 | use std::fs;
+  |     ^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::AccountLoginCompletedNotification`
+  --> tui/src/onboarding/auth.rs:10:5
+   |
+10 | use codex_app_server_protocol::AccountLoginCompletedNotification;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_app_server_protocol::CancelLoginAccountParams`
+  --> tui/src/onboarding/auth.rs:13:5
+   |
+13 | use codex_app_server_protocol::CancelLoginAccountParams;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `ratatui::style::Modifier`
+  --> tui/src/onboarding/auth.rs:30:5
+   |
+30 | use ratatui::style::Modifier;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::motion::MotionMode`
+  --> tui/src/onboarding/auth.rs:52:5
+   |
+52 | use crate::motion::MotionMode;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::motion::shimmer_text`
+  --> tui/src/onboarding/auth.rs:53:5
+   |
+53 | use crate::motion::shimmer_text;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::terminal_hyperlinks::HyperlinkLine`
+  --> tui/src/onboarding/auth.rs:59:5
+   |
+59 | use crate::terminal_hyperlinks::HyperlinkLine;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::terminal_hyperlinks::mark_buffer_hyperlinks`
+  --> tui/src/onboarding/auth.rs:60:5
+   |
+60 | use crate::terminal_hyperlinks::mark_buffer_hyperlinks;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::terminal_hyperlinks::visible_lines`
+  --> tui/src/onboarding/auth.rs:61:5
+   |
+61 | use crate::terminal_hyperlinks::visible_lines;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_protocol::config_types::ForcedLoginMethod`
+  --> tui/src/onboarding/onboarding_screen.rs:32:5
+   |
+32 | use codex_protocol::config_types::ForcedLoginMethod;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::clipboard_copy::CopyFormat`
+  --> tui/src/onboarding/onboarding_screen.rs:36:5
+   |
+36 | use crate::clipboard_copy::CopyFormat;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::clipboard_copy::CopyStatus`
+  --> tui/src/onboarding/onboarding_screen.rs:37:5
+   |
+37 | use crate::clipboard_copy::CopyStatus;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::style::accent_color`
+ --> tui/src/status/card.rs:7:5
+  |
+7 | use crate::style::accent_color;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_protocol::account::PlanType`
+ --> tui/src/status/helpers.rs:9:5
+  |
+9 | use codex_protocol::account::PlanType;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variable does not need to be mutable
+    --> tui/src/app/event_dispatch.rs:1243:31
+     |
+1243 |             AppEvent::CodexOp(mut op) => {
+     |                               ----^^
+     |                               |
+     |                               help: remove this `mut`
+     |
+     = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `tui`
+   --> tui/src/app/history_ui.rs:276:47
+    |
+276 |     fn insert_pending_usage_output(&mut self, tui: &mut tui::Tui) {}
+    |                                               ^^^ help: if this is intentional, prefix it with an underscore: `_tui`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `model_provider_id`
+   --> tui/src/app/startup_prompts.rs:116:5
+    |
+116 |     model_provider_id: &str,
+    |     ^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_model_provider_id`
+
+warning: unused variable: `plan_type`
+    --> tui/src/app_server_session.rs:2083:5
+     |
+2083 |     plan_type: Option<codex_protocol::account::PlanType>,
+     |     ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_plan_type`
+
+warning: unused variable: `meta`
+  --> tui/src/bottom_pane/app_link_view.rs:90:13
+   |
+90 |             meta,
+   |             ^^^^ help: try ignoring the field: `meta: _`
+
+warning: unused variable: `thread_id`
+   --> tui/src/chatwidget/model_popups.rs:259:13
+    |
+259 |         let thread_id = self.thread_id();
+    |             ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_thread_id`
+
+warning: unused variable: `error_kind`
+   --> tui/src/chatwidget/turn_runtime.rs:468:50
+    |
+468 |     pub(super) fn on_rate_limit_error(&mut self, error_kind: RateLimitErrorKind, message: String) {
+    |                                                  ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_error_kind`
+
+warning: unused variable: `notice`
+   --> tui/src/history_cell/notices.rs:163:5
+    |
+163 |     notice: crate::daybreak::Notice,
+    |     ^^^^^^ help: if this is intentional, prefix it with an underscore: `_notice`
+
+warning: variable does not need to be mutable
+   --> tui/src/onboarding/auth.rs:288:13
+    |
+288 |         let mut options = self.displayed_sign_in_options();
+    |             ----^^^^^^^
+    |             |
+    |             help: remove this `mut`
+
+warning: unused variable: `requires_openai_auth`
+   --> tui/src/status/card.rs:278:9
+    |
+278 |         requires_openai_auth: bool,
+    |         ^^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_requires_openai_auth`
+
+warning: variable does not need to be mutable
+   --> tui/src/status/card.rs:948:13
+    |
+948 |         let mut lines =
+    |             ----^^^^^
+    |             |
+    |             help: remove this `mut`
+
+warning: method `has_pending_recovery` is never used
+  --> tui/src/app/rate_limit_refresh.rs:47:19
+   |
+35 | impl RateLimitRefreshState {
+   | -------------------------- method in this implementation
+...
+47 |     pub(super) fn has_pending_recovery(&self) -> bool {
+   |                   ^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: fields `reason` and `turn_id` are never read
+    --> tui/src/app_event.rs:1612:9
+     |
+1610 |     SubmitFeedback {
+     |     -------------- fields in this variant
+1611 |         category: FeedbackCategory,
+1612 |         reason: Option<String>,
+     |         ^^^^^^
+1613 |         turn_id: Option<String>,
+     |         ^^^^^^^
+     |
+     = note: `AppEvent` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: variants `CommitPendingUsageOutput`, `CommitPendingUsageOutputAfterStreamShutdown`, and `OpenFeedbackConsent` are never constructed
+    --> tui/src/app_event.rs:833:5
+     |
+ 300 | pub(crate) enum AppEvent {
+     |                 -------- variants in this enum
+...
+ 833 |     CommitPendingUsageOutput,
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 836 |     CommitPendingUsageOutputAfterStreamShutdown,
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1605 |     OpenFeedbackConsent {
+     |     ^^^^^^^^^^^^^^^^^^^
+     |
+     = note: `AppEvent` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: variants `BadResult`, `Bug`, `SafetyCheck`, and `Other` are never constructed
+    --> tui/src/app_event.rs:1799:5
+     |
+1798 | pub(crate) enum FeedbackCategory {
+     |                 ---------------- variants in this enum
+1799 |     BadResult,
+     |     ^^^^^^^^^
+1800 |     GoodResult,
+1801 |     Bug,
+     |     ^^^
+1802 |     SafetyCheck,
+     |     ^^^^^^^^^^^
+1803 |     Other,
+     |     ^^^^^
+     |
+     = note: `FeedbackCategory` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: field `dismissal` is never read
+  --> tui/src/bottom_pane/actionable_banner.rs:36:16
+   |
+31 | pub(crate) struct ActionableBanner {
+   |                   ---------------- field in this struct
+...
+36 |     pub(crate) dismissal: BannerDismissal,
+   |                ^^^^^^^^^
+
+warning: variants `Actions` and `Information` are never constructed
+  --> tui/src/bottom_pane/actionable_banner.rs:58:5
+   |
+57 | enum InlineBannerContent {
+   |      ------------------- variants in this enum
+58 |     Actions(Box<ListSelectionView>),
+   |     ^^^^^^^
+59 |     Information {
+   |     ^^^^^^^^^^^
+
+warning: methods `transfer_inline_banner_from`, `show_actionable_banner`, `set_inline_banner`, and `inline_banner_lifecycle` are never used
+   --> tui/src/bottom_pane/actionable_banner.rs:177:19
+    |
+176 | impl BottomPane {
+    | --------------- methods in this implementation
+177 |     pub(crate) fn transfer_inline_banner_from(&mut self, previous: &mut Self) {
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+187 |     pub(crate) fn show_actionable_banner(&mut self, banner: ActionableBanner) {
+    |                   ^^^^^^^^^^^^^^^^^^^^^^
+...
+192 |     pub(crate) fn set_inline_banner(&mut self, banner: Option<ActionableBanner>) {
+    |                   ^^^^^^^^^^^^^^^^^
+...
+236 |     pub(crate) fn inline_banner_lifecycle(&self) -> (bool, bool) {
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `MCP_TOOL_CODEX_APPS_META_KEY` is never used
+  --> tui/src/bottom_pane/app_link_view.rs:41:7
+   |
+41 | const MCP_TOOL_CODEX_APPS_META_KEY: &str = "_codex_apps";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `CONNECTOR_AUTH_FAILURE_META_KEY` is never used
+  --> tui/src/bottom_pane/app_link_view.rs:42:7
+   |
+42 | const CONNECTOR_AUTH_FAILURE_META_KEY: &str = "connector_auth_failure";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `CONNECTOR_AUTH_FAILURE_IS_AUTH_FAILURE_KEY` is never used
+  --> tui/src/bottom_pane/app_link_view.rs:43:7
+   |
+43 | const CONNECTOR_AUTH_FAILURE_IS_AUTH_FAILURE_KEY: &str = "is_auth_failure";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `CONNECTOR_AUTH_FAILURE_CONNECTOR_ID_KEY` is never used
+  --> tui/src/bottom_pane/app_link_view.rs:44:7
+   |
+44 | const CONNECTOR_AUTH_FAILURE_CONNECTOR_ID_KEY: &str = "connector_id";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `CONNECTOR_AUTH_FAILURE_CONNECTOR_NAME_KEY` is never used
+  --> tui/src/bottom_pane/app_link_view.rs:45:7
+   |
+45 | const CONNECTOR_AUTH_FAILURE_CONNECTOR_NAME_KEY: &str = "connector_name";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_codex_apps_auth_url_parts` is never used
+   --> tui/src/bottom_pane/app_link_view.rs:110:8
+    |
+ 82 | impl AppLinkViewParams {
+    | ---------------------- associated function in this implementation
+...
+110 |     fn from_codex_apps_auth_url_parts(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: field `feedback_audience` is never read
+  --> tui/src/bottom_pane/feedback_note_view.rs:51:5
+   |
+46 | pub(crate) struct FeedbackNoteView {
+   |                   ---------------- field in this struct
+...
+51 |     feedback_audience: FeedbackAudience,
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: function `feedback_selection_params` is never used
+   --> tui/src/bottom_pane/feedback_view.rs:132:15
+    |
+132 | pub(crate) fn feedback_selection_params(
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `make_feedback_item` is never used
+   --> tui/src/bottom_pane/feedback_view.rs:173:4
+    |
+173 | fn make_feedback_item(
+    |    ^^^^^^^^^^^^^^^^^^
+
+warning: constant `USAGE_PROVIDER_UNAVAILABLE` is never used
+  --> tui/src/chatwidget/slash_dispatch.rs:41:7
+   |
+41 | const USAGE_PROVIDER_UNAVAILABLE: &str = "Usage data is unavailable for the active model provider.";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: method `ensure_usage_command_available` is never used
+    --> tui/src/chatwidget/slash_dispatch.rs:1229:8
+     |
+  43 | impl ChatWidget {
+     | --------------- method in this implementation
+...
+1229 |     fn ensure_usage_command_available(&mut self) -> bool {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: method `apply_usage_notice_read` is never used
+   --> tui/src/chatwidget/usage_notice.rs:181:19
+    |
+166 | impl ChatWidget {
+    | --------------- method in this implementation
+...
+181 |     pub(crate) fn apply_usage_notice_read(&mut self, request_id: u64) {
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: method `date_time_format` is never used
+  --> tui/src/clock_format.rs:18:19
+   |
+12 | impl ClockFormat {
+   | ---------------- method in this implementation
+...
+18 |     pub(crate) fn date_time_format(self) -> &'static str {
+   |                   ^^^^^^^^^^^^^^^^
+
+warning: function `mark_url_hyperlink` is never used
+  --> tui/src/onboarding/auth.rs:71:15
+   |
+71 | pub(crate) fn mark_url_hyperlink(buf: &mut Buffer, area: Rect, url: &str) {
+   |               ^^^^^^^^^^^^^^^^^^
+
+warning: constant `COPY_LINK` is never used
+  --> tui/src/onboarding/keys.rs:28:18
+   |
+28 | pub(crate) const COPY_LINK: [KeyBinding; 1] = [key_hint::plain(KeyCode::Char('c'))];
+   |                  ^^^^^^^^^
+
+warning: method `set_focused` is never used
+  --> tui/src/onboarding/welcome.rs:89:19
+   |
+59 | impl WelcomeWidget {
+   | ------------------ method in this implementation
+...
+89 |     pub(crate) fn set_focused(&self, focused: bool) {
+   |                   ^^^^^^^^^^^
+
+warning: field `normal_model_slug` is never read
+   --> tui/src/status/rate_limits.rs:105:9
+    |
+101 | pub(crate) struct RateLimitSnapshotDisplay {
+    |                   ------------------------ field in this struct
+...
+105 |     pub normal_model_slug: Option<String>,
+    |         ^^^^^^^^^^^^^^^^^
+    |
+    = note: `RateLimitSnapshotDisplay` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: constant `ANNOUNCEMENT_TIP_URL` is never used
+  --> tui/src/tooltips.rs:16:7
+   |
+16 | const ANNOUNCEMENT_TIP_URL: &str =
+   |       ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `preferred_tooltip` is never used
+  --> tui/src/tooltips.rs:47:15
+   |
+47 | pub(crate) fn preferred_tooltip<R: Rng + ?Sized>(
+   |               ^^^^^^^^^^^^^^^^^
+
+warning: static `ANNOUNCEMENT_TIP` is never used
+   --> tui/src/tooltips.rs:119:12
+    |
+119 |     static ANNOUNCEMENT_TIP: OnceLock<Option<AnnouncementTips>> = OnceLock::new();
+    |            ^^^^^^^^^^^^^^^^
+
+warning: constant `CURRENT_OS` is never used
+   --> tui/src/tooltips.rs:120:11
+    |
+120 |     const CURRENT_OS: TargetOs = TargetOs::current();
+    |           ^^^^^^^^^^
+
+warning: function `prewarm` is never used
+   --> tui/src/tooltips.rs:123:19
+    |
+123 |     pub(crate) fn prewarm(http_client_factory: HttpClientFactory) {
+    |                   ^^^^^^^
+
+warning: function `fetch_announcement_tip` is never used
+   --> tui/src/tooltips.rs:136:19
+    |
+136 |     pub(crate) fn fetch_announcement_tip(plan: Option<PlanType>) -> Option<String> {
+    |                   ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTipRaw` is never constructed
+   --> tui/src/tooltips.rs:144:12
+    |
+144 |     struct AnnouncementTipRaw {
+    |            ^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTipDocument` is never constructed
+   --> tui/src/tooltips.rs:155:12
+    |
+155 |     struct AnnouncementTipDocument {
+    |            ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTip` is never constructed
+   --> tui/src/tooltips.rs:160:12
+    |
+160 |     struct AnnouncementTip {
+    |            ^^^^^^^^^^^^^^^
+
+warning: enum `TargetOs` is never used
+   --> tui/src/tooltips.rs:172:10
+    |
+172 |     enum TargetOs {
+    |          ^^^^^^^^
+
+warning: associated function `current` is never used
+   --> tui/src/tooltips.rs:181:18
+    |
+180 |     impl TargetOs {
+    |     ------------- associated function in this implementation
+181 |         const fn current() -> Self {
+    |                  ^^^^^^^
+
+warning: function `fetch_announcement_tip_text` is never used
+   --> tui/src/tooltips.rs:193:14
+    |
+193 |     async fn fetch_announcement_tip_text(http_client_factory: HttpClientFactory) -> Option<String> {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTips` is never constructed
+   --> tui/src/tooltips.rs:205:23
+    |
+205 |     pub(super) struct AnnouncementTips(Vec<AnnouncementTip>);
+    |                       ^^^^^^^^^^^^^^^^
+
+warning: associated items `parse` and `select` are never used
+   --> tui/src/tooltips.rs:208:23
+    |
+207 |     impl AnnouncementTips {
+    |     --------------------- associated items in this implementation
+208 |         pub(super) fn parse(text: &str) -> Option<Self> {
+    |                       ^^^^^
+...
+221 |         pub(super) fn select(&self, plan: Option<PlanType>) -> Option<String> {
+    |                       ^^^^^^
+
+warning: associated items `from_raw`, `version_matches`, and `date_matches` are never used
+   --> tui/src/tooltips.rs:245:12
+    |
+244 |     impl AnnouncementTip {
+    |     -------------------- associated items in this implementation
+245 |         fn from_raw(raw: AnnouncementTipRaw) -> Option<Self> {
+    |            ^^^^^^^^
+...
+289 |         fn version_matches(&self, version: &str) -> bool {
+    |            ^^^^^^^^^^^^^^^
+...
+295 |         fn date_matches(&self, today: NaiveDate) -> bool {
+    |            ^^^^^^^^^^^^
+
+warning: `codex-tui` (lib) generated 77 warnings (run `cargo fix --lib -p codex-tui` to apply 38 suggestions)
+warning: unused import: `codex_login::read_codex_access_token_from_env`
+  --> exec-server-cli/src/config.rs:13:5
+   |
+13 | use codex_login::read_codex_access_token_from_env;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `crate::exec_server_auth`
+  --> exec-server-cli/src/config.rs:19:5
+   |
+19 | use crate::exec_server_auth;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::atomic::AtomicBool`
+ --> exec-server-cli/src/exec_server_auth.rs:4:5
+  |
+4 | use std::sync::atomic::AtomicBool;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::atomic::Ordering`
+ --> exec-server-cli/src/exec_server_auth.rs:5:5
+  |
+5 | use std::sync::atomic::Ordering;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::time::Duration`
+ --> exec-server-cli/src/exec_server_auth.rs:6:5
+  |
+6 | use std::time::Duration;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_api::AuthHeadersFuture`
+ --> exec-server-cli/src/exec_server_auth.rs:9:5
+  |
+9 | use codex_api::AuthHeadersFuture;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_login::AuthManager`
+  --> exec-server-cli/src/exec_server_auth.rs:19:5
+   |
+19 | use codex_login::AuthManager;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_login::CodexAuth`
+  --> exec-server-cli/src/exec_server_auth.rs:20:5
+   |
+20 | use codex_login::CodexAuth;
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `tokio::sync::Semaphore`
+  --> exec-server-cli/src/exec_server_auth.rs:22:5
+   |
+22 | use tokio::sync::Semaphore;
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `codex-exec-server-cli` (lib) generated 9 warnings (run `cargo fix --lib -p codex-exec-server-cli` to apply 9 suggestions)
+   Compiling codex-cli v0.0.0 (/home/sig/files/qiri-release/codex-rs/cli)
+warning: unused import: `anyhow::Context`
+ --> cli/src/debug_sandbox/cloud_config_tests.rs:1:5
+  |
+1 | use anyhow::Context;
+  |     ^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `app_test_support::ChatGptAuthFixture`
+ --> cli/src/debug_sandbox/cloud_config_tests.rs:3:5
+  |
+3 | use app_test_support::ChatGptAuthFixture;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `app_test_support::write_chatgpt_auth`
+ --> cli/src/debug_sandbox/cloud_config_tests.rs:4:5
+  |
+4 | use app_test_support::write_chatgpt_auth;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_config::ConfigRequirementsToml`
+ --> cli/src/debug_sandbox/cloud_config_tests.rs:5:5
+  |
+5 | use codex_config::ConfigRequirementsToml;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_config::types::AuthCredentialsStoreMode`
+ --> cli/src/debug_sandbox/cloud_config_tests.rs:7:5
+  |
+7 | use codex_config::types::AuthCredentialsStoreMode;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_protocol::permissions::NetworkSandboxPolicy`
+ --> cli/src/debug_sandbox/cloud_config_tests.rs:8:5
+  |
+8 | use codex_protocol::permissions::NetworkSandboxPolicy;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `codex_utils_absolute_path::AbsolutePathBuf`
+ --> cli/src/debug_sandbox/cloud_config_tests.rs:9:5
+  |
+9 | use codex_utils_absolute_path::AbsolutePathBuf;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `pretty_assertions::assert_eq`
+  --> cli/src/debug_sandbox/cloud_config_tests.rs:10:5
+   |
+10 | use pretty_assertions::assert_eq;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `serde_json::Value`
+  --> cli/src/debug_sandbox/cloud_config_tests.rs:11:5
+   |
+11 | use serde_json::Value;
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `serde_json::json`
+  --> cli/src/debug_sandbox/cloud_config_tests.rs:12:5
+   |
+12 | use serde_json::json;
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `tempfile::TempDir`
+  --> cli/src/debug_sandbox/cloud_config_tests.rs:13:5
+   |
+13 | use tempfile::TempDir;
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `wiremock::Mock`
+  --> cli/src/debug_sandbox/cloud_config_tests.rs:14:5
+   |
+14 | use wiremock::Mock;
+   |     ^^^^^^^^^^^^^^
+
+warning: unused import: `wiremock::MockServer`
+  --> cli/src/debug_sandbox/cloud_config_tests.rs:15:5
+   |
+15 | use wiremock::MockServer;
+   |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `wiremock::ResponseTemplate`
+  --> cli/src/debug_sandbox/cloud_config_tests.rs:16:5
+   |
+16 | use wiremock::ResponseTemplate;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `wiremock::matchers::header`
+  --> cli/src/debug_sandbox/cloud_config_tests.rs:17:5
+   |
+17 | use wiremock::matchers::header;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `wiremock::matchers::method`
+  --> cli/src/debug_sandbox/cloud_config_tests.rs:18:5
+   |
+18 | use wiremock::matchers::method;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `wiremock::matchers::path`
+  --> cli/src/debug_sandbox/cloud_config_tests.rs:19:5
+   |
+19 | use wiremock::matchers::path;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::super::load_debug_sandbox_config_with_codex_home`
+  --> cli/src/debug_sandbox/cloud_config_tests.rs:23:5
+   |
+23 | use super::super::load_debug_sandbox_config_with_codex_home;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `CLOUD_MANAGED_PERMISSION_PROFILE_REQUIREMENTS` is never used
+  --> cli/src/debug_sandbox/cloud_config_tests.rs:26:7
+   |
+26 | const CLOUD_MANAGED_PERMISSION_PROFILE_REQUIREMENTS: &str = r#"
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `auth_manager`
+    --> cli/src/main.rs:1856:9
+     |
+1856 |     let auth_manager =
+     |         ^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_auth_manager`
+     |
+     = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: method `run` is never used
+   --> cli/src/marketplace_cmd.rs:126:18
+    |
+125 | impl MarketplaceCli {
+    | ------------------- method in this implementation
+126 |     pub async fn run(self) -> Result<()> {
+    |                  ^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `run_add` is never used
+   --> cli/src/marketplace_cmd.rs:151:10
+    |
+151 | async fn run_add(config: Config, args: AddMarketplaceArgs) -> Result<()> {
+    |          ^^^^^^^
+
+warning: struct `JsonMarketplaceAddOutput` is never constructed
+   --> cli/src/marketplace_cmd.rs:197:8
+    |
+197 | struct JsonMarketplaceAddOutput {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_outcome` is never used
+   --> cli/src/marketplace_cmd.rs:204:8
+    |
+203 | impl JsonMarketplaceAddOutput {
+    | ----------------------------- associated function in this implementation
+204 |     fn from_outcome(outcome: MarketplaceAddOutcome) -> Self {
+    |        ^^^^^^^^^^^^
+
+warning: function `run_list` is never used
+   --> cli/src/marketplace_cmd.rs:213:10
+    |
+213 | async fn run_list(config: Config, args: ListMarketplaceArgs) -> Result<()> {
+    |          ^^^^^^^^
+
+warning: struct `JsonMarketplaceListOutput` is never constructed
+   --> cli/src/marketplace_cmd.rs:301:8
+    |
+301 | struct JsonMarketplaceListOutput {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_marketplaces` is never used
+   --> cli/src/marketplace_cmd.rs:306:8
+    |
+305 | impl JsonMarketplaceListOutput {
+    | ------------------------------ associated function in this implementation
+306 |     fn from_marketplaces(
+    |        ^^^^^^^^^^^^^^^^^
+
+warning: struct `JsonMarketplaceListEntry` is never constructed
+   --> cli/src/marketplace_cmd.rs:332:8
+    |
+332 | struct JsonMarketplaceListEntry {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `configured_marketplace_sources_by_root` is never used
+   --> cli/src/marketplace_cmd.rs:339:4
+    |
+339 | fn configured_marketplace_sources_by_root(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `run_upgrade` is never used
+   --> cli/src/marketplace_cmd.rs:367:10
+    |
+367 | async fn run_upgrade(
+    |          ^^^^^^^^^^^
+
+warning: function `run_remove` is never used
+   --> cli/src/marketplace_cmd.rs:401:10
+    |
+401 | async fn run_remove(config: Config, args: RemoveMarketplaceArgs) -> Result<()> {
+    |          ^^^^^^^^^^
+
+warning: struct `JsonMarketplaceRemoveOutput` is never constructed
+   --> cli/src/marketplace_cmd.rs:432:8
+    |
+432 | struct JsonMarketplaceRemoveOutput {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_outcome` is never used
+   --> cli/src/marketplace_cmd.rs:438:8
+    |
+437 | impl JsonMarketplaceRemoveOutput {
+    | -------------------------------- associated function in this implementation
+438 |     fn from_outcome(outcome: MarketplaceRemoveOutcome) -> Self {
+    |        ^^^^^^^^^^^^
+
+warning: function `print_upgrade_outcome_json` is never used
+   --> cli/src/marketplace_cmd.rs:448:4
+    |
+448 | fn print_upgrade_outcome_json(outcome: &PluginMarketplaceUpgradeOutcome) -> Result<()> {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `JsonMarketplaceUpgradeOutput` is never constructed
+   --> cli/src/marketplace_cmd.rs:466:8
+    |
+466 | struct JsonMarketplaceUpgradeOutput {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_outcome` is never used
+   --> cli/src/marketplace_cmd.rs:473:8
+    |
+472 | impl JsonMarketplaceUpgradeOutput {
+    | --------------------------------- associated function in this implementation
+473 |     fn from_outcome(outcome: &PluginMarketplaceUpgradeOutcome) -> Self {
+    |        ^^^^^^^^^^^^
+
+warning: struct `JsonMarketplaceUpgradeError` is never constructed
+   --> cli/src/marketplace_cmd.rs:495:8
+    |
+495 | struct JsonMarketplaceUpgradeError {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `print_upgrade_outcome` is never used
+   --> cli/src/marketplace_cmd.rs:500:4
+    |
+500 | fn print_upgrade_outcome(
+    |    ^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `OPENAI_BUNDLED_ALPHA_MARKETPLACE_NAME` is never used
+  --> cli/src/plugin_cmd.rs:48:7
+   |
+48 | const OPENAI_BUNDLED_ALPHA_MARKETPLACE_NAME: &str = "openai-bundled-alpha";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `OPENAI_PRIMARY_RUNTIME_MARKETPLACE_NAME` is never used
+  --> cli/src/plugin_cmd.rs:49:7
+   |
+49 | const OPENAI_PRIMARY_RUNTIME_MARKETPLACE_NAME: &str = "openai-primary-runtime";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `run_plugin_add` is never used
+   --> cli/src/plugin_cmd.rs:139:14
+    |
+139 | pub async fn run_plugin_add(
+    |              ^^^^^^^^^^^^^^
+
+warning: struct `JsonPluginAddOutput` is never constructed
+   --> cli/src/plugin_cmd.rs:224:8
+    |
+224 | struct JsonPluginAddOutput {
+    |        ^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_outcome` is never used
+   --> cli/src/plugin_cmd.rs:234:8
+    |
+233 | impl JsonPluginAddOutput {
+    | ------------------------ associated function in this implementation
+234 |     fn from_outcome(outcome: PluginInstallOutcome) -> Self {
+    |        ^^^^^^^^^^^^
+
+warning: function `run_plugin_list` is never used
+   --> cli/src/plugin_cmd.rs:246:14
+    |
+246 | pub async fn run_plugin_list(
+    |              ^^^^^^^^^^^^^^^
+
+warning: associated function `from_configured_plugin` is never used
+   --> cli/src/plugin_cmd.rs:534:8
+    |
+533 | impl PluginListEntry {
+    | -------------------- associated function in this implementation
+534 |     fn from_configured_plugin(
+    |        ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variants `Local`, `Git`, `GitSubdir`, and `Npm` are never constructed
+   --> cli/src/plugin_cmd.rs:563:5
+    |
+559 | enum JsonPluginSource {
+    |      ---------------- variants in this enum
+...
+563 |     Local {
+    |     ^^^^^
+...
+566 |     Git {
+    |     ^^^
+...
+573 |     GitSubdir {
+    |     ^^^^^^^^^
+...
+581 |     Npm {
+    |     ^^^
+    |
+    = note: `JsonPluginSource` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: associated function `from_marketplace_source` is never used
+   --> cli/src/plugin_cmd.rs:591:8
+    |
+590 | impl JsonPluginSource {
+    | --------------------- associated function in this implementation
+591 |     fn from_marketplace_source(source: MarketplacePluginSource) -> Self {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `configured_marketplace_sources` is never used
+   --> cli/src/plugin_cmd.rs:633:15
+    |
+633 | pub(crate) fn configured_marketplace_sources(
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `install_policy_label` is never used
+   --> cli/src/plugin_cmd.rs:666:4
+    |
+666 | fn install_policy_label(policy: MarketplacePluginInstallPolicy) -> &'static str {
+    |    ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `auth_policy_label` is never used
+   --> cli/src/plugin_cmd.rs:674:4
+    |
+674 | fn auth_policy_label(policy: MarketplacePluginAuthPolicy) -> &'static str {
+    |    ^^^^^^^^^^^^^^^^^
+
+warning: function `run_plugin_remove` is never used
+   --> cli/src/plugin_cmd.rs:681:14
+    |
+681 | pub async fn run_plugin_remove(
+    |              ^^^^^^^^^^^^^^^^^
+
+warning: struct `JsonPluginRemoveOutput` is never constructed
+   --> cli/src/plugin_cmd.rs:744:8
+    |
+744 | struct JsonPluginRemoveOutput {
+    |        ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated function `from_selection` is never used
+   --> cli/src/plugin_cmd.rs:751:8
+    |
+750 | impl JsonPluginRemoveOutput {
+    | --------------------------- associated function in this implementation
+751 |     fn from_selection(selection: PluginSelection) -> Self {
+    |        ^^^^^^^^^^^^^^
+
+warning: struct `PluginCommandContext` is never constructed
+   --> cli/src/plugin_cmd.rs:760:8
+    |
+760 | struct PluginCommandContext {
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `load_plugin_command_context` is never used
+   --> cli/src/plugin_cmd.rs:767:10
+    |
+767 | async fn load_plugin_command_context(
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `load_cli_auth_manager` is never used
+   --> cli/src/plugin_cmd.rs:788:21
+    |
+788 | pub(crate) async fn load_cli_auth_manager(config: &Config) -> Result<Arc<AuthManager>> {
+    |                     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `PluginSelection` is never constructed
+   --> cli/src/plugin_cmd.rs:792:8
+    |
+792 | struct PluginSelection {
+    |        ^^^^^^^^^^^^^^^
+
+warning: associated function `from_plugin_id` is never used
+   --> cli/src/plugin_cmd.rs:799:8
+    |
+798 | impl PluginSelection {
+    | -------------------- associated function in this implementation
+799 |     fn from_plugin_id(plugin_id: PluginId) -> Self {
+    |        ^^^^^^^^^^^^^^
+
+warning: function `parse_plugin_selection` is never used
+   --> cli/src/plugin_cmd.rs:809:4
+    |
+809 | fn parse_plugin_selection(
+    |    ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `RemoteMarketplaceListing` is never constructed
+   --> cli/src/plugin_cmd.rs:837:8
+    |
+837 | struct RemoteMarketplaceListing {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `fetch_remote_marketplaces` is never used
+   --> cli/src/plugin_cmd.rs:844:10
+    |
+844 | async fn fetch_remote_marketplaces(
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `resolve_remote_plugin` is never used
+   --> cli/src/plugin_cmd.rs:903:4
+    |
+903 | fn resolve_remote_plugin(
+    |    ^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `find_marketplace_for_plugin` is never used
+   --> cli/src/plugin_cmd.rs:926:4
+    |
+926 | fn find_marketplace_for_plugin(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `ConfiguredMarketplaceSnapshotIssue` is never constructed
+   --> cli/src/plugin_cmd.rs:963:19
+    |
+963 | pub(crate) struct ConfiguredMarketplaceSnapshotIssue {
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `ensure_configured_marketplace_snapshots_loaded` is never used
+   --> cli/src/plugin_cmd.rs:969:4
+    |
+969 | fn ensure_configured_marketplace_snapshots_loaded(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `configured_marketplace_snapshot_issues` is never used
+    --> cli/src/plugin_cmd.rs:1000:15
+     |
+1000 | pub(crate) fn configured_marketplace_snapshot_issues(
+     |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `is_implicit_system_marketplace_root` is never used
+    --> cli/src/plugin_cmd.rs:1092:4
+     |
+1092 | fn is_implicit_system_marketplace_root(
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `path_ends_with` is never used
+    --> cli/src/plugin_cmd.rs:1117:4
+     |
+1117 | fn path_ends_with(path: &Path, suffix: &[&str]) -> bool {
+     |    ^^^^^^^^^^^^^^
+
+warning: `codex-cli` (lib test) generated 19 warnings (run `cargo fix --lib -p codex-cli --tests` to apply 18 suggestions)
+warning: `codex-cli` (bin "codex" test) generated 49 warnings (run `cargo fix --bin "codex" -p codex-cli --tests` to apply 1 suggestion)
+    Finished `test` profile [unoptimized] target(s) in 2m 09s
+     Running unittests src/lib.rs (/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_app_server_protocol-a29662fd25a61944)
+
+running 324 tests
+test experimental_api::tests::derive_marks_optional_experimental_fields_when_some ... ok
+test experimental_api::tests::derive_supports_all_enum_variant_shapes ... ok
+test experimental_api::tests::derive_supports_nested_collections ... ok
+test experimental_api::tests::derive_supports_nested_experimental_fields ... ok
+test experimental_api::tests::derive_supports_nested_maps ... ok
+test protocol::common::common_tests::client_response_payload_serializes_without_an_intermediate_json_value ... ok
+test protocol::common::common_tests::client_response_jsonrpc_parts_preserve_legacy_interrupt ... ok
+test protocol::common::tests::account_defaults_legacy_bedrock_managed_credentials_flag ... ok
+test protocol::common::common_tests::client_response_jsonrpc_parts_preserve_payloads_and_request_ids ... ok
+test protocol::common::common_tests::interrupt_conversation_payload_stays_jsonrpc_only ... ok
+test protocol::common::tests::command_exec_permission_profile_is_marked_experimental ... ok
+test protocol::common::tests::client_request_serialization_scope_covers_keyed_families ... ok
+test protocol::common::tests::account_serializes_fields_in_camel_case ... ok
+test protocol::common::tests::command_execution_request_approval_additional_permissions_is_marked_experimental ... ok
+test protocol::common::common_tests::client_response_jsonrpc_parts_preserve_serialization_errors ... ok
+test protocol::common::tests::conversation_id_deserializes_from_plain_string ... ok
+test protocol::common::tests::client_request_serialization_scope_covers_unkeyed_representatives ... ok
+test protocol::common::tests::conversation_id_serializes_as_plain_string ... ok
+test protocol::common::tests::environment_add_is_marked_experimental ... ok
+test protocol::common::tests::deserialize_legacy_get_account_token_usage_response ... ok
+test protocol::common::tests::serialize_account_login_api_key ... ok
+test protocol::common::tests::serialize_account_login_amazon_bedrock ... ok
+test protocol::common::tests::deserialize_initialize_capabilities ... ok
+test protocol::common::tests::serialize_account_login_chatgpt ... ok
+test protocol::common::tests::jsonrpc_request_conversion_preserves_serde_enum_decoding ... ok
+test protocol::common::tests::serialize_account_login_chatgpt_auth_tokens ... ok
+test protocol::common::tests::serialize_account_login_chatgpt_device_code ... ok
+test protocol::common::tests::serialize_account_login_chatgpt_streamlined ... ok
+test protocol::common::tests::serialize_account_login_chatgpt_with_hosted_success_page ... ok
+test protocol::common::tests::serialize_account_logout ... ok
+test protocol::common::tests::serialize_attestation_generate_request ... ok
+test protocol::common::tests::serialize_chatgpt_auth_tokens_refresh_request ... ok
+test protocol::common::tests::serialize_client_notification ... ok
+test protocol::common::tests::serialize_config_requirements_read ... ok
+test protocol::common::tests::serialize_current_time_read_request ... ok
+test protocol::common::tests::serialize_client_response ... ok
+test protocol::common::tests::serialize_environment_add ... ok
+test protocol::common::tests::serialize_fs_get_metadata ... ok
+test protocol::common::tests::serialize_fs_watch ... ok
+test protocol::common::tests::serialize_get_account ... ok
+test protocol::common::tests::serialize_get_account_rate_limits ... ok
+test protocol::common::tests::serialize_get_account_thread_usage ... ok
+test protocol::common::tests::serialize_get_account_token_usage ... ok
+test protocol::common::tests::serialize_get_conversation_summary ... ok
+test protocol::common::tests::serialize_get_workspace_messages ... ok
+test protocol::common::tests::serialize_initialize_capabilities ... ok
+test protocol::common::tests::serialize_installed_apps ... ok
+test protocol::common::tests::serialize_installed_apps_response ... ok
+test protocol::common::tests::serialize_list_apps ... ok
+test protocol::common::tests::serialize_list_collaboration_modes ... ok
+test protocol::common::tests::serialize_list_experimental_features ... ok
+test protocol::common::tests::serialize_list_experimental_features_with_thread_id ... ok
+test protocol::common::tests::serialize_list_models ... ok
+test protocol::common::tests::serialize_model_provider_capabilities_read ... ok
+test protocol::common::tests::serialize_model_safety_buffering_updated_notification ... ok
+test protocol::common::tests::serialize_read_apps ... ok
+test protocol::common::tests::serialize_server_request ... ok
+test protocol::common::tests::serialize_mcp_server_elicitation_request ... ok
+test protocol::common::tests::serialize_server_response ... ok
+test protocol::common::tests::serialize_thread_background_terminals_clean ... ok
+test protocol::common::tests::serialize_thread_background_terminals_list ... ok
+test protocol::common::tests::serialize_thread_background_terminals_terminate ... ok
+test protocol::common::tests::serialize_thread_realtime_append_speech ... ok
+test protocol::common::tests::serialize_thread_realtime_output_audio_delta_notification ... ok
+test protocol::common::tests::serialize_thread_status_changed_notification ... ok
+test protocol::common::tests::thread_goal_methods_are_not_marked_experimental ... ok
+test protocol::common::tests::thread_goal_notifications_are_not_marked_experimental ... ok
+test protocol::common::tests::serialize_thread_realtime_start ... ok
+test protocol::common::tests::thread_realtime_output_audio_delta_notification_is_marked_experimental ... ok
+test protocol::common::tests::serialize_thread_realtime_start_prompt_default_and_null ... ok
+test protocol::common::tests::thread_realtime_started_notification_is_marked_experimental ... ok
+test protocol::common::tests::thread_settings_updated_notification_is_marked_experimental ... ok
+test protocol::common::tests::thread_section_move_round_trips_and_serializes_by_thread ... ok
+test protocol::common::tests::turn_moderation_metadata_notification_is_marked_experimental ... ok
+test protocol::event_mapping::tests::collab_resume_begin_maps_to_item_started_resume_agent ... ok
+test protocol::event_mapping::tests::collab_resume_end_maps_to_item_completed_resume_agent ... ok
+test protocol::event_mapping::tests::exec_command_output_delta_maps_to_command_execution_output_delta ... ok
+test protocol::event_mapping::tests::assistant_completion_count_is_optional_envelope_metadata ... ok
+test protocol::thread_history::tests::active_turn_metadata_snapshot_tracks_turn_lifecycle ... ok
+test protocol::thread_history::tests::apply_patch_approval_request_updates_active_turn_snapshot_with_file_change ... ok
+test protocol::thread_history::tests::active_turn_summary_preserves_selection_and_completed_metadata ... ok
+test protocol::thread_history::tests::builds_multiple_turns_with_reasoning_items ... ok
+test protocol::thread_history::tests::changed_rollout_item_reports_new_item_snapshot ... ok
+test protocol::thread_history::tests::canonical_hook_prompt_completion_updates_turn_history ... ok
+test protocol::thread_history::tests::changed_rollout_item_reports_streaming_item_mutation ... ok
+test protocol::thread_history::tests::changed_rollout_item_reports_turn_completion_metadata ... ok
+test protocol::thread_history::tests::changed_rollout_item_reports_updated_existing_item_snapshot ... ok
+test protocol::thread_history::tests::changed_rollout_items_dedupe_turn_metadata_snapshots ... ok
+test protocol::thread_history::tests::changed_rollout_items_dedupe_updated_item_snapshots ... ok
+test protocol::thread_history::tests::changed_rollout_items_drop_prior_changes_for_removed_turns ... ok
+test protocol::thread_history::tests::completed_sub_agent_activity_updates_completed_parent_turn ... ok
+test protocol::thread_history::tests::assigns_late_legacy_mcp_completion_to_original_turn ... ok
+test protocol::thread_history::tests::drops_last_turns_on_thread_rollback ... ok
+test protocol::thread_history::tests::error_then_turn_complete_preserves_failed_status ... ok
+test protocol::thread_history::tests::ignores_plain_user_response_items_in_rollout_replay ... ok
+test protocol::thread_history::tests::ignores_user_message_item_lifecycle_events ... ok
+test protocol::thread_history::tests::incomplete_image_order_falls_back_to_legacy_order ... ok
+test protocol::thread_history::tests::late_turn_aborted_does_not_interrupt_active_turn ... ok
+test protocol::thread_history::tests::late_turn_complete_does_not_close_active_turn ... ok
+test protocol::thread_history::tests::late_turn_complete_with_embedded_error_preserves_active_turn ... ok
+test protocol::thread_history::tests::indexed_items_stay_with_their_turn_after_rollback ... ok
+test protocol::thread_history::tests::live_paginated_turn_releases_superseded_agent_text ... ok
+test protocol::thread_history::tests::marks_turn_as_interrupted_when_aborted ... ok
+test protocol::thread_history::tests::out_of_turn_error_does_not_create_or_fail_a_turn ... ok
+test protocol::thread_history::tests::paginated_snapshot_keeps_reasoning_and_compaction_lifecycle ... ok
+test protocol::thread_history::tests::patch_apply_begin_updates_active_turn_snapshot_with_file_change ... ok
+test protocol::thread_history::tests::preserves_agent_message_phase_delivery_and_questions_in_history ... ok
+test protocol::thread_history::tests::preserves_compaction_only_turn ... ok
+test protocol::thread_history::tests::preserves_user_message_client_id_from_legacy_event ... ok
+test protocol::thread_history::tests::pushed_duplicates_resolve_to_first_occurrence_before_and_after_indexing ... ok
+test protocol::thread_history::tests::rebuilds_sleep_item_from_persisted_completion ... ok
+test protocol::thread_history::tests::rebuilds_hook_prompt_items_from_rollout_response_items ... ok
+test protocol::thread_history::tests::rebuilds_user_message_attachments_from_legacy_events ... ok
+test protocol::thread_history::tests::rebuilds_uploaded_and_inline_audio_in_order_from_legacy_events ... ok
+test protocol::thread_history::tests::reconstructs_collab_spawn_end_item_with_model_metadata ... ok
+test protocol::thread_history::tests::reconstructs_collab_resume_end_item ... ok
+test protocol::thread_history::tests::rebuilds_extension_image_generation_item_from_persisted_completion ... ok
+test protocol::thread_history::tests::reconstructs_declined_guardian_command_item ... ok
+test protocol::thread_history::tests::reconstructs_dynamic_tool_items_from_request_and_response_events ... ok
+test protocol::thread_history::tests::reconstructs_interrupted_send_input_as_completed_collab_call ... ok
+test protocol::thread_history::tests::reconstructs_in_progress_guardian_execve_item ... ok
+test protocol::thread_history::tests::reconstructs_mcp_tool_result_meta_from_persisted_completion_events ... ok
+test protocol::thread_history::tests::replays_file_backed_image_generation_end_events_into_turn_history ... ok
+test protocol::thread_history::tests::review_mode_events_replay_persisted_ids ... ok
+test protocol::thread_history::tests::review_mode_items_replay_without_turn_started ... ok
+test protocol::thread_history::tests::rollback_failed_error_does_not_mark_turn_failed ... ok
+test protocol::thread_history::tests::splits_reasoning_when_interleaved ... ok
+test protocol::thread_history::tests::thread_rollback_clears_all_turns_when_num_turns_exceeds_history ... ok
+test protocol::thread_history::tests::turn_complete_with_embedded_error_marks_turn_failed ... ok
+test protocol::thread_history_projection::tests::ignores_legacy_abort_without_turn_id_and_context_only_records ... ok
+test protocol::thread_history::tests::uses_explicit_turn_boundaries_for_mid_turn_steering ... ok
+test protocol::thread_history_projection::tests::projects_completed_canonical_turn_items ... ok
+test protocol::thread_history_projection::tests::projects_failed_turn_completion_as_snapshot ... ok
+test protocol::thread_history_projection::tests::projects_identified_turn_aborts ... ok
+test protocol::thread_history_projection::tests::projects_turn_lifecycle_without_prior_builder_state ... ok
+test protocol::thread_history_projection::tests::projects_optional_completed_item_lifecycle_timestamps ... ok
+test protocol::v2::config::tests::request_header_debug_redacts_values_without_changing_serialization ... ok
+test protocol::v2::remote_control::tests::remote_control_clients_list_params_deserialize_camel_case_fields ... ok
+test protocol::v2::remote_control::tests::remote_control_clients_revoke_response_serializes_as_empty_object ... ok
+test protocol::v2::remote_control::tests::remote_control_clients_list_params_serialize_nullable_optional_fields ... ok
+test protocol::v2::model_provider_error::tests::provider_error_schema_matches_wire_fields ... ok
+test protocol::v2::tests::additional_file_system_permissions_rejects_zero_glob_scan_depth ... ok
+test protocol::v2::tests::additional_file_system_permissions_populates_entries_for_legacy_roots ... ok
+test protocol::v2::tests::approvals_reviewer_serializes_auto_review_and_accepts_legacy_guardian_subagent ... ok
+test protocol::v2::tests::additional_file_system_permissions_preserves_canonical_entries ... ok
+test protocol::v2::tests::ask_for_approval_granular_defaults_missing_optional_flags_to_false ... ok
+test protocol::v2::tests::ask_for_approval_granular_is_marked_experimental ... ok
+test protocol::v2::tests::ask_for_approval_granular_round_trips_request_permissions_flag ... ok
+test protocol::v2::tests::automatic_approval_review_deserializes_aborted_status ... ok
+test protocol::v2::tests::client_request_thread_fork_granular_approval_policy_is_marked_experimental ... ok
+test protocol::v2::tests::audio_references_round_trip_through_core_and_json ... ok
+test protocol::v2::tests::client_request_thread_resume_granular_approval_policy_is_marked_experimental ... ok
+test protocol::v2::tests::client_request_thread_start_granular_approval_policy_is_marked_experimental ... ok
+test protocol::v2::tests::client_request_turn_start_granular_approval_policy_is_marked_experimental ... ok
+test protocol::v2::tests::codex_error_info_deserializes_known_object_without_falling_back ... ok
+test protocol::v2::tests::codex_error_info_deserializes_unknown_object_as_other ... ok
+test protocol::v2::tests::codex_error_info_deserializes_unknown_string_as_other ... ok
+test protocol::v2::tests::codex_error_info_other_round_trips_as_string ... ok
+test protocol::v2::tests::codex_error_info_rejects_unsupported_wire_shapes ... ok
+test protocol::v2::tests::codex_error_info_serializes_active_turn_not_steerable_turn_kind_in_camel_case ... ok
+test protocol::v2::tests::codex_error_info_serializes_http_status_code_in_camel_case ... ok
+test protocol::v2::tests::collab_agent_state_maps_interrupted_status ... ok
+test protocol::v2::tests::command_exec_output_delta_round_trips ... ok
+test protocol::v2::tests::command_exec_params_default_optional_streaming_flags ... ok
+test protocol::v2::tests::command_exec_params_round_trip_with_size ... ok
+test protocol::v2::tests::command_exec_params_round_trips_disable_timeout ... ok
+test protocol::v2::tests::command_exec_params_round_trips_disable_output_cap ... ok
+test protocol::v2::tests::command_exec_params_round_trips_env_overrides_and_unsets ... ok
+test protocol::v2::tests::command_exec_resize_round_trips ... ok
+test protocol::v2::tests::command_exec_terminate_round_trips ... ok
+test protocol::v2::tests::command_exec_write_round_trips_close_only_payload ... ok
+test protocol::v2::tests::command_execution_output_delta_round_trips ... ok
+test protocol::v2::tests::config_approvals_reviewer_is_marked_experimental ... ok
+test protocol::v2::tests::command_execution_request_approval_localization_rejects_relative_additional_permission_paths ... ok
+test protocol::v2::tests::config_granular_approval_policy_is_marked_experimental ... ok
+test protocol::v2::tests::config_requirements_granular_allowed_approval_policy_is_marked_experimental ... ok
+test protocol::thread_history::tests::assigns_late_exec_completion_to_original_turn ... ok
+test protocol::thread_history::tests::drops_late_turn_scoped_item_for_unknown_turn_id ... ok
+test protocol::thread_history::tests::reconstructs_tool_items_from_persisted_completion_events ... ok
+test protocol::thread_history::tests::reconstructs_declined_exec_and_patch_items ... ok
+test protocol::v2::tests::config_requirements_read_accepts_foreign_path_uris ... ok
+test protocol::v2::tests::core_error_info_converts_to_camel_case ... ok
+test protocol::item_builders::tests::guardian_stdin_reviews_preserve_parent_command_history ... ok
+test protocol::thread_history::tests::preserves_command_plugin_id_and_redacts_secrets_across_legacy_upsert ... ok
+test protocol::v2::tests::dynamic_tool_response_serializes_content_items ... ok
+test protocol::v2::tests::dynamic_tool_response_serializes_text_image_and_audio_content_items ... ok
+test protocol::v2::tests::external_agent_config_detect_response_defaults_connectors_for_older_servers ... ok
+test protocol::v2::tests::external_agent_config_import_params_accept_legacy_plugin_details ... ok
+test protocol::item_builders::tests::read_command_actions_preserve_native_and_foreign_paths ... ok
+test protocol::v2::tests::external_agent_config_plugins_details_round_trip ... ok
+test protocol::v2::tests::feedback_paths_preserve_native_wire_spelling_before_host_validation ... ok
+test protocol::v2::tests::file_image_user_input_converts_both_directions ... ok
+test protocol::v2::tests::fs_changed_notification_round_trips ... ok
+test protocol::v2::tests::fs_copy_params_round_trip_with_recursive_directory_copy ... ok
+test protocol::v2::tests::core_turn_item_into_thread_item_converts_supported_variants ... ok
+test protocol::v2::tests::fs_create_directory_params_round_trip_with_default_recursive ... ok
+test protocol::v2::tests::fs_get_metadata_response_round_trips_minimal_fields ... ok
+test protocol::v2::tests::fs_read_file_params_round_trip ... ok
+test protocol::v2::tests::fs_read_file_response_round_trips_base64_data ... ok
+test protocol::v2::tests::fs_write_file_params_round_trip_with_base64_data ... ok
+test protocol::v2::tests::guardian_approval_review_action_round_trips_foreign_command_path ... ok
+test protocol::v2::tests::hook_handler_metadata_only_exposes_async_for_commands ... ok
+test protocol::v2::tests::legacy_current_working_directory_special_path_deserializes_as_project_roots ... ok
+test protocol::v2::tests::guardian_stdin_review_action_round_trips_native_and_foreign_paths ... ok
+test protocol::v2::tests::managed_hooks_requirements_default_interrupt_to_empty ... ok
+test protocol::v2::tests::marketplace_add_params_serialization_uses_optional_ref_name_and_sparse_paths ... ok
+test protocol::v2::tests::marketplace_remove_response_serializes_nullable_installed_root ... ok
+test protocol::v2::tests::marketplace_upgrade_params_serialization_uses_optional_marketplace_name ... ok
+test protocol::v2::tests::marketplace_upgrade_response_serializes_camel_case_fields ... ok
+test protocol::v2::tests::mcp_elicitation_preserves_integer_and_number_schema_wire_values ... ok
+test protocol::v2::tests::mcp_oauth_login_response_accepts_older_servers_without_login_id ... ok
+test protocol::v2::tests::mcp_server_elicitation_request_from_core_form_request ... ok
+test protocol::v2::tests::mcp_elicitation_schema_matches_mcp_2025_11_25_primitives ... ok
+test protocol::v2::tests::mcp_server_elicitation_request_from_core_openai_form_request ... ok
+test protocol::v2::tests::mcp_server_elicitation_request_from_core_url_request ... ok
+test protocol::v2::tests::mcp_server_elicitation_request_rejects_invalid_core_form_schema ... ok
+test protocol::v2::tests::mcp_server_elicitation_request_rejects_null_core_form_schema ... ok
+test protocol::v2::tests::mcp_server_elicitation_response_round_trips_rmcp_result ... ok
+test protocol::v2::tests::mcp_server_elicitation_response_serializes_nullable_content ... ok
+test protocol::v2::tests::mcp_server_status_accepts_older_inventory_without_runtime_status ... ok
+test protocol::v2::tests::mcp_server_status_serializes_absent_server_info_as_null ... ok
+test protocol::v2::tests::mcp_server_status_serializes_absent_server_info_metadata_as_null ... ok
+test protocol::v2::tests::mcp_server_status_updated_accepts_missing_thread_id ... ok
+test protocol::v2::tests::mcp_server_status_updated_serializes_failure_reason ... ok
+test protocol::v2::tests::mcp_server_user_verification_metadata_round_trips_from_core ... ok
+test protocol::v2::tests::mcp_tool_call_app_context_serializes_connector_id ... ok
+test protocol::v2::tests::mcp_tool_call_app_context_serializes_missing_mixed_version_fields_as_null ... ok
+test protocol::v2::tests::network_requirements_deserializes_legacy_fields ... ok
+test protocol::v2::tests::network_requirements_serializes_canonical_and_legacy_fields ... ok
+test protocol::v2::tests::permission_profile_selection_uses_id_string ... ok
+test protocol::v2::tests::permissions_request_approval_rejects_macos_permissions ... ok
+test protocol::v2::tests::permissions_request_approval_response_accepts_strict_auto_review ... ok
+test protocol::v2::tests::permissions_request_approval_response_defaults_scope_to_turn ... ok
+test protocol::v2::tests::permissions_request_approval_response_uses_granted_permission_profile_without_macos ... ok
+test protocol::v2::tests::permissions_request_approval_uses_request_permission_profile ... ok
+test protocol::v2::tests::plugin_availability_deserializes_enabled_alias ... ok
+test protocol::v2::tests::plugin_install_params_serialization_omits_force_remote_sync ... ok
+test protocol::v2::tests::plugin_installed_params_serializes_install_suggestion_names ... ok
+test protocol::v2::tests::plugin_interface_serializes_local_paths_and_remote_urls_separately ... ok
+test protocol::v2::tests::plugin_list_params_deserializes_force_refetch ... ok
+test protocol::v2::tests::plugin_list_params_ignore_removed_force_remote_sync_field ... ok
+test protocol::v2::tests::plugin_list_params_serializes_marketplace_kind_filter ... ok
+test protocol::v2::tests::plugin_marketplace_entry_serializes_remote_only_path_as_null ... ok
+test protocol::v2::tests::plugin_read_params_serialization_uses_install_source_fields ... ok
+test protocol::v2::tests::plugin_share_list_response_serializes_share_items ... ok
+test protocol::v2::tests::plugin_share_params_and_response_serialization_use_camel_case_fields ... ok
+test protocol::v2::tests::plugin_skill_read_params_serialization_uses_remote_plugin_id ... ok
+test protocol::v2::tests::plugin_source_serializes_local_git_npm_and_remote_variants ... ok
+test protocol::v2::tests::plugin_summary_defaults_missing_availability_to_available ... ok
+test protocol::v2::tests::plugin_summary_round_trips_plan_eligibility_metadata ... ok
+test protocol::v2::tests::plugin_uninstall_params_serialization_omits_force_remote_sync ... ok
+test protocol::v2::tests::process_control_params_round_trip ... ok
+test protocol::v2::tests::process_notifications_round_trip ... ok
+test protocol::v2::tests::process_spawn_params_distinguish_omitted_null_and_value_limits ... ok
+test protocol::v2::tests::process_spawn_params_round_trips_without_sandbox_policy ... ok
+test protocol::v2::tests::realtime_append_text_defaults_role_to_user ... ok
+test protocol::v2::tests::realtime_start_deserializes_client_handoff_channel_prefixes ... ok
+test protocol::v2::tests::realtime_start_omitted_initial_items_remain_none ... ok
+test protocol::v2::tests::sandbox_policy_deserializes_legacy_read_only_full_access_field ... ok
+test protocol::v2::tests::sandbox_policy_deserializes_legacy_workspace_write_full_access_field ... ok
+test protocol::v2::tests::sandbox_policy_rejects_legacy_read_only_restricted_access_field ... ok
+test protocol::v2::tests::sandbox_policy_rejects_legacy_workspace_write_restricted_read_access_field ... ok
+test protocol::v2::tests::sandbox_policy_round_trips_external_sandbox_network_access ... ok
+test protocol::v2::tests::sandbox_policy_round_trips_read_only_network_access ... ok
+test protocol::v2::tests::sandbox_policy_round_trips_workspace_write_access ... ok
+test protocol::v2::tests::skills_extra_roots_set_params_rejects_relative_roots ... ok
+test protocol::v2::tests::skills_extra_roots_set_params_serialization_uses_extra_roots ... ok
+test protocol::v2::tests::skills_list_params_serialization_uses_force_reload ... ok
+test protocol::v2::tests::thread_background_terminals_list_response_round_trips_foreign_paths ... ok
+test protocol::v2::tests::thread_fork_last_turn_id_round_trips ... ok
+test protocol::v2::tests::thread_list_params_accepts_multiple_cwds ... ok
+test protocol::v2::tests::thread_list_params_accepts_section_id_filter ... ok
+test protocol::v2::tests::thread_list_params_accepts_single_cwd ... ok
+test protocol::v2::tests::thread_list_params_accepts_state_db_only_flag ... ok
+test protocol::v2::tests::thread_path_params_deserialize_empty_path_as_none ... ok
+test protocol::v2::tests::thread_recency_sort_key_serializes_as_snake_case ... ok
+test protocol::v2::tests::thread_items_list_round_trips ... ok
+test protocol::v2::tests::thread_resume_params_accept_turns_page_bootstrap ... ok
+test protocol::v2::tests::thread_lifecycle_responses_default_missing_optional_fields ... ok
+test protocol::v2::tests::thread_section_updates_distinguish_omitted_and_cleared_appearance ... ok
+test protocol::v2::tests::thread_section_list_params_and_response_round_trip ... ok
+test protocol::v2::tests::thread_settings_update_params_preserve_explicit_null_service_tier ... ok
+test protocol::v2::tests::thread_settings_update_params_preserve_field_level_experimental_gates ... ok
+test protocol::v2::tests::thread_shell_command_params_round_trip ... ok
+test protocol::v2::tests::thread_resume_response_round_trips_initial_turns_page ... ok
+test protocol::v2::tests::thread_shell_command_params_without_timeout_remain_valid ... ok
+test protocol::v2::tests::thread_shell_command_response_round_trip ... ok
+test protocol::v2::tests::thread_sources_round_trip_as_scalar_labels ... ok
+test protocol::v2::tests::thread_start_params_preserve_explicit_null_service_tier ... ok
+test protocol::v2::tests::thread_start_params_round_trip_multi_agent_mode ... ok
+test protocol::v2::tests::thread_turns_list_params_accepts_items_view ... ok
+test protocol::v2::tests::tool_request_user_input_params_default_legacy_missing_is_blocking_to_true ... ok
+test protocol::v2::tests::turn_defaults_legacy_missing_items_view_to_full ... ok
+test protocol::v2::tests::turn_start_cyber_access_program_uses_separate_wire_formats ... ok
+test protocol::v2::tests::turn_start_params_preserve_empty_environments ... ok
+test protocol::v2::tests::turn_start_params_round_trip_environments ... ok
+test protocol::v2::tests::turn_start_params_preserve_explicit_null_service_tier ... ok
+test protocol::v2::tests::turn_start_params_round_trip_multi_agent_mode ... ok
+test protocol::v2::tests::turn_start_params_treat_null_or_omitted_environments_as_default ... ok
+test protocol::v2::tests::user_input_into_core_preserves_media_fields ... ok
+test protocol::v2::user_verification::tests::enrollment_response_accepts_older_servers_without_public_metadata ... ok
+test protocol::v2::tests::user_input_image_references_round_trip_with_stable_wire_shapes ... ok
+test protocol::v2::user_verification::tests::error_details_reject_cross_category_reasons_and_native_payloads ... ok
+test protocol::v2::user_verification::tests::local_readiness_retains_credential_during_biometric_unavailability ... ok
+test schema_fixtures_tests::write_schema_fixtures_from_env ... ignored, invoked by `just write-app-server-schema`
+test tests::export::tests::build_schema_bundle_rewrites_root_helper_refs_to_namespaced_defs ... ok
+test tests::export::tests::build_flat_v2_schema_keeps_shared_root_schemas_and_dependencies ... ok
+test tests::export::tests::experimental_type_fields_ts_filter_handles_interface_shape ... ok
+test tests::export::tests::experimental_type_fields_ts_filter_handles_generated_command_params_shape ... ok
+test tests::export::tests::experimental_type_fields_ts_filter_keeps_imports_used_in_intersection_suffix ... ok
+test tests::schema_fixtures::tests::canonicalize_json_sorts_schema_ref_arrays ... ok
+test tests::schema_fixtures::tests::canonicalize_json_sorts_string_arrays ... ok
+test tests::export::user_verification::tests::verification_mode_is_removed_from_flattened_typescript_only_for_stable_exports ... ok
+test tests::export::user_verification::tests::verification_mode_is_removed_from_inline_json_without_changing_other_modes ... ok
+test tests::export::tests::generate_ts_with_experimental_api_retains_experimental_entries ... ok
+test tests::export::tests::generated_ts_optional_nullable_fields_only_in_params ... ok
+test schema_fixtures_tests::typescript_schema_fixtures_match_generated ... ok
+test tests::precomputed_exports_tests::typescript_export_options_preserve_generator_behavior ... ok
+test schema_fixtures_tests::stable_precomputed_exports_match_schema_fixtures ... ok
+test tests::precomputed_exports_tests::precomputed_exports_are_written_to_disk ... ok
+test tests::export::tests::generate_json_includes_remote_control_methods_with_experimental_api ... ok
+test tests::export::tests::generate_json_filters_experimental_fields_and_methods ... ok
+test schema_fixtures_tests::json_schema_fixtures_match_generated ... ok
+test schema_fixtures_tests::experimental_precomputed_exports_match_generated ... ok
+
+test result: ok. 323 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 4.92s
+
+     Running unittests src/lib.rs (/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex_cli-29d4bd062ae22e3d)
+
+running 10 tests
+test debug_sandbox::cloud_config::tests::sandbox_state_skips_cloud_bootstrap ... ok
+test debug_sandbox::tests::debug_sandbox_ignores_cloud_managed_permission_profiles_by_default ... ok
+test debug_sandbox::tests::debug_sandbox_honors_explicit_builtin_permission_profile ... ok
+test debug_sandbox::tests::debug_sandbox_honors_explicit_cloud_managed_permission_profile ... ok
+test debug_sandbox::tests::debug_sandbox_uses_explicit_cwd ... ok
+test debug_sandbox::tests::debug_sandbox_honors_explicit_named_permission_profile ... ok
+test debug_sandbox::tests::debug_sandbox_honors_explicit_legacy_sandbox_mode ... ok
+test debug_sandbox::tests::debug_sandbox_honors_active_permission_profiles ... ok
+test debug_sandbox::tests::debug_sandbox_defaults_legacy_configs_to_read_only ... ok
+test debug_sandbox::tests::debug_sandbox_honors_config_profile_loader_overrides ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running unittests src/main.rs (/home/sig/files/qiri-release/strip-evidence/delivery-target/debug/deps/codex-602b250c878f059e)
+
+running 290 tests
+test doctor::background::tests::running_background_server_reports_app_server_version ... ok
+test doctor::desktop::windows_security::tests::an_unavailable_reader_is_not_reported_as_clean ... ok
+test doctor::desktop_tests::stopped_desktop_does_not_report_a_failure ... ok
+test doctor::desktop::windows_security::tests::every_source_distinguishes_audits_from_blocks ... ok
+test doctor::desktop::windows_security::tests::only_trusted_codex_executables_are_reported ... ok
+test doctor::desktop::windows_security::tests::defender_distinguishes_detection_and_remediation ... ok
+test doctor::disk::tests::nonexistent_relative_codex_home_uses_current_directory_capacity ... ok
+test doctor::filesystem_paths::tests::blocked_probe_fixture ... ignored, subprocess fixture for the bounded filesystem probe test
+test doctor::desktop_tests::handshake_failure_in_the_middle_of_a_log_segment_is_detected ... ok
+test doctor::desktop_tests::current_desktop_session_reports_the_latest_local_handshake ... ok
+test doctor::disk::tests::disk_measurement_errors_produce_complete_warning_diagnostics ... ok
+test doctor::disk::tests::disk_capacity_thresholds_produce_complete_diagnostics ... ok
+test doctor::git::tests::warns_when_git_repo_has_no_git_executable ... ok
+test daemon_update_tests::daemon_handoff_uses_selected_executable_and_propagates_failure ... ok
+test doctor::output::tests::detail_value_colors_inline_statuses_and_low_signal_values ... ok
+test doctor::desktop_tests::failed_handshake_does_not_expose_sensitive_log_fields ... ok
+test doctor::output::tests::redact_detail_distinguishes_database_paths_from_field_labels ... ok
+test doctor::disk::tests::disk_capacity_is_reported_without_loaded_configuration ... ok
+test doctor::desktop::windows_security::tests::evidence_is_bounded_redacted_and_correctly_classified ... ok
+test doctor::output::tests::redact_detail_preserves_secret_presence_booleans ... ok
+test doctor::output::tests::redact_detail_sanitizes_urls ... ok
+test doctor::output::tests::redact_detail_preserves_env_var_names ... ok
+test doctor::output::tests::redact_detail_sanitizes_secret_url_path_segments ... ok
+test daemon_update_tests::upstream_package_update_is_rejected ... ok
+test doctor::output::tests::render_human_report_can_emit_color ... ok
+test doctor::output::tests::redact_detail_preserves_missing_env_diagnostics ... ok
+test doctor::output::tests::render_human_report_explains_terminal_warning_issue ... ok
+test doctor::output::tests::render_human_report_includes_threads_row_in_environment ... ok
+test doctor::output::tests::render_human_report_includes_details_by_default_without_color ... ok
+test doctor::output::tests::render_human_report_includes_redacted_details ... ok
+test doctor::output::tests::render_human_report_includes_memories_db_in_state_health_summary ... ok
+test doctor::output::tests::render_human_report_supports_ascii_output ... ok
+test doctor::output::tests::render_human_report_promotes_notes_without_changing_statuses ... ok
+test doctor::output::tests::render_human_report_expands_feature_flags_with_all ... ok
+test doctor::output::tests::render_human_report_supports_summary_output_without_color ... ok
+test doctor::output::tests::update_note_emphasizes_available_version_and_dims_context ... ok
+test doctor::progress::tests::progress_is_quiet_for_dumb_terminal ... ok
+test doctor::filesystem_paths::tests::deduplicates_literal_paths_without_expanding_globs_or_special_paths ... ok
+test doctor::progress::tests::progress_is_quiet_for_non_tty ... ok
+test doctor::progress::tests::progress_is_quiet_for_json ... ok
+test doctor::progress::tests::progress_is_shown_for_human_tty_output ... ok
+test doctor::security::tests::detected_products_preserve_partial_inspection_visibility ... ok
+test doctor::security::tests::multiple_endpoint_products_each_get_distinct_guidance ... ok
+test doctor::security::tests::no_endpoint_products_require_no_remediation ... ok
+test doctor::security::tests::unavailable_endpoint_inspection_does_not_require_remediation ... ok
+test doctor::security::tests::endpoint_product_guidance_preserves_structured_json_contract ... ok
+test doctor::system::tests::system_check_handles_missing_os_language ... ok
+test doctor::system::tests::system_check_reports_os_language_locale_editor_and_pager_env ... ok
+test doctor::tests::default_reachability_skips_upstream ... ok
+test doctor::security::tests::each_endpoint_product_requires_vendor_specific_app_exclusions ... ok
+test doctor::tests::executable_path_exists_rejects_non_executable_file ... ok
+test doctor::tests::color_output_summary_reports_disabled_reasons ... ok
+test config_override_args::tests::preserves_scoped_overrides_and_forwarded_arguments ... ok
+test doctor::tests::mcp_check_does_not_probe_environment_stdio_on_the_host ... ok
+test doctor::tests::config_overrides_from_interactive_preserves_global_options ... ok
+test doctor::tests::mcp_check_fails_required_remote_stdio_env_var ... ok
+test doctor::tests::mcp_check_ignores_disabled_servers ... ok
+test doctor::tests::mcp_check_validates_remote_stdio_cwd ... ok
+test doctor::tests::mcp_check_skips_host_path_checks_for_remote_stdio ... ok
+test doctor::filesystem_paths::tests::excludes_scoped_origins_replaced_by_a_scalar_grant ... ok
+test doctor::sandbox::tests::reports_missing_linux_sandbox_helper ... ok
+test doctor::background::tests::failed_version_probe_reports_unavailable ... ok
+test doctor::background::tests::not_running_background_server_stays_ok_without_version ... ok
+test doctor::tests::overall_status_prefers_fail ... ok
+test doctor::tests::provider_reachability_adds_models_route_probe_for_openai_compatible_base_urls ... ok
+test doctor::tests::provider_reachability_api_key_without_url_skips_upstream ... ok
+test doctor::tests::provider_reachability_mode_uses_api_key_auth ... ok
+test doctor::tests::provider_reachability_outcome_reports_required_failures ... ok
+test doctor::tests::provider_reachability_skips_route_probe_for_bedrock ... ok
+test doctor::tests::provider_reachability_uses_active_provider_endpoint ... ok
+test doctor::filesystem_paths::tests::attributes_home_relative_subtree_paths_to_their_config_layer ... ok
+test doctor::tests::provider_specific_auth_fails_when_provider_env_key_is_missing ... ok
+test doctor::tests::provider_specific_auth_allows_non_openai_provider_without_env_key ... ok
+test doctor::tests::read_probe_file_rejects_unreadable_file ... ok
+test doctor::tests::run_async_check_notifies_progress ... ok
+test doctor::tests::redacted_json_report_structures_and_sanitizes_details ... ok
+test doctor::tests::run_sync_check_notifies_progress ... ok
+test doctor::tests::should_enable_color_respects_terminal_inputs ... ok
+test doctor::tests::stored_auth_validation_handles_personal_access_token ... ok
+test doctor::tests::stored_auth_validation_rejects_missing_api_key ... ok
+test doctor::tests::stored_auth_validation_rejects_missing_chatgpt_tokens ... ok
+test doctor::tests::terminal_check_allows_missing_tmux_details ... ok
+test doctor::tests::startup_warning_counts_group_known_sources ... ok
+test doctor::tests::terminal_check_includes_windows_console_details ... ok
+test doctor::filesystem_paths::tests::returns_when_a_probe_process_does_not_exit ... ok
+test doctor::tests::terminal_check_reports_remote_indicators_as_present_only ... ok
+test doctor::tests::terminal_check_warns_for_declared_narrow_terminal ... ok
+test doctor::tests::terminal_check_warns_for_narrow_terminal ... ok
+test doctor::tests::terminal_check_warns_for_non_utf8_locale ... ok
+test doctor::tests::websocket_error_detail_preserves_categories_without_wire_values ... ok
+test doctor::network::tests::provider_reachability_rejects_proxy_authentication_challenges ... ok
+test doctor::thread_inventory::tests::count_summary_caps_distinct_values ... ok
+test doctor::thread_inventory::tests::source_category_coarsens_structured_sources ... ok
+test doctor::thread_inventory::tests::thread_id_from_rollout_falls_back_for_legacy_non_meta_record ... ok
+test doctor::tests::http_probe_treats_http_status_as_reachable ... ok
+test doctor::thread_inventory::tests::thread_id_from_rollout_stops_after_legacy_header_line_limit ... ok
+test doctor::tests::provider_reachability_route_404_fails_bad_base_url_path ... ok
+test doctor::tests::provider_reachability_route_401_keeps_reachability_ok ... ok
+test daemon_install::tests::running_daemon_replacement_prompt ... ok
+test doctor::output::tests::copyable_items_use_check_status ... ok
+test doctor::tests::mcp_check_fails_required_missing_stdio_command ... ok
+test doctor::tests::mcp_check_warns_for_optional_http_reachability ... ok
+test doctor::background::tests::invalid_settings_are_not_reported_as_effective ... ok
+test doctor::git::tests::reports_git_candidates_and_repo_metadata ... ok
+test doctor::output::tests::missing_env_diagnostics_in_json_and_text ... ok
+test doctor::tests::rollout_stats_details_count_plain_and_compressed_files ... ok
+test doctor::tests::websocket_probe_human_output ... ok
+test doctor::tests::terminal_check_dumb_requires_interactive_stream ... ok
+test doctor::output::tests::render_human_report_snapshot_covers_environment_rows ... ok
+test doctor::tests::terminal_check_prioritizes_unreadable_terminfo_over_warnings ... ok
+test doctor::background::tests::configured_updates_and_missing_updater_record_are_visible ... ok
+test doctor::filesystem_paths::tests::attributes_paths_inherited_through_managed_profiles_to_their_config_layer ... ok
+test doctor::title::tests::terminal_title_reports_disabled_configuration ... ok
+test doctor::title::tests::terminal_title_reports_default_items_and_git_project_name ... ok
+test doctor::title::tests::terminal_title_accepts_configured_items ... ok
+test doctor::title::tests::terminal_title_project_value_uses_tui_truncation_shape ... ok
+test doctor::title::tests::terminal_title_omits_project_when_project_item_is_not_selected ... ok
+test doctor::title::tests::terminal_title_warns_for_invalid_configured_items ... ok
+test doctor::title::tests::terminal_title_reports_project_config_fallback ... ok
+test doctor::title::tests::terminal_title_warns_when_all_configured_items_are_invalid ... ok
+test marketplace_cmd::tests::upgrade_subcommand_parses_optional_marketplace_name ... ok
+test marketplace_cmd::tests::remove_subcommand_parses_marketplace_name ... ok
+test marketplace_cmd::tests::sparse_paths_parse_before_or_after_source ... ok
+test exec_args_tests::exec_help_documents_cyber_access_program ... ok
+test exec_server_args_tests::exec_server_help_documents_remote_options ... ok
+test mcp_cmd::tests::application_network_loader_rejects_malformed_managed_policy ... ok
+test doctor::tests::mcp_http_probe_falls_back_to_get_when_head_times_out ... ok
+test mcp_cmd::tests::oauth_client_secret_is_redacted_in_parsed_command_debug ... ok
+test mcp_login::tests::callback_line_accepts_crlf_and_eof_after_input ... ok
+test mcp_login::tests::callback_line_is_bounded_and_does_not_expose_input_in_errors ... ok
+test mcp_cmd::tests::oauth_client_secret_requires_url_and_client_id_without_disclosure ... ok
+test plugin_cmd::tests::plugin_list_preserves_other_output_errors ... ok
+test remote_control_cmd::tests::daemon_app_server_human_lines_include_path_and_version ... ok
+test plugin_cmd::tests::plugin_list_treats_broken_pipe_as_success ... ok
+test remote_control_cmd::tests::foreground_start_wait_stops_before_ready ... ok
+test remote_control_cmd::tests::foreground_start_wait_reports_app_server_exit_before_ready ... ok
+test remote_control_cmd::tests::foreground_wait_aborts_app_server_on_stop_signal ... ok
+test remote_control_cmd::tests::remote_control_daemon_json_rejects_unstartable_status ... ok
+test remote_control_cmd::tests::remote_control_human_lines_include_foreground_stop_hint_only ... ok
+test remote_control_cmd::tests::remote_control_human_start_messages_use_server_name ... ok
+test remote_control_cmd::tests::remote_control_pairing_human_output_labels_the_manual_code ... ok
+test remote_control_cmd::tests::remote_control_json_output_marks_foreground_or_daemon ... ok
+test remote_control_cmd::tests::remote_control_pairing_human_output_requires_manual_code ... ok
+test remote_control_cmd::tests::remote_control_pairing_json_output_preserves_pairing_artifacts ... ok
+test mcp_cmd::tests::application_network_loader_denies_unlisted_destination_before_connect ... ok
+test state_db_recovery::tests::backup_folder_uses_parent_of_first_backup_path ... ok
+test state_db_recovery::tests::backup_backs_up_only_failed_database_file ... ok
+test state_db_recovery::tests::backup_replaces_blocking_sqlite_home_file ... ok
+test tests::app_server_analytics_default_disabled_without_flag ... ok
+test tests::agents_subcommand_accepts_remote_session_options ... ok
+test tests::app_server_analytics_default_enabled_with_flag ... ok
+test tests::app_server_capability_token_flags_parse ... ok
+test tests::app_server_listen_invalid_url_fails_to_parse ... ok
+test tests::app_server_grpc_code_mode_host_url_parses_independently_of_listen_transport ... ok
+test tests::app_server_daemon_subcommands_parse ... ok
+test tests::app_server_listen_off_parses ... ok
+test tests::app_server_listen_stdio_url_parses ... ok
+test doctor::tests::mcp_check_reports_both_missing_token_and_unreachable_url ... ok
+test tests::app_server_listen_unix_socket_url_parses ... ok
+test tests::app_server_listen_unix_socket_path_parses ... ok
+test tests::app_server_listen_websocket_url_parses ... ok
+test tests::app_server_proxy_subcommand_parses ... ok
+test tests::app_server_proxy_sock_path_parses ... ok
+test tests::app_server_remote_control_startup_flag_enables_remote_control ... ok
+test tests::app_server_signed_bearer_flags_parse ... ok
+test tests::app_server_rejects_removed_insecure_non_loopback_flag ... ok
+test tests::app_server_stdio_flag_conflicts_with_listen ... ok
+test tests::app_server_stdio_flag_parses ... ok
+test tests::approve_for_me_configures_interactive_mode ... ok
+test tests::app_server_rejects_invalid_code_mode_host_urls ... ok
+test mcp_cmd::tests::application_network_mcp_add_denies_initial_oauth_discovery_before_connect ... ok
+test tests::approve_for_me_defaults_propagate_from_root_to_exec ... ok
+test tests::app_server_subcommands_reject_strict_config ... FAILED
+test mcp_cmd::tests::application_network_mcp_login_denies_even_an_allowed_mcp_server ... ok
+test tests::delete_force_requires_uuid ... ok
+test tests::archive_merges_scoped_tui_flags ... ok
+test tests::approve_for_me_conflicts_with_explicit_interactive_permissions ... ok
+test tests::dangerous_bypass_conflicts_with_approval_policy ... ok
+test tests::debug_prompt_input_parses_prompt_and_images ... ok
+test tests::feature_toggles_accept_legacy_linux_sandbox_flag ... ok
+test tests::feature_toggles_accept_removed_enable_fanout_flag ... ok
+test tests::debug_models_parses_bundled_flag ... ok
+test tests::feature_toggles_accept_removed_image_detail_original_flag ... ok
+test tests::feature_toggles_accept_removed_item_ids_flag ... ok
+test tests::feature_toggles_known_features_generate_overrides ... ok
+test tests::feature_toggles_unknown_feature_errors ... ok
+test tests::exec_server_forward_parses_shared_remote_options ... ok
+test tests::exec_resume_accepts_output_flags_after_subcommand ... ok
+test tests::exec_resume_last_accepts_prompt_positional ... ok
+test tests::exec_server_forward_requires_registration_and_destination ... ok
+test tests::features_disable_parses_feature_name ... ok
+test tests::features_enable_parses_feature_name ... ok
+test tests::fork_all_flag_sets_show_all ... ok
+test tests::fork_last_accepts_prompt_positional ... ok
+test tests::fork_last_rejects_explicit_session_and_prompt ... ok
+test tests::fork_picker_logic_last ... ok
+test tests::fork_with_session_id_accepts_prompt_positional ... ok
+test tests::format_exit_messages_colors_commands_and_thread_name ... ok
+test tests::format_exit_messages_includes_resume_hint_for_fatal_exit ... ok
+test tests::fork_picker_logic_none_and_not_last ... ok
+test tests::format_exit_messages_includes_session_id_for_fatal_exit_without_resume_hint ... ok
+test tests::fork_picker_logic_with_session_id ... ok
+test tests::format_exit_messages_includes_resume_hint_without_color ... ok
+test tests::format_exit_messages_includes_session_id_without_resume_hint ... ok
+test tests::format_exit_messages_names_picker_item_when_thread_has_name ... ok
+test tests::format_exit_messages_skips_zero_usage ... ok
+test tests::interactive_tui_future_stays_bounded ... ok
+test tests::format_exit_messages_preserves_auth_env_through_tui_runner ... ok
+test tests::later_approve_for_me_overrides_root_tui_approval_policy ... ok
+test tests::import_remains_an_interactive_prompt ... ok
+test tests::later_approve_for_me_overrides_root_exec_sandbox ... ok
+test tests::later_resume_approval_policy_partially_overrides_approve_for_me ... ok
+test tests::later_exec_sandbox_partially_overrides_approve_for_me ... ok
+test tests::format_exit_messages_applies_color_when_enabled ... ok
+test tests::marketplace_no_longer_parses_at_top_level ... ok
+test tests::plugin_list_parses_under_plugin ... ok
+test tests::plugin_marketplace_add_parses_under_plugin ... ok
+test tests::plugin_add_parses_under_plugin ... ok
+test tests::plugin_marketplace_remove_parses_under_plugin ... ok
+test tests::plugin_marketplace_help_uses_plugin_namespace ... FAILED
+test tests::profile_loader_overrides_use_explicit_codex_home ... ok
+test tests::plugin_remove_parses_under_plugin ... ok
+test tests::plugin_marketplace_upgrade_parses_under_plugin ... ok
+test tests::profile_v2_rejects_non_plain_names_at_parse_time ... ok
+test tests::profile_v2_is_rejected_for_config_management_subcommands ... ok
+test tests::read_remote_auth_token_from_env_var_reports_missing_values ... ok
+test tests::read_remote_auth_token_from_env_var_rejects_empty_values ... ok
+test tests::queue_help_lists_supported_options ... ok
+test tests::read_remote_auth_token_from_env_var_trims_values ... ok
+test tests::reject_remote_auth_token_env_for_app_server_generate_internal_json_schema ... ok
+test tests::reject_remote_auth_token_env_for_app_server_proxy ... ok
+test tests::reject_remote_auth_token_env_for_app_server_version ... ok
+test tests::reject_remote_auth_token_env_for_non_interactive_subcommands ... ok
+test tests::reject_remote_mode_for_non_interactive_subcommands ... ok
+test tests::not_so_yolo_alias_is_hidden_from_help ... ok
+test tests::remote_auth_token_env_flag_parses_for_interactive_root ... ok
+test tests::remote_control_pair_parses ... ok
+test tests::profile_v2_is_allowed_for_runtime_subcommands ... ok
+test tests::remote_flag_parses_for_interactive_root ... ok
+test tests::reject_remote_flag_for_remote_control ... ok
+test tests::remote_flag_parses_for_resume_subcommand ... ok
+test tests::qiri_removes_upstream_account_and_cloud_commands ... ok
+test tests::responses_subcommand_is_not_registered ... ok
+test tests::resume_all_flag_sets_show_all ... ok
+test tests::resume_include_non_interactive_flag_sets_source_filter_override ... ok
+test tests::resume_last_accepts_prompt_positional ... ok
+test tests::resume_last_rejects_explicit_session_and_prompt ... ok
+test tests::resume_merges_dangerously_bypass_flag ... ok
+test tests::resume_model_flag_applies_when_no_root_flags ... ok
+test tests::resume_merges_bypass_hook_trust_flag ... ok
+test tests::resume_and_fork_preserve_no_alt_screen ... ok
+test tests::resume_merges_option_flags ... ok
+test tests::resume_picker_logic_with_session_id ... ok
+test tests::resume_with_session_id_accepts_prompt_positional ... ok
+test tests::resume_picker_logic_last ... ok
+test tests::resume_picker_logic_none_and_not_last ... ok
+test tests::resume_and_fork_preserve_no_daemon ... ok
+test tests::root_strict_config_is_rejected_for_unsupported_subcommands ... FAILED
+test tests::sandbox_help_only_shows_singular_permission_profile ... ok
+test tests::root_strict_config_is_supported_for_exec_server ... ok
+test tests::sandbox_parses_permission_profile ... ok
+test tests::sandbox_parses_legacy_permissions_profile_alias ... ok
+test tests::sandbox_parses_permissions_profile_short_alias ... ok
+test tests::sandbox_rejects_explicit_profile_controls_without_profile ... ok
+test tests::sandbox_parses_config_profile ... ok
+test tests::serve_defaults_to_loopback_port_8765 ... ok
+test tests::strict_config_with_unknown_disable_errors ... ok
+test tests::serve_accepts_network_and_browser_origin_options ... ok
+test tests::strict_config_with_compound_enable_errors ... ok
+test tests::strict_config_with_unknown_enable_errors ... ok
+test tests::sandbox_uninstall_respects_command_separator ... ok
+test tests::update_parses_as_update_subcommand ... ok
+test tests::strict_config_parses_for_supported_commands ... ok
+test tests::worktree_flag_rejects_unsupported_session_and_management_commands ... FAILED
+test tests::tcp_tunnel_is_hidden_and_accepts_its_control_input_contract ... ok
+test tests::worktree_flag_supports_interactive_exec_and_explicit_fork_positions ... ok
+test doctor::thread_inventory::tests::thread_id_from_rollout_rejects_unusable_headers ... ok
+test mcp_cmd::tests::application_network_mcp_add_discovers_when_policy_is_disabled ... ok
+test mcp_cmd::tests::application_network_loader_allows_listed_https_destination_to_connect ... ok
+test doctor::thread_inventory::tests::thread_id_from_rollout_uses_metadata_after_pre_header_record ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_ignores_compression_temp_files ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_prefers_plain_rollout_over_compressed_sibling ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_uses_metadata_id_when_filename_and_db_disagree ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_ignores_invalid_utf8_after_session_metadata ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_ok_when_rollouts_match_db ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_uses_compressed_metadata_id_and_legacy_filename_fallback ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_reports_corrupt_compressed_rollout_without_stale_row ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_warns_for_missing_stale_and_mismatched_rows ... ok
+test doctor::thread_inventory::tests::thread_inventory_check_matches_compressed_rollouts_to_canonical_db_paths ... ok
+test doctor::thread_inventory::tests::thread_id_from_rollout_uses_metadata_at_header_line_limit ... ok
+
+failures:
+
+---- tests::app_server_subcommands_reject_strict_config stdout ----
+
+thread 'tests::app_server_subcommands_reject_strict_config' (838093) panicked at cli/src/main.rs:4045:9:
+assertion failed: `(left == right)`
+
+[1mDiff[0m [31m< left[0m / [32mright >[0m :
+[31m<`--strict-config` is not supported for `[0m[1;48;5;52;31mqiri[0m[31m app-server proxy`[0m
+[32m>`--strict-config` is not supported for `[0m[1;48;5;22;32mcodex[0m[32m app-server proxy`[0m
+
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- tests::plugin_marketplace_help_uses_plugin_namespace stdout ----
+
+thread 'tests::plugin_marketplace_help_uses_plugin_namespace' (838146) panicked at cli/src/main.rs:3124:9:
+Add, list, upgrade, or remove configured plugin marketplaces
+
+Usage: qiri plugin marketplace [OPTIONS] <COMMAND>
+
+Commands:
+  add      Add a local or Git marketplace to the configured marketplace sources
+  list     List plugin marketplaces Codex is currently considering and their roots
+  upgrade  Refresh configured Git marketplace snapshots
+  remove   Remove a configured marketplace source by name
+  help     Print this message or the help of the given subcommand(s)
+
+Options:
+  -c, --config <key=value>
+          Override a configuration value that would otherwise be loaded from the QIRI configuration
+          file (by default `~/.qiri-codex/config.toml`). Use a dotted path (`foo.bar.baz`) to
+          override nested values. The `value` portion is parsed as TOML. If it fails to parse as
+          TOML, the raw string is used as a literal.
+          
+          Examples: - `-c model="DeepSeek-V4-Pro"` - `-c
+          'sandbox_permissions=["disk-full-read-access"]'` - `-c
+          shell_environment_policy.inherit=all`
+
+      --enable <FEATURE>
+          Enable a feature (repeatable). Equivalent to `-c features.<name>=true`
+
+      --disable <FEATURE>
+          Disable a feature (repeatable). Equivalent to `-c features.<name>=false`
+
+  -h, --help
+          Print help (see a summary with '-h')
+
+
+---- tests::root_strict_config_is_rejected_for_unsupported_subcommands stdout ----
+
+thread 'tests::root_strict_config_is_rejected_for_unsupported_subcommands' (838190) panicked at cli/src/main.rs:4029:9:
+assertion failed: `(left == right)`
+
+[1mDiff[0m [31m< left[0m / [32mright >[0m :
+[31m<`--strict-config` is not supported for `[0m[1;48;5;52;31mqiri[0m[31m remote-control`[0m
+[32m>`--strict-config` is not supported for `[0m[1;48;5;22;32mcodex[0m[32m remote-control`[0m
+
+
+
+---- tests::worktree_flag_rejects_unsupported_session_and_management_commands stdout ----
+
+thread 'tests::worktree_flag_rejects_unsupported_session_and_management_commands' (838209) panicked at cli/src/main.rs:2773:14:
+unsupported worktree command: ()
+
+
+failures:
+    tests::app_server_subcommands_reject_strict_config
+    tests::plugin_marketplace_help_uses_plugin_namespace
+    tests::root_strict_config_is_rejected_for_unsupported_subcommands
+    tests::worktree_flag_rejects_unsupported_session_and_management_commands
+
+test result: FAILED. 285 passed; 4 failed; 1 ignored; 0 measured; 0 filtered out; finished in 1.65s
+
+error: test failed, to rerun pass `-p codex-cli --bin codex`
+error: 1 target failed:
+    `-p codex-cli --bin codex`

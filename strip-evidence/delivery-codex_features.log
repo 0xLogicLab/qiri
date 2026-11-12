@@ -1,0 +1,52 @@
+
+running 47 tests
+test tests::collab_is_legacy_alias_for_multi_agent ... ok
+test tests::codex_hooks_is_legacy_alias_for_hooks ... ok
+test tests::apps_require_feature_flag_and_chatgpt_auth ... ok
+test tests::code_mode_only_requires_code_mode ... ok
+test tests::codex_apps_mcp_protocol_can_be_enabled_independently_of_generic_mcp ... ok
+test tests::default_enabled_features_are_stable ... ok
+test tests::canonical_image_generation_toggle_wins_over_extension_alias ... ok
+test tests::executor_capability_discovery_is_an_opt_in_map_feature ... ok
+test tests::cwd_relative_turn_diffs_is_an_opt_in_map_feature ... ok
+test tests::code_mode_host_feature_config_deserializes_fallback_setting ... ok
+test tests::code_mode_host_feature_config_preserves_boolean_toggle ... ok
+test tests::from_sources_applies_base_profile_and_overrides ... ok
+test tests::from_sources_accepts_and_ignores_removed_personality_feature_values ... ok
+test tests::from_sources_ignores_removed_image_detail_original_feature_key ... ok
+test tests::from_sources_ignores_removed_item_ids_feature_key ... ok
+test tests::from_sources_ignores_removed_js_repl_feature_keys ... ok
+test tests::from_sources_ignores_removed_plugin_hooks_feature_key ... ok
+test tests::from_sources_ignores_removed_resize_all_images_feature_key ... ok
+test tests::from_sources_ignores_removed_terminal_resize_reflow_feature_key ... ok
+test tests::from_sources_ignores_removed_tool_search_always_defer_mcp_tools_feature_key ... ok
+test tests::from_sources_ignores_removed_undo_feature_key ... ok
+test tests::from_sources_ignores_removed_apply_patch_freeform_feature_key ... ok
+test tests::guardian_transcript_mode_rejects_invalid_values ... ok
+test tests::guardian_v2_feature_config_accepts_boundary_values ... ok
+test tests::guardian_v2_feature_config_preserves_boolean_toggle ... ok
+test tests::image_generation_extension_alias_is_supported ... ok
+test tests::guardian_v2_feature_config_deserializes_classifier_and_transcript_settings ... ok
+test tests::image_generation_toggle_controls_extension_backed_generation ... ok
+test tests::guardian_thread_context_is_ignored_with_a_migration_notice ... ok
+test tests::guardian_v3_feature_config_resolves_base_and_profile_toggles ... ok
+test tests::multi_agent_v2_feature_config_deserializes_boolean_toggle ... ok
+test tests::model_change_suppression_config_preserves_omission_and_explicit_values ... ok
+test tests::guardian_v2_feature_config_rejects_invalid_settings ... ok
+test tests::non_prefixed_mcp_tool_names_feature_config_deserializes_boolean_toggle ... ok
+test tests::remote_control_config_is_ignored ... ok
+test tests::non_prefixed_mcp_tool_names_feature_config_deserializes_table ... ok
+test tests::multi_agent_v2_feature_config_deserializes_table ... ok
+test tests::removed_apps_mcp_path_override_shapes_are_ignored ... ok
+test tests::sleep_tool_config_rejects_unknown_mode ... ok
+test tests::retired_worktree_and_voice_config_overrides_are_ignored ... ok
+test tests::telepathy_is_legacy_alias_for_chronicle ... ok
+test tests::tool_registry_config_is_not_a_feature_toggle ... ok
+test tests::under_development_features_are_disabled_by_default ... ok
+test tests::runtime_auth_config_accepts_modes_without_implicitly_enabling_the_feature ... ok
+test tests::use_legacy_landlock_config_records_deprecation_notice ... ok
+test tests::unstable_warning_event_ignores_enabled_structured_stable_feature ... ok
+test tests::unstable_warning_event_only_mentions_enabled_under_development_features ... ok
+
+test result: ok. 47 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

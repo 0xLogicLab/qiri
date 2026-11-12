@@ -1,0 +1,379 @@
+    Blocking waiting for file lock on artifact directory
+   Compiling smallvec v1.15.1
+   Compiling zeroize v1.8.2
+   Compiling serde_json v1.0.149
+   Compiling serde_core v1.0.228
+   Compiling parking_lot_core v0.9.12
+   Compiling generic-array v0.14.7
+   Compiling parking_lot v0.12.5
+   Compiling crypto-common v0.1.7
+   Compiling tokio v1.52.3
+   Compiling block-buffer v0.10.4
+   Compiling digest v0.10.7
+   Compiling sha2 v0.10.9
+   Compiling time v0.3.47
+   Compiling prodash v31.0.1
+   Compiling unicode-normalization v0.1.25
+   Compiling serde v1.0.228
+   Compiling gix-utils v0.5.0
+   Compiling either v1.15.0
+   Compiling rustix v1.1.4
+   Compiling icu_normalizer v2.2.0
+   Compiling rustls-pki-types v1.14.0
+   Compiling aws-lc-rs v1.18.1
+   Compiling idna_adapter v1.2.1
+   Compiling idna v1.1.0
+   Compiling tokio-util v0.7.18
+   Compiling uuid v1.20.0
+   Compiling rustls v0.23.46
+   Compiling h2 v0.4.19
+   Compiling rustls-webpki v0.103.16
+   Compiling url v2.5.8
+   Compiling itertools v0.14.0
+   Compiling nibble_vec v0.1.0
+   Compiling rustls-native-certs v0.8.3
+   Compiling sha1 v0.10.6
+   Compiling rama-utils v0.3.0-alpha.4
+   Compiling tower v0.5.3
+   Compiling hyper v1.11.1
+   Compiling tokio-graceful v0.2.2
+   Compiling tokio-rustls v0.26.4
+   Compiling hmac v0.12.1
+   Compiling rama-core v0.3.0-alpha.4
+   Compiling spin v0.9.8
+   Compiling hyper-util v0.1.20
+   Compiling radix_trie v0.3.0
+   Compiling flume v0.12.0
+   Compiling schemars v0.8.22
+   Compiling tempfile v3.27.0
+   Compiling rama-http-types v0.3.0-alpha.4
+   Compiling ts-rs v11.1.0
+   Compiling webpki-roots v1.0.10
+   Compiling tokio-stream v0.1.18
+   Compiling codex-utils-absolute-path v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/absolute-path)
+   Compiling cookie v0.18.1
+   Compiling tokio-native-tls v0.3.1
+   Compiling tower-http v0.6.8
+   Compiling publicsuffix v2.3.0
+   Compiling cookie_store v0.22.1
+   Compiling hyper-tls v0.6.0
+   Compiling hyper-rustls v0.27.7
+   Compiling tracing-subscriber v0.3.22
+   Compiling reqwest v0.12.28
+   Compiling arrayvec v0.7.6
+   Compiling rama-net v0.3.0-alpha.4
+   Compiling lock_free_hashtable v0.1.4
+   Compiling moka v0.12.13
+   Compiling asn1-rs v0.7.1
+   Compiling hickory-proto v0.25.2
+   Compiling bytes-utils v0.1.4
+   Compiling blake3 v1.8.2
+   Compiling aws-smithy-types v1.4.7
+   Compiling dashmap v6.1.0
+   Compiling sorted_vector_map v0.2.1
+   Compiling hickory-resolver v0.25.2
+   Compiling static_interner v0.1.2
+   Compiling schemafy_core v0.5.2
+   Compiling aws-smithy-async v1.2.14
+   Compiling pagable v0.4.1
+   Compiling clap_builder v4.5.58
+   Compiling rama-dns v0.3.0-alpha.4
+   Compiling aws-smithy-runtime-api v1.12.0
+   Compiling schemafy_lib v0.5.2
+   Compiling rama-http-headers v0.3.0-alpha.4
+   Compiling oid-registry v0.8.1
+   Compiling der-parser v10.0.0
+   Compiling codex-utils-rustls-provider v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/rustls-provider)
+   Compiling gix-hash v0.28.0
+   Compiling radix_trie v0.2.1
+   Compiling starlark_map v0.14.2
+   Compiling rama-tcp v0.3.0-alpha.4
+   Compiling rama-http v0.3.0-alpha.4
+   Compiling x509-parser v0.18.1
+   Compiling clap v4.5.58
+   Compiling schemafy v0.5.2
+   Compiling lsp-types v0.97.0
+   Compiling tracing-opentelemetry v0.32.1
+   Compiling codex-utils-home-dir v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/home-dir)
+   Compiling tokio-test v0.4.5
+   Compiling gix-url v0.40.0
+   Compiling fd-lock v4.0.4
+   Compiling yasna v0.6.0
+   Compiling display_container v0.9.0
+   Compiling rcgen v0.14.9
+   Compiling rustyline v14.0.0
+   Compiling codex-http-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/http-client)
+warning: unused import: `std::sync::Arc`
+  --> http-client/src/outbound_proxy.rs:11:5
+   |
+11 | use std::sync::Arc;
+   |     ^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `http::HeaderValue`
+  --> http-client/src/outbound_proxy.rs:19:5
+   |
+19 | use http::HeaderValue;
+   |     ^^^^^^^^^^^^^^^^^
+
+   Compiling debugserver-types v0.5.0
+warning: variable does not need to be mutable
+   --> http-client/src/client_builder.rs:162:9
+    |
+162 |         mut self,
+    |         ----^^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: variable does not need to be mutable
+   --> http-client/src/client_builder.rs:200:9
+    |
+200 |         mut self,
+    |         ----^^^^
+    |         |
+    |         help: remove this `mut`
+
+warning: unused variable: `http_client_factory`
+   --> http-client/src/client_builder.rs:201:9
+    |
+201 |         http_client_factory: &HttpClientFactory,
+    |         ^^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_http_client_factory`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-http-client` (lib) generated 5 warnings (run `cargo fix --lib -p codex-http-client` to apply 5 suggestions)
+   Compiling rama-http-core v0.3.0-alpha.4
+   Compiling aws-credential-types v1.2.11
+   Compiling starlark_syntax v0.14.2
+   Compiling aws-smithy-http v0.62.6
+   Compiling rama-unix v0.3.0-alpha.4
+   Compiling rama-udp v0.3.0-alpha.4
+   Compiling block-padding v0.3.3
+   Compiling codex-utils-path-uri v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/path-uri)
+   Compiling inout v0.1.4
+   Compiling starlark v0.14.2
+   Compiling codex-utils-cache v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/cache)
+   Compiling rama-socks5 v0.3.0-alpha.4
+   Compiling aws-sigv4 v1.3.7
+   Compiling rama-tls-rustls v0.3.0-alpha.4
+   Compiling rama-http-backend v0.3.0-alpha.4
+   Compiling derive_more-impl v2.1.1
+   Compiling fixed_decimal v0.7.2
+   Compiling codex-utils-string v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/string)
+   Compiling icu_decimal v2.2.0
+   Compiling codex-network-proxy v0.0.0 (/home/sig/files/qiri-release/codex-rs/network-proxy)
+   Compiling codex-utils-image v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/image)
+   Compiling derive_more v2.1.1
+   Compiling cipher v0.4.4
+   Compiling codex-extension-items v0.0.0 (/home/sig/files/qiri-release/codex-rs/ext/items)
+   Compiling codex-utils-redacted-string v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/redacted-string)
+   Compiling codex-async-utils v0.0.0 (/home/sig/files/qiri-release/codex-rs/async-utils)
+   Compiling strum v0.27.2
+   Compiling gix-hashtable v0.18.0
+   Compiling gix-fs v0.24.0
+   Compiling gix-object v0.66.0
+   Compiling tinystr v0.8.3
+   Compiling unic-langid-impl v0.9.6
+   Compiling unic-langid v0.9.6
+   Compiling headers v0.4.1
+   Compiling gix-tempfile v26.0.0
+   Compiling prost-derive v0.14.3
+   Compiling hyper-timeout v0.5.2
+   Compiling universal-hash v0.5.1
+   Compiling tungstenite v0.27.0 (https://github.com/openai-oss-forks/tungstenite-rs?rev=4fffad30fe373adbdcffab9545e9e9bf4f2fc19f#4fffad30)
+   Compiling prost v0.14.3
+   Compiling tonic v0.14.3
+   Compiling gix-lock v26.0.0
+   Compiling aes v0.8.4
+   Compiling hkdf v0.12.4
+   Compiling codex-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-client)
+   Compiling tonic-prost v0.14.3
+   Compiling tokio-tungstenite v0.28.0 (https://github.com/openai-oss-forks/tokio-tungstenite?rev=0e5b2d73aa18dd9f0a50ee9ff199d5aef7594186#0e5b2d73)
+   Compiling gix-quote v0.10.0
+   Compiling codex-execpolicy v0.0.0 (/home/sig/files/qiri-release/codex-rs/execpolicy)
+   Compiling der v0.7.10
+   Compiling codex-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/protocol)
+   Compiling codex-utils-pty v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/pty)
+warning: unused import: `crate::auth::KnownPlan`
+ --> protocol/src/error.rs:2:5
+  |
+2 | use crate::auth::KnownPlan;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+   Compiling gix-ref v0.69.0
+   Compiling polyval v0.6.2
+   Compiling gix-commitgraph v0.41.0
+   Compiling opentelemetry_sdk v0.31.0
+   Compiling aead v0.5.2
+   Compiling ff v0.13.1
+   Compiling base16ct v0.2.0
+   Compiling sec1 v0.7.3
+   Compiling opentelemetry-proto v0.31.0
+   Compiling group v0.13.0
+   Compiling gix-revwalk v0.37.0
+   Compiling ghash v0.5.1
+   Compiling gix-command v0.12.0
+   Compiling codex-websocket-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/websocket-client)
+   Compiling ctr v0.9.2
+warning: variable does not need to be mutable
+   --> websocket-client/src/lib.rs:151:9
+    |
+151 |         mut request: Request,
+    |         ----^^^^^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: variable does not need to be mutable
+   --> websocket-client/src/lib.rs:183:13
+    |
+183 |         let mut connection = WebSocketConnection::new(inner, permit);
+    |             ----^^^^^^^^^^
+    |             |
+    |             help: remove this `mut`
+
+   Compiling opentelemetry-http v0.31.0
+   Compiling gethostname v1.1.0
+   Compiling curve25519-dalek v4.1.3
+warning: `codex-websocket-client` (lib) generated 2 warnings (run `cargo fix --lib -p codex-websocket-client` to apply 2 suggestions)
+   Compiling basic-toml v0.1.10
+   Compiling toml v0.5.11
+   Compiling crypto-bigint v0.5.5
+   Compiling i18n-config v0.4.8
+   Compiling elliptic-curve v0.13.8
+   Compiling find-crate v0.6.3
+   Compiling which v8.0.0
+   Compiling opentelemetry-otlp v0.31.0
+   Compiling gix-pack v0.76.0
+   Compiling gix-transport v0.61.0
+   Compiling aes-gcm v0.10.3
+   Compiling mxc-sdk v1.0.0 (https://github.com/microsoft/mxc?rev=b21120168d70befe12356411423266bfef168446#b2112016)
+   Compiling gix-shallow v0.15.0
+   Compiling intl-memoizer v0.5.3
+   Compiling intl_pluralrules v7.0.2
+   Compiling fluent-langneg v0.13.1
+   Compiling gix-glob v0.29.0
+   Compiling opentelemetry-appender-tracing v0.31.1
+   Compiling tree-sitter v0.25.10
+   Compiling gix-config-value v0.21.0
+   Compiling polling v3.11.0
+   Compiling gix-config v0.62.0
+   Compiling sha2 v0.11.0
+   Compiling gix-protocol v0.67.0
+   Compiling sha3 v0.10.9
+   Compiling async-io v2.6.0
+   Compiling fluent-bundle v0.16.0
+   Compiling gix-odb v0.86.0
+   Compiling i18n-embed-impl v0.8.4
+   Compiling primeorder v0.13.6
+   Compiling gix-traverse v0.63.0
+   Compiling gix-revision v0.51.0
+   Compiling gix-discover v0.57.0
+   Compiling poly1305 v0.8.0
+   Compiling gix-diff v0.69.0
+   Compiling chacha20 v0.9.1
+   Compiling gix-refspec v0.47.0
+   Compiling tracing-appender v0.2.4
+   Compiling kem v0.3.0-pre.0
+   Compiling num-complex v0.4.6
+   Compiling num v0.4.3
+   Compiling zbus v4.4.0
+   Compiling ml-kem v0.2.3
+   Compiling gix v0.89.0
+   Compiling codex-api v0.0.0 (/home/sig/files/qiri-release/codex-rs/codex-api)
+warning: variable does not need to be mutable
+   --> codex-api/src/endpoint/responses_websocket.rs:219:9
+    |
+219 |         mut stream: WsStream,
+    |         ----^^^^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+   Compiling codex-file-system v0.0.0 (/home/sig/files/qiri-release/codex-rs/file-system)
+   Compiling codex-otel v0.0.0 (/home/sig/files/qiri-release/codex-rs/otel)
+warning: `codex-protocol` (lib) generated 1 warning (run `cargo fix --lib -p codex-protocol` to apply 1 suggestion)
+   Compiling chacha20poly1305 v0.10.1
+   Compiling p256 v0.13.2
+   Compiling x25519-dalek v2.0.1
+   Compiling fluent v0.17.0
+   Compiling codex-install-context v0.0.0 (/home/sig/files/qiri-release/codex-rs/install-context)
+   Compiling cbc v0.1.2
+   Compiling rust-embed-utils v8.11.0
+   Compiling codex-git-utils v0.0.0 (/home/sig/files/qiri-release/codex-rs/git-utils)
+warning: `codex-api` (lib) generated 1 warning (run `cargo fix --lib -p codex-api` to apply 1 suggestion)
+   Compiling secret-service v4.0.0
+   Compiling rust-embed v8.11.0
+   Compiling i18n-embed v0.16.0
+   Compiling codex-windows-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/windows-sandbox-rs)
+   Compiling codex-shell-command v0.0.0 (/home/sig/files/qiri-release/codex-rs/shell-command)
+   Compiling codex-mxc-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/mxc-sandbox)
+   Compiling hpke v0.12.0
+   Compiling salsa20 v0.10.2
+   Compiling pbkdf2 v0.12.2
+   Compiling simple_asn1 v0.6.4
+   Compiling codex-uds v0.0.0 (/home/sig/files/qiri-release/codex-rs/uds)
+   Compiling secrecy v0.10.3
+   Compiling age-core v0.12.0
+   Compiling keyring v3.6.3
+   Compiling jsonwebtoken v9.3.1
+   Compiling codex-sandboxing v0.0.0 (/home/sig/files/qiri-release/codex-rs/sandboxing)
+   Compiling scrypt v0.11.0
+   Compiling codex-skills v0.0.0 (/home/sig/files/qiri-release/codex-rs/skills)
+   Compiling i18n-embed-fl v0.10.1
+   Compiling codex-features v0.0.0 (/home/sig/files/qiri-release/codex-rs/features)
+   Compiling codex-model-provider-info v0.0.0 (/home/sig/files/qiri-release/codex-rs/model-provider-info)
+   Compiling codex-utils-path v0.0.0 (/home/sig/files/qiri-release/codex-rs/utils/path-utils)
+warning: unused import: `codex_client::OPENAI_ORGANIZATION_HEADER`
+  --> model-provider-info/src/lib.rs:11:5
+   |
+11 | use codex_client::OPENAI_ORGANIZATION_HEADER;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `codex_client::OPENAI_PROJECT_HEADER`
+  --> model-provider-info/src/lib.rs:12:5
+   |
+12 | use codex_client::OPENAI_PROJECT_HEADER;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+   Compiling axum v0.8.8
+   Compiling codex-linux-sandbox v0.0.0 (/home/sig/files/qiri-release/codex-rs/linux-sandbox)
+   Compiling schemars v1.2.1
+warning: `codex-model-provider-info` (lib) generated 2 warnings (run `cargo fix --lib -p codex-model-provider-info` to apply 2 suggestions)
+   Compiling codex-config v0.0.0 (/home/sig/files/qiri-release/codex-rs/config)
+   Compiling age v0.12.1
+   Compiling codex-exec-server-protocol v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server-protocol)
+   Compiling rmcp-macros v3.5.1 (https://github.com/modelcontextprotocol/rust-sdk?rev=98a54789b80110ad210495c4ad845c89e1980471#98a54789)
+   Compiling process-wrap v10.0.0
+   Compiling codex-websocket-auth v0.0.0 (/home/sig/files/qiri-release/codex-rs/websocket-auth)
+   Compiling clatter v2.2.0
+   Compiling codex-keyring-store v0.0.0 (/home/sig/files/qiri-release/codex-rs/keyring-store)
+   Compiling codex-file-watcher v0.0.0 (/home/sig/files/qiri-release/codex-rs/file-watcher)
+   Compiling codex-build-info v0.0.0 (/home/sig/files/qiri-release/codex-rs/build-info)
+   Compiling codex-core-plugin-common v0.0.0 (/home/sig/files/qiri-release/codex-rs/core-plugin-common)
+   Compiling oauth2 v5.0.0
+   Compiling reqwest v0.13.4
+   Compiling codex-secrets v0.0.0 (/home/sig/files/qiri-release/codex-rs/secrets)
+   Compiling webbrowser v1.2.4
+   Compiling rmcp v3.5.1 (https://github.com/modelcontextprotocol/rust-sdk?rev=98a54789b80110ad210495c4ad845c89e1980471#98a54789)
+   Compiling codex-exec-server v0.0.0 (/home/sig/files/qiri-release/codex-rs/exec-server)
+   Compiling codex-rmcp-client v0.0.0 (/home/sig/files/qiri-release/codex-rs/rmcp-client)
+warning: unused import: `anyhow::bail`
+ --> rmcp-client/src/oauth_client_registration.rs:4:5
+  |
+4 | use anyhow::bail;
+  |     ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `codex-rmcp-client` (lib) generated 1 warning (run `cargo fix --lib -p codex-rmcp-client` to apply 1 suggestion)
+    Finished `dev` profile [unoptimized] target(s) in 11m 43s

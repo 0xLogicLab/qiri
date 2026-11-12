@@ -1,0 +1,8 @@
+
+running 3 tests
+test async_scorer::extension::tests::budget::contributor_preserves_optional_evidence_or_defers_to_sync ... ok
+test async_scorer::extension::tests::budget::contributor_accounts_for_parent_checkpoint ... ok
+test async_scorer::extension::tests::budget::contributor_preserves_complete_user_instructions_or_defers_to_sync ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 104 filtered out; finished in 0.97s
+

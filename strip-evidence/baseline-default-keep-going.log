@@ -1,0 +1,2275 @@
+   Compiling proc-macro2 v1.0.106
+   Compiling quote v1.0.45
+   Compiling unicode-ident v1.0.22
+   Compiling serde v1.0.228
+   Compiling serde_core v1.0.228
+   Compiling libc v0.2.186
+    Checking cfg-if v1.0.4
+    Checking memchr v2.8.1
+    Checking itoa v1.0.17
+    Checking log v0.4.34
+   Compiling version_check v0.9.5
+   Compiling parking_lot_core v0.9.12
+    Checking equivalent v1.0.2
+    Checking pin-project-lite v0.2.16
+   Compiling syn v2.0.117
+    Checking allocator-api2 v0.2.21
+    Checking scopeguard v1.2.0
+    Checking foldhash v0.2.0
+    Checking getrandom v0.2.17
+    Checking lock_api v0.4.14
+    Checking critical-section v1.2.0
+    Checking typenum v1.20.0
+   Compiling autocfg v1.5.1
+   Compiling shlex v1.3.0
+    Checking hashbrown v0.17.1
+   Compiling pkg-config v0.3.32
+   Compiling portable-atomic v1.13.1
+    Checking bitflags v2.13.1
+   Compiling jobserver v0.1.34
+   Compiling find-msvc-tools v0.1.9
+   Compiling thiserror v2.0.18
+    Checking subtle v2.6.1
+   Compiling cc v1.2.55
+    Checking bytes v1.12.1
+   Compiling generic-array v0.14.7
+    Checking rand_core v0.6.4
+    Checking futures-core v0.3.34
+    Checking indexmap v2.14.0
+    Checking once_cell v1.21.4
+    Checking stable_deref_trait v1.2.1
+   Compiling syn v3.0.3
+    Checking const-oid v0.9.6
+   Compiling zmij v1.0.19
+   Compiling num-traits v0.2.19
+   Compiling synstructure v0.13.2
+    Checking errno v0.3.14
+    Checking socket2 v0.6.3
+    Checking signal-hook-registry v1.4.8
+    Checking mio v1.2.4
+    Checking slab v0.4.12
+    Checking futures-io v0.3.34
+    Checking futures-sink v0.3.34
+    Checking tracing-core v0.1.36
+    Checking futures-task v0.3.34
+    Checking regex-syntax v0.8.8
+    Checking futures-channel v0.3.34
+    Checking cpufeatures v0.2.17
+    Checking aho-corasick v1.1.4
+   Compiling serde_json v1.0.149
+    Checking percent-encoding v2.3.2
+   Compiling serde_derive v1.0.228
+   Compiling zeroize_derive v1.4.3
+   Compiling thiserror-impl v2.0.18
+   Compiling displaydoc v0.2.5
+   Compiling zerofrom-derive v0.1.6
+   Compiling yoke-derive v0.8.2
+   Compiling zerovec-derive v0.11.3
+   Compiling tokio-macros v2.7.0
+   Compiling tracing-attributes v0.1.31
+   Compiling futures-macro v0.3.34
+    Checking regex-automata v0.4.13
+    Checking zerofrom v0.1.6
+    Checking yoke v0.8.2
+   Compiling time-core v0.1.8
+    Checking zerovec v0.11.6
+   Compiling num-conv v0.2.0
+    Checking powerfmt v0.2.0
+    Checking futures-util v0.3.34
+    Checking deranged v0.5.5
+    Checking tracing v0.1.44
+    Checking tinystr v0.8.3
+    Checking smallvec v1.15.1
+    Checking zeroize v1.8.2
+   Compiling time-macros v0.2.27
+    Checking num_threads v0.1.7
+    Checking parking_lot v0.12.5
+    Checking base64 v0.22.1
+    Checking tokio v1.52.3
+   Compiling getrandom v0.3.4
+    Checking crypto-common v0.1.7
+    Checking block-buffer v0.10.4
+    Checking writeable v0.6.2
+    Checking digest v0.10.7
+   Compiling cmake v0.1.57
+    Checking http v1.4.0
+    Checking potential_utf v0.1.4
+    Checking time v0.3.47
+    Checking litemap v0.8.1
+    Checking sha2 v0.10.9
+   Compiling fs_extra v1.3.0
+    Checking icu_locale_core v2.2.0
+   Compiling dunce v1.0.5
+    Checking fastrand v2.5.0
+   Compiling aws-lc-sys v0.45.0
+    Checking zerotrie v0.2.4
+   Compiling ring v0.17.14
+   Compiling icu_normalizer_data v2.2.0
+   Compiling icu_properties_data v2.2.0
+    Checking utf8_iter v1.0.4
+    Checking icu_provider v2.2.0
+    Checking icu_collections v2.2.0
+    Checking untrusted v0.9.0
+   Compiling aws-lc-rs v1.18.1
+   Compiling heck v0.5.0
+    Checking num-integer v0.1.46
+    Checking rand_core v0.10.1
+    Checking rustls-pki-types v1.14.0
+    Checking form_urlencoded v1.2.2
+    Checking untrusted v0.7.1
+   Compiling getrandom v0.4.2
+    Checking tokio-util v0.7.18
+    Checking either v1.15.0
+    Checking fnv v1.0.7
+    Checking http-body v1.0.1
+    Checking icu_normalizer v2.2.0
+   Compiling winnow v1.0.4
+    Checking icu_properties v2.2.0
+   Compiling toml_parser v1.1.3+spec-1.1.0
+   Compiling winnow v0.7.14
+    Checking idna_adapter v1.2.1
+   Compiling zerocopy v0.8.37
+    Checking idna v1.1.0
+    Checking http-body-util v0.1.3
+    Checking url v2.5.8
+    Checking lazy_static v1.5.0
+   Compiling rustix v1.1.4
+    Checking futures-executor v0.3.34
+    Checking linux-raw-sys v0.12.1
+   Compiling semver v1.0.27
+   Compiling crossbeam-utils v0.8.21
+    Checking ipnet v2.11.0
+   Compiling rustls v0.23.46
+    Checking ryu v1.0.22
+   Compiling rustc_version v0.4.1
+    Checking atomic-waker v1.1.2
+    Checking sync_wrapper v1.0.2
+    Checking num-bigint v0.4.6
+    Checking httpdate v1.0.3
+    Checking sha1_smol v1.0.1
+    Checking ppv-lite86 v0.2.21
+    Checking hmac v0.12.1
+    Checking uuid v1.20.0
+    Checking bstr v1.12.1
+    Checking byteorder v1.5.0
+    Checking tinyvec_macros v0.1.1
+   Compiling httparse v1.10.1
+    Checking tinyvec v1.10.0
+    Checking mime v0.3.17
+    Checking data-encoding v2.10.0
+   Compiling anyhow v1.0.103
+    Checking try-lock v0.2.5
+    Checking futures v0.3.34
+    Checking want v0.3.1
+    Checking h2 v0.4.19
+    Checking rand_core v0.9.5
+    Checking tower-service v0.3.3
+   Compiling unicode-xid v0.2.6
+    Checking gix-error v0.5.0
+    Checking rand_chacha v0.9.0
+    Checking openssl-probe v0.2.1
+    Checking rustls-native-certs v0.8.3
+    Checking rand v0.9.3
+    Checking minimal-lexical v0.2.1
+    Checking chacha20 v0.10.2
+    Checking nom v7.1.3
+   Compiling memoffset v0.9.1
+    Checking hex v0.4.3
+    Checking tower-layer v0.3.3
+    Checking rand v0.10.1
+   Compiling crc32fast v1.5.0
+    Checking psl-types v2.0.11
+    Checking tower v0.5.3
+    Checking rusticata-macros v4.1.0
+    Checking webpki-roots v1.0.10
+   Compiling asn1-rs-impl v0.2.0
+    Checking unicode-normalization v0.1.25
+    Checking itertools v0.14.0
+    Checking sha1 v0.10.6
+    Checking hyper v1.11.1
+    Checking regex v1.12.3
+   Compiling strsim v0.11.1
+   Compiling vcpkg v0.2.15
+    Checking prodash v31.0.1
+   Compiling async-trait v0.1.89
+   Compiling toml_datetime v0.7.5+spec-1.1.0
+    Checking gix-utils v0.5.0
+   Compiling toml_edit v0.23.10+spec-1.0.0
+   Compiling ident_case v1.0.1
+    Checking hyper-util v0.1.20
+    Checking static_assertions v1.1.0
+   Compiling asn1-rs-derive v0.6.0
+   Compiling oid-registry v0.8.1
+   Compiling proc-macro-crate v3.4.0
+   Compiling crossbeam-epoch v0.9.20
+    Checking gix-validate v0.13.0
+    Checking pem v3.0.6
+    Checking asn1-rs v0.7.1
+    Checking hashbrown v0.16.1
+    Checking simd-adler32 v0.3.8
+   Compiling openssl-sys v0.9.111
+   Compiling bytemuck_derive v1.10.2
+    Checking der-parser v10.0.0
+    Checking http v0.2.12
+    Checking yasna v0.6.0
+   Compiling serde_derive_internals v0.29.1
+    Checking nom v8.0.0
+    Checking bytemuck v1.25.0
+    Checking outref v0.5.2
+    Checking vsimd v0.8.0
+    Checking iri-string v0.7.10
+    Checking adler2 v2.0.1
+    Checking base64-simd v0.8.0
+    Checking miniz_oxide v0.8.9
+    Checking http-body v0.4.6
+    Checking bytes-utils v0.1.4
+    Checking unicase v2.9.0
+    Checking pin-utils v0.1.0
+    Checking nibble_vec v0.1.0
+   Compiling zstd-sys v2.0.16+zstd.1.5.7
+    Checking aws-smithy-types v1.4.7
+   Compiling ahash v0.8.12
+    Checking dyn-clone v1.0.20
+    Checking foreign-types-shared v0.1.1
+   Compiling unicode-segmentation v1.12.0
+   Compiling openssl v0.10.75
+    Checking gix-trace v0.3.0
+    Checking nu-ansi-term v0.50.3
+    Checking foreign-types v0.3.2
+    Checking sharded-slab v0.1.7
+    Checking matchers v0.2.0
+    Checking tracing-serde v0.2.0
+   Compiling openssl-macros v0.1.1
+    Checking tracing-log v0.2.0
+    Checking thread_local v1.1.9
+    Checking zlib-rs v0.5.5
+   Compiling schemars v0.8.22
+   Compiling native-tls v0.2.14
+   Compiling mime_guess v2.0.5
+    Checking flate2 v1.1.8
+    Checking tracing-subscriber v0.3.22
+   Compiling schemars_derive v0.8.22
+   Compiling const_format_proc_macros v0.2.34
+    Checking aws-smithy-async v1.2.14
+    Checking opentelemetry v0.31.0
+   Compiling aws-smithy-runtime-api-macros v1.0.0
+   Compiling cookie v0.18.1
+   Compiling termcolor v1.4.1
+   Compiling zstd-safe v7.2.4
+    Checking anstyle v1.0.13
+    Checking option-ext v0.2.0
+    Checking openssl-probe v0.1.6
+    Checking crc-catalog v2.4.0
+    Checking utf8parse v0.2.2
+    Checking crc v3.4.0
+    Checking dirs-sys v0.5.0
+   Compiling ts-rs-macros v11.1.0
+    Checking aws-smithy-runtime-api v1.12.0
+    Checking const_format v0.2.35
+    Checking gix-path v0.14.0
+   Compiling rama-macros v0.3.0-alpha.4
+    Checking wildcard v0.3.0
+    Checking spin v0.9.8
+   Compiling litrs v1.0.0
+    Checking smol_str v0.3.5
+    Checking flume v0.12.0
+   Compiling document-features v0.2.12
+    Checking ts-rs v11.1.0
+    Checking rama-utils v0.3.0-alpha.4
+    Checking dirs v6.0.0
+    Checking tokio-native-tls v0.3.1
+    Checking tower-http v0.6.8
+    Checking publicsuffix v2.3.0
+    Checking tokio-stream v0.1.18
+    Checking tokio-graceful v0.2.2
+    Checking asynk-strim v0.1.5
+    Checking encoding_rs v0.8.35
+    Checking rama-error v0.3.0-alpha.4
+    Checking codex-utils-absolute-path v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/absolute-path)
+    Checking cookie_store v0.22.1
+    Checking rama-core v0.3.0-alpha.4
+    Checking hyper-tls v0.6.0
+    Checking anstyle-parse v0.2.7
+    Checking serde_urlencoded v0.7.1
+    Checking is_terminal_polyfill v1.70.2
+   Compiling rayon-core v1.13.0
+    Checking regex-lite v0.1.8
+    Checking anstyle-query v1.1.5
+    Checking endian-type v0.2.0
+    Checking iana-time-zone v0.1.65
+    Checking colorchoice v1.0.4
+    Checking chrono v0.4.43
+    Checking radix_trie v0.3.0
+    Checking anstream v0.6.21
+    Checking crossbeam-deque v0.8.6
+    Checking psl v2.1.184
+    Checking tempfile v3.27.0
+    Checking rama-http-types v0.3.0-alpha.4
+    Checking terminal_size v0.4.3
+   Compiling cfg_aliases v0.2.1
+    Checking clap_lex v1.0.0
+   Compiling syn v1.0.109
+   Compiling cfg_aliases v0.1.1
+    Checking md5 v0.8.0
+    Checking clap_builder v4.5.58
+   Compiling nix v0.28.0
+   Compiling clap_derive v4.5.55
+    Checking rama-net v0.3.0-alpha.4
+    Checking aws-smithy-http v0.62.6
+    Checking aws-credential-types v1.2.11
+   Compiling convert_case v0.10.0
+    Checking clap v4.5.58
+    Checking crossbeam-channel v0.5.15
+   Compiling serde_repr v0.1.20
+   Compiling ref-cast v1.0.25
+   Compiling derive_more-impl v2.1.1
+   Compiling ref-cast-impl v1.0.25
+    Checking aws-sigv4 v1.3.7
+    Checking tracing-opentelemetry v0.32.1
+    Checking env_filter v1.0.0
+   Compiling heapless v0.7.17
+   Compiling dupe_derive v0.9.1
+    Checking lru v0.18.2
+    Checking bumpalo v3.19.1
+   Compiling typeid v1.0.3
+   Compiling icu_locale_data v2.2.0
+    Checking derive_more v2.1.1
+    Checking env_logger v0.11.9
+    Checking hash32 v0.2.1
+   Compiling logos-codegen v0.15.1
+   Compiling strum_macros v0.28.0
+   Compiling enum-as-inner v0.6.1
+    Checking arrayvec v0.7.6
+   Compiling enumflags2_derive v0.7.12
+   Compiling blake3 v1.8.2
+   Compiling linktime-proc-macro v0.1.0
+    Checking constant_time_eq v0.3.1
+   Compiling erased-serde v0.4.10
+    Checking link-section v0.17.2
+    Checking atomic v0.5.3
+    Checking bit-vec v0.8.0
+    Checking tagptr v0.2.0
+   Compiling allocative v0.3.6
+    Checking bit-set v0.8.0
+    Checking moka v0.12.13
+    Checking lock_free_hashtable v0.1.4
+    Checking ctor v1.0.6
+    Checking enumflags2 v0.7.12
+    Checking hickory-proto v0.25.2
+    Checking quickcheck v1.1.0
+    Checking cobs v0.3.0
+   Compiling strong_hash_derive v0.1.0
+   Compiling allocative_derive v0.3.6
+    Checking hashbrown v0.14.5
+    Checking arrayref v0.3.9
+    Checking resolv-conf v0.7.6
+    Checking unicode-width v0.1.14
+   Compiling rama-http-headers v0.3.0-alpha.4
+    Checking urlencoding v2.1.3
+   Compiling beef v0.5.2
+   Compiling paste v1.0.15
+    Checking hickory-resolver v0.25.2
+    Checking zstd v0.13.3
+    Checking strong_hash v0.1.0
+    Checking dashmap v6.1.0
+    Checking postcard v1.1.3
+    Checking icu_locale v2.2.0
+    Checking sorted_vector_map v0.2.1
+    Checking static_interner v0.1.2
+    Checking fancy-regex v0.16.2
+    Checking dupe v0.9.1
+   Compiling Inflector v0.11.4
+    Checking codex-utils-home-dir v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/home-dir)
+   Compiling convert_case v0.6.0
+   Compiling schemafy_core v0.5.2
+    Checking fxhash v0.2.1
+    Checking triomphe v0.1.15
+   Compiling pagable_derive v0.4.1
+    Checking csv-core v0.1.13
+   Compiling starlark_map v0.14.2
+    Checking bitflags v1.3.2
+    Checking take_mut v0.2.2
+    Checking sequence_trie v0.3.6
+    Checking indenter v0.3.4
+    Checking inventory v0.3.24
+    Checking fluent-uri v0.1.4
+    Checking csv v1.4.0
+   Compiling derive_more-impl v1.0.0
+   Compiling logos-derive v0.15.1
+   Compiling schemafy_lib v0.5.2
+    Checking rama-dns v0.3.0-alpha.4
+    Checking pagable v0.4.1
+   Compiling darling_core v0.21.3
+    Checking globset v0.4.18
+    Checking serde_html_form v0.3.2
+    Checking http-range-header v0.4.2
+    Checking matchit v0.9.1
+    Checking endian-type v0.1.2
+    Checking rama-http v0.3.0-alpha.4
+    Checking radix_trie v0.2.1
+    Checking rama-tcp v0.3.0-alpha.4
+   Compiling darling_macro v0.21.3
+   Compiling schemafy v0.5.2
+    Checking logos v0.15.1
+    Checking derive_more v1.0.0
+    Checking lsp-types v0.97.0
+    Checking annotate-snippets v0.9.2
+   Compiling derivative v2.2.0
+    Checking tokio-test v0.4.5
+    Checking fdeflate v0.3.7
+    Checking fd-lock v4.0.4
+    Checking pxfm v0.1.27
+    Checking home v0.5.12
+    Checking color_quant v1.1.0
+    Checking byteorder-lite v0.1.0
+    Checking weezl v0.1.12
+   Compiling starlark v0.14.2
+    Checking quick-error v2.0.1
+    Checking zune-core v0.5.1
+    Checking image-webp v0.2.4
+    Checking moxcms v0.7.11
+    Checking zune-jpeg v0.5.12
+    Checking gif v0.14.1
+    Checking rustyline v14.0.0
+    Checking png v0.18.0
+    Checking rama-http-core v0.3.0-alpha.4
+   Compiling starlark_derive v0.14.2
+    Checking debugserver-types v0.5.0
+   Compiling darling v0.21.3
+    Checking display_container v0.9.0
+    Checking textwrap v0.11.0
+    Checking rama-udp v0.3.0-alpha.4
+    Checking rama-unix v0.3.0-alpha.4
+    Checking gix-url v0.40.0
+    Checking starlark_syntax v0.14.2
+    Checking erased-serde v0.3.31
+   Compiling icu_decimal_data v2.2.0
+    Checking cmp_any v0.8.1
+    Checking maplit v1.0.2
+    Checking strsim v0.10.0
+    Checking rama-socks5 v0.3.0-alpha.4
+   Compiling serde_with_macros v3.17.0
+    Checking image v0.25.9
+    Checking rama-http-backend v0.3.0-alpha.4
+    Checking codex-utils-path-uri v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/path-uri)
+    Checking rand_regex v0.18.1
+    Checking multimap v0.10.1
+    Checking serde_ignored v0.1.14
+    Checking serde_with v3.17.0
+    Checking codex-utils-cache v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/cache)
+   Compiling strum_macros v0.27.2
+    Checking fixed_decimal v0.7.2
+    Checking codex-utils-image v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/image)
+    Checking icu_decimal v2.2.0
+    Checking landlock v0.4.4
+    Checking codex-utils-string v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/string)
+    Checking chardetng v0.1.17
+    Checking codex-extension-items v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ext/items)
+    Checking codex-utils-redacted-string v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/redacted-string)
+    Checking codex-async-utils v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/async-utils)
+    Checking quick-xml v0.41.0
+    Checking seccompiler v0.5.0
+    Checking sys-locale v0.3.2
+    Checking wildmatch v2.6.1
+   Compiling thiserror v1.0.69
+   Compiling thiserror-impl v1.0.69
+    Checking block-padding v0.3.3
+    Checking parking v2.2.1
+    Checking inout v0.1.4
+    Checking strum v0.27.2
+    Checking same-file v1.0.6
+    Checking cipher v0.4.4
+    Checking concurrent-queue v2.5.0
+    Checking headers-core v0.3.0
+    Checking downcast-rs v1.2.1
+    Checking event-listener v5.4.1
+    Checking headers v0.4.1
+    Checking walkdir v2.5.0
+   Compiling heapless v0.8.0
+    Checking utf-8 v0.7.6
+    Checking hash32 v0.3.1
+   Compiling faster-hex v0.10.1
+   Compiling prost-derive v0.14.3
+    Checking universal-hash v0.5.1
+    Checking serde_path_to_error v0.1.20
+    Checking opaque-debug v0.3.1
+   Compiling rustversion v1.0.22
+    Checking event-listener-strategy v0.5.4
+    Checking aead v0.5.2
+   Compiling pin-project-internal v1.1.10
+    Checking filedescriptor v0.8.3
+    Checking axum-core v0.5.6
+    Checking serial2 v0.2.33
+    Checking base64ct v1.8.3
+    Checking shell-words v1.1.1
+    Checking matchit v0.8.4
+    Checking pin-project v1.1.10
+    Checking sha1dc v0.1.5
+    Checking pem-rfc7468 v0.7.0
+    Checking portable-pty v0.9.0
+    Checking aes v0.8.4
+    Checking der v0.7.10
+    Checking codex-execpolicy v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/execpolicy)
+    Checking codex-utils-pty v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/pty)
+    Checking async-channel v2.5.0
+    Checking gix-hash v0.28.0
+    Checking hyper-timeout v0.5.2
+    Checking jiff-core v0.1.1
+    Checking prost v0.14.3
+    Checking spki v0.7.3
+    Checking polyval v0.6.2
+    Checking ctr v0.9.2
+    Checking pkcs8 v0.10.2
+    Checking ghash v0.5.1
+    Checking codex-utils-process v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/process)
+    Checking gix-hashtable v0.18.0
+    Checking jiff v0.2.38
+    Checking aes-gcm v0.10.3
+    Checking gix-parallel v0.50.0
+    Checking eventsource-stream v0.2.3
+    Checking hkdf v0.12.4
+    Checking memmap2 v0.9.11
+    Checking gix-fs v0.24.0
+    Checking gethostname v1.1.0
+    Checking rand_chacha v0.3.1
+    Checking signature v2.2.0
+    Checking ff v0.13.1
+    Checking base16ct v0.2.0
+    Checking rand v0.8.6
+    Checking group v0.13.0
+    Checking sec1 v0.7.3
+    Checking crypto-bigint v0.5.5
+    Checking gix-tempfile v26.0.0
+   Compiling nix v0.30.1
+    Checking gix-chunk v0.10.0
+    Checking rfc6979 v0.4.0
+    Checking nonempty v0.12.0
+    Checking gix-lock v26.0.0
+    Checking gix-date v0.18.0
+    Checking elliptic-curve v0.13.8
+    Checking opentelemetry_sdk v0.31.0
+    Checking const-hex v1.17.0
+    Checking gix-actor v0.44.0
+    Checking ecdsa v0.16.9
+    Checking primeorder v0.13.6
+    Checking gix-object v0.66.0
+    Checking gix-quote v0.10.0
+    Checking gix-sec v0.16.0
+    Checking os_info v3.14.0
+    Checking p256 v0.13.2
+    Checking gix-commitgraph v0.41.0
+    Checking arc-swap v1.9.0
+    Checking opentelemetry-appender-tracing v0.31.1
+    Checking gix-ref v0.69.0
+    Checking codex-utils-stream-parser v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/stream-parser)
+    Checking zlib-rs v0.6.3
+    Checking opentelemetry-semantic-conventions v0.31.0
+    Checking gix-revwalk v0.37.0
+    Checking gix-command v0.12.0
+    Checking gix-packetline v0.24.0
+    Checking clru v0.6.3
+   Compiling curve25519-dalek v4.1.3
+    Checking gix-shallow v0.15.0
+    Checking gix-transport v0.61.0
+    Checking gix-glob v0.29.0
+   Compiling nix v0.29.0
+    Checking gix-config-value v0.21.0
+    Checking gix-zlib v0.3.0
+   Compiling gix-macros v0.2.0
+    Checking hybrid-array v0.4.12
+    Checking unicode-bom v2.0.3
+    Checking gix-pack v0.76.0
+    Checking gix-config v0.62.0
+    Checking gix-traverse v0.63.0
+    Checking gix-protocol v0.67.0
+    Checking gix-revision v0.51.0
+    Checking gix-odb v0.86.0
+    Checking gix-discover v0.57.0
+    Checking gix-diff v0.69.0
+    Checking gix-refspec v0.47.0
+    Checking similar v2.7.0
+    Checking crypto-common v0.2.2
+    Checking gix v0.89.0
+    Checking num-complex v0.4.6
+    Checking cmov v0.5.3
+    Checking ctutils v0.4.5
+    Checking x25519-dalek v2.0.1
+    Checking block-buffer v0.12.0
+    Checking const-oid v0.10.2
+    Checking toml_writer v1.0.6+spec-1.1.0
+    Checking digest v0.11.3
+    Checking serde_spanned v1.0.4
+    Checking rustc-hash v2.1.1
+    Checking codex-utils-path v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/path-utils)
+    Checking keccak v0.1.6
+    Checking cpufeatures v0.3.0
+    Checking kem v0.3.0-pre.0
+    Checking sha3 v0.10.9
+    Checking hybrid-array v0.2.3
+   Compiling tree-sitter-language v0.1.7
+   Compiling unic-langid-impl v0.9.6
+    Checking toml v0.9.11+spec-1.1.0
+   Compiling unic-langid v0.9.6
+    Checking toml_edit v0.24.0+spec-1.1.0
+    Checking sha2 v0.11.0
+    Checking ml-kem v0.2.3
+    Checking poly1305 v0.8.0
+    Checking dns-lookup v3.0.1
+   Compiling nix v0.31.3
+    Checking simple_asn1 v0.6.4
+    Checking windows-targets v0.52.6
+    Checking windows-result v0.2.0
+    Checking jsonwebtoken v9.3.1
+    Checking num-rational v0.4.2
+    Checking env_home v0.1.0
+    Checking which v8.0.0
+    Checking windows-strings v0.1.0
+    Checking chacha20 v0.9.1
+    Checking futures-lite v2.6.1
+   Compiling windows-interface v0.58.0
+   Compiling windows-implement v0.58.0
+   Compiling zvariant_utils v2.1.0
+    Checking chacha20poly1305 v0.10.1
+   Compiling rust-embed-utils v8.11.0
+    Checking windows-core v0.58.0
+    Checking codex-install-context v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/install-context)
+    Checking cbc v0.1.2
+   Compiling tree-sitter v0.25.10
+   Compiling tree-sitter-powershell v0.26.4
+   Compiling tree-sitter-bash v0.25.1
+    Checking dirs-sys-next v0.1.2
+   Compiling codex-windows-sandbox v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/windows-sandbox-rs)
+    Checking async-task v4.7.1
+    Checking dirs-next v2.0.0
+    Checking windows v0.58.0
+   Compiling rust-embed-impl v8.11.0
+   Compiling zvariant_derive v4.2.0
+   Compiling type-map v0.5.1
+    Checking async-broadcast v0.7.2
+    Checking tracing-appender v0.2.4
+    Checking piper v0.2.4
+   Compiling toml v0.5.11
+   Compiling basic-toml v0.1.10
+   Compiling async-io v2.6.0
+    Checking endi v1.1.1
+    Checking glob v0.3.3
+    Checking streaming-iterator v0.1.9
+    Checking zvariant v4.2.0
+   Compiling find-crate v0.6.3
+   Compiling i18n-config v0.4.8
+    Checking blocking v1.6.2
+   Compiling intl-memoizer v0.5.3
+   Compiling intl_pluralrules v7.0.2
+   Compiling fluent-langneg v0.13.1
+   Compiling fluent-syntax v0.12.0
+    Checking async-lock v3.4.2
+    Checking salsa20 v0.10.2
+    Checking polling v3.11.0
+   Compiling flatbuffers v25.12.19
+   Compiling unicode-general-category v1.1.0
+   Compiling self_cell v1.2.2
+    Checking rustls-webpki v0.103.16
+    Checking x509-parser v0.18.1
+    Checking async-fs v2.2.0
+   Compiling fluent-bundle v0.16.0
+   Compiling i18n-embed-impl v0.8.4
+    Checking zbus_names v3.0.0
+    Checking rcgen v0.14.9
+   Compiling mxc-sdk v1.0.0 (https://github.com/microsoft/mxc?rev=b21120168d70befe12356411423266bfef168446#b2112016)
+    Checking async-executor v1.13.3
+   Compiling zbus_macros v4.4.0
+    Checking num-iter v0.1.45
+    Checking ordered-stream v0.2.0
+    Checking xdg-home v1.3.0
+    Checking num v0.4.3
+   Compiling fluent v0.17.0
+   Compiling rust-embed v8.11.0
+    Checking codex-uds v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/uds)
+    Checking codex-process-hardening v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/process-hardening)
+   Compiling proc-macro-error-attr3 v3.1.1
+    Checking widestring v1.2.1
+    Checking cidr v0.3.2
+   Compiling i18n-embed v0.16.0
+    Checking tokio-rustls v0.26.4
+    Checking codex-utils-rustls-provider v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/rustls-provider)
+    Checking tungstenite v0.27.0 (https://github.com/openai-oss-forks/tungstenite-rs?rev=4fffad30fe373adbdcffab9545e9e9bf4f2fc19f#4fffad30)
+   Compiling proc-macro-error3 v3.1.1
+    Checking hyper-rustls v0.27.7
+    Checking rama-tls-rustls v0.3.0-alpha.4
+    Checking reqwest v0.12.28
+    Checking codex-network-proxy v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/network-proxy)
+    Checking tokio-tungstenite v0.28.0 (https://github.com/openai-oss-forks/tokio-tungstenite?rev=0e5b2d73aa18dd9f0a50ee9ff199d5aef7594186#0e5b2d73)
+    Checking hpke v0.12.0
+    Checking cookie-factory v0.3.3
+    Checking axum v0.8.8
+    Checking codex-http-client v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/http-client)
+    Checking opentelemetry-http v0.31.0
+    Checking zbus v4.4.0
+    Checking pbkdf2 v0.12.2
+    Checking secrecy v0.10.3
+    Checking linux-keyutils v0.2.4
+   Compiling codex-build-info v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/build-info)
+    Checking codex-client v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/codex-client)
+    Checking codex-websocket-client v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/websocket-client)
+    Checking io_tee v0.1.1
+    Checking bech32 v0.11.1
+    Checking scrypt v0.11.0
+    Checking tonic v0.14.3
+    Checking age-core v0.12.0
+   Compiling i18n-embed-fl v0.10.1
+    Checking inotify-sys v0.1.5
+   Compiling include_dir_macros v0.7.4
+    Checking tonic-prost v0.14.3
+    Checking unsafe-libyaml v0.2.11
+    Checking opentelemetry-proto v0.31.0
+    Checking secret-service v4.0.0
+   Compiling codex-linux-sandbox v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/linux-sandbox)
+   Compiling codex-skills v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/skills)
+    Checking keyring v3.6.3
+    Checking age v0.12.1
+    Checking codex-keyring-store v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/keyring-store)
+    Checking serde_yaml v0.9.34+deprecated
+    Checking opentelemetry-otlp v0.31.0
+    Checking include_dir v0.7.4
+    Checking inotify v0.11.0
+   Compiling thiserror-impl-no-std v2.0.2
+    Checking notify-types v2.1.0
+    Checking chunked_transfer v1.5.0
+    Checking codex-protocol v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/protocol)
+    Checking ascii v1.1.0
+    Checking notify v8.2.0
+    Checking tiny_http v0.12.0
+    Checking codex-file-watcher v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/file-watcher)
+    Checking codex-websocket-auth v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/websocket-auth)
+    Checking codex-core-plugin-common v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/core-plugin-common)
+   Compiling prettyplease v0.2.37
+    Checking thiserror-no-std v2.0.2
+    Checking clatter v2.2.0
+    Checking webbrowser v1.2.4
+   Compiling pastey v0.2.1
+   Compiling libsqlite3-sys v0.37.0
+    Checking crossbeam-queue v0.3.12
+   Compiling hashlink v0.11.0
+   Compiling futures-intrusive v0.5.0
+    Checking crypto_secretbox v0.1.1
+    Checking ed25519 v2.2.3
+    Checking sqlx-core v0.9.0
+   Compiling darling_core v0.24.0
+    Checking blake2 v0.10.6
+    Checking atoi v2.0.0
+   Compiling dotenvy v0.15.7
+    Checking crypto_box v0.9.1
+    Checking ed25519-dalek v2.2.0
+    Checking codex-utils-template v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/template)
+   Compiling sqlx-macros-core v0.9.0
+    Checking codex-workload-identity v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/workload-identity)
+   Compiling darling_macro v0.24.0
+   Compiling schemars_derive v1.2.1
+   Compiling sqlx-macros v0.9.0
+    Checking codex-terminal-detection v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/terminal-detection)
+   Compiling rmcp v3.5.1 (https://github.com/modelcontextprotocol/rust-sdk?rev=98a54789b80110ad210495c4ad845c89e1980471#98a54789)
+   Compiling darling v0.24.0
+    Checking file-id v0.2.3
+   Compiling foldhash v0.1.5
+   Compiling rmcp-macros v3.5.1 (https://github.com/modelcontextprotocol/rust-sdk?rev=98a54789b80110ad210495c4ad845c89e1980471#98a54789)
+   Compiling hashbrown v0.15.5
+    Checking schemars v1.2.1
+    Checking oauth2 v5.0.0
+    Checking process-wrap v10.0.0
+    Checking sqlx-sqlite v0.9.0
+    Checking reqwest v0.13.4
+   Compiling aws-types v1.3.11
+    Checking sse-stream v0.2.5
+    Checking base64 v0.23.0
+   Compiling fixedbitset v0.5.7
+   Compiling prost-types v0.14.3
+   Compiling petgraph v0.8.3
+    Checking aws-smithy-http-client v1.1.12
+    Checking sqlx v0.9.0
+    Checking aws-smithy-observability v0.1.5
+    Checking aws-smithy-runtime v1.9.5
+   Compiling tonic-build v0.14.3
+    Checking rayon v1.11.0
+   Compiling prost-build v0.14.3
+    Checking nucleo-matcher v0.3.1 (https://github.com/helix-editor/nucleo.git?rev=4253de9faabb4e5c6d81d946a5e35a90f87347ee#4253de9f)
+   Compiling protoc-bin-vendored-linux-ppcle_64 v3.2.0
+   Compiling protoc-bin-vendored-linux-x86_32 v3.2.0
+   Compiling protoc-bin-vendored-macos-aarch_64 v3.2.0
+   Compiling protoc-bin-vendored-linux-aarch_64 v3.2.0
+   Compiling protoc-bin-vendored-linux-x86_64 v3.2.0
+   Compiling protoc-bin-vendored-win32 v3.2.0
+   Compiling protoc-bin-vendored-linux-s390_64 v3.2.0
+   Compiling protoc-bin-vendored-macos-x86_64 v3.2.0
+    Checking aws-runtime v1.5.17
+   Compiling protoc-bin-vendored v3.2.0
+   Compiling tonic-prost-build v0.14.3
+    Checking nucleo v0.5.0 (https://github.com/helix-editor/nucleo.git?rev=4253de9faabb4e5c6d81d946a5e35a90f87347ee#4253de9f)
+    Checking ignore v0.4.25
+    Checking aws-smithy-json v0.61.9
+   Compiling codex-code-mode-protocol v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/code-mode-protocol)
+   Compiling bzip2-sys v0.1.13+1.0.8
+    Checking codex-file-search v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/file-search)
+    Checking inout v0.2.2
+    Checking debugid v0.8.0
+    Checking xmlparser v0.13.6
+    Checking sentry-types v0.46.1
+    Checking aws-smithy-xml v0.60.13
+    Checking cipher v0.5.2
+    Checking codex-api v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/codex-api)
+    Checking codex-file-system v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/file-system)
+    Checking codex-model-provider-info v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/model-provider-info)
+    Checking codex-features v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/features)
+    Checking codex-shell-command v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/shell-command)
+    Checking codex-git-utils v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/git-utils)
+    Checking codex-utils-output-truncation v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/output-truncation)
+    Checking codex-history v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/history)
+    Checking codex-agent-identity v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/agent-identity)
+    Checking codex-config v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/config)
+    Checking codex-secrets v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/secrets)
+    Checking codex-exec-server-protocol v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/exec-server-protocol)
+    Checking codex-state v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/state)
+    Checking codex-otel v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/otel)
+    Checking codex-context-fragments v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/context-fragments)
+    Checking hmac v0.13.0
+    Checking aws-smithy-query v0.60.9
+    Checking libbz2-rs-sys v0.2.5
+    Checking cpubits v0.1.1
+    Checking aes v0.9.3
+    Checking bzip2 v0.6.1
+    Checking aws-sdk-sts v1.95.0
+    Checking codex-guardian-context v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/guardian-context)
+    Checking pbkdf2 v0.13.0
+    Checking sentry-core v0.46.1
+    Checking codex-mxc-sandbox v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/mxc-sandbox)
+    Checking aws-sdk-ssooidc v1.93.0
+    Checking codex-rollout v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/rollout)
+    Checking codex-sandboxing v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/sandboxing)
+    Checking aws-sdk-signin v1.2.0
+    Checking aws-sdk-sso v1.91.0
+    Checking lzma-rust2 v0.21.0
+    Checking sha1 v0.11.0
+    Checking zopfli v0.8.3
+    Checking filetime v0.2.27
+    Checking deflate64 v0.1.10
+    Checking constant_time_eq v0.4.2
+    Checking codex-collaboration-mode-templates v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/collaboration-mode-templates)
+    Checking typed-path v0.12.3
+    Checking tar v0.4.45
+    Checking codex-prompts v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/prompts)
+    Checking aws-config v1.8.12
+    Checking sentry v0.46.1
+    Checking codex-exec-server v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/exec-server)
+    Checking codex-login v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/login)
+    Checking zip v9.0.0
+    Checking codex-response-debug-context v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/response-debug-context)
+    Checking codex-code-mode v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/code-mode)
+    Checking codex-attachment-store v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/attachment-store)
+    Checking jsonptr v0.7.1
+    Checking symphonia-core v0.6.0
+    Checking codex-diagnostics v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/diagnostics)
+   Compiling codex-experimental-api-macros v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/codex-experimental-api-macros)
+    Checking codex-aws-auth v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/aws-auth)
+    Checking symphonia-metadata v0.6.0
+   Compiling codex-app-server-protocol-noop-macros v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/app-server-protocol-noop-macros)
+    Checking symphonia-common v0.6.0
+    Checking caseless v0.2.2
+    Checking extended v0.1.0
+    Checking symphonia-format-mkv v0.6.0
+    Checking codex-app-server-protocol v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/app-server-protocol)
+    Checking symphonia-format-riff v0.6.0
+    Checking symphonia-format-ogg v0.6.0
+    Checking symphonia-format-isomp4 v0.6.0
+    Checking symphonia-bundle-mp3 v0.6.0
+   Compiling darling_core v0.20.11
+    Checking codex-runtime-agent-instance v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/runtime-agent-instance)
+    Checking codex-models-manager v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/models-manager)
+    Checking codex-feedback v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/feedback)
+    Checking symphonia v0.6.0
+    Checking codex-utils-audio v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/audio)
+   Compiling stop-words v0.9.0
+   Compiling pulldown-cmark v0.10.3
+    Checking codex-model-provider v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/model-provider)
+    Checking web-time v1.1.0
+    Checking pulldown-cmark-escape v0.10.1
+    Checking cached_proc_macro_types v0.1.1
+    Checking rust-stemmers v1.2.0
+   Compiling darling_macro v0.20.11
+    Checking deunicode v1.6.2
+    Checking codex-utils-critical-path v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/critical-path)
+   Compiling darling v0.20.11
+    Checking codex-direct-tool-timing v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/direct-tool-timing)
+    Checking codex-rollout-trace v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/rollout-trace)
+   Compiling cached_proc_macro v0.25.0
+    Checking codex-agent-roles v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/agent-roles)
+    Checking codex-agent-graph-store v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/agent-graph-store)
+    Checking codex-utils-git-discovery v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/git-discovery)
+    Checking codex-memories-read v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/memories/read)
+    Checking codex-utils-head-tail-buffer v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/head-tail-buffer)
+    Checking cached v0.56.0
+    Checking whoami v1.6.1
+   Compiling target-lexicon v0.13.5
+    Checking bm25 v2.3.2
+   Compiling toml_datetime v1.1.1+spec-1.1.0
+   Compiling toml v1.0.6+spec-1.1.0
+   Compiling version-compare v0.2.1
+    Checking codex-backend-openapi-models v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/codex-backend-openapi-models)
+   Compiling cfg-expr v0.20.9
+   Compiling signal-hook v0.3.18
+    Checking is_ci v1.2.0
+    Checking is-terminal v0.4.17
+   Compiling system-deps v7.0.8
+   Compiling owo-colors v4.3.0
+    Checking codex-utils-plugins v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/plugins)
+    Checking codex-rmcp-client v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/rmcp-client)
+    Checking codex-apply-patch v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/apply-patch)
+    Checking codex-backend-client v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/backend-client)
+    Checking codex-plugin v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/plugin)
+    Checking supports-color v2.1.0
+    Checking codex-arg0 v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/arg0)
+    Checking codex-connectors v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/connectors)
+    Checking codex-hooks v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/hooks)
+    Checking supports-color v3.0.2
+    Checking codex-utils-cli v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/cli)
+    Checking codex-tools v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/tools)
+    Checking codex-cloud-config v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/cloud-config)
+   Compiling substring v1.4.5
+    Checking linkify v0.11.0
+    Checking codex-utils-json-to-toml v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/json-to-toml)
+    Checking codex-user-verification v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/user-verification)
+    Checking unicode-width v0.2.1
+    Checking codex-message-board v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/message-board)
+    Checking rtc-shared v0.20.3
+    Checking num_cpus v1.17.0
+    Checking simdutf8 v0.1.5
+    Checking deadpool-runtime v0.1.4
+    Checking castaway v0.2.4
+    Checking deadpool v0.12.3
+   Compiling darling_core v0.23.0
+    Checking assert-json-diff v2.0.2
+   Compiling wayland-sys v0.31.8
+    Checking wiremock v0.6.5
+    Checking compact_str v0.9.1
+    Checking codex-mcp v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/codex-mcp)
+    Checking unicode-truncate v2.0.1
+   Compiling glib-sys v0.22.8
+    Checking strum v0.28.0
+    Checking kasuari v0.4.12
+   Compiling wayland-backend v0.3.12
+   Compiling instability v0.3.11
+    Checking codex-message-board-mcp v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/message-board-mcp)
+    Checking codex-guardian-v3 v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ext/guardian-v3)
+   Compiling libm v0.2.16
+    Checking ratatui-core v0.1.2
+warning: glib-sys@0.22.8: 
+error: failed to run custom build command for `glib-sys v0.22.8`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/strip-evidence/baseline-target/debug/build/glib-sys-f32a3678a4c333ab/build-script-build` (exit status: 1)
+  --- stdout
+  cargo:rerun-if-changed=/home/sig/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glib-sys-0.22.8/Cargo.toml
+  cargo:rerun-if-env-changed=GLIB_2.0_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+  cargo:warning=
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags glib-2.0 'glib-2.0 >= 2.56'
+
+  The system library `glib-2.0` required by crate `glib-sys` was not found.
+  The file `glib-2.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `glib-2.0.pc`.
+
+warning: build failed, waiting for other jobs to finish...
+   Compiling gobject-sys v0.22.6
+   Compiling darling_macro v0.23.0
+   Compiling quick-xml v0.39.4
+   Compiling async-stream-impl v0.3.6
+   Compiling wayland-client v0.31.12
+   Compiling darling v0.23.0
+   Compiling indoc v2.0.7
+warning: gobject-sys@0.22.6: 
+error: failed to run custom build command for `gobject-sys v0.22.6`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/strip-evidence/baseline-target/debug/build/gobject-sys-976a6ba20c458026/build-script-build` (exit status: 1)
+  --- stdout
+  cargo:rerun-if-changed=/home/sig/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gobject-sys-0.22.6/Cargo.toml
+  cargo:rerun-if-env-changed=GOBJECT_2.0_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+  cargo:warning=
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags gobject-2.0 'gobject-2.0 >= 2.56'
+
+  The system library `gobject-2.0` required by crate `gobject-sys` was not found.
+  The file `gobject-2.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gobject-2.0.pc`.
+
+    Checking async-stream v0.3.6
+   Compiling wayland-scanner v0.31.10
+   Compiling onig_sys v69.9.1
+    Checking signal-hook-mio v0.2.5
+    Checking core_maths v0.1.1
+   Compiling clang-sys v1.8.1
+    Checking line-clipping v0.3.7
+   Compiling object v0.37.3
+    Checking ratatui-widgets v0.3.2
+    Checking wayland-protocols v0.32.10
+    Checking calendrical_calculations v0.2.4
+    Checking crossterm v0.29.0 (https://github.com/openai-oss-forks/crossterm?rev=ed1cdab335221515706178d68495bba2aed1924f#ed1cdab3)
+   Compiling gstreamer-sys v0.25.2
+   Compiling icu_calendar_data v2.2.0
+   Compiling color-spantrace v0.3.0
+   Compiling eyre v0.6.12
+   Compiling rustix v0.38.44
+    Checking gimli v0.32.3
+    Checking wayland-protocols-wlr v0.3.10
+    Checking codex-extension-api v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ext/extension-api)
+    Checking plist v1.9.0
+    Checking ratatui-crossterm v0.1.2
+    Checking codex-agent-message-board-client v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/agent-message-board-client)
+    Checking codex-home v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/codex-home)
+    Checking codex-git-attribution v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ext/git-attribution)
+    Checking codex-multi-env-copy-file v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ext/multi-env-copy-file)
+    Checking addr2line v0.25.1
+    Checking codex-agent-message-board-extension v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ext/agent-message-board)
+    Checking tree_magic_mini v3.2.2
+warning: gstreamer-sys@0.25.2: 
+error: failed to run custom build command for `gstreamer-sys v0.25.2`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/strip-evidence/baseline-target/debug/build/gstreamer-sys-004639b68b4d9838/build-script-build` (exit status: 1)
+  --- stdout
+  cargo:rerun-if-changed=/home/sig/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-sys-0.25.2/Cargo.toml
+  cargo:rerun-if-env-changed=GSTREAMER_1.0_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+  cargo:warning=
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags gstreamer-1.0 'gstreamer-1.0 >= 1.28'
+
+  The system library `gstreamer-1.0` required by crate `gstreamer-sys` was not found.
+  The file `gstreamer-1.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gstreamer-1.0.pc`.
+
+    Checking codex-worktree v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/worktree)
+    Checking codex-utils-sandbox-summary v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/sandbox-summary)
+   Compiling libloading v0.8.9
+    Checking tracing-error v0.2.1
+    Checking resb v0.1.2
+    Checking bincode v1.3.3
+   Compiling ptr_meta_derive v0.3.2
+    Checking os_pipe v1.2.3
+    Checking x11rb-protocol v0.13.2
+   Compiling bindgen v0.72.1
+    Checking rustc-demangle v0.1.27
+   Compiling linux-raw-sys v0.4.15
+    Checking codex-analytics v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/analytics)
+    Checking codex-thread-store v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/thread-store)
+    Checking sansio v1.0.1
+   Compiling dtor-proc-macro v0.0.6
+    Checking backtrace v0.3.76
+    Checking dtor v0.1.1
+    Checking ptr_meta v0.3.2
+    Checking onig v6.5.1
+    Checking wl-clipboard-rs v0.9.3
+    Checking x11rb v0.13.2
+    Checking syntect v5.3.0
+    Checking zoneinfo64 v0.3.0
+    Checking codex-core-plugins v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/core-plugins)
+    Checking codex-guardian-reviewer v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ext/guardian-reviewer)
+    Checking codex-skills-extension v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ext/skills)
+   Compiling cexpr v0.6.0
+    Checking ratatui v0.30.2
+    Checking ansi-to-tui v8.0.1
+   Compiling gio-sys v0.22.8
+   Compiling gstreamer-base-sys v0.25.3
+    Checking codex-realtime-webrtc v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/realtime-webrtc)
+   Compiling itertools v0.13.0
+   Compiling quinn-udp v0.5.14
+    Checking diffy v0.4.2
+   Compiling asn1-rs-derive v0.5.1
+   Compiling strck v1.0.0
+    Checking unicode-linebreak v0.1.5
+    Checking smawk v0.3.2
+   Compiling ctor-proc-macro v0.0.7
+   Compiling which v6.0.3
+    Checking asn1-rs v0.6.2
+    Checking ctor v0.6.3
+    Checking textwrap v0.16.2
+   Compiling diplomat_core v0.15.0
+   Compiling gzip-header v1.0.0
+warning: gstreamer-base-sys@0.25.3: 
+error: failed to run custom build command for `gstreamer-base-sys v0.25.3`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/strip-evidence/baseline-target/debug/build/gstreamer-base-sys-5a296c62e16eaa8f/build-script-build` (exit status: 1)
+  --- stdout
+  cargo:rerun-if-changed=/home/sig/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-base-sys-0.25.3/Cargo.toml
+  cargo:rerun-if-env-changed=GSTREAMER_BASE_1.0_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+  cargo:warning=
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags gstreamer-base-1.0 'gstreamer-base-1.0 >= 1.28'
+
+  The system library `gstreamer-base-1.0` required by crate `gstreamer-base-sys` was not found.
+  The file `gstreamer-base-1.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gstreamer-base-1.0.pc`.
+
+    Checking codex-ansi-escape v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ansi-escape)
+warning: gio-sys@0.22.8: 
+error: failed to run custom build command for `gio-sys v0.22.8`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/strip-evidence/baseline-target/debug/build/gio-sys-e03ccd841222e280/build-script-build` (exit status: 1)
+  --- stdout
+  cargo:rerun-if-changed=/home/sig/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gio-sys-0.22.8/Cargo.toml
+  cargo:rerun-if-env-changed=GIO_2.0_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+  cargo:warning=
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags gio-2.0 'gio-2.0 >= 2.56'
+
+  The system library `gio-2.0` required by crate `gio-sys` was not found.
+  The file `gio-2.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gio-2.0.pc`.
+
+    Checking color-eyre v0.6.5
+    Checking icu_calendar v2.2.1
+    Checking two-face v0.5.1
+    Checking codex-connectors-extension v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ext/connectors)
+    Checking timezone_provider v0.2.3
+    Checking arboard v3.6.1
+    Checking rancor v0.1.3
+    Checking ratatui-macros v0.7.2
+    Checking codex-mermaid v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/mermaid)
+    Checking codex-message-history v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/message-history)
+    Checking codex-utils-approval-presets v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/approval-presets)
+   Compiling quinn v0.11.9
+   Compiling crc32c v0.6.8
+    Checking rand_pcg v0.10.2
+    Checking codex-utils-sleep-inhibitor v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/sleep-inhibitor)
+   Compiling bytecheck_derive v0.8.3
+   Compiling fslock v0.2.1
+    Checking codex-utils-elapsed v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/elapsed)
+    Checking codex-utils-fuzzy-match v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/fuzzy-match)
+    Checking pathdiff v0.2.3
+    Checking lru-slab v0.1.2
+   Compiling oid-registry v0.7.1
+    Checking ixdtf v0.6.4
+    Checking quinn-proto v0.11.18
+    Checking temporal_rs v0.2.3
+    Checking codex-core v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/core)
+    Checking bytecheck v0.8.3
+   Compiling diplomat v0.15.0
+    Checking rtc-rtp v0.20.3
+   Compiling glib-macros v0.22.6
+    Checking md-5 v0.10.6
+   Compiling munge_macro v0.4.7
+    Checking diplomat-runtime v0.15.1
+    Checking predicates-core v1.0.9
+   Compiling v8 v152.2.0 (https://github.com/seanh-oai/rusty_v8.git?rev=350c5a859a9b3c84ab8701b3ad51e3b7699b30c0#350c5a85)
+    Checking temporal_capi v0.2.3
+    Checking munge v0.4.7
+    Checking rtc-stun v0.20.3
+    Checking rend v0.5.4
+    Checking der-parser v9.0.0
+    Checking rtc-rtcp v0.20.3
+    Checking option-operations v0.6.1
+    Checking kstring v2.0.2
+    Checking itertools v0.15.0
+    Checking h3 v0.0.8 (https://github.com/hyperium/h3?rev=e07e69412876f7e26f026bd75a48b2704d8c8283#e07e6941)
+   Compiling rkyv_derive v0.8.18
+   Compiling alsa-sys v0.4.0
+    Checking termtree v0.5.1
+    Checking difflib v0.4.0
+    Checking sonora-simd v0.2.0
+   Compiling assert_cmd v2.1.2
+    Checking sonora-fft v0.2.0
+    Checking muldiv v1.0.1
+    Checking sonora-common-audio v0.2.0
+    Checking predicates v3.1.3
+error: failed to run custom build command for `alsa-sys v0.4.0`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/strip-evidence/baseline-target/debug/build/alsa-sys-70be0f6a97a910c9/build-script-build` (exit status: 101)
+  --- stdout
+  cargo:rerun-if-env-changed=ALSA_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+
+  --- stderr
+
+  thread 'main' (611195) panicked at /home/sig/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/alsa-sys-0.4.0/build.rs:13:19:
+
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_LIBS=1 PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags alsa
+
+  The system library `alsa` required by crate `alsa-sys` was not found.
+  The file `alsa.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `alsa.pc`.
+
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+    Checking predicates-tree v1.0.12
+    Checking h3-quinn v0.0.10 (https://github.com/hyperium/h3?rev=e07e69412876f7e26f026bd75a48b2704d8c8283#e07e6941)
+    Checking x509-parser v0.16.0
+    Checking rtc-sctp v0.20.3
+    Checking codex-responses-api-proxy v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/responses-api-proxy)
+    Checking rkyv v0.8.18
+    Checking rtc-mdns v0.20.3
+   Compiling gstreamer-app-sys v0.25.0
+   Compiling gstreamer-audio-sys v0.25.3
+    Checking codex-stdio-to-uds v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/stdio-to-uds)
+    Checking p384 v0.13.1
+    Checking codex-plugin-host v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/plugin-host)
+    Checking ccm v0.5.0
+   Compiling quinn-udp v0.6.1
+   Compiling opusic-sys v0.7.5
+   Compiling rtc-interceptor-derive v0.20.3
+    Checking wait-timeout v0.2.1
+   Compiling codex-cli v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/cli)
+    Checking audio-codec-algorithms v0.8.1
+    Checking atomic_refcell v0.1.14
+    Checking rtc-interceptor v0.20.3
+    Checking audioadapter-sample v5.2.0
+    Checking rtc-dtls v0.20.3
+warning: gstreamer-audio-sys@0.25.3: 
+error: failed to run custom build command for `gstreamer-audio-sys v0.25.3`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/strip-evidence/baseline-target/debug/build/gstreamer-audio-sys-b08cb1c07bff8468/build-script-build` (exit status: 1)
+  --- stdout
+  cargo:rerun-if-changed=/home/sig/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-audio-sys-0.25.3/Cargo.toml
+  cargo:rerun-if-env-changed=GSTREAMER_AUDIO_1.0_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+  cargo:warning=
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags gstreamer-audio-1.0 'gstreamer-audio-1.0 >= 1.28'
+
+  The system library `gstreamer-audio-1.0` required by crate `gstreamer-audio-sys` was not found.
+  The file `gstreamer-audio-1.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gstreamer-audio-1.0.pc`.
+
+    Checking rtc-ice v0.20.3
+error: failed to run custom build command for `v8 v152.2.0 (https://github.com/seanh-oai/rusty_v8.git?rev=350c5a859a9b3c84ab8701b3ad51e3b7699b30c0#350c5a85)`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/strip-evidence/baseline-target/debug/build/v8-c5a8a89279c17b28/build-script-build` (exit status: 101)
+  --- stdout
+  cargo:rerun-if-changed=.gn
+  cargo:rerun-if-changed=BUILD.gn
+  cargo:rerun-if-changed=src/binding.cc
+  cargo:rerun-if-env-changed=CCACHE
+  cargo:rerun-if-env-changed=CLANG_BASE_PATH
+  cargo:rerun-if-env-changed=CXXSTDLIB
+  cargo:rerun-if-env-changed=DENO_TRYBUILD
+  cargo:rerun-if-env-changed=DOCS_RS
+  cargo:rerun-if-env-changed=GN
+  cargo:rerun-if-env-changed=GN_ARGS
+  cargo:rerun-if-env-changed=HOST
+  cargo:rerun-if-env-changed=LIBCLANG_PATH
+  cargo:rerun-if-env-changed=NINJA
+  cargo:rerun-if-env-changed=OUT_DIR
+  cargo:rerun-if-env-changed=RUSTY_V8_ARCHIVE
+  cargo:rerun-if-env-changed=RUSTY_V8_ARCHIVE_SHA256
+  cargo:rerun-if-env-changed=RUSTY_V8_BINDGEN_RESOURCE_DIR
+  cargo:rerun-if-env-changed=RUSTY_V8_GLIBC_PREFIX
+  cargo:rerun-if-env-changed=RUSTY_V8_MIRROR
+  cargo:rerun-if-env-changed=RUSTY_V8_MIRROR_TAG
+  cargo:rerun-if-env-changed=RUSTY_V8_MIRROR_FALLBACK
+  cargo:rerun-if-env-changed=RUSTY_V8_MUSL_SYSROOT
+  cargo:rerun-if-env-changed=RUSTY_V8_SKIP_DOWNLOAD
+  cargo:rerun-if-env-changed=RUSTY_V8_SRC_BINDING_PATH
+  cargo:rerun-if-env-changed=RUSTY_V8_SRC_BINDING_URL
+  cargo:rerun-if-env-changed=SCCACHE
+  cargo:rerun-if-env-changed=V8_FORCE_DEBUG
+  cargo:rerun-if-env-changed=V8_FROM_SOURCE
+  cargo:rerun-if-env-changed=PYTHON
+  cargo:rerun-if-env-changed=DISABLE_CLANG
+  cargo:rerun-if-env-changed=EXTRA_GN_ARGS
+  cargo:rerun-if-env-changed=PRINT_GN_ARGS
+  cargo:rerun-if-env-changed=CARGO_ENCODED_RUSTFLAGS
+  cargo:rustc-link-lib=static=rusty_v8
+  lockfile: "/home/sig/files/qiri-release/strip-evidence/baseline-target/debug/build/v8.fslock"
+  Trying to fetch from https://github.com/denoland/rusty_v8/releases/download/v152.2.0/src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.rs
+  Looking for download in '"/home/sig/.cargo/.rusty_v8/v152_2_0_src_binding_ptrcomp_sandbox_release_aarch64_unknown_linux_gnu_rs"'
+  Looking for download in '"/home/sig/.cargo/.rusty_v8/https___github_com_denoland_rusty_v8_releases_download_v152_2_0_src_binding_ptrcomp_sandbox_release_aarch64_unknown_linux_gnu_rs"'
+  Downloading https://github.com/denoland/rusty_v8/releases/download/v152.2.0/src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.rs
+  Trying with Python...
+  Downloading https://github.com/denoland/rusty_v8/releases/download/v152.2.0/src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.rs...
+  HTTP Error 404: Not Found
+  Python downloader failed, trying with curl.
+  Failed to fetch from https://github.com/denoland/rusty_v8/releases/download/v152.2.0/src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.rs: no downloader (deno, python, curl) could fetch the URL
+
+  --- stderr
+  Traceback (most recent call last):
+    File "/home/sig/.cargo/git/checkouts/rusty_v8-1c356b58a53d1d98/350c5a8/./tools/download_file.py", line 63, in <module>
+      sys.exit(main())
+               ^^^^^^
+    File "/home/sig/.cargo/git/checkouts/rusty_v8-1c356b58a53d1d98/350c5a8/./tools/download_file.py", line 58, in main
+      DownloadUrl(args.url, f)
+    File "/home/sig/.cargo/git/checkouts/rusty_v8-1c356b58a53d1d98/350c5a8/./tools/download_file.py", line 44, in DownloadUrl
+      raise e
+    File "/home/sig/.cargo/git/checkouts/rusty_v8-1c356b58a53d1d98/350c5a8/./tools/download_file.py", line 28, in DownloadUrl
+      response = urlopen(url)
+                 ^^^^^^^^^^^^
+    File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+      return opener.open(url, data, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+      response = meth(req, response)
+                 ^^^^^^^^^^^^^^^^^^^
+    File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+      response = self.parent.error(
+                 ^^^^^^^^^^^^^^^^^^
+    File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+      return self._call_chain(*args)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+    File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+      result = func(*args)
+               ^^^^^^^^^^^
+    File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+      raise HTTPError(req.full_url, code, msg, hdrs, fp)
+  urllib.error.HTTPError: HTTP Error 404: Not Found
+
+  thread 'main' (610931) panicked at /home/sig/.cargo/git/checkouts/rusty_v8-1c356b58a53d1d98/350c5a8/build.rs:1814:9:
+  Failed to fetch the V8 prebuilt artifact /home/sig/.cargo/git/checkouts/rusty_v8-1c356b58a53d1d98/350c5a8/gen/src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.rs. Tried:
+  - https://github.com/denoland/rusty_v8/releases/download/v152.2.0/src_binding_ptrcomp_sandbox_release_aarch64-unknown-linux-gnu.rs: no downloader (deno, python, curl) could fetch the URL
+  If no prebuilt artifact is published for your target or version, compile V8 from source by setting V8_FROM_SOURCE=1. You can also point the build at an artifact via RUSTY_V8_ARCHIVE (static lib), a binding via RUSTY_V8_SRC_BINDING_URL or RUSTY_V8_SRC_BINDING_PATH (src binding only), a mirror via RUSTY_V8_MIRROR, or another release tag via RUSTY_V8_MIRROR_TAG.
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+    Checking rtc-datachannel v0.20.3
+warning: gstreamer-app-sys@0.25.0: 
+error: failed to run custom build command for `gstreamer-app-sys v0.25.0`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/strip-evidence/baseline-target/debug/build/gstreamer-app-sys-4bf4fd4ed7b617f7/build-script-build` (exit status: 1)
+  --- stdout
+  cargo:rerun-if-changed=/home/sig/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/gstreamer-app-sys-0.25.0/Cargo.toml
+  cargo:rerun-if-env-changed=GSTREAMER_APP_1.0_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+  cargo:warning=
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags gstreamer-app-1.0 'gstreamer-app-1.0 >= 1.28'
+
+  The system library `gstreamer-app-1.0` required by crate `gstreamer-app-sys` was not found.
+  The file `gstreamer-app-1.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gstreamer-app-1.0.pc`.
+
+    Checking codex-tcp-tunnel v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/tcp-tunnel)
+    Checking rtc-srtp v0.20.3
+    Checking rtc-turn v0.20.3
+    Checking rtc-media v0.20.3
+    Checking rtc-sdp v0.20.3
+    Checking clap_complete v4.5.65
+    Checking runfiles v0.1.0 (https://github.com/dzbarsky/rules_rust?rev=b56cbaa8465e74127f1ea216f813cd377295ad81#b56cbaa8)
+    Checking audioadapter v5.0.0
+   Compiling cpal v0.18.2
+    Checking deno_core_icudata v0.78.0
+    Checking rtc v0.20.3
+    Checking audioadapter-buffers v5.2.0
+    Checking codex-utils-cargo-bin v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/cargo-bin)
+    Checking sonora-agc2 v0.2.0
+    Checking sonora-aec3 v0.2.0
+    Checking sonora-ns v0.2.0
+    Checking codex-cloud-tasks-client v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/cloud-tasks-client)
+    Checking codex-otel-trace-websocket v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/otel-trace-websocket)
+   Compiling visibility v0.1.1
+    Checking windowfunctions v0.1.1
+   Compiling codex-bwrap v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/bwrap)
+    Checking dasp_sample v0.11.0
+    Checking rubato v5.0.0
+    Checking codex-cloud-tasks-mock-client v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/cloud-tasks-mock-client)
+    Checking webrtc v0.20.3
+    Checking sonora v0.2.0
+error: failed to run custom build command for `codex-bwrap v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/bwrap)`
+
+Caused by:
+  process didn't exit successfully: `/home/sig/files/qiri-release/strip-evidence/baseline-target/debug/build/codex-bwrap-ca1b48d8d99f9419/build-script-build` (exit status: 101)
+  --- stdout
+  cargo:rustc-check-cfg=cfg(bwrap_available)
+  cargo:rerun-if-env-changed=CODEX_BWRAP_SOURCE_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_ALLOW_CROSS
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=CODEX_SKIP_BWRAP_BUILD
+  cargo:rerun-if-changed=/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/bwrap/../vendor/bubblewrap/bubblewrap.c
+  cargo:rerun-if-changed=/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/bwrap/../vendor/bubblewrap/bind-mount.c
+  cargo:rerun-if-changed=/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/bwrap/../vendor/bubblewrap/network.c
+  cargo:rerun-if-changed=/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/bwrap/../vendor/bubblewrap/utils.c
+  cargo:rerun-if-env-changed=LIBCAP_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=LIBCAP_STATIC
+  cargo:rerun-if-env-changed=LIBCAP_DYNAMIC
+  cargo:rerun-if-env-changed=PKG_CONFIG_ALL_STATIC
+  cargo:rerun-if-env-changed=PKG_CONFIG_ALL_DYNAMIC
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_aarch64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+
+  --- stderr
+
+  thread 'main' (612126) panicked at bwrap/build.rs:28:9:
+  failed to compile bubblewrap for Linux target: libcap not available via pkg-config: 
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_LIBS=1 PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags libcap
+
+  The system library `libcap` required by crate `codex-bwrap` was not found.
+  The file `libcap.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `libcap.pc`.
+
+  note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+    Checking codex-cloud-client v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/cloud-client)
+    Checking codex-exec-server-test-support v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/exec-server/tests/support)
+    Checking codex-test-binary-support v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/test-binary-support)
+    Checking codex-config-schema v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/config-schema)
+    Checking codex-protocol-test-support v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/protocol/tests/support)
+    Checking codex-utils-readiness v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/readiness)
+    Checking codex-windows-sandbox-test-support v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/windows-sandbox-rs/tests/support)
+    Checking opus v0.4.0
+    Checking codex-image-generation-extension v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ext/image-generation)
+    Checking codex-guardian-v2 v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ext/guardian-v2)
+    Checking codex-memories-write v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/memories/write)
+    Checking codex-app-server-transport v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/app-server-transport)
+    Checking codex-queue-extension v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ext/queue)
+    Checking codex-mcp-extension v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ext/mcp)
+    Checking codex-memories-extension v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ext/memories)
+    Checking codex-chatgpt v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/chatgpt)
+    Checking codex-goal-extension v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ext/goal)
+    Checking codex-external-agent-migration v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/external-agent-migration)
+    Checking codex-web-search-extension v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ext/web-search)
+    Checking codex-history-notes-extension v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ext/history-notes)
+    Checking codex-lmstudio v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/lmstudio)
+    Checking codex-ollama v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ollama)
+    Checking codex-app-server-test-client v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/app-server-test-client)
+    Checking codex-app-server-daemon v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/app-server-daemon)
+    Checking core_test_support v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/core/tests/common)
+    Checking codex-core-api v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/core-api)
+    Checking codex-utils-oss v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/utils/oss)
+    Checking codex-windows-sandbox-service v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/windows-sandbox-service)
+    Checking codex-thread-manager-sample v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/thread-manager-sample)
+    Checking codex-agent-extension v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/ext/agent)
+    Checking app_test_support v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/app-server/tests/common)
+    Checking codex-app-server v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/app-server)
+warning: function `auth_mode_to_api` is never used
+  --> app-server/src/auth_mode.rs:10:15
+   |
+10 | pub(crate) fn auth_mode_to_api(auth_mode: AuthMode) -> ApiAuthMode {
+   |               ^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `EXTERNAL_AUTH_REFRESH_TIMEOUT` is never used
+  --> app-server/src/external_auth.rs:18:7
+   |
+18 | const EXTERNAL_AUTH_REFRESH_TIMEOUT: Duration = Duration::from_secs(10);
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `ExternalAuthBridge` is never constructed
+  --> app-server/src/external_auth.rs:20:19
+   |
+20 | pub(crate) struct ExternalAuthBridge {
+   |                   ^^^^^^^^^^^^^^^^^^
+
+warning: associated items `new` and `refresh` are never used
+  --> app-server/src/external_auth.rs:26:19
+   |
+25 | impl ExternalAuthBridge {
+   | ----------------------- associated items in this implementation
+26 |     pub(crate) fn new(outgoing: Arc<OutgoingMessageSender>, auth: CodexAuth) -> Self {
+   |                   ^^^
+...
+33 |     async fn refresh(&self, context: ExternalAuthRefreshContext) -> std::io::Result<CodexAuth> {
+   |              ^^^^^^^
+
+warning: function `reload_mcp_config_best_effort` is never used
+  --> app-server/src/mcp_refresh.rs:23:21
+   |
+23 | pub(crate) async fn reload_mcp_config_best_effort(
+   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variant `BestEffort` is never constructed
+  --> app-server/src/mcp_refresh.rs:41:5
+   |
+39 | enum ReloadPolicy {
+   |      ------------ variant in this enum
+40 |     Strict,
+41 |     BestEffort,
+   |     ^^^^^^^^^^
+   |
+   = note: `ReloadPolicy` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: method `send_request` is never used
+   --> app-server/src/outgoing_message.rs:374:25
+    |
+268 | impl OutgoingMessageSender {
+    | -------------------------- method in this implementation
+...
+374 |     pub(crate) async fn send_request(
+    |                         ^^^^^^^^^^^^
+
+warning: enum `AccountNotification` is never used
+  --> app-server/src/account_notifications.rs:10:17
+   |
+10 | pub(crate) enum AccountNotification {
+   |                 ^^^^^^^^^^^^^^^^^^^
+
+warning: method `send_account_notification` is never used
+  --> app-server/src/account_notifications.rs:16:25
+   |
+15 | impl OutgoingMessageSender {
+   | -------------------------- method in this implementation
+16 |     pub(crate) async fn send_account_notification(
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `LOGIN_CHATGPT_TIMEOUT` is never used
+  --> app-server/src/request_processors/account_processor.rs:34:7
+   |
+34 | const LOGIN_CHATGPT_TIMEOUT: Duration = Duration::from_secs(10 * 60);
+   |       ^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `ACCOUNT_TOKEN_USAGE_FETCH_TIMEOUT` is never used
+  --> app-server/src/request_processors/account_processor.rs:35:7
+   |
+35 | const ACCOUNT_TOKEN_USAGE_FETCH_TIMEOUT: Duration = Duration::from_secs(/*secs*/ 10);
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `THREAD_USAGE_FETCH_TIMEOUT` is never used
+  --> app-server/src/request_processors/account_processor.rs:36:7
+   |
+36 | const THREAD_USAGE_FETCH_TIMEOUT: Duration = Duration::from_secs(/*secs*/ 60);
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `ACCOUNT_WORKSPACE_MESSAGES_FETCH_TIMEOUT` is never used
+  --> app-server/src/request_processors/account_processor.rs:37:7
+   |
+37 | const ACCOUNT_WORKSPACE_MESSAGES_FETCH_TIMEOUT: Duration =
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `LOGIN_ISSUER_OVERRIDE_ENV_VAR` is never used
+  --> app-server/src/request_processors/account_processor.rs:40:7
+   |
+40 | const LOGIN_ISSUER_OVERRIDE_ENV_VAR: &str = "CODEX_APP_SERVER_LOGIN_ISSUER";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `LOGIN_OPEN_APP_URL_OVERRIDE_ENV_VAR` is never used
+  --> app-server/src/request_processors/account_processor.rs:43:7
+   |
+43 | const LOGIN_OPEN_APP_URL_OVERRIDE_ENV_VAR: &str = "CODEX_APP_SERVER_DEV_OPEN_APP_URL";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variants `Browser` and `DeviceCode` are never constructed
+  --> app-server/src/request_processors/account_processor.rs:46:5
+   |
+45 | enum ActiveLogin {
+   |      ----------- variants in this enum
+46 |     Browser {
+   |     ^^^^^^^
+...
+50 |     DeviceCode {
+   |     ^^^^^^^^^^
+
+warning: method `login_id` is never used
+  --> app-server/src/request_processors/account_processor.rs:57:8
+   |
+56 | impl ActiveLogin {
+   | ---------------- method in this implementation
+57 |     fn login_id(&self) -> Uuid {
+   |        ^^^^^^^^
+
+warning: enum `CancelLoginError` is never used
+  --> app-server/src/request_processors/account_processor.rs:76:6
+   |
+76 | enum CancelLoginError {
+   |      ^^^^^^^^^^^^^^^^
+
+warning: enum `RefreshTokenRequestOutcome` is never used
+  --> app-server/src/request_processors/account_processor.rs:80:6
+   |
+80 | enum RefreshTokenRequestOutcome {
+   |      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: enum `BedrockLoginCredentials` is never used
+  --> app-server/src/request_processors/account_processor.rs:91:6
+   |
+91 | enum BedrockLoginCredentials {
+   |      ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: fields `thread_manager` and `outgoing` are never read
+   --> app-server/src/request_processors/account_processor.rs:109:5
+    |
+107 | pub(crate) struct AccountRequestProcessor {
+    |                   ----------------------- fields in this struct
+108 |     auth_manager: Arc<AuthManager>,
+109 |     thread_manager: Arc<ThreadManager>,
+    |     ^^^^^^^^^^^^^^
+110 |     outgoing: Arc<OutgoingMessageSender>,
+    |     ^^^^^^^^
+    |
+    = note: `AccountRequestProcessor` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: multiple associated items are never used
+    --> app-server/src/request_processors/account_processor.rs:166:25
+     |
+ 124 | impl AccountRequestProcessor {
+     | ---------------------------- associated items in this implementation
+...
+ 166 |     pub(crate) async fn login_account(
+     |                         ^^^^^^^^^^^^^
+...
+ 174 |     pub(crate) async fn logout_account(
+     |                         ^^^^^^^^^^^^^^
+...
+ 181 |     pub(crate) async fn cancel_login_account(
+     |                         ^^^^^^^^^^^^^^^^^^^^
+...
+ 199 |     pub(crate) async fn get_account_rate_limits(
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 208 |     pub(crate) async fn get_account_token_usage(
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 217 |     pub(crate) async fn get_workspace_messages(
+     |                         ^^^^^^^^^^^^^^^^^^^^^^
+...
+ 225 |     pub(crate) async fn send_add_credits_nudge_email(
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 248 |     fn current_account_updated_notification(&self) -> AccountUpdatedNotification {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 273 |     async fn maybe_refresh_plugin_caches_for_current_config(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 325 |     fn spawn_effective_plugins_changed_task(
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 338 |     async fn login_v2(
+     |              ^^^^^^^^
+...
+ 456 |     async fn login_api_key_common(
+     |              ^^^^^^^^^^^^^^^^^^^^
+...
+ 496 |     async fn login_api_key_v2(&self, request_id: ConnectionRequestId, params: LoginApiKeyParams) {
+     |              ^^^^^^^^^^^^^^^^
+...
+ 513 |     async fn login_amazon_bedrock_v2(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 608 |     async fn login_chatgpt_common(
+     |              ^^^^^^^^^^^^^^^^^^^^
+...
+ 659 |     fn login_chatgpt_device_code_start_error(err: IoError) -> JSONRPCErrorError {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 668 |     async fn login_chatgpt_v2(
+     |              ^^^^^^^^^^^^^^^^
+...
+ 680 |     async fn login_chatgpt_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^
+...
+ 692 |     async fn start_browser_login(
+     |              ^^^^^^^^^^^^^^^^^^^
+...
+ 762 |     async fn login_chatgpt_device_code_v2(&self, request_id: ConnectionRequestId) {
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 767 |     async fn login_chatgpt_device_code_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 834 |     async fn cancel_login_chatgpt_common(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 849 |     async fn cancel_login_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^
+...
+ 868 |     async fn login_chatgpt_auth_tokens(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 890 |     async fn login_chatgpt_auth_tokens_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 943 |     async fn send_login_success_notifications(&self, login_id: Option<Uuid>) {
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 954 |     async fn send_account_login_notifications(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 998 |     async fn send_chatgpt_login_completion_notifications(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1023 |     async fn logout_common(&self) -> std::result::Result<Option<AuthMode>, JSONRPCErrorError> {
+     |              ^^^^^^^^^^^^^
+...
+1053 |     async fn logout_v2(&self, request_id: ConnectionRequestId) -> Result<(), JSONRPCErrorError> {
+     |              ^^^^^^^^^
+...
+1076 |     async fn refresh_token_if_requested(&self, do_refresh: bool) -> RefreshTokenRequestOutcome {
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1108 |     async fn get_account_rate_limits_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1217 |     async fn get_account_token_usage_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1314 |     async fn get_workspace_messages_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1361 |     fn account_token_usage_response(profile: TokenUsageProfile) -> GetAccountTokenUsageResponse {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1384 |     fn workspace_messages_response(
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1398 |     async fn send_add_credits_nudge_email_response(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1407 |     async fn send_add_credits_nudge_email_inner(
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1445 |     fn backend_credit_type(value: AddCreditsNudgeCreditType) -> BackendAddCreditsNudgeCreditType {
+     |        ^^^^^^^^^^^^^^^^^^^
+
+warning: function `workspace_message_from_backend` is never used
+    --> app-server/src/request_processors/account_processor.rs:1453:4
+     |
+1453 | fn workspace_message_from_backend(
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `workspace_message_timestamp_from_backend` is never used
+    --> app-server/src/request_processors/account_processor.rs:1465:4
+     |
+1465 | fn workspace_message_timestamp_from_backend(
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `workspace_message_type_from_backend` is never used
+    --> app-server/src/request_processors/account_processor.rs:1481:4
+     |
+1481 | fn workspace_message_type_from_backend(
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `workspace_messages_feature_disabled` is never used
+    --> app-server/src/request_processors/account_processor.rs:1491:4
+     |
+1491 | fn workspace_messages_feature_disabled(err: &BackendRequestError) -> bool {
+     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `LoginGuard` is never constructed
+  --> app-server/src/request_processors/account_processor/gateway_oauth.rs:19:8
+   |
+19 | struct LoginGuard(Arc<std::sync::Mutex<Option<ActiveGatewayLogin>>>);
+   |        ^^^^^^^^^^
+
+warning: method `gateway_oauth_login` is never used
+  --> app-server/src/request_processors/account_processor/gateway_oauth.rs:76:25
+   |
+29 | impl AccountRequestProcessor {
+   | ---------------------------- method in this implementation
+...
+76 |     pub(crate) async fn gateway_oauth_login(
+   |                         ^^^^^^^^^^^^^^^^^^^
+
+warning: constant `RATE_LIMIT_RESET_REQUEST_TIMEOUT` is never used
+ --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:3:7
+  |
+3 | const RATE_LIMIT_RESET_REQUEST_TIMEOUT: Duration = Duration::from_secs(/*secs*/ 10);
+  |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `RATE_LIMIT_RESET_DETAILS_REQUEST_TIMEOUT` is never used
+ --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:4:7
+  |
+4 | const RATE_LIMIT_RESET_DETAILS_REQUEST_TIMEOUT: Duration = Duration::from_secs(/*secs*/ 5);
+  |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `RATE_LIMIT_RESET_REQUEST_TIMEOUT_ENV_VAR` is never used
+ --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:6:7
+  |
+6 | const RATE_LIMIT_RESET_REQUEST_TIMEOUT_ENV_VAR: &str =
+  |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated items `detailed_rate_limit_reset_credits`, `consume_account_rate_limit_reset_credit`, and `rate_limit_reset_backend_client` are never used
+   --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:10:25
+    |
+  9 | impl AccountRequestProcessor {
+    | ---------------------------- associated items in this implementation
+ 10 |     pub(super) async fn detailed_rate_limit_reset_credits(
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 45 |     pub(crate) async fn consume_account_rate_limit_reset_credit(
+    |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+100 |     async fn rate_limit_reset_backend_client(&self) -> Result<BackendClient, JSONRPCErrorError> {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `rate_limit_reset_credits_from_backend` is never used
+   --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:122:4
+    |
+122 | fn rate_limit_reset_credits_from_backend(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `rate_limit_reset_credit_from_backend` is never used
+   --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:136:4
+    |
+136 | fn rate_limit_reset_credit_from_backend(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `rate_limit_reset_credit_timestamp` is never used
+   --> app-server/src/request_processors/account_processor/rate_limit_resets.rs:169:4
+    |
+169 | fn rate_limit_reset_credit_timestamp(timestamp: &str) -> Result<i64, String> {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: methods `list_account_sessions`, `workspace_memberships`, `switch_account_session`, `reload_workspace_config`, and `account_session_switch_response` are never used
+   --> app-server/src/request_processors/account_processor/workspace_switching.rs:13:25
+    |
+ 12 | impl AccountRequestProcessor {
+    | ---------------------------- methods in this implementation
+ 13 |     pub(crate) async fn list_account_sessions(
+    |                         ^^^^^^^^^^^^^^^^^^^^^
+...
+ 95 |     async fn workspace_memberships(
+    |              ^^^^^^^^^^^^^^^^^^^^^
+...
+113 |     pub(crate) async fn switch_account_session(
+    |                         ^^^^^^^^^^^^^^^^^^^^^^
+...
+226 |     async fn reload_workspace_config(&self) {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^
+...
+234 |     async fn account_session_switch_response(
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: method `unload_for_workspace_switch` is never used
+ --> app-server/src/request_processors/thread_processor/workspace_switching.rs:7:25
+  |
+6 | impl ThreadRequestProcessor {
+  | --------------------------- method in this implementation
+7 |     pub(crate) async fn unload_for_workspace_switch(&self) -> Result<(), JSONRPCErrorError> {
+  |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `TurnAdmissionPause` is never constructed
+  --> app-server/src/turn_admission.rs:35:19
+   |
+35 | pub(crate) struct TurnAdmissionPause(TurnAdmission);
+   |                   ^^^^^^^^^^^^^^^^^^
+
+warning: method `pause` is never used
+  --> app-server/src/turn_admission.rs:38:25
+   |
+37 | impl TurnAdmission {
+   | ------------------ method in this implementation
+38 |     pub(crate) async fn pause(&self) -> Result<TurnAdmissionPause, JSONRPCErrorError> {
+   |                         ^^^^^
+
+warning: `codex-app-server` (lib) generated 39 warnings
+    Checking codex-app-server-client v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/app-server-client)
+    Checking codex-exec-server-cli v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/exec-server-cli)
+    Checking codex-tui v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/tui)
+    Checking codex-exec v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/exec)
+warning: fields `reason` and `turn_id` are never read
+    --> tui/src/app_event.rs:1676:9
+     |
+1674 |     SubmitFeedback {
+     |     -------------- fields in this variant
+1675 |         category: FeedbackCategory,
+1676 |         reason: Option<String>,
+     |         ^^^^^^
+1677 |         turn_id: Option<String>,
+     |         ^^^^^^^
+     |
+     = note: `AppEvent` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+     = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: variant `OpenFeedbackConsent` is never constructed
+    --> tui/src/app_event.rs:1669:5
+     |
+ 314 | pub(crate) enum AppEvent {
+     |                 -------- variant in this enum
+...
+1669 |     OpenFeedbackConsent {
+     |     ^^^^^^^^^^^^^^^^^^^
+     |
+     = note: `AppEvent` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: variants `BadResult`, `Bug`, `SafetyCheck`, and `Other` are never constructed
+    --> tui/src/app_event.rs:1863:5
+     |
+1862 | pub(crate) enum FeedbackCategory {
+     |                 ---------------- variants in this enum
+1863 |     BadResult,
+     |     ^^^^^^^^^
+1864 |     GoodResult,
+1865 |     Bug,
+     |     ^^^
+1866 |     SafetyCheck,
+     |     ^^^^^^^^^^^
+1867 |     Other,
+     |     ^^^^^
+     |
+     = note: `FeedbackCategory` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: function `feedback_selection_params` is never used
+   --> tui/src/bottom_pane/feedback_view.rs:132:15
+    |
+132 | pub(crate) fn feedback_selection_params(
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `make_feedback_item` is never used
+   --> tui/src/bottom_pane/feedback_view.rs:173:4
+    |
+173 | fn make_feedback_item(
+    |    ^^^^^^^^^^^^^^^^^^
+
+warning: constant `ANNOUNCEMENT_TIP_URL` is never used
+  --> tui/src/tooltips.rs:16:7
+   |
+16 | const ANNOUNCEMENT_TIP_URL: &str =
+   |       ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `preferred_tooltip` is never used
+  --> tui/src/tooltips.rs:47:15
+   |
+47 | pub(crate) fn preferred_tooltip<R: Rng + ?Sized>(
+   |               ^^^^^^^^^^^^^^^^^
+
+warning: static `ANNOUNCEMENT_TIP` is never used
+   --> tui/src/tooltips.rs:119:12
+    |
+119 |     static ANNOUNCEMENT_TIP: OnceLock<Option<AnnouncementTips>> = OnceLock::new();
+    |            ^^^^^^^^^^^^^^^^
+
+warning: constant `CURRENT_OS` is never used
+   --> tui/src/tooltips.rs:120:11
+    |
+120 |     const CURRENT_OS: TargetOs = TargetOs::current();
+    |           ^^^^^^^^^^
+
+warning: function `prewarm` is never used
+   --> tui/src/tooltips.rs:123:19
+    |
+123 |     pub(crate) fn prewarm(http_client_factory: HttpClientFactory) {
+    |                   ^^^^^^^
+
+warning: function `fetch_announcement_tip` is never used
+   --> tui/src/tooltips.rs:136:19
+    |
+136 |     pub(crate) fn fetch_announcement_tip(plan: Option<PlanType>) -> Option<String> {
+    |                   ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTipRaw` is never constructed
+   --> tui/src/tooltips.rs:144:12
+    |
+144 |     struct AnnouncementTipRaw {
+    |            ^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTipDocument` is never constructed
+   --> tui/src/tooltips.rs:155:12
+    |
+155 |     struct AnnouncementTipDocument {
+    |            ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTip` is never constructed
+   --> tui/src/tooltips.rs:160:12
+    |
+160 |     struct AnnouncementTip {
+    |            ^^^^^^^^^^^^^^^
+
+warning: enum `TargetOs` is never used
+   --> tui/src/tooltips.rs:172:10
+    |
+172 |     enum TargetOs {
+    |          ^^^^^^^^
+
+warning: associated function `current` is never used
+   --> tui/src/tooltips.rs:181:18
+    |
+180 |     impl TargetOs {
+    |     ------------- associated function in this implementation
+181 |         const fn current() -> Self {
+    |                  ^^^^^^^
+
+warning: function `fetch_announcement_tip_text` is never used
+   --> tui/src/tooltips.rs:193:14
+    |
+193 |     async fn fetch_announcement_tip_text(http_client_factory: HttpClientFactory) -> Option<String> {
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `AnnouncementTips` is never constructed
+   --> tui/src/tooltips.rs:205:23
+    |
+205 |     pub(super) struct AnnouncementTips(Vec<AnnouncementTip>);
+    |                       ^^^^^^^^^^^^^^^^
+
+warning: associated items `parse` and `select` are never used
+   --> tui/src/tooltips.rs:208:23
+    |
+207 |     impl AnnouncementTips {
+    |     --------------------- associated items in this implementation
+208 |         pub(super) fn parse(text: &str) -> Option<Self> {
+    |                       ^^^^^
+...
+221 |         pub(super) fn select(&self, plan: Option<PlanType>) -> Option<String> {
+    |                       ^^^^^^
+
+warning: associated items `from_raw`, `version_matches`, and `date_matches` are never used
+   --> tui/src/tooltips.rs:245:12
+    |
+244 |     impl AnnouncementTip {
+    |     -------------------- associated items in this implementation
+245 |         fn from_raw(raw: AnnouncementTipRaw) -> Option<Self> {
+    |            ^^^^^^^^
+...
+289 |         fn version_matches(&self, version: &str) -> bool {
+    |            ^^^^^^^^^^^^^^^
+...
+295 |         fn date_matches(&self, today: NaiveDate) -> bool {
+    |            ^^^^^^^^^^^^
+
+warning: `codex-tui` (lib) generated 20 warnings
+    Checking codex-cloud-tasks v0.0.0 (/home/sig/files/qiri-release/strip-evidence/baseline-source/codex-rs/cloud-tasks)
+warning: unused import: `codex_http_client::ClientRouteClass`
+  --> cli/src/doctor/updates.rs:13:5
+   |
+13 | use codex_http_client::ClientRouteClass;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `super::doctor_install_context`
+  --> cli/src/doctor/updates.rs:28:5
+   |
+28 | use super::doctor_install_context;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::doctor_managed_by_npm`
+  --> cli/src/doctor/updates.rs:29:5
+   |
+29 | use super::doctor_managed_by_npm;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `MAX_VERSION_RESPONSE_BYTES` is never used
+  --> cli/src/doctor/updates.rs:33:7
+   |
+33 | const MAX_VERSION_RESPONSE_BYTES: usize = 1024 * 1024;
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `VERSION_FILE_NAME` is never used
+  --> cli/src/doctor/updates.rs:35:7
+   |
+35 | const VERSION_FILE_NAME: &str = "version.json";
+   |       ^^^^^^^^^^^^^^^^^
+
+warning: constant `GITHUB_LATEST_RELEASE_URL` is never used
+  --> cli/src/doctor/updates.rs:36:7
+   |
+36 | const GITHUB_LATEST_RELEASE_URL: &str = "https://api.github.com/repos/openai/codex/releases/latest";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `HOMEBREW_CASK_API_URL` is never used
+  --> cli/src/doctor/updates.rs:37:7
+   |
+37 | const HOMEBREW_CASK_API_URL: &str = "https://formulae.brew.sh/api/cask/codex.json";
+   |       ^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `push_cached_version_details` is never used
+   --> cli/src/doctor/updates.rs:341:4
+    |
+341 | fn push_cached_version_details(details: &mut Vec<String>, version_file: &Path) {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `update_action_label` is never used
+   --> cli/src/doctor/updates.rs:363:4
+    |
+363 | fn update_action_label(context: &InstallContext) -> &'static str {
+    |    ^^^^^^^^^^^^^^^^^^^
+
+warning: function `fetch_latest_version` is never used
+   --> cli/src/doctor/updates.rs:375:10
+    |
+375 | async fn fetch_latest_version(
+    |          ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `fetch_latest_github_release_version` is never used
+   --> cli/src/doctor/updates.rs:390:10
+    |
+390 | async fn fetch_latest_github_release_version(
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `fetch_homebrew_cask_version` is never used
+   --> cli/src/doctor/updates.rs:405:10
+    |
+405 | async fn fetch_homebrew_cask_version(client: &RouteAwareClientPool) -> Result<String, String> {
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `http_get_json` is never used
+   --> cli/src/doctor/updates.rs:416:10
+    |
+416 | async fn http_get_json<T>(client: &RouteAwareClientPool, url: &str) -> Result<T, String>
+    |          ^^^^^^^^^^^^^
+
+warning: function `is_newer` is never used
+   --> cli/src/doctor/updates.rs:446:4
+    |
+446 | fn is_newer(latest: &str, current: &str) -> Option<bool> {
+    |    ^^^^^^^^
+
+warning: function `parse_version` is never used
+   --> cli/src/doctor/updates.rs:453:4
+    |
+453 | fn parse_version(value: &str) -> Option<(u64, u64, u64)> {
+    |    ^^^^^^^^^^^^^
+
+warning: struct `VersionInfo` is never constructed
+   --> cli/src/doctor/updates.rs:462:8
+    |
+462 | struct VersionInfo {
+    |        ^^^^^^^^^^^
+
+warning: `codex-cli` (bin "codex") generated 16 warnings (run `cargo fix --bin "codex" -p codex-cli` to apply 3 suggestions)
