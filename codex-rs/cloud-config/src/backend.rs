@@ -1,14 +1,8 @@
-use codex_backend_client::Client as BackendClient;
-use codex_backend_client::ConfigBundleResponse;
-use codex_backend_client::DeliveredTomlFragment;
 use codex_config::CloudConfigBundle;
 use codex_config::CloudConfigFragment;
 use codex_config::CloudConfigTomlBundle;
 use codex_config::CloudRequirementsFragment;
 use codex_config::CloudRequirementsTomlBundle;
-use codex_http_client::HttpClientFactory;
-use codex_login::CodexAuth;
-use std::future::Future;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(crate) enum RetryableFailureKind {
@@ -38,100 +32,94 @@ pub(crate) enum BundleRequestError {
     },
 }
 
-impl BundleRequestError {
-    pub(crate) fn auth_failure(
-        status_code: Option<u16>,
-        message: impl Into<String>,
-        metric_reason: Option<&'static str>,
+#[derive(Clone)]
+pub(crate) struct ConfigClient {
+    http: codex_http_client::RouteAwareClientPool,
+    endpoint: String,
+    bearer: Option<String>,
+}
+
+impl ConfigClient {
+    pub(crate) fn for_config_endpoint(
+        base_url: String,
+        factory: codex_http_client::HttpClientFactory,
     ) -> Self {
-        Self::Fatal {
-            error: codex_config::CloudConfigBundleLoadError::new(
-                codex_config::CloudConfigBundleLoadErrorCode::Auth,
-                status_code,
-                message,
-            ),
-            metric_reason,
-        }
-    }
-}
-
-/// Retrieves one cloud config bundle from the backend.
-///
-/// Implementations should return the backend-selected bundle exactly as delivered and leave
-/// validation, caching, and config/requirements parsing decisions to the service layer.
-pub(crate) trait BundleClient: Send + Sync {
-    fn get_bundle(
-        &self,
-        auth: &CodexAuth,
-    ) -> impl Future<Output = Result<CloudConfigBundle, BundleRequestError>> + Send;
-}
-
-pub(crate) struct BackendBundleClient {
-    base_url: String,
-    http_client_factory: HttpClientFactory,
-}
-
-impl BackendBundleClient {
-    pub(crate) fn new(base_url: String, http_client_factory: HttpClientFactory) -> Self {
         Self {
-            base_url,
-            http_client_factory,
+            http: codex_http_client::RouteAwareClientPool::new_without_redirects_or_request_logging(
+                factory,
+                codex_http_client::ClientRouteClass::Api,
+            ),
+            endpoint: format!("{}/codex/config/bundle", base_url.trim_end_matches('/')),
+            bearer: None,
         }
+    }
+    pub(crate) fn config_bundle_url(&self) -> String {
+        self.endpoint.clone()
+    }
+    pub(crate) fn with_bearer_token(mut self, token: String) -> Self {
+        self.bearer = Some(token);
+        self
     }
 }
 
-impl BundleClient for BackendBundleClient {
-    async fn get_bundle(&self, auth: &CodexAuth) -> Result<CloudConfigBundle, BundleRequestError> {
-        let client = BackendClient::from_auth(
-            self.base_url.clone(),
-            auth,
-            self.http_client_factory.clone(),
-        );
-
-        fetch_bundle(&client).await
-    }
+#[derive(serde::Deserialize)]
+struct DeliveredTomlFragment {
+    id: String,
+    name: String,
+    contents: String,
+}
+#[derive(serde::Deserialize)]
+struct DeliveredTomlBundle {
+    enterprise_managed: Option<Vec<DeliveredTomlFragment>>,
+}
+#[derive(serde::Deserialize)]
+pub(crate) struct ConfigBundleResponse {
+    config_toml: Option<DeliveredTomlBundle>,
+    requirements_toml: Option<DeliveredTomlBundle>,
 }
 
 pub(crate) async fn fetch_bundle(
-    client: &BackendClient,
+    client: &ConfigClient,
 ) -> Result<CloudConfigBundle, BundleRequestError> {
-    client
-        .get_config_bundle()
+    let mut request = client.http.get(&client.endpoint);
+    if let Some(token) = &client.bearer {
+        request = request.bearer_auth(token);
+    }
+    let response = request.send().await.map_err(bundle_request_error)?;
+    if response.status().as_u16() == 401 {
+        return Err(BundleRequestError::Unauthorized {
+            status_code: Some(401),
+            message: "Managed configuration sign-in is required".into(),
+        });
+    }
+    let response = response.error_for_status().map_err(bundle_request_error)?;
+    response
+        .json()
         .await
         .map(bundle_from_response)
         .map_err(bundle_request_error)
 }
 
-fn bundle_request_error(error: codex_backend_client::RequestError) -> BundleRequestError {
-    if let codex_backend_client::RequestError::Policy(denied) = &error {
+fn bundle_request_error(error: codex_http_client::HttpError) -> BundleRequestError {
+    if let codex_http_client::HttpError::Policy(denied) = &error {
         return BundleRequestError::Policy(*denied);
     }
-    let status_code = error.status().map(|status| status.as_u16());
-    if error.is_unauthorized() {
-        BundleRequestError::Unauthorized {
-            status_code,
-            message: "Managed configuration sign-in is required".into(),
-        }
-    } else {
-        BundleRequestError::Retryable(RetryableFailureKind::Request { status_code })
-    }
+    BundleRequestError::Retryable(RetryableFailureKind::Request {
+        status_code: error.status().map(|s| s.as_u16()),
+    })
 }
 
 pub(crate) fn bundle_from_response(response: ConfigBundleResponse) -> CloudConfigBundle {
     let config_toml = response
         .config_toml
-        .flatten()
-        .map(|config_toml| *config_toml)
-        .and_then(|config_toml| config_toml.enterprise_managed.flatten())
+        .and_then(|config_toml| config_toml.enterprise_managed)
         .unwrap_or_default()
         .into_iter()
         .map(config_fragment_from_delivered)
         .collect();
     let requirements_toml = response
         .requirements_toml
-        .flatten()
-        .map(|requirements_toml| *requirements_toml)
-        .and_then(|requirements_toml| requirements_toml.enterprise_managed.flatten())
+        .and_then(|requirements_toml| requirements_toml.enterprise_managed)
         .unwrap_or_default()
         .into_iter()
         .map(requirements_fragment_from_delivered)

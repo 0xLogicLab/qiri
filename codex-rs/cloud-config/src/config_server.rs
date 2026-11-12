@@ -2,12 +2,12 @@
 //! Cache entries are scoped to the endpoint and the current OAuth sign-in.
 
 use crate::backend::BundleRequestError;
+use crate::backend::ConfigClient;
 use crate::backend::RetryableFailureKind;
 use crate::backend::fetch_bundle;
 use crate::config_source::BundleSource;
 use crate::service::CLOUD_CONFIG_BUNDLE_TIMEOUT;
 use crate::service::CloudConfigBundleService;
-use codex_backend_client::Client as BackendClient;
 use codex_config::CloudConfigBundle;
 use codex_config::CloudConfigBundleLoadError;
 use codex_config::CloudConfigBundleLoadErrorCode;
@@ -60,7 +60,7 @@ pub(crate) fn config_server_http_client_factory(
     routes: &AuthRouteConfig,
 ) -> HttpClientFactory {
     let endpoint = config.validated_base_url().ok().map(|base_url| {
-        BackendClient::for_config_endpoint(base_url, routes.http_client_factory().clone())
+        ConfigClient::for_config_endpoint(base_url, routes.http_client_factory().clone())
             .config_bundle_url()
     });
     let endpoints = endpoint
@@ -79,7 +79,7 @@ pub(crate) fn config_server_http_client_factory(
 
 struct ConfigServerSource {
     cache_namespace: String,
-    client: BackendClient,
+    client: ConfigClient,
     auth: Option<OAuthSessionManager>,
 }
 
@@ -130,7 +130,7 @@ impl ConfigServerSource {
     ) -> Result<Self, CloudConfigBundleLoadError> {
         let auth =
             oauth_session_manager(oauth.as_ref(), codex_home, &factory).map_err(auth_io_error)?;
-        let client = BackendClient::for_config_endpoint(base_url, factory);
+        let client = ConfigClient::for_config_endpoint(base_url, factory);
         // Reuse the OAuth session's issuer/client/audience/scope identity; the endpoint
         // additionally separates policy authorities that share one OAuth grant.
         let namespace = serde_json::to_vec(&(

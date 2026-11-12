@@ -78,18 +78,11 @@ impl EmbeddedNetworkPolicy {
             .http_client_factory()
             .clone()
             .with_network_policy(self.local.policy());
-        let endpoint = codex_backend_client::Client::new(
-            auth.chatgpt_base_url
-                .as_deref()
-                .unwrap_or("https://chatgpt.com/backend-api/"),
-            factory.clone(),
-        )
-        .config_bundle_url();
         auth.auth_route_config = codex_login::AuthRouteConfig::from_http_client_factory(
             factory.clone().with_network_policy(
                 self.local
                     .policy()
-                    .restrict_to_endpoints(endpoint.parse().into_iter().collect()),
+                    .restrict_to_endpoints(Default::default()),
             ),
         )
         .with_local_bootstrap_factory(factory)

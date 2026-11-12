@@ -1,7 +1,7 @@
 //! Loads executor startup configuration and remote authentication without changing CLI policy.
 
 use codex_app_server::in_process::EmbeddedNetworkPolicy;
-use codex_cloud_config::chatgpt_config_bundle_loader;
+use codex_cloud_config::managed_config_bundle_loader_for_storage;
 use codex_config::LoaderOverrides;
 use codex_core::config::ConfigBuilder;
 use codex_core::config::ConfigLoadOptions;
@@ -146,23 +146,12 @@ pub(super) async fn load_exec_server_config(
         .await?;
         let bootstrap_auth_config = network_policy
             .bind_bootstrap_auth(bootstrap_auth_config(&codex_home, &bootstrap_config)?);
-        let auth_manager = AuthManager::shared_from_auth_config_with_auth_modes(
-            bootstrap_auth_config.clone(),
+        let cloud_config_bundle = managed_config_bundle_loader_for_storage(
+            bootstrap_auth_config,
+            bootstrap_config.config_layer_stack.requirements_toml(),
             /*enable_codex_api_key_env*/ true,
-            REMOTE_AUTH_MODES.to_vec(),
         )
         .await?;
-        let cloud_config_bundle = chatgpt_config_bundle_loader(
-            auth_manager,
-            bootstrap_auth_config
-                .chatgpt_base_url
-                .unwrap_or_else(|| "https://chatgpt.com/backend-api/".to_string()),
-            bootstrap_auth_config.codex_home,
-            bootstrap_auth_config
-                .auth_route_config
-                .http_client_factory()
-                .clone(),
-        );
         builder = builder.cloud_config_bundle(cloud_config_bundle);
     }
     let mut config = builder.build().await?;

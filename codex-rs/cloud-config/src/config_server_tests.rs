@@ -121,7 +121,7 @@ async fn policy_fetch_uses_replacement_config_server_credentials() {
         .unwrap();
     let source = ConfigServerSource {
         cache_namespace: "test".into(),
-        client: BackendClient::for_config_endpoint(
+        client: ConfigClient::for_config_endpoint(
             format!("{}/settings", server.uri()),
             factory.clone(),
         ),

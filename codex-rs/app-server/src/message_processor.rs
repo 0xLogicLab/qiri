@@ -1893,9 +1893,9 @@ impl MessageProcessor {
             ClientRequest::CancelLoginAccount { .. } => {
                 Err(invalid_request("QIRI account login is disabled"))
             }
-            ClientRequest::GetAccount { params, .. } => {
-                self.account_processor.get_account(params).await
-            }
+            ClientRequest::GetAccount { .. } => Err(invalid_request(
+                "Qiri uses local/custom providers; account services are not supported",
+            )),
             ClientRequest::GetAuthStatus { params, .. } => {
                 self.account_processor.get_auth_status(params).await
             }
@@ -2011,7 +2011,3 @@ mod gateway_oauth_tests;
 #[cfg(test)]
 #[path = "message_processor_thread_lifecycle_tests.rs"]
 mod thread_lifecycle_tests;
-
-#[cfg(test)]
-#[path = "message_processor_workspace_routing_tests.rs"]
-mod workspace_routing_tests;

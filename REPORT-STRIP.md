@@ -157,3 +157,11 @@ core 的 5 处旧 HTTP 遥测测试已同步为验证“即使启用旧设置也
 报告/审计证据由最终审计提交交付；旧的回传/文档本地提交曾仅为校正 Cargo.lock 的分项边界而重建，表中均为最终分支上的提交号，没有推送或合并。
 
 仍在 `chore/public-release-cleanup`。用户提供的两份任务书保持未跟踪、未修改。没有修改主 worktree 或其他开发分支。
+
+## Supervisor rework — 阶段 1：账号云配置与工作区路由
+
+已删除 cloud-config 的 ChatGPT 来源、后台账号 bundle 客户端及专用测试；app-server 不再安装账号 workspace resolver、不再在登录通知中触发账号读取/工作区迁移。CLI、exec-server-cli 和 Windows 策略加载只接受 requirements 中显式配置的自定义配置服务器。bootstrap 初始网络权限不再预设官方账号地址。
+
+自建配置服务器的通用 OAuth、按端点/凭据隔离的缓存和网络策略校验保留；其 HTTP/DTO 已独立实现，cloud-config 不再依赖 backend-client。不是用假域名替换官方服务。旧 GetAccount 纯协议请求明确拒绝，相关 TUI 入口仍待后续阶段清除。
+
+验证：`cargo test --locked -p codex-cloud-config --lib` 13 通过；app-server `in_process::bootstrap` 1 通过。日志：rework-cloud-tests.log、rework-cloud-bootstrap-tests.log。交付 crate 检查见 rework-cloud-check.log。当前仍不宣称全项 DONE。

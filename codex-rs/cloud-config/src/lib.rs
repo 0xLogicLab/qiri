@@ -6,16 +6,12 @@
 mod backend;
 mod bundle_loader;
 mod cache;
-mod chatgpt;
 mod config_server;
 mod config_source;
 mod metrics;
 mod service;
 mod validation;
 
-pub use bundle_loader::chatgpt_config_bundle_loader;
-pub use bundle_loader::chatgpt_config_bundle_loader_for_storage;
-pub use bundle_loader::chatgpt_config_bundle_loader_for_storage_without_cache;
 pub use bundle_loader::ensure_config_server_login;
 pub use bundle_loader::managed_config_auth_manager;
 pub use bundle_loader::managed_config_bundle_loader;

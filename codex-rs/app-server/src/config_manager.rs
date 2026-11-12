@@ -193,7 +193,7 @@ impl ConfigManager {
 
     pub(crate) fn update_managed_config_loader(
         &self,
-        auth_manager: Arc<AuthManager>,
+        _auth_manager: Arc<AuthManager>,
         config: &Config,
     ) {
         // Keep config-server settings and their refresh worker when only
@@ -207,8 +207,6 @@ impl ConfigManager {
             return;
         }
         let loader = managed_config_bundle_loader(
-            auth_manager,
-            config.chatgpt_base_url.clone(),
             self.codex_home.clone(),
             config
                 .http_client_factory()

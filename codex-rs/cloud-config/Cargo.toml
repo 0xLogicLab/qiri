@@ -11,7 +11,6 @@ workspace = true
 base64 = { workspace = true }
 chrono = { workspace = true, features = ["serde"] }
 codex-async-utils = { workspace = true }
-codex-backend-client = { workspace = true }
 codex-config = { workspace = true }
 codex-http-client = { workspace = true }
 codex-keyring-store = { workspace = true }
@@ -29,7 +28,6 @@ tracing = { workspace = true }
 
 [dev-dependencies]
 wiremock = { workspace = true }
-codex-agent-identity = { workspace = true }
 codex-core = { workspace = true }
 pretty_assertions = { workspace = true }
 tokio = { workspace = true, features = ["macros", "rt", "test-util", "time"] }

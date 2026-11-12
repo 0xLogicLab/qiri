@@ -16,7 +16,6 @@ mod bedrock_setup;
 mod enterprise_login;
 mod gateway_oauth;
 mod gcp_setup;
-mod workspace_routing;
 
 pub(super) use enterprise_login::EnterpriseLoginCompletion;
 pub(super) use enterprise_login::EnterpriseLoginTarget;
@@ -44,9 +43,6 @@ pub(crate) struct AccountRequestProcessor {
     config: Arc<Config>,
     config_manager: ConfigManager,
     model_catalog: Arc<ModelCatalog>,
-    workspace_routing: Arc<Mutex<Option<workspace_routing::CachedWorkspaceRouting>>>,
-    workspace_routing_fetches: Arc<Mutex<workspace_routing::WorkspaceRoutingFetches>>,
-    workspace_routing_shutdown: CancellationToken,
     gateway_login: Arc<std::sync::Mutex<Option<gateway_oauth::ActiveGatewayLogin>>>,
     gateway_client: Arc<std::sync::Mutex<Option<Arc<codex_login::GatewayAuthManager>>>>,
     _gateway_notifications: Arc<tokio_util::task::AbortOnDropHandle<()>>,
@@ -82,15 +78,8 @@ impl AccountRequestProcessor {
             model_catalog,
             gateway_login: Arc::new(std::sync::Mutex::new(/*t*/ None)),
             gateway_client: Arc::new(std::sync::Mutex::new(/*t*/ None)),
-            workspace_routing: Arc::new(Mutex::new(None)),
-            workspace_routing_fetches: Arc::new(Mutex::new(HashMap::new())),
-            workspace_routing_shutdown: CancellationToken::new(),
             enterprise_login,
         });
-        let resolver: Arc<dyn codex_login::WorkspaceRoutingResolver> = processor.clone();
-        processor
-            .auth_manager
-            .set_workspace_routing_resolver(Arc::downgrade(&resolver));
         processor
     }
 
@@ -124,7 +113,6 @@ impl AccountRequestProcessor {
     }
 
     pub(crate) fn clear_external_auth(&self) {
-        self.workspace_routing_shutdown.cancel();
         self.auth_manager.clear_external_auth();
     }
 
@@ -457,18 +445,9 @@ impl AccountRequestProcessor {
         .await;
     }
 
-    async fn send_account_login_notifications(
-        &self,
-        mut payload: AccountLoginCompletedNotification,
-    ) {
+    async fn send_account_login_notifications(&self, payload: AccountLoginCompletedNotification) {
         let auth_changes = self.auth_manager.auth_change_state_receiver();
         let owner_generation = auth_changes.borrow().owner_generation;
-        if payload.success
-            && let Err(error) = self.read_account(/*request*/ None).await
-        {
-            payload.success = false;
-            payload.error = Some(error.to_string());
-        }
         if payload.success && auth_changes.borrow().owner_generation == owner_generation {
             Self::maybe_refresh_plugin_caches_for_current_config(
                 &self.config_manager,
@@ -513,7 +492,6 @@ impl AccountRequestProcessor {
         clear_account_configuration(&self.config_manager, &config).await?;
 
         self.model_catalog.invalidate().await;
-        *self.workspace_routing.lock().await = None;
 
         Self::maybe_refresh_plugin_caches_for_current_config(
             &self.config_manager,
