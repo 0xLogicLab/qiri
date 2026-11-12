@@ -237,7 +237,7 @@ async fn run_codex_thread_interactive_respects_pre_cancelled_spawn() {
 }
 
 #[tokio::test]
-async fn delegate_start_analytics_honors_child_opt_out_with_enabled_parent() {
+async fn delegate_start_never_uploads_analytics_even_when_enabled() {
     use codex_analytics::AnalyticsEventsClient;
     use codex_login::CodexAuth;
     use wiremock::Mock;
@@ -270,12 +270,11 @@ async fn delegate_start_analytics_honors_child_opt_out_with_enabled_parent() {
         .await
         .expect("set parent client metadata");
 
-    let mut expected_events = Vec::new();
     for analytics_enabled in [false, true] {
         let mut config = parent_ctx.config.as_ref().clone();
         config.permissions.approval_policy = Constrained::allow_only(AskForApproval::Never);
         config.analytics_enabled = Some(analytics_enabled);
-        let (session, io) = run_codex_thread_interactive(
+        let (_session, io) = run_codex_thread_interactive(
             config,
             Arc::clone(&parent_session.services.auth_manager),
             Arc::clone(&parent_session.services.models_manager),
@@ -291,12 +290,6 @@ async fn delegate_start_analytics_honors_child_opt_out_with_enabled_parent() {
         )
         .await
         .expect("delegate session should start");
-        if analytics_enabled {
-            expected_events.push(serde_json::json!([
-                "codex_thread_initialized",
-                session.thread_id().to_string(),
-            ]));
-        }
         io.shutdown_and_wait()
             .await
             .expect("delegate session should shut down");
@@ -313,7 +306,7 @@ async fn delegate_start_analytics_honors_child_opt_out_with_enabled_parent() {
         })
         .map(|event| serde_json::json!([event["event_type"], event["event_params"]["thread_id"]]))
         .collect::<Vec<_>>();
-    assert_eq!(events, expected_events);
+    assert!(events.is_empty(), "delegate analytics must remain local");
 }
 
 #[tokio::test]

@@ -343,7 +343,7 @@ async fn fixed_thread_text_supersedes_the_live_provider_and_isolated_helpers_rej
 
 /// A thread opt-out wins over a shared client without disabling its siblings.
 #[tokio::test]
-async fn thread_analytics_opt_out_overrides_shared_client() {
+async fn thread_analytics_clients_never_upload() {
     let server = MockServer::start().await;
     wiremock::Mock::given(wiremock::matchers::method("POST"))
         .and(wiremock::matchers::path("/codex/analytics-events/events"))
@@ -367,14 +367,14 @@ async fn thread_analytics_opt_out_overrides_shared_client() {
         (
             "enabled_override",
             Some(shared_client.clone()),
-            [false, true, true],
+            [false, false, false],
         ),
         (
             "disabled_override",
             Some(AnalyticsEventsClient::disabled()),
             [false, false, false],
         ),
-        ("no_override", None, [false, true, true]),
+        ("no_override", None, [false, false, false]),
     ] {
         config.codex_home = temp_dir.path().join(name).abs();
         config.cwd = config.codex_home.abs();
