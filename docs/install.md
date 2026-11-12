@@ -25,7 +25,7 @@ CODEX_HOME="$HOME/.qiri-codex" "$HOME/.local/bin/qiri"
 ```bash
 # 在 codex-rs 中运行；不使用 --all-features 作为例行验证。
 cargo check --locked
-cargo test --locked -p codex-cli --lib doctor::
+cargo test --locked -p codex-cli --bin codex doctor::
 # 从仓库根运行维护工具（需要 just、cargo-nextest 等依赖）。
 just fmt
 just fix -p <crate-you-touched>

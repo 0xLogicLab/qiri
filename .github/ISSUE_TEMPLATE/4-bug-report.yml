@@ -9,7 +9,7 @@ body:
         Before submitting a new issue, please search for existing issues to see if your issue has already been reported.
         If it has, please add a 👍 reaction (no need to leave a comment) to the existing issue instead of creating a new one.
 
-        If you need help or support using QIRI and are not reporting a bug, please post on [qiri/issues](https://github.com/0xLogicLab/qiri/discussions), where you can ask questions or engage with others on ideas for how to improve codex.
+        If you need help or support using QIRI and are not reporting a bug, please post on [QIRI issues](https://github.com/0xLogicLab/qiri/issues), where you can ask questions or engage with others on ideas for how to improve QIRI.
 
   - type: textarea
     id: actual

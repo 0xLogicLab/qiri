@@ -77,20 +77,10 @@ running.
 
 ## Bootstrap flow
 
-For a new Linux or macOS machine:
-
-```sh
-curl -fsSL https://chatgpt.com/codex/install.sh | sh
-$HOME/.codex/packages/standalone/current/codex app-server daemon bootstrap --remote-control
-```
-
-On Windows, use a non-elevated PowerShell terminal whose host allows breakaway:
-
-```powershell
-irm https://chatgpt.com/codex/install.ps1 | iex
-$codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $HOME '.codex' }
-& "$codexHome\packages\standalone\current\bin\codex.exe" app-server daemon bootstrap --remote-control
-```
+QIRI is built from source; see the [build instructions](../../docs/install.md).
+The following upstream package bootstrap mechanism requires a complete prepared
+CLI package, including its helpers. A source-built bare QIRI executable does not
+supply that package. Do not use upstream product installers to install QIRI.
 
 `bootstrap` can use any complete CLI package. If no daemon package is installed,
 it copies the invoking package into `CODEX_HOME/packages/app-server-daemon` and
